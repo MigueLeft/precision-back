@@ -1,0 +1,71 @@
+model RescueDirectory {
+  id                    String                @id @default(cuid())
+  patientId             String
+  originalFollowUpId    String                // Seguimiento que llevó al rescate
+  rescueReason          RescueReason
+  
+  // Información del rescate
+  entryDate             DateTime              @default(now())
+  exitDate              DateTime?             // Fecha de salida del directorio
+  status                RescueStatus          @default(ACTIVE)
+  
+  // Clasificación del paciente en rescate
+  rescueCategory        RescueCategory        @default(STANDARD)
+  priority              RescuePriority        @default(LOW)
+  
+  // Información adicional
+  lastContactDate       DateTime?             // Última fecha de contacto exitoso
+  lastAttemptDate       DateTime?             // Última fecha de intento
+  totalPreviousAttempts Int                   @default(0)
+  
+  // Notas y observaciones
+  rescueNotes           String?
+  
+  // Reactivación
+  reactivatedAt         DateTime?
+  reactivationNotes     String?
+  
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+
+  // Relaciones
+  patient               Patient               @relation("PatientRescueEntries", fields: [patientId], references: [id])
+  originalFollowUp      PatientFollowUp       @relation("FollowUpRescueEntries", fields: [originalFollowUpId], references: [id])
+
+  @@index([patientId])
+  @@index([status])
+  @@index([entryDate])
+  @@index([rescueCategory])
+  @@unique([patientId, originalFollowUpId]) // Un paciente no puede tener múltiples entradas por el mismo seguimiento
+}
+
+enum RescueReason {
+  MAX_ATTEMPTS_REACHED // Se alcanzó el máximo de intentos
+  PATIENT_UNRESPONSIVE // Paciente no responde
+  INDEFINITE_POSTPONE  // Pospuso indefinidamente
+  ADMINISTRATIVE       // Razones administrativas
+  PATIENT_REQUEST      // Solicitud del paciente
+}
+
+enum RescueStatus {
+  ACTIVE               // Activo en directorio
+  REACTIVATED          // Reactivado para seguimiento
+  ARCHIVED             // Archivado
+  TRANSFERRED          // Transferido a otro proceso
+}
+
+enum RescueCategory {
+  STANDARD             // Categoría estándar
+  HIGH_VALUE           // Paciente de alto valor
+  CHRONIC_CONDITION    // Condición crónica
+  POST_SURGERY         // Post-cirugía
+  ELDERLY              // Adulto mayor
+  PEDIATRIC            // Pediátrico
+}
+
+enum RescuePriority {
+  LOW                  // Baja prioridad para reactivación
+  MEDIUM               // Prioridad media
+  HIGH                 // Alta prioridad para reactivación
+  CRITICAL             // Crítico - requiere atención inmediata
+}

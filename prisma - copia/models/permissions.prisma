@@ -1,0 +1,29 @@
+model Permission {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  roles       Role[]   @relation("RolePermissions")
+}
+
+enum PermissionName {
+  USER_CREATE
+  USER_READ
+  USER_UPDATE
+  USER_DELETE
+  PATIENT_CREATE
+  PATIENT_READ
+  PATIENT_UPDATE
+  PATIENT_DELETE
+  DOCTOR_CREATE
+  DOCTOR_READ
+  DOCTOR_UPDATE
+  DOCTOR_DELETE
+  ADMIN_ACCESS
+  SETTINGS_MANAGE
+  APPOINTMENT_CREATE  
+  APPOINTMENT_READ     
+  APPOINTMENT_UPDATE   
+  APPOINTMENT_DELETE
+}

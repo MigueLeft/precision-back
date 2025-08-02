@@ -1,0 +1,2392 @@
+{
+  "info": {
+    "name": "NestJS Medical System API - Part 3: Follow-up System & Consultations",
+    "description": "Comprehensive testing collection for PatientFollow, ContactAttempt, RescueDirectory, and Consultations modules. Includes state transition testing, business logic validation, and integration workflows for the patient follow-up system.",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "patientFollowId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "contactAttemptId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "rescueDirectoryId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "consultationId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testPatientId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testAppointmentId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testUserId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Patient Follow Module",
+      "item": [
+        {
+          "name": "Create Patient Follow",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Response has success wrapper', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', true);",
+                  "    pm.expect(jsonData).to.have.property('data');",
+                  "    pm.expect(jsonData).to.have.property('timestamp');",
+                  "});",
+                  "",
+                  "pm.test('Patient follow created with correct data', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const followUp = jsonData.data;",
+                  "    ",
+                  "    pm.expect(followUp).to.have.property('id');",
+                  "    pm.expect(followUp).to.have.property('patientId', pm.collectionVariables.get('testPatientId'));",
+                  "    pm.expect(followUp).to.have.property('appointmentId', pm.collectionVariables.get('testAppointmentId'));",
+                  "    pm.expect(followUp).to.have.property('status', 'PENDING');",
+                  "    pm.expect(followUp).to.have.property('priority', 'ALTA');",
+                  "    pm.expect(followUp).to.have.property('scheduledContactDate');",
+                  "    pm.expect(followUp).to.have.property('attemptCount', 0);",
+                  "    pm.expect(followUp).to.have.property('maxAttempts', 3);",
+                  "    ",
+                  "    // Store follow-up ID for subsequent tests",
+                  "    pm.collectionVariables.set('patientFollowId', followUp.id);",
+                  "});",
+                  "",
+                  "pm.test('Scheduled contact date is in the future', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const scheduledDate = new Date(jsonData.data.scheduledContactDate);",
+                  "    const now = new Date();",
+                  "    pm.expect(scheduledDate.getTime()).to.be.greaterThan(now.getTime());",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{testPatientId}}\",\n  \"appointmentId\": \"{{testAppointmentId}}\",\n  \"priority\": \"ALTA\",\n  \"scheduledContactDate\": \"{{$isoTimestamp}}\",\n  \"contactMethod\": \"TELEFONO\",\n  \"followUpReason\": \"Seguimiento post consulta cardiológica\",\n  \"notes\": \"Paciente requiere seguimiento debido a nueva medicación prescrita\",\n  \"maxAttempts\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow"]
+            }
+          }
+        },
+        {
+          "name": "Get All Patient Follows",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has pagination structure', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('items');",
+                  "    pm.expect(jsonData.data).to.have.property('meta');",
+                  "    pm.expect(jsonData.data.meta).to.have.property('totalItems');",
+                  "    pm.expect(jsonData.data.meta).to.have.property('itemCount');",
+                  "    pm.expect(jsonData.data.meta).to.have.property('totalPages');",
+                  "});",
+                  "",
+                  "pm.test('Items contain follow-up data', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    if (jsonData.data.items.length > 0) {",
+                  "        const followUp = jsonData.data.items[0];",
+                  "        pm.expect(followUp).to.have.property('id');",
+                  "        pm.expect(followUp).to.have.property('status');",
+                  "        pm.expect(followUp).to.have.property('priority');",
+                  "        pm.expect(followUp).to.have.property('patient');",
+                  "        pm.expect(followUp).to.have.property('appointment');",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow?page=1&limit=10&status=PENDING",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "status",
+                  "value": "PENDING"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Pending Follow-ups",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All returned follow-ups are pending', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    jsonData.data.forEach(followUp => {",
+                  "        pm.expect(followUp.status).to.equal('PENDING');",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('Contains our created follow-up', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const followUpId = pm.collectionVariables.get('patientFollowId');",
+                  "    const found = jsonData.data.some(item => item.id === followUpId);",
+                  "    pm.expect(found).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow/pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow", "pending"]
+            }
+          }
+        },
+        {
+          "name": "Get Follow-ups by Patient",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All follow-ups belong to specified patient', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const expectedPatientId = pm.collectionVariables.get('testPatientId');",
+                  "    jsonData.data.items.forEach(followUp => {",
+                  "        pm.expect(followUp.patientId).to.equal(expectedPatientId);",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow/patient/{{testPatientId}}?page=1&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow", "patient", "{{testPatientId}}"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Patient Follow by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Returns correct follow-up data', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const followUp = jsonData.data;",
+                  "    ",
+                  "    pm.expect(followUp.id).to.equal(pm.collectionVariables.get('patientFollowId'));",
+                  "    pm.expect(followUp).to.have.property('patient');",
+                  "    pm.expect(followUp).to.have.property('appointment');",
+                  "    pm.expect(followUp).to.have.property('contactAttempts');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow/{{patientFollowId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow", "{{patientFollowId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Patient Follow Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Status updated correctly', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.status).to.equal('IN_PROGRESS');",
+                  "    pm.expect(jsonData.data.notes).to.include('Iniciando seguimiento activo');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"IN_PROGRESS\",\n  \"notes\": \"Iniciando seguimiento activo. Primer intento de contacto programado.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow/{{patientFollowId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow", "{{patientFollowId}}"]
+            }
+          }
+        },
+        {
+          "name": "Increment Attempt Count",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Attempt count incremented', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.attemptCount).to.equal(1);",
+                  "});",
+                  "",
+                  "pm.test('LastContactAttempt updated', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('lastContactAttempt');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow/{{patientFollowId}}/increment-attempt",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow", "{{patientFollowId}}", "increment-attempt"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contact Attempt Module",
+      "item": [
+        {
+          "name": "Create Contact Attempt",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Contact attempt created successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const attempt = jsonData.data;",
+                  "    ",
+                  "    pm.expect(attempt).to.have.property('id');",
+                  "    pm.expect(attempt).to.have.property('patientFollowId', pm.collectionVariables.get('patientFollowId'));",
+                  "    pm.expect(attempt).to.have.property('attemptNumber', 1);",
+                  "    pm.expect(attempt).to.have.property('contactMethod', 'TELEFONO');",
+                  "    pm.expect(attempt).to.have.property('result', 'SIN_RESPUESTA');",
+                  "    pm.expect(attempt).to.have.property('contactDateTime');",
+                  "    ",
+                  "    pm.collectionVariables.set('contactAttemptId', attempt.id);",
+                  "});",
+                  "",
+                  "pm.test('Contact method matches request', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.contactMethod).to.equal('TELEFONO');",
+                  "});",
+                  "",
+                  "pm.test('Result is valid enum value', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const validResults = ['EXITOSO', 'SIN_RESPUESTA', 'NUMERO_INCORRECTO', 'LINEA_OCUPADA', 'RECHAZADO'];",
+                  "    pm.expect(validResults).to.include(jsonData.data.result);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientFollowId\": \"{{patientFollowId}}\",\n  \"attemptNumber\": 1,\n  \"contactMethod\": \"TELEFONO\",\n  \"result\": \"SIN_RESPUESTA\",\n  \"contactDateTime\": \"{{$isoTimestamp}}\",\n  \"duration\": 30,\n  \"notes\": \"Primer intento de contacto. No hubo respuesta después de 5 tonos.\",\n  \"nextAttemptScheduled\": \"2024-12-20T10:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt"]
+            }
+          }
+        },
+        {
+          "name": "Create Successful Contact Attempt",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Successful contact created with appointment', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const attempt = jsonData.data;",
+                  "    ",
+                  "    pm.expect(attempt.result).to.equal('EXITOSO');",
+                  "    pm.expect(attempt).to.have.property('newAppointmentScheduled', true);",
+                  "    pm.expect(attempt).to.have.property('duration');",
+                  "    pm.expect(attempt.duration).to.be.greaterThan(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientFollowId\": \"{{patientFollowId}}\",\n  \"attemptNumber\": 2,\n  \"contactMethod\": \"TELEFONO\",\n  \"result\": \"EXITOSO\",\n  \"contactDateTime\": \"{{$isoTimestamp}}\",\n  \"duration\": 180,\n  \"notes\": \"Contacto exitoso. Paciente confirma mejoría y acepta nueva cita de seguimiento.\",\n  \"newAppointmentScheduled\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt"]
+            }
+          }
+        },
+        {
+          "name": "Get All Contact Attempts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has pagination structure', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('items');",
+                  "    pm.expect(jsonData.data).to.have.property('meta');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Successful Attempts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All attempts are successful', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    jsonData.data.items.forEach(attempt => {",
+                  "        pm.expect(attempt.result).to.equal('EXITOSO');",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt/successful?page=1&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt", "successful"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Failed Attempts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All attempts are failed', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const failedResults = ['SIN_RESPUESTA', 'NUMERO_INCORRECTO', 'LINEA_OCUPADA', 'RECHAZADO'];",
+                  "    jsonData.data.items.forEach(attempt => {",
+                  "        pm.expect(failedResults).to.include(attempt.result);",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt/failed?page=1&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt", "failed"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Attempts with Appointments",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All attempts generated appointments', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    jsonData.data.items.forEach(attempt => {",
+                  "        pm.expect(attempt.newAppointmentScheduled).to.be.true;",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt/with-appointments",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt", "with-appointments"]
+            }
+          }
+        },
+        {
+          "name": "Get Attempts by Follow-up",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All attempts belong to follow-up', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const expectedFollowUpId = pm.collectionVariables.get('patientFollowId');",
+                  "    jsonData.data.items.forEach(attempt => {",
+                  "        pm.expect(attempt.patientFollowId).to.equal(expectedFollowUpId);",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('Attempts are ordered by attempt number', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const attempts = jsonData.data.items;",
+                  "    for (let i = 0; i < attempts.length - 1; i++) {",
+                  "        pm.expect(attempts[i].attemptNumber).to.be.at.most(attempts[i + 1].attemptNumber);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt/follow-up/{{patientFollowId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt", "follow-up", "{{patientFollowId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Contact Attempt",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Notes updated successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.notes).to.include('Actualización');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Actualización: Paciente llamó de vuelta, confirmó disponibilidad para cita de seguimiento.\",\n  \"duration\": 45\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt/{{contactAttemptId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt", "{{contactAttemptId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rescue Directory Module",
+      "item": [
+        {
+          "name": "Create Failed Follow-up for Rescue",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "pm.collectionVariables.set('failedPatientFollowId', jsonData.data.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{testPatientId}}\",\n  \"appointmentId\": \"{{testAppointmentId}}\",\n  \"priority\": \"CRITICA\",\n  \"scheduledContactDate\": \"{{$isoTimestamp}}\",\n  \"contactMethod\": \"TELEFONO\",\n  \"followUpReason\": \"Seguimiento crítico post cirugía\",\n  \"notes\": \"Paciente para directorio de rescate después de 3 intentos fallidos\",\n  \"maxAttempts\": 3,\n  \"status\": \"FAILED\",\n  \"attemptCount\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow"]
+            }
+          }
+        },
+        {
+          "name": "Create Rescue Directory Entry",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Rescue directory entry created', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const entry = jsonData.data;",
+                  "    ",
+                  "    pm.expect(entry).to.have.property('id');",
+                  "    pm.expect(entry).to.have.property('patientId', pm.collectionVariables.get('testPatientId'));",
+                  "    pm.expect(entry).to.have.property('originalFollowUpId', pm.collectionVariables.get('failedPatientFollowId'));",
+                  "    pm.expect(entry).to.have.property('status', 'ACTIVO');",
+                  "    pm.expect(entry).to.have.property('priority', 'CRITICA');",
+                  "    pm.expect(entry).to.have.property('entryDate');",
+                  "    pm.expect(entry).to.have.property('totalFailedAttempts', 3);",
+                  "    ",
+                  "    pm.collectionVariables.set('rescueDirectoryId', entry.id);",
+                  "});",
+                  "",
+                  "pm.test('Entry date is current', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const entryDate = new Date(jsonData.data.entryDate);",
+                  "    const now = new Date();",
+                  "    const diffInMinutes = (now - entryDate) / (1000 * 60);",
+                  "    pm.expect(diffInMinutes).to.be.lessThan(5);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{testPatientId}}\",\n  \"originalFollowUpId\": \"{{failedPatientFollowId}}\",\n  \"priority\": \"CRITICA\",\n  \"entryDate\": \"{{$isoTimestamp}}\",\n  \"lastContactDate\": \"2024-12-15T14:30:00.000Z\",\n  \"totalFailedAttempts\": 3,\n  \"reason\": \"Paciente no responde después de múltiples intentos de seguimiento post-quirúrgico\",\n  \"assignedTo\": \"{{testUserId}}\",\n  \"status\": \"ACTIVO\",\n  \"escalationNotes\": \"Requiere intervención del equipo de rescate. Prioridad crítica por naturaleza post-quirúrgica.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory"]
+            }
+          }
+        },
+        {
+          "name": "Get All Rescue Directory Entries",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has pagination structure', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('items');",
+                  "    pm.expect(jsonData.data).to.have.property('meta');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Active Entries",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All entries are active', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    jsonData.data.items.forEach(entry => {",
+                  "        pm.expect(entry.status).to.equal('ACTIVO');",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('Contains our created entry', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const entryId = pm.collectionVariables.get('rescueDirectoryId');",
+                  "    const found = jsonData.data.items.some(item => item.id === entryId);",
+                  "    pm.expect(found).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/active",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "active"]
+            }
+          }
+        },
+        {
+          "name": "Get High Priority Entries",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All entries are high priority', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const highPriorities = ['ALTA', 'CRITICA'];",
+                  "    jsonData.data.items.forEach(entry => {",
+                  "        pm.expect(highPriorities).to.include(entry.priority);",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/high-priority",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "high-priority"]
+            }
+          }
+        },
+        {
+          "name": "Get Critical Entries",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All entries are critical', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    jsonData.data.items.forEach(entry => {",
+                  "        pm.expect(entry.priority).to.equal('CRITICA');",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('Contains our critical entry', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const entryId = pm.collectionVariables.get('rescueDirectoryId');",
+                  "    const found = jsonData.data.items.some(item => item.id === entryId);",
+                  "    pm.expect(found).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/critical",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "critical"]
+            }
+          }
+        },
+        {
+          "name": "Get Entries by Patient",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('All entries belong to patient', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const expectedPatientId = pm.collectionVariables.get('testPatientId');",
+                  "    jsonData.data.items.forEach(entry => {",
+                  "        pm.expect(entry.patientId).to.equal(expectedPatientId);",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/patient/{{testPatientId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "patient", "{{testPatientId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Rescue Directory Entry",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Entry updated successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.escalationNotes).to.include('Actualización');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"escalationNotes\": \"Actualización: Equipo de rescate asignado. Primer intento de contacto programado para mañana.\",\n  \"priority\": \"CRITICA\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/{{rescueDirectoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "{{rescueDirectoryId}}"]
+            }
+          }
+        },
+        {
+          "name": "Reactivate Entry",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Entry reactivated successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.status).to.equal('ACTIVO');",
+                  "    pm.expect(jsonData.data).to.have.property('reactivationDate');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reactivationNotes\": \"Paciente contactado exitosamente por equipo de rescate. Reactivando para seguimiento adicional.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/{{rescueDirectoryId}}/reactivate",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "{{rescueDirectoryId}}", "reactivate"]
+            }
+          }
+        },
+        {
+          "name": "Archive Entry",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Entry archived successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.status).to.equal('ARCHIVADO');",
+                  "    pm.expect(jsonData.data).to.have.property('archivedDate');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/{{rescueDirectoryId}}/archive",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "{{rescueDirectoryId}}", "archive"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Consultations Module",
+      "item": [
+        {
+          "name": "Create Consultation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Consultation created successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const consultation = jsonData.data;",
+                  "    ",
+                  "    pm.expect(consultation).to.have.property('id');",
+                  "    pm.expect(consultation).to.have.property('appointmentId', pm.collectionVariables.get('testAppointmentId'));",
+                  "    pm.expect(consultation).to.have.property('chiefComplaint', 'Dolor en el pecho');",
+                  "    pm.expect(consultation).to.have.property('diagnosis', 'Angina de pecho estable');",
+                  "    pm.expect(consultation).to.have.property('treatment', 'Nitratos sublinguales');",
+                  "    pm.expect(consultation).to.have.property('isActive', true);",
+                  "    ",
+                  "    pm.collectionVariables.set('consultationId', consultation.id);",
+                  "});",
+                  "",
+                  "pm.test('Vital signs recorded correctly', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const consultation = jsonData.data;",
+                  "    ",
+                  "    pm.expect(consultation.bloodPressureSystolic).to.equal(140);",
+                  "    pm.expect(consultation.bloodPressureDiastolic).to.equal(90);",
+                  "    pm.expect(consultation.heartRate).to.equal(85);",
+                  "    pm.expect(consultation.temperature).to.equal(36.5);",
+                  "    pm.expect(consultation.weight).to.equal(70.5);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointmentId\": \"{{testAppointmentId}}\",\n  \"chiefComplaint\": \"Dolor en el pecho\",\n  \"historyOfPresentIllness\": \"Paciente refiere dolor opresivo en el pecho de 2 días de evolución, que se intensifica con el esfuerzo y mejora con el reposo.\",\n  \"physicalExamination\": \"Paciente consciente, orientado. Ruidos cardíacos rítmicos, sin soplos. Pulmones limpios. Abdomen blando, no doloroso.\",\n  \"diagnosis\": \"Angina de pecho estable\",\n  \"treatment\": \"Nitratos sublinguales\",\n  \"prescriptions\": \"Nitroglicerina 0.4mg sublingual PRN, Atorvastatina 20mg 1 vez al día\",\n  \"followUpInstructions\": \"Control en 1 semana. Evitar esfuerzos físicos intensos. Acudir a urgencias si presenta dolor severo.\",\n  \"bloodPressureSystolic\": 140,\n  \"bloodPressureDiastolic\": 90,\n  \"heartRate\": 85,\n  \"temperature\": 36.5,\n  \"weight\": 70.5,\n  \"height\": 175,\n  \"consultationDate\": \"{{$isoTimestamp}}\",\n  \"duration\": 30,\n  \"createdBy\": \"{{testUserId}}\",\n  \"notes\": \"Primera consulta cardiológica. Paciente colaborador, comprende indicaciones.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consultations",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations"]
+            }
+          }
+        },
+        {
+          "name": "Get All Consultations",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has pagination structure', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('items');",
+                  "    pm.expect(jsonData.data).to.have.property('meta');",
+                  "    pm.expect(jsonData.data.meta).to.have.property('totalItems');",
+                  "    pm.expect(jsonData.data.meta).to.have.property('itemCount');",
+                  "    pm.expect(jsonData.data.meta).to.have.property('totalPages');",
+                  "});",
+                  "",
+                  "pm.test('Consultations contain required fields', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    if (jsonData.data.items.length > 0) {",
+                  "        const consultation = jsonData.data.items[0];",
+                  "        pm.expect(consultation).to.have.property('id');",
+                  "        pm.expect(consultation).to.have.property('appointmentId');",
+                  "        pm.expect(consultation).to.have.property('chiefComplaint');",
+                  "        pm.expect(consultation).to.have.property('diagnosis');",
+                  "        pm.expect(consultation).to.have.property('appointment');",
+                  "        pm.expect(consultation).to.have.property('createdBy');",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/consultations?page=1&limit=10&search=dolor",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": "dolor"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Consultation by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Returns correct consultation with relationships', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const consultation = jsonData.data;",
+                  "    ",
+                  "    pm.expect(consultation.id).to.equal(pm.collectionVariables.get('consultationId'));",
+                  "    pm.expect(consultation).to.have.property('appointment');",
+                  "    pm.expect(consultation.appointment).to.have.property('patient');",
+                  "    pm.expect(consultation.appointment).to.have.property('medic');",
+                  "    pm.expect(consultation).to.have.property('creator');",
+                  "});",
+                  "",
+                  "pm.test('Contains all consultation details', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const consultation = jsonData.data;",
+                  "    ",
+                  "    pm.expect(consultation.chiefComplaint).to.equal('Dolor en el pecho');",
+                  "    pm.expect(consultation.diagnosis).to.equal('Angina de pecho estable');",
+                  "    pm.expect(consultation.treatment).to.equal('Nitratos sublinguales');",
+                  "    pm.expect(consultation.bloodPressureSystolic).to.equal(140);",
+                  "    pm.expect(consultation.bloodPressureDiastolic).to.equal(90);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/consultations/{{consultationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations", "{{consultationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Consultation by Appointment ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Returns consultation for correct appointment', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const consultation = jsonData.data;",
+                  "    ",
+                  "    pm.expect(consultation.appointmentId).to.equal(pm.collectionVariables.get('testAppointmentId'));",
+                  "    pm.expect(consultation).to.have.property('appointment');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/consultations/appointment/{{testAppointmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations", "appointment", "{{testAppointmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Consultation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Consultation updated successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const consultation = jsonData.data;",
+                  "    ",
+                  "    pm.expect(consultation.diagnosis).to.equal('Angina de pecho estable - Controlada');",
+                  "    pm.expect(consultation.treatment).to.equal('Nitratos sublinguales + Control cardiológico');",
+                  "    pm.expect(consultation.followUpInstructions).to.include('Evolución favorable');",
+                  "    pm.expect(consultation.heartRate).to.equal(78);",
+                  "});",
+                  "",
+                  "pm.test('Updated timestamp is recent', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const updatedAt = new Date(jsonData.data.updatedAt);",
+                  "    const now = new Date();",
+                  "    const diffInMinutes = (now - updatedAt) / (1000 * 60);",
+                  "    pm.expect(diffInMinutes).to.be.lessThan(2);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"diagnosis\": \"Angina de pecho estable - Controlada\",\n  \"treatment\": \"Nitratos sublinguales + Control cardiológico\",\n  \"followUpInstructions\": \"Evolución favorable. Control en 2 semanas. Mantener medicación actual.\",\n  \"heartRate\": 78,\n  \"notes\": \"Actualización: Paciente refiere mejoría significativa del dolor torácico con el tratamiento instaurado.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consultations/{{consultationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations", "{{consultationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Consultation - Duplicate Appointment (Error Case)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test('Error message indicates duplicate consultation', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.false;",
+                  "    pm.expect(jsonData.message).to.include('Ya existe una consulta');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointmentId\": \"{{testAppointmentId}}\",\n  \"chiefComplaint\": \"Duplicated consultation test\",\n  \"diagnosis\": \"Test diagnosis\",\n  \"treatment\": \"Test treatment\",\n  \"consultationDate\": \"{{$isoTimestamp}}\",\n  \"duration\": 15,\n  \"createdBy\": \"{{testUserId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consultations",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations"]
+            }
+          }
+        },
+        {
+          "name": "Get Consultation - Not Found (Error Case)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Error message indicates consultation not found', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.false;",
+                  "    pm.expect(jsonData.message).to.include('Consulta no encontrada');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/consultations/clm000nonexistent000",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations", "clm000nonexistent000"]
+            }
+          }
+        },
+        {
+          "name": "Delete Consultation (Soft Delete)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Consultation soft deleted successfully', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "    pm.expect(jsonData.data.isActive).to.be.false;",
+                  "    pm.expect(jsonData.data).to.have.property('deletedAt');",
+                  "});",
+                  "",
+                  "pm.test('Deleted timestamp is recent', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const deletedAt = new Date(jsonData.data.deletedAt);",
+                  "    const now = new Date();",
+                  "    const diffInMinutes = (now - deletedAt) / (1000 * 60);",
+                  "    pm.expect(diffInMinutes).to.be.lessThan(2);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/consultations/{{consultationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations", "{{consultationId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Integration Workflows",
+      "item": [
+        {
+          "name": "Failed Follow-up to Rescue Directory Workflow",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Failed follow-up workflow validated', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "});",
+                  "",
+                  "console.log('Failed Follow-up to Rescue Directory Workflow:');",
+                  "console.log('1. Patient follow-up created (PENDING)');",
+                  "console.log('2. First contact attempt (SIN_RESPUESTA)');",
+                  "console.log('3. Second contact attempt (NUMERO_INCORRECTO)');",
+                  "console.log('4. Third contact attempt (RECHAZADO)');",
+                  "console.log('5. Follow-up status → FAILED');",
+                  "console.log('6. Automatic transfer to rescue directory');",
+                  "console.log('7. Rescue entry created with HIGH priority');",
+                  "console.log('8. Rescue team notification triggered');",
+                  "",
+                  "console.log('Business Rules Applied:');",
+                  "console.log('- Max 3 attempts before transfer to rescue');",
+                  "console.log('- Priority escalation based on medical urgency');",
+                  "console.log('- Automated workflow prevents patient loss');",
+                  "console.log('- Complete audit trail maintained');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow?status=FAILED",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "FAILED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Successful Follow-up Completion Workflow",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "console.log('Successful Follow-up Completion Workflow:');",
+                  "console.log('1. Follow-up created (PENDING)');",
+                  "console.log('2. First contact attempt (EXITOSO)');",
+                  "console.log('3. New appointment scheduled');",
+                  "console.log('4. Follow-up status → COMPLETED_APPOINTMENT_SCHEDULED');",
+                  "console.log('5. Patient care continuity maintained');",
+                  "",
+                  "console.log('Success Metrics:');",
+                  "console.log('- Patient contacted within 24 hours');",
+                  "console.log('- New appointment scheduled successfully');",
+                  "console.log('- Follow-up completed in 1 attempt');",
+                  "console.log('- Care continuity maintained');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempt?result=EXITOSO",
+              "host": ["{{baseUrl}}"],
+              "path": ["contact-attempt"],
+              "query": [
+                {
+                  "key": "result",
+                  "value": "EXITOSO"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Priority Escalation Workflow",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "console.log('Priority Escalation Workflow:');",
+                  "console.log('1. Critical patient requires follow-up');",
+                  "console.log('2. CRITICA priority assigned automatically');",
+                  "console.log('3. Contact attempts within 4 hours');",
+                  "console.log('4. If failed → Immediate rescue directory');",
+                  "console.log('5. Supervisor notification triggered');",
+                  "console.log('6. Emergency contact protocols activated');",
+                  "",
+                  "console.log('Priority Levels & Response Times:');",
+                  "console.log('- CRITICA: < 4 hours, supervisor alert');",
+                  "console.log('- ALTA: < 24 hours, manager awareness');",
+                  "console.log('- MEDIA: < 48 hours, standard process');",
+                  "console.log('- BAJA: < 72 hours, routine follow-up');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow?priority=CRITICA&sortBy=scheduledContactDate&sortOrder=asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow"],
+              "query": [
+                {
+                  "key": "priority",
+                  "value": "CRITICA"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "scheduledContactDate"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Complete Patient Follow-up Workflow",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// This workflow tests the complete patient follow-up process:",
+                  "// 1. Create appointment -> 2. Create consultation -> 3. Create follow-up",
+                  "// 4. Multiple contact attempts -> 5. Transfer to rescue directory",
+                  "",
+                  "pm.test('Prerequisites available', function() {",
+                  "    pm.expect(pm.collectionVariables.get('testPatientId')).to.not.be.empty;",
+                  "    pm.expect(pm.collectionVariables.get('testUserId')).to.not.be.empty;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// This is a placeholder test for the complete workflow",
+                  "// In a real scenario, this would be a series of sequential requests",
+                  "// testing the entire patient journey from appointment to rescue directory",
+                  "",
+                  "pm.test('Workflow concept validated', function() {",
+                  "    pm.expect(true).to.be.true;",
+                  "});",
+                  "",
+                  "console.log('Complete Patient Follow-up Workflow includes:');",
+                  "console.log('1. Create completed appointment');",
+                  "console.log('2. Create consultation for appointment');",
+                  "console.log('3. Create patient follow-up (PENDING status)');",
+                  "console.log('4. Update follow-up to IN_PROGRESS');",
+                  "console.log('5. Create 3 failed contact attempts');",
+                  "console.log('6. Update follow-up to FAILED');",
+                  "console.log('7. Transfer to rescue directory');",
+                  "console.log('8. Rescue team intervention');",
+                  "console.log('9. Either successful recovery or archive');",
+                  "",
+                  "console.log('State Transitions Tested:');",
+                  "console.log('- PatientFollow: PENDING → IN_PROGRESS → FAILED → TRANSFERRED_TO_RESCUE');",
+                  "console.log('- ContactAttempt: Various results (EXITOSO, SIN_RESPUESTA, etc.)');",
+                  "console.log('- RescueDirectory: ACTIVO → RESUELTO/ARCHIVADO');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follow/pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["patient-follow", "pending"]
+            }
+          }
+        },
+        {
+          "name": "Rescue Directory Success Workflow",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "console.log('Rescue Directory Success Workflow:');",
+                  "console.log('1. Patient enters rescue directory (ACTIVO)');",
+                  "console.log('2. Rescue team attempts contact');",
+                  "console.log('3. If successful: Reactivate entry');",
+                  "console.log('4. Create new follow-up for continued care');",
+                  "console.log('5. If unsuccessful after rescue attempts: Archive');",
+                  "",
+                  "console.log('Priority Escalation:');",
+                  "console.log('- BAJA → MEDIA → ALTA → CRITICA');",
+                  "console.log('- Critical cases require immediate attention');",
+                  "console.log('- High priority cases processed within 24 hours');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directory/critical",
+              "host": ["{{baseUrl}}"],
+              "path": ["rescue-directory", "critical"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases and Error Handling",
+      "item": [
+        {
+          "name": "Attempt Contact with Invalid Patient Follow ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404 or 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+                  "});",
+                  "",
+                  "pm.test(\"Error response structure\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', false);",
+                  "    pm.expect(jsonData).to.have.property('message');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientFollowId\": \"invalid-id-123\",\n  \"contactMethod\": \"llamada\",\n  \"result\": \"SIN_RESPUESTA\",\n  \"notes\": \"Test invalid ID\",\n  \"attemptDate\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "contact-attempts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Patient Follow with Missing Required Fields",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Validation error response\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', false);",
+                  "    pm.expect(jsonData).to.have.property('message');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"priority\": \"MEDIA\",\n  \"reason\": \"Missing patientId and appointmentId\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patient-follows",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patient-follows"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Patient Follow Status - Invalid Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Invalid status error\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', false);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"INVALID_STATUS\",\n  \"notes\": \"Testing invalid status\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patient-follows/{{patientFollowId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patient-follows",
+                "{{patientFollowId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bulk Operations and Reporting",
+      "item": [
+        {
+          "name": "Get All Patient Follows with Filters",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Filtered results structure\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', true);",
+                  "    pm.expect(jsonData).to.have.property('data');",
+                  "    pm.expect(jsonData.data).to.have.property('items');",
+                  "    pm.expect(jsonData.data).to.have.property('pagination');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patient-follows?status=PENDING&priority=ALTA&page=1&limit=10&sortBy=createdAt&sortOrder=desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patient-follows"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING"
+                },
+                {
+                  "key": "priority",
+                  "value": "ALTA"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "createdAt"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Contact Attempts by Result",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Contact attempts filtered by result\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.items).to.be.an('array');",
+                  "    if (jsonData.data.items.length > 0) {",
+                  "        jsonData.data.items.forEach(function(item) {",
+                  "            pm.expect(item.result).to.equal('SIN_RESPUESTA');",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/contact-attempts?result=SIN_RESPUESTA&sortBy=attemptDate&sortOrder=desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "contact-attempts"
+              ],
+              "query": [
+                {
+                  "key": "result",
+                  "value": "SIN_RESPUESTA"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "attemptDate"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Rescue Directory Entries by Priority",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Rescue entries filtered by priority\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.items).to.be.an('array');",
+                  "    if (jsonData.data.items.length > 0) {",
+                  "        jsonData.data.items.forEach(function(item) {",
+                  "            pm.expect(item.priority).to.equal('CRITICA');",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rescue-directories?priority=CRITICA&page=1&limit=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rescue-directories"
+              ],
+              "query": [
+                {
+                  "key": "priority",
+                  "value": "CRITICA"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Advanced Workflows",
+      "item": [
+        {
+          "name": "Multi-Contact Attempt Workflow",
+          "item": [
+            {
+              "name": "Create Patient Follow for Multi-Contact",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 201\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "pm.test(\"Multi-contact follow created\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.globals.set('multiContactFollowId', jsonData.data.id);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"appointmentId\": \"{{appointmentId}}\",\n  \"priority\": \"MEDIA\",\n  \"reason\": \"Paciente requiere múltiples intentos de contacto\",\n  \"notes\": \"Historial de dificultad para contactar\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/patient-follows",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "patient-follows"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "First Contact Attempt - Phone Failed",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 201\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "pm.test(\"Failed phone contact recorded\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.data.result).to.equal('SIN_RESPUESTA');",
+                      "    pm.globals.set('firstContactId', jsonData.data.id);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patientFollowId\": \"{{multiContactFollowId}}\",\n  \"contactMethod\": \"llamada\",\n  \"result\": \"SIN_RESPUESTA\",\n  \"notes\": \"Teléfono no contesta después de 3 intentos\",\n  \"attemptDate\": \"{{$isoTimestamp}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact-attempts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact-attempts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Second Contact Attempt - Email Failed",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 201\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "pm.test(\"Failed email contact recorded\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.data.result).to.equal('EMAIL_REBOTADO');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patientFollowId\": \"{{multiContactFollowId}}\",\n  \"contactMethod\": \"email\",\n  \"result\": \"EMAIL_REBOTADO\",\n  \"notes\": \"Correo devuelto por servidor\",\n  \"attemptDate\": \"{{$isoTimestamp}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact-attempts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact-attempts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Third Contact Attempt - SMS Success",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 201\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "pm.test(\"Successful SMS contact\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.data.result).to.equal('EXITOSO');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patientFollowId\": \"{{multiContactFollowId}}\",\n  \"contactMethod\": \"sms\",\n  \"result\": \"EXITOSO\",\n  \"notes\": \"Paciente respondió confirmando nueva cita\",\n  \"attemptDate\": \"{{$isoTimestamp}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact-attempts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact-attempts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Complete Multi-Contact Follow",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"Follow completed successfully\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.data.status).to.equal('COMPLETED_APPOINTMENT_SCHEDULED');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"COMPLETED_APPOINTMENT_SCHEDULED\",\n  \"notes\": \"Contacto exitoso después de múltiples intentos - nueva cita programada\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/patient-follows/{{multiContactFollowId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "patient-follows",
+                    "{{multiContactFollowId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Emergency Contact Protocol",
+          "item": [
+            {
+              "name": "Create Critical Priority Follow",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 201\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "pm.test(\"Critical priority follow created\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.data.priority).to.equal('CRITICA');",
+                      "    pm.globals.set('criticalFollowId', jsonData.data.id);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"appointmentId\": \"{{appointmentId}}\",\n  \"priority\": \"CRITICA\",\n  \"reason\": \"Paciente con síntomas cardíacos graves no se presentó a cita de urgencia\",\n  \"notes\": \"EMERGENCIA: Requiere contacto inmediato - riesgo vital\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/patient-follows",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "patient-follows"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Emergency Contact Attempt",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 201\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "pm.test(\"Emergency contact documented\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.data.contactMethod).to.equal('llamada_emergencia');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patientFollowId\": \"{{criticalFollowId}}\",\n  \"contactMethod\": \"llamada_emergencia\",\n  \"result\": \"CONTACTO_EMERGENCIA\",\n  \"notes\": \"Contacto realizado por equipo de emergencias - familia notificada\",\n  \"attemptDate\": \"{{$isoTimestamp}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact-attempts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact-attempts"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

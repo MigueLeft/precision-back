@@ -1,0 +1,76 @@
+// ===== MODELOS DE SEGUIMIENTO =====
+
+model PatientFollowUp {
+  id                    String                @id @default(cuid())
+  patientId             String
+  originAppointmentId   String?               // Cita que originó el seguimiento (opcional)
+  resultingAppointmentId String?              // Cita que RESULTÓ del seguimiento (opcional)
+  followUpType          FollowUpType          @default(POST_CONSULTATION)
+  status                FollowUpStatus        @default(PENDING)
+  priority              FollowUpPriority      @default(NORMAL)
+  
+  // Información del seguimiento
+  scheduledContactDate  DateTime              // Fecha programada para contactar
+  actualContactDate     DateTime?             // Fecha real de contacto
+  nextContactDate       DateTime?             // Próxima fecha de contacto programada
+  
+  // Contadores y límites
+  attemptCount          Int                   @default(0)
+  maxAttempts           Int                   @default(3)
+  
+  // Información adicional
+  notes                 String?
+  assignedTo            String?               // Usuario asignado para el seguimiento
+  completedAt           DateTime?
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  active                Boolean               @default(true)
+
+  // Relaciones bidireccionales con Appointment
+  patient               Patient               @relation("PatientFollowUps", fields: [patientId], references: [id])
+  originAppointment     Appointment?          @relation("AppointmentGeneratedFollowUps", fields: [originAppointmentId], references: [id])
+  resultingAppointment  Appointment?          @relation("AppointmentFromFollowUp", fields: [resultingAppointmentId], references: [id])
+  
+  // Intentos de contacto y rescate
+  contactAttempts       ContactAttempt[]      @relation("FollowUpContactAttempts")
+  rescueEntries         RescueDirectory[]     @relation("FollowUpRescueEntries")
+  
+  // Índices
+  @@index([patientId])
+  @@index([status])
+  @@index([scheduledContactDate])
+  @@index([assignedTo])
+  @@index([originAppointmentId])
+  @@index([resultingAppointmentId])
+}
+
+// ===== ENUMS DE SEGUIMIENTO =====
+
+enum FollowUpType {
+  POST_CONSULTATION     // Seguimiento después de consulta
+  APPOINTMENT_REMINDER  // Recordatorio de cita
+  TREATMENT_FOLLOWUP    // Seguimiento de tratamiento
+  PREVENTIVE_CARE      // Cuidado preventivo
+  ADMINISTRATIVE       // Administrativo
+}
+
+enum FollowUpStatus {
+  PENDING                    // Pendiente de contactar
+  IN_PROGRESS               // En progreso (intentos activos)
+  COMPLETED_WITH_APPOINTMENT // Completado exitosamente - se programó cita
+  COMPLETED_NO_APPOINTMENT   // Completado sin programar cita (paciente no la necesita/quiere)
+  FAILED                    // Falló después de todos los intentos
+  CANCELLED                 // Cancelado
+  TRANSFERRED_TO_RESCUE     // Transferido al directorio de rescate
+  POSTPONED_INDEFINITELY    // Pospuesto indefinidamente por el paciente
+  CONVERTED_TO_APPOINTMENT  // Se convirtió exitosamente en una cita
+}
+
+enum FollowUpPriority {
+  LOW                  // Baja prioridad
+  NORMAL               // Prioridad normal
+  HIGH                 // Alta prioridad
+  URGENT               // Urgente
+}
+
+

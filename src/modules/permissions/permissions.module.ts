@@ -1,0 +1,19 @@
+// src/modules/permissions/permissions.module.ts
+import { Module } from '@nestjs/common';
+import { PermissionsController } from './permissions.controller'; 
+import { PermissionsService } from './permissions.service';
+
+@Module({
+  controllers: [PermissionsController],
+  providers: [PermissionsService],
+  exports: [PermissionsService],
+})
+export class PermissionsModule {}
+
+// src/modules/permissions/dto/create-permission.dto.ts
+
+
+// src/modules/permissions/dto/update-permission.dto.ts
+
+
+// src/modules/permissions/dto/query-permission.dto.ts

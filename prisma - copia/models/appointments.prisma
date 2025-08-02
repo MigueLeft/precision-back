@@ -1,0 +1,24 @@
+model Appointment {
+  id                String       @id @default(cuid())
+  patientId         String
+  medicId          String
+  dateTime          DateTime
+  appointmentType   String       // 'first_time', 'follow_up', 'emergency', 'specialty'
+  appointmentStatus String       // 'pending', 'scheduled', 'canceled', 'completed', 'no_show'
+  reason            String?
+  notes             String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  active            Boolean      @default(true)
+
+  // Relaciones many-to-many a través de esta tabla
+   patient          Patient      @relation("PatientAppointments", fields: [patientId], references: [id])
+   medic            Medic        @relation("MedicAppointments", fields: [medicId], references: [id])
+  
+//   // Otras relaciones
+//   reschedules      Reschedule[]  // Suponiendo que Reschedule es otro modelo que definirás
+//   consultation     Consultation?  // Suponiendo que Consultation es otro modelo que definirás
+  
+  // Índice compuesto para evitar citas duplicadas en el mismo horario
+  @@unique([medicId, dateTime])
+}

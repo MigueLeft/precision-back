@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd /c \"pnpm run build\")",
+      "Bash(powershell -Command \"pnpm run build\")"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,13 @@
+model Specialty {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+  active      Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relación 1:1 con Medics
+  medic Medic?
+
+  @@map("specialties")
+}

@@ -1,0 +1,52 @@
+model ContactAttempt {
+  id                    String                @id @default(cuid())
+  followUpId            String
+  attemptNumber         Int                   // Número del intento (1, 2, 3...)
+  contactMethod         ContactMethod         @default(PHONE)
+  contactDateTime       DateTime              @default(now())
+  contactResult         ContactResult
+  
+  // Detalles del contacto
+  contactDuration       Int?                  // Duración en segundos
+  contactNotes          String?
+  patientResponse       String?               // Respuesta específica del paciente
+  
+  // Resultado del contacto
+  appointmentScheduled  Boolean               @default(false)
+  newAppointmentId      String?               // Si se programó nueva cita
+  rescheduleRequested   Boolean               @default(false)
+  rescheduleId          String?               // Si se solicitó reprogramación
+  
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+
+  // Relaciones
+  followUp              PatientFollowUp       @relation("FollowUpContactAttempts", fields: [followUpId], references: [id], onDelete: Cascade)
+  newAppointment        Appointment?          @relation("AppointmentFromContact", fields: [newAppointmentId], references: [id])
+  reschedule            Reschedule?           @relation("RescheduleFromContact", fields: [rescheduleId], references: [id])
+
+  @@index([followUpId])
+  @@index([contactDateTime])
+  @@index([contactResult])
+}
+
+enum ContactMethod {
+  PHONE                // Teléfono
+  EMAIL                // Correo electrónico
+  SMS                  // Mensaje de texto
+  WHATSAPP             // WhatsApp
+  IN_PERSON            // En persona
+}
+
+enum ContactResult {
+  SUCCESSFUL           // Contacto exitoso
+  NO_ANSWER            // No contestó
+  BUSY                 // Ocupado
+  INVALID_NUMBER       // Número inválido
+  PATIENT_DECLINED     // Paciente declinó
+  APPOINTMENT_CONFIRMED // Cita confirmada
+  APPOINTMENT_CANCELLED // Cita cancelada
+  RESCHEDULE_REQUESTED // Solicitó reprogramación
+  INDEFINITE_POSTPONE  // Pospuso indefinidamente
+  PATIENT_UNAVAILABLE  // Paciente no disponible
+}

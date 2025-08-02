@@ -1,0 +1,33 @@
+model Appointment {
+  id                String       @id @default(cuid())
+  patientId         String
+  medicId          String
+  dateTime          DateTime
+  appointmentType   String       // 'first_time', 'follow_up', 'emergency', 'specialty'
+  appointmentStatus String       // 'pending', 'scheduled', 'canceled', 'completed', 'no_show'
+  reason            String?
+  notes             String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  active            Boolean      @default(true)
+
+  // Campos adicionales para seguimiento
+  requiresFollowUp  Boolean      @default(false)
+  followUpDate      DateTime?    // Fecha sugerida para seguimiento
+  followUpPriority  FollowUpPriority @default(NORMAL)
+  
+  // Origen de la cita
+  originatedFromFollowUpId String? // Si esta cita se creó desde un seguimiento
+
+  patient          Patient      @relation("PatientAppointments", fields: [patientId], references: [id])
+  medic            Medic        @relation("MedicAppointments", fields: [medicId], references: [id])
+  consultation     Consultation?
+  reschedules      Reschedule[] @relation("AppointmentReschedules")
+  
+   // Relaciones bidireccionales con seguimiento
+  generatedFollowUps     PatientFollowUp[] @relation("AppointmentGeneratedFollowUps")  // Seguimientos que esta cita generó
+  resultingFromFollowUps PatientFollowUp[] @relation("AppointmentFromFollowUp")        // Seguimientos que generaron esta cita
+  contactAttempts        ContactAttempt[]  @relation("AppointmentFromContact")
+
+  @@unique([medicId, dateTime])
+}

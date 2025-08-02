@@ -1,0 +1,24 @@
+model Reschedule {
+  id                    String       @id @default(cuid())
+  appointmentId         String
+  previousDateTime      DateTime     // Fecha/hora original de la cita
+  newDateTime           DateTime     // Nueva fecha/hora programada
+  rescheduleReason      String       // 'patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other'
+  rescheduleStatus      String       @default("pending") // 'pending', 'completed'
+  requestedBy           String       // 'PATIENT', 'MEDIC', 'SYSTEM'
+  notes                 String?      // Notas adicionales sobre la reprogramación
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  active                Boolean      @default(true)
+
+  // Relaciones
+  appointment           Appointment  @relation("AppointmentReschedules", fields: [appointmentId], references: [id], onDelete: Cascade)
+  contactAttempts       ContactAttempt[] @relation("RescheduleFromContact")
+
+
+  // Índices para optimizar consultas
+  @@index([appointmentId])
+  @@index([rescheduleStatus])
+  @@index([createdAt])
+  @@index([newDateTime])
+}
