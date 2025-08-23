@@ -224,20 +224,6 @@ export declare class MedicsService {
         specialtyId: string;
         professionalTitle: string;
     }>;
-    getActiveMedics(): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        specialty: {
-            id: string;
-            name: string;
-            description: string | null;
-        };
-        lastName: string;
-        identification: string;
-        phone: string | null;
-        professionalTitle: string;
-    }[]>;
     bulkCreate(medics: CreateMedicDto[]): Promise<any[]>;
     getMedicStats(): Promise<{
         total: number;

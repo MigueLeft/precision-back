@@ -62,22 +62,13 @@ let SpecialtiesService = SpecialtiesService_1 = class SpecialtiesService {
                 skip,
                 take: limit,
                 orderBy,
-                include: {
-                    medic: {
-                        select: {
-                            id: true,
-                            name: true,
-                            lastName: true,
-                        },
-                    },
-                },
             }),
             this.prisma.specialty.count({ where }),
         ]);
         const totalPages = Math.ceil(total / limit);
         this.logger.log(`Retrieved ${specialties.length} specialties (page ${page}/${totalPages})`);
         return {
-            items: specialties,
+            data: specialties,
             pagination: {
                 currentPage: page,
                 totalPages,
@@ -93,7 +84,7 @@ let SpecialtiesService = SpecialtiesService_1 = class SpecialtiesService {
         const specialty = await this.prisma.specialty.findUnique({
             where: { id },
             include: {
-                medic: {
+                medics: {
                     select: {
                         id: true,
                         name: true,
@@ -119,7 +110,7 @@ let SpecialtiesService = SpecialtiesService_1 = class SpecialtiesService {
                 where: { id },
                 data: updateSpecialtyDto,
                 include: {
-                    medic: {
+                    medics: {
                         select: {
                             id: true,
                             name: true,
@@ -145,7 +136,7 @@ let SpecialtiesService = SpecialtiesService_1 = class SpecialtiesService {
     async remove(id) {
         this.logger.log(`Removing specialty with ID: ${id}`);
         const specialty = await this.findOne(id);
-        if (specialty.medic) {
+        if (specialty.medics.length > 0) {
             this.logger.error(`Cannot delete specialty ${id}: has associated medic`);
             throw new common_1.ConflictException('No se puede eliminar una especialidad que tiene un médico asociado');
         }
@@ -160,7 +151,7 @@ let SpecialtiesService = SpecialtiesService_1 = class SpecialtiesService {
         return this.prisma.specialty.findUnique({
             where: { name },
             include: {
-                medic: {
+                medics: {
                     select: {
                         id: true,
                         name: true,

@@ -28,12 +28,6 @@ let MedicsService = MedicsService_1 = class MedicsService {
             if (!specialty) {
                 throw new common_1.BadRequestException(`Specialty with ID ${createMedicDto.specialtyId} not found`);
             }
-            const existingMedicWithSpecialty = await this.prisma.medic.findUnique({
-                where: { specialtyId: createMedicDto.specialtyId },
-            });
-            if (existingMedicWithSpecialty) {
-                throw new common_1.ConflictException('Specialty is already assigned to another medic');
-            }
             if (createMedicDto.userId) {
                 const user = await this.prisma.user.findUnique({
                     where: { id: createMedicDto.userId },
@@ -92,6 +86,8 @@ let MedicsService = MedicsService_1 = class MedicsService {
     async findAll(query) {
         const { page = 1, limit = 10, search, active, specialty, sortBy = 'id', sortOrder = 'asc' } = query;
         const skip = (page - 1) * limit;
+        this.logger.log(`Raw query object: ${JSON.stringify(query)}`);
+        this.logger.log(`Filtering medics with active: ${active} (type: ${typeof active})`);
         const where = {
             ...(search && {
                 OR: [
@@ -102,9 +98,10 @@ let MedicsService = MedicsService_1 = class MedicsService {
                     { specialty: { name: { contains: search, mode: 'insensitive' } } },
                 ],
             }),
-            ...(typeof active === 'boolean' && { active }),
+            ...(active !== undefined && { active }),
             ...(specialty && { specialty: { name: { contains: specialty, mode: 'insensitive' } } }),
         };
+        this.logger.log(`Where clause: ${JSON.stringify(where)}`);
         const orderBy = {
             [sortBy]: sortOrder,
         };
@@ -420,31 +417,6 @@ let MedicsService = MedicsService_1 = class MedicsService {
             }
             throw error;
         }
-    }
-    async getActiveMedics() {
-        return this.prisma.medic.findMany({
-            where: { active: true },
-            select: {
-                id: true,
-                name: true,
-                lastName: true,
-                identification: true,
-                email: true,
-                phone: true,
-                professionalTitle: true,
-                specialty: {
-                    select: {
-                        id: true,
-                        name: true,
-                        description: true,
-                    },
-                },
-            },
-            orderBy: [
-                { name: 'asc' },
-                { lastName: 'asc' },
-            ],
-        });
     }
     async bulkCreate(medics) {
         try {

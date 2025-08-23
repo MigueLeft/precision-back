@@ -22,7 +22,7 @@ import {
   import { UpdateUserDto } from './dto/update-user.dto'; 
   import { QueryUserDto } from './dto/query-user.dto';
   
-  @ApiTags('users')
+  @ApiTags('Users')
   @ApiBearerAuth()
   @Controller('users')
   export class UsersController {

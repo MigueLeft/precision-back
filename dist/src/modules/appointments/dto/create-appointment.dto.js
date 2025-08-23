@@ -19,6 +19,7 @@ class CreateAppointmentDto {
     dateTime;
     appointmentType;
     appointmentStatus;
+    modality = 'presencial';
     reason;
     notes;
 }
@@ -66,6 +67,19 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateAppointmentDto.prototype, "appointmentStatus", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Modalidad de la cita',
+        example: 'presencial',
+        enum: ['presencial', 'online'],
+        default: 'presencial',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(['presencial', 'online'], {
+        message: 'La modalidad debe ser presencial u online'
+    }),
+    __metadata("design:type", String)
+], CreateAppointmentDto.prototype, "modality", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Razón de la cita',

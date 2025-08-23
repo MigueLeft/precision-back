@@ -13,19 +13,19 @@ async function bootstrap() {
     });
     app.setGlobalPrefix('api/v1');
     const config = new swagger_1.DocumentBuilder()
-        .setTitle('Medical System API')
-        .setDescription('API para sistema médico con gestión de roles, permisos y pacientes')
+        .setTitle('Precision Care Clinis API')
         .setVersion('1.0')
-        .addTag('users', 'Gestión de usuarios')
-        .addTag('roles', 'Gestión de roles')
-        .addTag('permissions', 'Gestión de permisos')
-        .addTag('patients', 'Gestión de pacientes')
-        .addTag('medics', 'Gestión de médicos')
-        .addTag('appointments', 'Gestión de citas')
-        .addTag('reschedules', 'Gestión de Reprogramaciones')
+        .addTag('Users', 'Gestión de usuarios')
+        .addTag('Roles', 'Gestión de roles')
+        .addTag('Permissions', 'Gestión de permisos')
+        .addTag('Patients', 'Gestión de pacientes')
+        .addTag('Medics', 'Gestión de médicos')
+        .addTag('Appointments', 'Gestión de citas')
+        .addTag('Reschedules', 'Gestión de Reprogramaciones')
         .addTag('PatientFollow', 'Seguimiento de pacientes')
         .addTag('ContactAttempt', 'Intentos de contacto')
         .addTag('RescueDirectory', 'Directorio de rescate')
+        .addTag('Specialties', 'Especialidades')
         .addBearerAuth()
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);

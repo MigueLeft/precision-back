@@ -4,5 +4,6 @@ export declare class CreateRescheduleDto {
     newDateTime: string;
     rescheduleReason: string;
     requestedBy: string;
+    rescheduleStatus?: string;
     notes?: string;
 }

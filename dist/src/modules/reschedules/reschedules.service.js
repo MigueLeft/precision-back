@@ -43,13 +43,22 @@ let ReschedulesService = ReschedulesService_1 = class ReschedulesService {
             if (conflictingAppointment) {
                 throw new common_1.ConflictException('The new time slot is already occupied by another appointment');
             }
+            const rescheduleStatus = createRescheduleDto.rescheduleStatus || 'pending';
+            const newDateTime = new Date(createRescheduleDto.newDateTime);
+            if (rescheduleStatus === 'completed') {
+                await this.prisma.appointment.update({
+                    where: { id: createRescheduleDto.appointmentId },
+                    data: { dateTime: newDateTime },
+                });
+            }
             const reschedule = await this.prisma.reschedule.create({
                 data: {
                     appointmentId: createRescheduleDto.appointmentId,
                     previousDateTime: new Date(createRescheduleDto.previousDateTime),
-                    newDateTime: new Date(createRescheduleDto.newDateTime),
+                    newDateTime: newDateTime,
                     rescheduleReason: createRescheduleDto.rescheduleReason,
                     requestedBy: createRescheduleDto.requestedBy,
+                    rescheduleStatus: rescheduleStatus,
                     notes: createRescheduleDto.notes,
                 },
                 include: {

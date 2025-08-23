@@ -60,15 +60,6 @@ export class SpecialtiesService {
         skip,
         take: limit,
         orderBy,
-        include: {
-          medic: {
-            select: {
-              id: true,
-              name: true,
-              lastName: true,
-            },
-          },
-        },
       }),
       this.prisma.specialty.count({ where }),
     ]);
@@ -78,7 +69,7 @@ export class SpecialtiesService {
     this.logger.log(`Retrieved ${specialties.length} specialties (page ${page}/${totalPages})`);
 
     return {
-      items: specialties,
+      data: specialties,
       pagination: {
         currentPage: page,
         totalPages,
@@ -96,7 +87,7 @@ export class SpecialtiesService {
     const specialty = await this.prisma.specialty.findUnique({
       where: { id },
       include: {
-        medic: {
+        medics: {
           select: {
             id: true,
             name: true,
@@ -127,7 +118,7 @@ export class SpecialtiesService {
         where: { id },
         data: updateSpecialtyDto,
         include: {
-          medic: {
+          medics: {
             select: {
               id: true,
               name: true,
@@ -157,7 +148,7 @@ export class SpecialtiesService {
     const specialty = await this.findOne(id); // Verify specialty exists
 
     // Check if specialty has associated medic
-    if (specialty.medic) {
+    if (specialty.medics.length > 0) {
       this.logger.error(`Cannot delete specialty ${id}: has associated medic`);
       throw new ConflictException('No se puede eliminar una especialidad que tiene un médico asociado');
     }
@@ -176,7 +167,7 @@ export class SpecialtiesService {
     return this.prisma.specialty.findUnique({
       where: { name },
       include: {
-        medic: {
+        medics: {
           select: {
             id: true,
             name: true,

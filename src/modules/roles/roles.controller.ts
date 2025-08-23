@@ -25,7 +25,7 @@ import {
   import { QueryRoleDto } from './dto/query-role.dto'; 
   import { AssignPermissionsDto } from './dto/assign-permissions.dto';
   
-  @ApiTags('roles')
+  @ApiTags('Roles')
   @ApiBearerAuth()
   @Controller('roles')
   export class RolesController {

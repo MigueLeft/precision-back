@@ -15,20 +15,14 @@ export declare class SpecialtiesService {
         active: boolean;
     }>;
     findAll(queryDto: QuerySpecialtyDto): Promise<{
-        items: ({
-            medic: {
-                id: string;
-                name: string;
-                lastName: string;
-            } | null;
-        } & {
+        data: {
             id: string;
             name: string;
             description: string | null;
             createdAt: Date;
             updatedAt: Date;
             active: boolean;
-        })[];
+        }[];
         pagination: {
             currentPage: number;
             totalPages: number;
@@ -39,13 +33,13 @@ export declare class SpecialtiesService {
         };
     }>;
     findOne(id: string): Promise<{
-        medic: {
+        medics: {
             id: string;
             name: string;
             email: string;
             lastName: string;
             professionalTitle: string;
-        } | null;
+        }[];
     } & {
         id: string;
         name: string;
@@ -55,11 +49,11 @@ export declare class SpecialtiesService {
         active: boolean;
     }>;
     update(id: string, updateSpecialtyDto: UpdateSpecialtyDto): Promise<{
-        medic: {
+        medics: {
             id: string;
             name: string;
             lastName: string;
-        } | null;
+        }[];
     } & {
         id: string;
         name: string;
@@ -72,11 +66,11 @@ export declare class SpecialtiesService {
         message: string;
     }>;
     findByName(name: string): Promise<({
-        medic: {
+        medics: {
             id: string;
             name: string;
             lastName: string;
-        } | null;
+        }[];
     } & {
         id: string;
         name: string;

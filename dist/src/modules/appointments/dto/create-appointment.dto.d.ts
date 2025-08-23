@@ -4,6 +4,7 @@ export declare class CreateAppointmentDto {
     dateTime: string;
     appointmentType: string;
     appointmentStatus: string;
+    modality: string;
     reason?: string;
     notes?: string;
 }

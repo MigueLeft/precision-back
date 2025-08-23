@@ -5,6 +5,7 @@ model Appointment {
   dateTime          DateTime
   appointmentType   String       // 'first_time', 'follow_up', 'emergency', 'specialty'
   appointmentStatus String       // 'pending', 'scheduled', 'canceled', 'completed', 'no_show'
+  modality          String       @default("presencial") // 'presencial', 'online'
   reason            String?
   notes             String?
   createdAt         DateTime     @default(now())

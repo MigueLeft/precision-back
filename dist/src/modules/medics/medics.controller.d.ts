@@ -30,6 +30,17 @@ export declare class MedicsController {
         specialtyId: string;
         professionalTitle: string;
     }>;
+    getMedicStats(): Promise<{
+        total: number;
+        active: number;
+        inactive: number;
+        withUser: number;
+        withoutUser: number;
+        percentage: {
+            active: number;
+            withUser: number;
+        };
+    }>;
     findAll(query: QueryMedicDto): Promise<{
         data: ({
             user: {
@@ -67,31 +78,6 @@ export declare class MedicsController {
             totalPages: number;
             hasNext: boolean;
             hasPrev: boolean;
-        };
-    }>;
-    getActiveMedics(): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        specialty: {
-            id: string;
-            name: string;
-            description: string | null;
-        };
-        lastName: string;
-        identification: string;
-        phone: string | null;
-        professionalTitle: string;
-    }[]>;
-    getMedicStats(): Promise<{
-        total: number;
-        active: number;
-        inactive: number;
-        withUser: number;
-        withoutUser: number;
-        percentage: {
-            active: number;
-            withUser: number;
         };
     }>;
     findByIdentification(identification: string): Promise<{

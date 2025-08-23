@@ -178,7 +178,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PermissionsController.prototype, "bulkCreate", null);
 exports.PermissionsController = PermissionsController = __decorate([
-    (0, swagger_1.ApiTags)('permissions'),
+    (0, swagger_1.ApiTags)('Permissions'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('permissions'),
     __metadata("design:paramtypes", [permissions_service_1.PermissionsService])

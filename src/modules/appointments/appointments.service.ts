@@ -129,6 +129,7 @@ export class AppointmentsService {
               firstName: true,
               lastName: true,
               identification: true,
+              email: true
             },
           },
           medic: {

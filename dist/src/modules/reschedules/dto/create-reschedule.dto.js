@@ -19,6 +19,7 @@ class CreateRescheduleDto {
     newDateTime;
     rescheduleReason;
     requestedBy;
+    rescheduleStatus;
     notes;
 }
 exports.CreateRescheduleDto = CreateRescheduleDto;
@@ -69,6 +70,18 @@ __decorate([
     (0, class_validator_1.IsIn)(['PATIENT', 'MEDIC', 'SYSTEM']),
     __metadata("design:type", String)
 ], CreateRescheduleDto.prototype, "requestedBy", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Estado de la reprogramación. Por defecto es "pending"',
+        enum: ['pending', 'completed'],
+        example: 'pending',
+        default: 'pending',
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(['pending', 'completed']),
+    __metadata("design:type", String)
+], CreateRescheduleDto.prototype, "rescheduleStatus", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Notas adicionales sobre la reprogramación',

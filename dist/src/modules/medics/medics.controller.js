@@ -27,14 +27,12 @@ let MedicsController = class MedicsController {
     create(createMedicDto) {
         return this.medicsService.create(createMedicDto);
     }
-    findAll(query) {
-        return this.medicsService.findAll(query);
-    }
-    getActiveMedics() {
-        return this.medicsService.getActiveMedics();
-    }
     getMedicStats() {
         return this.medicsService.getMedicStats();
+    }
+    findAll(query) {
+        console.log('QUERYYYYYYYYYYYYYYYY', query);
+        return this.medicsService.findAll(query);
     }
     findByIdentification(identification) {
         return this.medicsService.findByIdentification(identification);
@@ -83,6 +81,17 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], MedicsController.prototype, "create", null);
 __decorate([
+    (0, common_1.Get)('stats'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener estadísticas de médicos' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Estadísticas de médicos obtenidas exitosamente',
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], MedicsController.prototype, "getMedicStats", null);
+__decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener todos los médicos con paginación y filtros' }),
     (0, swagger_1.ApiResponse)({
@@ -94,28 +103,6 @@ __decorate([
     __metadata("design:paramtypes", [query_medic_dto_1.QueryMedicDto]),
     __metadata("design:returntype", void 0)
 ], MedicsController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)('active'),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener solo médicos activos (sin paginación)' }),
-    (0, swagger_1.ApiResponse)({
-        status: 200,
-        description: 'Lista de médicos activos obtenida exitosamente',
-    }),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], MedicsController.prototype, "getActiveMedics", null);
-__decorate([
-    (0, common_1.Get)('stats'),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener estadísticas de médicos' }),
-    (0, swagger_1.ApiResponse)({
-        status: 200,
-        description: 'Estadísticas de médicos obtenidas exitosamente',
-    }),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], MedicsController.prototype, "getMedicStats", null);
 __decorate([
     (0, common_1.Get)('identification/:identification'),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener un médico por número de identificación' }),
@@ -297,7 +284,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], MedicsController.prototype, "bulkCreate", null);
 exports.MedicsController = MedicsController = __decorate([
-    (0, swagger_1.ApiTags)('medics'),
+    (0, swagger_1.ApiTags)('Medics'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('medics'),
     __metadata("design:paramtypes", [medics_service_1.MedicsService])

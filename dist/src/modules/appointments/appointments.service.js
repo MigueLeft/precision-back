@@ -111,6 +111,7 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
                             firstName: true,
                             lastName: true,
                             identification: true,
+                            email: true
                         },
                     },
                     medic: {

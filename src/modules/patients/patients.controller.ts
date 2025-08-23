@@ -23,7 +23,7 @@ import {
   import { UpdatePatientDto } from './dto/update-patient.dto';
   import { QueryPatientDto } from './dto/query-patient.dto';
     
-  @ApiTags('patients')
+  @ApiTags('Patients')
   @ApiBearerAuth()
   @Controller('patients')
   export class PatientsController {

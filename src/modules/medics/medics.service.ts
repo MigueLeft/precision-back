@@ -23,14 +23,6 @@ export class MedicsService {
         throw new BadRequestException(`Specialty with ID ${createMedicDto.specialtyId} not found`);
       }
 
-      // Verificar que la especialidad no esté ya asignada a otro médico
-      const existingMedicWithSpecialty = await this.prisma.medic.findUnique({
-        where: { specialtyId: createMedicDto.specialtyId },
-      });
-
-      if (existingMedicWithSpecialty) {
-        throw new ConflictException('Specialty is already assigned to another medic');
-      }
 
       // Verificar que el usuario existe si se proporciona userId
       if (createMedicDto.userId) {
@@ -98,6 +90,9 @@ export class MedicsService {
     const { page = 1, limit = 10, search, active, specialty, sortBy = 'id', sortOrder = 'asc' } = query;
     const skip = (page - 1) * limit;
 
+    this.logger.log(`Raw query object: ${JSON.stringify(query)}`);
+    this.logger.log(`Filtering medics with active: ${active} (type: ${typeof active})`);
+
     const where: Prisma.MedicWhereInput = {
       ...(search && {
         OR: [
@@ -108,9 +103,11 @@ export class MedicsService {
           { specialty: { name: { contains: search, mode: 'insensitive' } } },
         ],
       }),
-      ...(typeof active === 'boolean' && { active }),
+      ...(active !== undefined && { active }),
       ...(specialty && { specialty: { name: { contains: specialty, mode: 'insensitive' } } }),
     };
+
+    this.logger.log(`Where clause: ${JSON.stringify(where)}`);
 
     const orderBy: Prisma.MedicOrderByWithRelationInput = {
       [sortBy]: sortOrder,
@@ -466,32 +463,6 @@ export class MedicsService {
       }
       throw error;
     }
-  }
-
-  async getActiveMedics() {
-    return this.prisma.medic.findMany({
-      where: { active: true },
-      select: {
-        id: true,
-        name: true,
-        lastName: true,
-        identification: true,
-        email: true,
-        phone: true,
-        professionalTitle: true,
-        specialty: {
-          select: {
-            id: true,
-            name: true,
-            description: true,
-          },
-        },
-      },
-      orderBy: [
-        { name: 'asc' },
-        { lastName: 'asc' },
-      ],
-    });
   }
 
   async bulkCreate(medics: CreateMedicDto[]) {

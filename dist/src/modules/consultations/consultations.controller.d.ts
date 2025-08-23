@@ -45,6 +45,7 @@ export declare class ConsultationsController {
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
+            modality: string;
             reason: string | null;
             notes: string | null;
             requiresFollowUp: boolean;
@@ -101,6 +102,7 @@ export declare class ConsultationsController {
                 dateTime: Date;
                 appointmentType: string;
                 appointmentStatus: string;
+                modality: string;
                 reason: string | null;
                 notes: string | null;
                 requiresFollowUp: boolean;
@@ -172,6 +174,7 @@ export declare class ConsultationsController {
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
+            modality: string;
             reason: string | null;
             notes: string | null;
             requiresFollowUp: boolean;
@@ -236,6 +239,7 @@ export declare class ConsultationsController {
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
+            modality: string;
             reason: string | null;
             notes: string | null;
             requiresFollowUp: boolean;
@@ -300,6 +304,7 @@ export declare class ConsultationsController {
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
+            modality: string;
             reason: string | null;
             notes: string | null;
             requiresFollowUp: boolean;
@@ -355,6 +360,7 @@ export declare class ConsultationsController {
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
+            modality: string;
             reason: string | null;
             notes: string | null;
             requiresFollowUp: boolean;

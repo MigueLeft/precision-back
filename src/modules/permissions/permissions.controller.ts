@@ -25,7 +25,7 @@ import {
   import { UpdatePermissionDto } from './dto/update-permission.dto';
   import { QueryPermissionDto } from './dto/query-permission.dto';
   
-  @ApiTags('permissions')
+  @ApiTags('Permissions')
   @ApiBearerAuth()
   @Controller('permissions')
   export class PermissionsController {

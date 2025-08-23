@@ -1,4 +1,4 @@
-import { IsString, IsDateString, IsOptional } from 'class-validator';
+import { IsString, IsDateString, IsOptional, IsIn } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotPastDate } from 'src/common/dtos/validators/not-past-date.validator';
 
@@ -41,6 +41,18 @@ export class CreateAppointmentDto {
   })
   @IsString()
   appointmentStatus: string;
+
+  @ApiProperty({
+    description: 'Modalidad de la cita',
+    example: 'presencial',
+    enum: ['presencial', 'online'],
+    default: 'presencial',
+  })
+  @IsString()
+  @IsIn(['presencial', 'online'], {
+    message: 'La modalidad debe ser presencial u online'
+  })
+  modality: string = 'presencial';
 
   @ApiPropertyOptional({
     description: 'Razón de la cita',

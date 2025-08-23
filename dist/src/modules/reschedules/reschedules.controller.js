@@ -159,7 +159,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ReschedulesController.prototype, "findByAppointment", null);
 exports.ReschedulesController = ReschedulesController = __decorate([
-    (0, swagger_1.ApiTags)('reschedules'),
+    (0, swagger_1.ApiTags)('Reschedules'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('reschedules'),
     __metadata("design:paramtypes", [reschedules_service_1.ReschedulesService])

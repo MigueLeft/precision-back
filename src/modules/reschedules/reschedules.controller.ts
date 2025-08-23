@@ -22,7 +22,7 @@ import { CreateRescheduleDto } from './dto/create-reschedule.dto';
 import { UpdateRescheduleDto } from './dto/update-reschedule.dto';
 import { QueryRescheduleDto } from './dto/query-reschedule.dto';
 
-@ApiTags('reschedules')
+@ApiTags('Reschedules')
 @ApiBearerAuth()
 @Controller('reschedules')
 export class ReschedulesController {

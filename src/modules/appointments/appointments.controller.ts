@@ -22,7 +22,7 @@ import {
   import { UpdateAppointmentDto } from './dto/update-appointment.dto'; 
   import { QueryAppointmentDto } from './dto/query-appointment.dto';
   
-  @ApiTags('appointments')
+  @ApiTags('Appointments')
   @ApiBearerAuth()
   @Controller('appointments')
   export class AppointmentsController {

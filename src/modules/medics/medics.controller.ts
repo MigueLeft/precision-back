@@ -22,7 +22,7 @@ import {
   import { UpdateMedicDto } from './dto/update-medic.dto';
   import { QueryMedicDto } from './dto/query-medic.dto';
     
-  @ApiTags('medics')
+  @ApiTags('Medics')
   @ApiBearerAuth()
   @Controller('medics')
   export class MedicsController {
@@ -46,26 +46,6 @@ import {
       return this.medicsService.create(createMedicDto);
     }
   
-    @Get()
-    @ApiOperation({ summary: 'Obtener todos los médicos con paginación y filtros' })
-    @ApiResponse({
-      status: 200,
-      description: 'Lista de médicos obtenida exitosamente',
-    })
-    findAll(@Query() query: QueryMedicDto) {
-      return this.medicsService.findAll(query);
-    }
-  
-    @Get('active')
-    @ApiOperation({ summary: 'Obtener solo médicos activos (sin paginación)' })
-    @ApiResponse({
-      status: 200,
-      description: 'Lista de médicos activos obtenida exitosamente',
-    })
-    getActiveMedics() {
-      return this.medicsService.getActiveMedics();
-    }
-  
     @Get('stats')
     @ApiOperation({ summary: 'Obtener estadísticas de médicos' })
     @ApiResponse({
@@ -74,6 +54,17 @@ import {
     })
     getMedicStats() {
       return this.medicsService.getMedicStats();
+    }
+  
+    @Get()
+    @ApiOperation({ summary: 'Obtener todos los médicos con paginación y filtros' })
+    @ApiResponse({
+      status: 200,
+      description: 'Lista de médicos obtenida exitosamente',
+    })
+    findAll(@Query() query: QueryMedicDto) {
+      console.log('QUERYYYYYYYYYYYYYYYY',query);
+      return this.medicsService.findAll(query);
     }
   
     @Get('identification/:identification')

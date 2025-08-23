@@ -269,7 +269,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], RolesController.prototype, "bulkCreate", null);
 exports.RolesController = RolesController = __decorate([
-    (0, swagger_1.ApiTags)('roles'),
+    (0, swagger_1.ApiTags)('Roles'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('roles'),
     __metadata("design:paramtypes", [roles_service_1.RolesService])

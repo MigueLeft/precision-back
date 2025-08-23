@@ -46,6 +46,17 @@ export class CreateRescheduleDto {
   requestedBy: string;
 
   @ApiPropertyOptional({
+    description: 'Estado de la reprogramación. Por defecto es "pending"',
+    enum: ['pending', 'completed'],
+    example: 'pending',
+    default: 'pending',
+  })
+  @IsOptional()
+  @IsString()
+  @IsIn(['pending', 'completed'])
+  rescheduleStatus?: string;
+
+  @ApiPropertyOptional({
     description: 'Notas adicionales sobre la reprogramación',
     example: 'El paciente tuvo una emergencia familiar',
   })

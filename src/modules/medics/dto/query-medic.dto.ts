@@ -38,11 +38,11 @@ export class QueryMedicDto {
     example: true
   })
   @IsOptional()
-  @Transform(({ value }) => {
-    if (value === 'true') return true;
-    if (value === 'false') return false;
-    return value;
-  })
+  // @Transform(({ value }) => {
+  //   if (value === 'true' || value === true) return true;
+  //   if (value === 'false' || value === false) return false;
+  //   return undefined;
+  // })
   @IsBoolean()
   active?: boolean;
 

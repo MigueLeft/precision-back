@@ -135,7 +135,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AppointmentsController.prototype, "remove", null);
 exports.AppointmentsController = AppointmentsController = __decorate([
-    (0, swagger_1.ApiTags)('appointments'),
+    (0, swagger_1.ApiTags)('Appointments'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('appointments'),
     __metadata("design:paramtypes", [appointments_service_1.AppointmentsService])

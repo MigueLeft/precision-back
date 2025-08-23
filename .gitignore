@@ -3,3 +3,14 @@ node_modules
 .env
 
 /generated/prisma
+
+# Ignorar todos los archivos .md
+*.md
+
+# Pero NO ignorar README.md
+!README.md
+
+prisma/migrations/
+
+
+

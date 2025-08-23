@@ -297,7 +297,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PatientsController.prototype, "bulkCreate", null);
 exports.PatientsController = PatientsController = __decorate([
-    (0, swagger_1.ApiTags)('patients'),
+    (0, swagger_1.ApiTags)('Patients'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('patients'),
     __metadata("design:paramtypes", [patients_service_1.PatientsService])

@@ -16,6 +16,7 @@ export declare class AppointmentsService {
         dateTime: Date;
         appointmentType: string;
         appointmentStatus: string;
+        modality: string;
         reason: string | null;
         notes: string | null;
         requiresFollowUp: boolean;
@@ -37,6 +38,7 @@ export declare class AppointmentsService {
             };
             patient: {
                 id: string;
+                email: string;
                 firstName: string;
                 lastName: string;
                 identification: string;
@@ -51,6 +53,7 @@ export declare class AppointmentsService {
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
+            modality: string;
             reason: string | null;
             notes: string | null;
             requiresFollowUp: boolean;
@@ -97,6 +100,7 @@ export declare class AppointmentsService {
         dateTime: Date;
         appointmentType: string;
         appointmentStatus: string;
+        modality: string;
         reason: string | null;
         notes: string | null;
         requiresFollowUp: boolean;
@@ -114,6 +118,7 @@ export declare class AppointmentsService {
         dateTime: Date;
         appointmentType: string;
         appointmentStatus: string;
+        modality: string;
         reason: string | null;
         notes: string | null;
         requiresFollowUp: boolean;
