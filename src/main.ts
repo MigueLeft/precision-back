@@ -31,7 +31,7 @@ async function bootstrap() {
   });
 
   // Prefijo Global
-  // app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('api/v1');
 
   // Swagger Documentation
   const config = new DocumentBuilder()
