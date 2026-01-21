@@ -21,7 +21,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'IDs de los permisos a asignar',
         example: [1, 2, 3],
-        type: [Number]
+        type: [Number],
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.IsInt)({ each: true }),

@@ -27,7 +27,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de página',
         example: 1,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Number),
@@ -39,7 +39,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de elementos por página',
         example: 10,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Number),
@@ -50,7 +50,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Buscar por nombre, apellido, identificación, email o número de registro',
-        example: 'Juan'
+        example: 'Juan',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -59,7 +59,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Filtrar por estado activo',
-        example: true
+        example: true,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsBoolean)(),
@@ -68,7 +68,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Filtrar por especialidad',
-        example: 'Cardiología'
+        example: 'Cardiología',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -78,7 +78,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Ordenar por campo',
         example: 'name',
-        enum: ['name', 'lastName', 'email', 'registrationNumber', 'createdAt']
+        enum: ['name', 'lastName', 'email', 'registrationNumber', 'createdAt'],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -88,7 +88,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Dirección del ordenamiento',
         example: 'asc',
-        enum: ['asc', 'desc']
+        enum: ['asc', 'desc'],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

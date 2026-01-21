@@ -7,8 +7,8 @@ export declare class RescueDirectoryController {
     constructor(rescueDirectoryService: RescueDirectoryService);
     create(createRescueDirectoryDto: CreateRescueDirectoryDto): Promise<{
         patient: {
-            id: string;
             email: string;
+            id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
@@ -43,8 +43,8 @@ export declare class RescueDirectoryController {
     findAll(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -86,8 +86,8 @@ export declare class RescueDirectoryController {
     getActiveEntries(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -129,8 +129,8 @@ export declare class RescueDirectoryController {
     getHighPriorityEntries(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -172,8 +172,8 @@ export declare class RescueDirectoryController {
     getCriticalEntries(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -215,8 +215,8 @@ export declare class RescueDirectoryController {
     getByPatient(patientId: string, queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -257,8 +257,8 @@ export declare class RescueDirectoryController {
     }>;
     findOne(id: string): Promise<{
         patient: {
-            id: string;
             email: string;
+            id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
@@ -287,6 +287,7 @@ export declare class RescueDirectoryController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            completedAt: Date | null;
             notes: string | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -299,7 +300,6 @@ export declare class RescueDirectoryController {
             attemptCount: number;
             maxAttempts: number;
             assignedTo: string | null;
-            completedAt: Date | null;
         };
     } & {
         id: string;
@@ -322,8 +322,8 @@ export declare class RescueDirectoryController {
     }>;
     update(id: string, updateRescueDirectoryDto: UpdateRescueDirectoryDto): Promise<{
         patient: {
-            id: string;
             email: string;
+            id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
@@ -359,18 +359,34 @@ export declare class RescueDirectoryController {
         reactivationNotes?: string;
     }): Promise<{
         patient: {
+            email: string;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            email: string;
+            active: boolean;
             firstName: string;
             lastName: string;
             identification: string;
             phone: string | null;
             birthdate: Date;
             gender: string;
-            active: boolean;
             userId: string | null;
+            identificationType: string | null;
+            nationality: string | null;
+            countryOfOrigin: string | null;
+            countryOfResidence: string | null;
+            address: string | null;
+            city: string | null;
+            maritalStatus: string | null;
+            ethnicity: string | null;
+            race: string | null;
+            preferredLanguage: string | null;
+            educationLevel: string | null;
+            socioeconomicStatus: number | null;
+            currentIllness: string | null;
+            diagnosticPlan: string | null;
+            lastClinicalUpdateBy: string | null;
+            lastClinicalUpdateAt: Date | null;
         };
         originalFollowUp: {
             id: string;
@@ -378,6 +394,7 @@ export declare class RescueDirectoryController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            completedAt: Date | null;
             notes: string | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -390,7 +407,6 @@ export declare class RescueDirectoryController {
             attemptCount: number;
             maxAttempts: number;
             assignedTo: string | null;
-            completedAt: Date | null;
         };
     } & {
         id: string;
@@ -413,18 +429,34 @@ export declare class RescueDirectoryController {
     }>;
     archiveEntry(id: string): Promise<{
         patient: {
+            email: string;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            email: string;
+            active: boolean;
             firstName: string;
             lastName: string;
             identification: string;
             phone: string | null;
             birthdate: Date;
             gender: string;
-            active: boolean;
             userId: string | null;
+            identificationType: string | null;
+            nationality: string | null;
+            countryOfOrigin: string | null;
+            countryOfResidence: string | null;
+            address: string | null;
+            city: string | null;
+            maritalStatus: string | null;
+            ethnicity: string | null;
+            race: string | null;
+            preferredLanguage: string | null;
+            educationLevel: string | null;
+            socioeconomicStatus: number | null;
+            currentIllness: string | null;
+            diagnosticPlan: string | null;
+            lastClinicalUpdateBy: string | null;
+            lastClinicalUpdateAt: Date | null;
         };
     } & {
         id: string;

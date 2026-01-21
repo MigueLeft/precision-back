@@ -22,6 +22,14 @@ const reschedules_module_1 = require("./modules/reschedules/reschedules.module")
 const patient_follow_module_1 = require("./modules/patient-follow/patient-follow.module");
 const contact_attempt_module_1 = require("./modules/contact-attempt/contact-attempt.module");
 const rescue_directory_module_1 = require("./modules/rescue-directory/rescue-directory.module");
+const questionnaires_module_1 = require("./modules/questionnaires/questionnaires.module");
+const antecedents_module_1 = require("./modules/antecedents/antecedents.module");
+const physical_examinations_module_1 = require("./modules/physical-examinations/physical-examinations.module");
+const symptoms_module_1 = require("./modules/symptoms/symptoms.module");
+const diagnostics_module_1 = require("./modules/diagnostics/diagnostics.module");
+const treatments_module_1 = require("./modules/treatments/treatments.module");
+const medical_studies_module_1 = require("./modules/medical-studies/medical-studies.module");
+const laboratory_exams_module_1 = require("./modules/laboratory-exams/laboratory-exams.module");
 const prisma_exception_filter_1 = require("./common/filters/prisma-exception.filter");
 const transform_interceptor_1 = require("./common/interceptors/transform.interceptor");
 const validation_pipe_1 = require("./common/pipes/validation.pipe");
@@ -48,7 +56,15 @@ exports.AppModule = AppModule = __decorate([
             reschedules_module_1.ReschedulesModule,
             patient_follow_module_1.PatientFollowModule,
             contact_attempt_module_1.ContactAttemptModule,
-            rescue_directory_module_1.RescueDirectoryModule
+            rescue_directory_module_1.RescueDirectoryModule,
+            questionnaires_module_1.QuestionnairesModule,
+            antecedents_module_1.AntecedentsModule,
+            physical_examinations_module_1.PhysicalExaminationsModule,
+            symptoms_module_1.SymptomsModule,
+            diagnostics_module_1.DiagnosticsModule,
+            treatments_module_1.TreatmentsModule,
+            medical_studies_module_1.MedicalStudiesModule,
+            laboratory_exams_module_1.LaboratoryExamsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

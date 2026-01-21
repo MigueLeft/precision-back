@@ -1,5 +1,9 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { PrismaService } from 'src/config/database/prisma.service';  // Ajusta la ruta según tu estructura
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
+import { PrismaService } from 'src/config/database/prisma.service'; // Ajusta la ruta según tu estructura
 import { CreateConsultationDto } from './dto/create-consultation.dto';
 import { UpdateConsultationDto } from './dto/update-consultation.dto';
 import { QueryConsultationDto } from './dto/query-consultation.dto';
@@ -41,9 +45,11 @@ export class ConsultationsService {
       const consultation = await this.prisma.consultation.create({
         data: {
           ...createConsultationDto,
-          realizationDateTime: new Date(createConsultationDto.realizationDateTime),
-          suggestedNextControl: createConsultationDto.suggestedNextControl 
-            ? new Date(createConsultationDto.suggestedNextControl) 
+          realizationDateTime: new Date(
+            createConsultationDto.realizationDateTime,
+          ),
+          suggestedNextControl: createConsultationDto.suggestedNextControl
+            ? new Date(createConsultationDto.suggestedNextControl)
             : null,
         },
         include: {
@@ -58,7 +64,10 @@ export class ConsultationsService {
 
       return consultation;
     } catch (error) {
-      if (error instanceof NotFoundException || error instanceof BadRequestException) {
+      if (
+        error instanceof NotFoundException ||
+        error instanceof BadRequestException
+      ) {
         throw error;
       }
       throw new BadRequestException('Error al crear la consulta');
@@ -206,7 +215,11 @@ export class ConsultationsService {
       }
 
       // Si se actualiza appointmentId, verificar que la cita existe y no tiene otra consulta
-      if (updateConsultationDto.appointmentId && updateConsultationDto.appointmentId !== existingConsultation.appointmentId) {
+      if (
+        updateConsultationDto.appointmentId &&
+        updateConsultationDto.appointmentId !==
+          existingConsultation.appointmentId
+      ) {
         const appointment = await this.prisma.appointment.findUnique({
           where: { id: updateConsultationDto.appointmentId },
         });
@@ -215,12 +228,15 @@ export class ConsultationsService {
           throw new NotFoundException('La cita especificada no existe');
         }
 
-        const consultationWithSameAppointment = await this.prisma.consultation.findUnique({
-          where: { appointmentId: updateConsultationDto.appointmentId },
-        });
+        const consultationWithSameAppointment =
+          await this.prisma.consultation.findUnique({
+            where: { appointmentId: updateConsultationDto.appointmentId },
+          });
 
         if (consultationWithSameAppointment) {
-          throw new BadRequestException('Ya existe una consulta para esta cita');
+          throw new BadRequestException(
+            'Ya existe una consulta para esta cita',
+          );
         }
       }
 
@@ -238,11 +254,15 @@ export class ConsultationsService {
       const updateData: any = { ...updateConsultationDto };
 
       if (updateConsultationDto.realizationDateTime) {
-        updateData.realizationDateTime = new Date(updateConsultationDto.realizationDateTime);
+        updateData.realizationDateTime = new Date(
+          updateConsultationDto.realizationDateTime,
+        );
       }
 
       if (updateConsultationDto.suggestedNextControl) {
-        updateData.suggestedNextControl = new Date(updateConsultationDto.suggestedNextControl);
+        updateData.suggestedNextControl = new Date(
+          updateConsultationDto.suggestedNextControl,
+        );
       }
 
       const consultation = await this.prisma.consultation.update({
@@ -260,7 +280,10 @@ export class ConsultationsService {
 
       return consultation;
     } catch (error) {
-      if (error instanceof NotFoundException || error instanceof BadRequestException) {
+      if (
+        error instanceof NotFoundException ||
+        error instanceof BadRequestException
+      ) {
         throw error;
       }
       throw new BadRequestException('Error al actualizar la consulta');

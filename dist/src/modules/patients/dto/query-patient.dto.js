@@ -18,6 +18,7 @@ class QueryPatientDto {
     limit = 10;
     search;
     active;
+    birthdate;
     birthdateFrom;
     birthdateTo;
     gender;
@@ -29,7 +30,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de página',
         example: 1,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Number),
@@ -41,7 +42,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de elementos por página',
         example: 10,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Number),
@@ -52,7 +53,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Buscar por nombre, apellido, identificación o email',
-        example: 'Juan'
+        example: 'Juan',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -61,7 +62,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Filtrar por estado activo',
-        example: true
+        example: true,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Transform)(({ value }) => {
@@ -76,8 +77,17 @@ __decorate([
 ], QueryPatientDto.prototype, "active", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
+        description: 'Fecha de nacimiento exacta (ISO 8601). Si se proporciona, se ignoran birthdateFrom y birthdateTo',
+        example: '1990-05-15',
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], QueryPatientDto.prototype, "birthdate", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
         description: 'Fecha de nacimiento desde (ISO 8601)',
-        example: '1980-01-01'
+        example: '1980-01-01',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsDateString)(),
@@ -86,7 +96,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Fecha de nacimiento hasta (ISO 8601)',
-        example: '2000-12-31'
+        example: '2000-12-31',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsDateString)(),
@@ -96,7 +106,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Género del paciente',
         example: 'Masculino',
-        enum: ['Masculino', 'Femenino']
+        enum: ['Masculino', 'Femenino'],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -106,7 +116,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Ordenar por campo',
         example: 'firstName',
-        enum: ['firstName', 'lastName', 'email', 'birthdate', 'createdAt']
+        enum: ['firstName', 'lastName', 'email', 'birthdate', 'createdAt'],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -116,7 +126,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Dirección del ordenamiento',
         example: 'asc',
-        enum: ['asc', 'desc']
+        enum: ['asc', 'desc'],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

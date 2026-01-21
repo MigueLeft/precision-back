@@ -1,8 +1,13 @@
-import { Injectable, NotFoundException, ConflictException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto'; 
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { QueryUserDto } from './dto/query-user.dto'; 
+import { QueryUserDto } from './dto/query-user.dto';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -19,7 +24,9 @@ export class UsersService {
       });
 
       if (!roleExists) {
-        throw new ConflictException(`Role with ID ${createUserDto.roleId} not found`);
+        throw new ConflictException(
+          `Role with ID ${createUserDto.roleId} not found`,
+        );
       }
 
       const user = await this.prisma.user.create({
@@ -48,7 +55,14 @@ export class UsersService {
   }
 
   async findAll(query: QueryUserDto) {
-    const { page = 1, limit = 10, search, sortBy = 'createdAt', sortOrder = 'desc', roleId } = query;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      roleId,
+    } = query;
     const skip = (page - 1) * limit;
 
     const where: Prisma.UserWhereInput = {
@@ -136,7 +150,9 @@ export class UsersService {
         });
 
         if (!roleExists) {
-          throw new ConflictException(`Role with ID ${updateUserDto.roleId} not found`);
+          throw new ConflictException(
+            `Role with ID ${updateUserDto.roleId} not found`,
+          );
         }
       }
 

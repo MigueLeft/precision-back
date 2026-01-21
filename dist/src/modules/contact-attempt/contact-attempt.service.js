@@ -48,8 +48,9 @@ let ContactAttemptService = ContactAttemptService_1 = class ContactAttemptServic
             const contactAttempt = await this.prisma.contactAttempt.create({
                 data: {
                     ...createContactAttemptDto,
-                    contactDateTime: createContactAttemptDto.contactDateTime ?
-                        new Date(createContactAttemptDto.contactDateTime) : new Date(),
+                    contactDateTime: createContactAttemptDto.contactDateTime
+                        ? new Date(createContactAttemptDto.contactDateTime)
+                        : new Date(),
                 },
                 include: {
                     followUp: {

@@ -53,7 +53,7 @@ let UsersService = UsersService_1 = class UsersService {
         }
     }
     async findAll(query) {
-        const { page = 1, limit = 10, search, sortBy = 'createdAt', sortOrder = 'desc', roleId } = query;
+        const { page = 1, limit = 10, search, sortBy = 'createdAt', sortOrder = 'desc', roleId, } = query;
         const skip = (page - 1) * limit;
         const where = {
             ...(search && {

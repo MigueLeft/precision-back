@@ -5,9 +5,9 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
-  
+
   const app = await NestFactory.create(AppModule);
-  
+
   // Enable CORS
   app.enableCors({
     origin: process.env.FRONTEND_URL || 'http://localhost:3000',
@@ -33,6 +33,7 @@ async function bootstrap() {
     .addTag('ContactAttempt', 'Intentos de contacto')
     .addTag('RescueDirectory', 'Directorio de rescate')
     .addTag('Specialties', 'Especialidades')
+    .addTag('Questionnaires', 'Cuestionarios')
     .addBearerAuth()
     .build();
 
@@ -45,13 +46,19 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3001;
   await app.listen(port);
-  
+
   logger.log(`🚀 Application is running on: http://localhost:${port}`);
   logger.log(`📚 Swagger docs available at: http://localhost:${port}/api/docs`);
   logger.log(`👥 Patients API: http://localhost:${port}/api/v1/patients`);
-  logger.log(`🔄 Patient Follow API: http://localhost:${port}/api/v1/patient-follow`);
-  logger.log(`📞 Contact Attempt API: http://localhost:${port}/api/v1/contact-attempt`);
-  logger.log(`🆘 Rescue Directory API: http://localhost:${port}/api/v1/rescue-directory`);
+  logger.log(
+    `🔄 Patient Follow API: http://localhost:${port}/api/v1/patient-follow`,
+  );
+  logger.log(
+    `📞 Contact Attempt API: http://localhost:${port}/api/v1/contact-attempt`,
+  );
+  logger.log(
+    `🆘 Rescue Directory API: http://localhost:${port}/api/v1/rescue-directory`,
+  );
 }
 
 bootstrap();

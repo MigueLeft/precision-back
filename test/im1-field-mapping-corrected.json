@@ -1,0 +1,182 @@
+{
+  "title": "IM1 Field Mapping - CORRECTED",
+  "description": "Mapeo correcto entre códigos de preguntas IM1 y campos del modelo Patient",
+  "status": "FIXED",
+  "issue_description": "Los campos del paciente se estaban guardando en ubicaciones incorrectas debido a mapeo erróneo de códigos IM1",
+  "corrected_mapping": {
+    "im1_a1_1": {
+      "question": "Nombre",
+      "patient_field": "firstName",
+      "data_type": "string",
+      "example": "Juan Carlos"
+    },
+    "im1_a1_2": {
+      "question": "Apellidos",
+      "patient_field": "lastName",
+      "data_type": "string",
+      "example": "Pérez García"
+    },
+    "im1_a1_3": {
+      "question": "Fecha de nacimiento",
+      "patient_field": "birthdate",
+      "data_type": "date",
+      "example": "1985-06-15"
+    },
+    "im1_a1_4": {
+      "question": "Sexo",
+      "patient_field": "gender",
+      "data_type": "string",
+      "example": "masculino",
+      "options": ["masculino", "femenino", "otro"]
+    },
+    "im1_a1_5": {
+      "question": "Correo Electrónico",
+      "patient_field": "email",
+      "data_type": "string",
+      "example": "juan.perez@email.com"
+    },
+    "im1_a1_6": {
+      "question": "Teléfono",
+      "patient_field": "phone",
+      "data_type": "string",
+      "example": "+57 312 456 7890"
+    },
+    "im1_a1_7": {
+      "question": "Nacionalidad",
+      "patient_field": "nationality",
+      "data_type": "string",
+      "example": "Colombiana"
+    },
+    "im1_a1_8": {
+      "question": "País de origen",
+      "patient_field": "countryOfOrigin",
+      "data_type": "string",
+      "example": "Colombia"
+    },
+    "im1_a1_9": {
+      "question": "País de residencia",
+      "patient_field": "countryOfResidence",
+      "data_type": "string",
+      "example": "Colombia"
+    },
+    "im1_a1_10": {
+      "question": "Dirección",
+      "patient_field": "address",
+      "data_type": "string",
+      "example": "Calle 123 #45-67"
+    },
+    "im1_a1_11": {
+      "question": "Ciudad",
+      "patient_field": "city",
+      "data_type": "string",
+      "example": "Bogotá"
+    },
+    "im1_a2_1": {
+      "question": "Estado civil",
+      "patient_field": "maritalStatus",
+      "data_type": "string",
+      "example": "casado",
+      "options": [
+        "nunca_casado",
+        "casado",
+        "separado",
+        "divorciado",
+        "viudo",
+        "conviviendo",
+        "no_responde"
+      ]
+    },
+    "im1_a3_1": {
+      "question": "Etnia",
+      "patient_field": "ethnicity",
+      "data_type": "string",
+      "example": "latino_hispano"
+    },
+    "im1_a3_2": {
+      "question": "Raza",
+      "patient_field": "race",
+      "data_type": "string",
+      "example": "mixto"
+    },
+    "im1_a4_1": {
+      "question": "Idioma preferido",
+      "patient_field": "preferredLanguage",
+      "data_type": "string",
+      "example": "espanol"
+    },
+    "im1_a5_1": {
+      "question": "Nivel educativo",
+      "patient_field": "educationLevel",
+      "data_type": "string",
+      "example": "4"
+    },
+    "im1_a6_1": {
+      "question": "Estatus socioeconómico",
+      "patient_field": "socioeconomicStatus",
+      "data_type": "number",
+      "example": 7
+    }
+  },
+  "previous_error_example": {
+    "description": "ANTES de la corrección - campos en ubicaciones incorrectas",
+    "wrong_data": {
+      "firstName": "Juan Carlos",
+      "lastName": "Pérez García",
+      "gender": "juan.perez.1759113838303@test.com",
+      "email": "+57 312 456 7890",
+      "phone": "Colombiana",
+      "nationality": "Colombia",
+      "identification": "IM1_1759113838754"
+    },
+    "issues": [
+      "Email se guardaba en gender",
+      "Teléfono se guardaba en email",
+      "Nacionalidad se guardaba en phone",
+      "Campo identification se genera automáticamente (no hay pregunta específica en IM1)"
+    ]
+  },
+  "corrected_result_example": {
+    "description": "DESPUÉS de la corrección - campos en ubicaciones correctas",
+    "correct_data": {
+      "firstName": "Juan Carlos",
+      "lastName": "Pérez García",
+      "gender": "masculino",
+      "email": "juan.perez@email.com",
+      "phone": "+57 312 456 7890",
+      "nationality": "Colombiana",
+      "countryOfOrigin": "Colombia",
+      "countryOfResidence": "Colombia",
+      "address": "Calle 123 #45-67",
+      "city": "Bogotá",
+      "maritalStatus": "casado",
+      "ethnicity": "latino_hispano",
+      "race": "mixto",
+      "preferredLanguage": "espanol",
+      "educationLevel": "4",
+      "socioeconomicStatus": 7,
+      "identification": "IM1_[timestamp]"
+    }
+  },
+  "special_fields": {
+    "identification": {
+      "description": "Se genera automáticamente con patrón IM1_[timestamp]",
+      "reason": "No hay pregunta específica de identificación en el cuestionario IM1",
+      "format": "IM1_1759113838754"
+    },
+    "identificationType": {
+      "description": "Se establece como 'passport' por defecto",
+      "reason": "Campo requerido en el modelo Patient pero no hay pregunta específica en IM1"
+    },
+    "active": {
+      "description": "Se establece como true por defecto para pacientes nuevos"
+    },
+    "userId": {
+      "description": "Se mantiene como null hasta que el paciente se convierta en usuario del sistema"
+    }
+  },
+  "testing": {
+    "endpoint": "POST http://localhost:3001/api/v1/questionnaires/batch-answers",
+    "validation": "Después de enviar un cuestionario IM1, verificar que los campos del paciente se guarden correctamente en las ubicaciones apropiadas",
+    "example_request_body_file": "test/im1-simple-request.json"
+  }
+}

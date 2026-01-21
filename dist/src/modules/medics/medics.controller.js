@@ -93,7 +93,9 @@ __decorate([
 ], MedicsController.prototype, "getMedicStats", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener todos los médicos con paginación y filtros' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todos los médicos con paginación y filtros',
+    }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Lista de médicos obtenida exitosamente',
@@ -222,7 +224,7 @@ __decorate([
     (0, common_1.Post)(':id/convert-to-user'),
     (0, swagger_1.ApiOperation)({
         summary: 'Convertir médico en usuario del sistema',
-        description: 'Crea automáticamente un usuario del sistema usando los datos del médico. La contraseña será su número de identificación.'
+        description: 'Crea automáticamente un usuario del sistema usando los datos del médico. La contraseña será su número de identificación.',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',

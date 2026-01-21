@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException, ConflictException, BadRequestException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
@@ -20,7 +26,9 @@ export class PatientsService {
         });
 
         if (!user) {
-          throw new BadRequestException(`User with ID ${createPatientDto.userId} not found`);
+          throw new BadRequestException(
+            `User with ID ${createPatientDto.userId} not found`,
+          );
         }
 
         // Verificar que el usuario no esté ya asignado a otro paciente
@@ -29,7 +37,9 @@ export class PatientsService {
         });
 
         if (existingPatient) {
-          throw new ConflictException('User is already assigned to another patient');
+          throw new ConflictException(
+            'User is already assigned to another patient',
+          );
         }
       }
 
@@ -46,7 +56,9 @@ export class PatientsService {
         },
       });
 
-      this.logger.log(`Patient created: ${patient.firstName} ${patient.lastName}`);
+      this.logger.log(
+        `Patient created: ${patient.firstName} ${patient.lastName}`,
+      );
       return patient;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -66,7 +78,18 @@ export class PatientsService {
   }
 
   async findAll(query: QueryPatientDto) {
-    const { page = 1, limit = 10, search, active, birthdateFrom, birthdateTo, sortBy = 'id', sortOrder = 'asc', gender } = query;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      active,
+      birthdate,
+      birthdateFrom,
+      birthdateTo,
+      sortBy = 'id',
+      sortOrder = 'asc',
+      gender,
+    } = query;
     const skip = (page - 1) * limit;
 
     const where: Prisma.PatientWhereInput = {
@@ -79,18 +102,30 @@ export class PatientsService {
         ],
       }),
       ...(typeof active === 'boolean' && { active }),
-      ...(birthdateFrom && birthdateTo && {
+      ...(birthdate && {
         birthdate: {
-          gte: new Date(birthdateFrom),
-          lte: new Date(birthdateTo),
+          gte: new Date(new Date(birthdate).setHours(0, 0, 0, 0)),
+          lte: new Date(new Date(birthdate).setHours(23, 59, 59, 999)),
         },
       }),
-      ...(birthdateFrom && !birthdateTo && {
-        birthdate: { gte: new Date(birthdateFrom) },
-      }),
-      ...(birthdateTo && !birthdateFrom && {
-        birthdate: { lte: new Date(birthdateTo) },
-      }),
+      ...(!birthdate &&
+        birthdateFrom &&
+        birthdateTo && {
+          birthdate: {
+            gte: new Date(birthdateFrom),
+            lte: new Date(birthdateTo),
+          },
+        }),
+      ...(!birthdate &&
+        birthdateFrom &&
+        !birthdateTo && {
+          birthdate: { gte: new Date(birthdateFrom) },
+        }),
+      ...(!birthdate &&
+        birthdateTo &&
+        !birthdateFrom && {
+          birthdate: { lte: new Date(birthdateTo) },
+        }),
       ...(gender && { gender }),
     };
 
@@ -185,7 +220,9 @@ export class PatientsService {
     });
 
     if (!patient) {
-      throw new NotFoundException(`Patient with identification ${identification} not found`);
+      throw new NotFoundException(
+        `Patient with identification ${identification} not found`,
+      );
     }
 
     return patient;
@@ -236,7 +273,9 @@ export class PatientsService {
         });
 
         if (!user) {
-          throw new BadRequestException(`User with ID ${updatePatientDto.userId} not found`);
+          throw new BadRequestException(
+            `User with ID ${updatePatientDto.userId} not found`,
+          );
         }
 
         // Verificar que el usuario no esté ya asignado a otro paciente
@@ -246,7 +285,9 @@ export class PatientsService {
           });
 
           if (patientWithUser) {
-            throw new ConflictException('User is already assigned to another patient');
+            throw new ConflictException(
+              'User is already assigned to another patient',
+            );
           }
         }
       }
@@ -271,7 +312,9 @@ export class PatientsService {
         },
       });
 
-      this.logger.log(`Patient updated: ${patient.firstName} ${patient.lastName}`);
+      this.logger.log(
+        `Patient updated: ${patient.firstName} ${patient.lastName}`,
+      );
       return patient;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -296,7 +339,9 @@ export class PatientsService {
         where: { id },
       });
 
-      this.logger.log(`Patient deleted: ${patient.firstName} ${patient.lastName}`);
+      this.logger.log(
+        `Patient deleted: ${patient.firstName} ${patient.lastName}`,
+      );
       return { message: 'Patient deleted successfully' };
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -384,7 +429,9 @@ export class PatientsService {
         },
       });
 
-      this.logger.log(`Patient converted to user: ${patient.firstName} ${patient.lastName} (${newUser.email})`);
+      this.logger.log(
+        `Patient converted to user: ${patient.firstName} ${patient.lastName} (${newUser.email})`,
+      );
       return patient;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -412,7 +459,9 @@ export class PatientsService {
         },
       });
 
-      this.logger.log(`User removed from patient: ${patient.firstName} ${patient.lastName}`);
+      this.logger.log(
+        `User removed from patient: ${patient.firstName} ${patient.lastName}`,
+      );
       return patient;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -437,17 +486,14 @@ export class PatientsService {
         birthdate: true,
         gender: true,
       },
-      orderBy: [
-        { firstName: 'asc' },
-        { lastName: 'asc' },
-      ],
+      orderBy: [{ firstName: 'asc' }, { lastName: 'asc' }],
     });
   }
 
   async bulkCreate(patients: CreatePatientDto[]) {
     try {
       const createdPatients: any[] = [];
-      
+
       for (const patientDto of patients) {
         const patient = await this.create(patientDto);
         createdPatients.push(patient);
@@ -481,5 +527,212 @@ export class PatientsService {
         withUser: total > 0 ? Math.round((withUser / total) * 100) : 0,
       },
     };
+  }
+
+  async getPatientQuestionnaires(patientId: string) {
+    // Verificar que el paciente existe
+    const patient = await this.prisma.patient.findUnique({
+      where: { id: patientId },
+    });
+
+    if (!patient) {
+      throw new NotFoundException(`Patient with ID ${patientId} not found`);
+    }
+
+    const questionnaires = await this.prisma.patientQuestionnaire.findMany({
+      where: { patientId },
+      include: {
+        questionnaire: {
+          select: {
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            answers: true,
+          },
+        },
+      },
+      orderBy: {
+        startedAt: 'desc',
+      },
+    });
+
+    const result = questionnaires.map((q) => ({
+      id: q.id,
+      questionnaireName: q.questionnaire.name,
+      answeredAt: q.completedAt || q.startedAt,
+      numberOfQuestions: q._count.answers,
+    }));
+
+    this.logger.log(
+      `Retrieved ${questionnaires.length} questionnaires for patient ${patientId}`,
+    );
+    return result;
+  }
+
+  async getPatientQuestionnaireDetails(
+    patientId: string,
+    patientQuestionnaireId: string,
+  ) {
+    // Verificar que el paciente existe
+    const patient = await this.prisma.patient.findUnique({
+      where: { id: patientId },
+    });
+
+    if (!patient) {
+      throw new NotFoundException(`Patient with ID ${patientId} not found`);
+    }
+
+    const patientQuestionnaire =
+      await this.prisma.patientQuestionnaire.findUnique({
+        where: {
+          id: patientQuestionnaireId,
+        },
+        include: {
+          questionnaire: {
+            select: {
+              id: true,
+              code: true,
+              name: true,
+              description: true,
+              version: true,
+            },
+          },
+          answers: {
+            include: {
+              question: {
+                select: {
+                  id: true,
+                  code: true,
+                  questionText: true,
+                  questionType: true,
+                  inputType: true,
+                  options: true,
+                  hasScore: true,
+                },
+              },
+            },
+            orderBy: {
+              answeredAt: 'asc',
+            },
+          },
+        },
+      });
+
+    if (!patientQuestionnaire) {
+      throw new NotFoundException(
+        `Patient questionnaire with ID ${patientQuestionnaireId} not found`,
+      );
+    }
+
+    // Verificar que el cuestionario pertenece al paciente
+    if (patientQuestionnaire.patientId !== patientId) {
+      throw new NotFoundException(
+        `Patient questionnaire with ID ${patientQuestionnaireId} not found for patient ${patientId}`,
+      );
+    }
+
+    // Formatear las respuestas para incluir pregunta y respuesta juntas
+    const questionsWithAnswers = patientQuestionnaire.answers.map((answer) => ({
+      questionId: answer.question.id,
+      questionCode: answer.question.code,
+      questionText: answer.question.questionText,
+      questionType: answer.question.questionType,
+      inputType: answer.question.inputType,
+      options: answer.question.options,
+      hasScore: answer.question.hasScore,
+      answer: {
+        textValue: answer.textValue,
+        numericValue: answer.numericValue,
+        booleanValue: answer.booleanValue,
+        dateValue: answer.dateValue,
+        jsonValue: answer.jsonValue,
+        score: answer.score,
+        answeredAt: answer.answeredAt,
+      },
+    }));
+
+    this.logger.log(
+      `Retrieved questionnaire details for patient ${patientId}: ${questionsWithAnswers.length} questions`,
+    );
+
+    return {
+      patientQuestionnaireId: patientQuestionnaire.id,
+      questionnaire: patientQuestionnaire.questionnaire,
+      startedAt: patientQuestionnaire.startedAt,
+      completedAt: patientQuestionnaire.completedAt,
+      isCompleted: patientQuestionnaire.isCompleted,
+      totalScore: patientQuestionnaire.totalScore,
+      notes: patientQuestionnaire.notes,
+      totalQuestions: questionsWithAnswers.length,
+      questionsWithAnswers,
+    };
+  }
+
+  /**
+   * Update clinical information (current illness and diagnostic plan)
+   */
+  async updateClinicalInfo(
+    patientId: string,
+    currentIllness?: string,
+    diagnosticPlan?: string,
+    updatedBy?: string,
+  ) {
+    this.logger.log(`Updating clinical information for patient ${patientId}`);
+
+    // Verify patient exists
+    const patient = await this.findOne(patientId);
+
+    if (!patient) {
+      throw new NotFoundException(`Patient with ID ${patientId} not found`);
+    }
+
+    return this.prisma.patient.update({
+      where: { id: patientId },
+      data: {
+        currentIllness,
+        diagnosticPlan,
+        lastClinicalUpdateBy: updatedBy,
+        lastClinicalUpdateAt: new Date(),
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        identification: true,
+        currentIllness: true,
+        diagnosticPlan: true,
+        lastClinicalUpdateBy: true,
+        lastClinicalUpdateAt: true,
+      },
+    });
+  }
+
+  /**
+   * Get clinical information for a patient
+   */
+  async getClinicalInfo(patientId: string) {
+    this.logger.log(`Getting clinical information for patient ${patientId}`);
+
+    const patient = await this.prisma.patient.findUnique({
+      where: { id: patientId },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        identification: true,
+        currentIllness: true,
+        diagnosticPlan: true,
+        lastClinicalUpdateBy: true,
+        lastClinicalUpdateAt: true,
+      },
+    });
+
+    if (!patient) {
+      throw new NotFoundException(`Patient with ID ${patientId} not found`);
+    }
+
+    return patient;
   }
 }

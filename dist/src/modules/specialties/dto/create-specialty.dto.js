@@ -24,7 +24,7 @@ __decorate([
         description: 'Nombre de la especialidad',
         example: 'Cardiología',
         minLength: 2,
-        maxLength: 100
+        maxLength: 100,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
@@ -36,7 +36,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Descripción de la especialidad',
         example: 'Especialidad médica enfocada en el diagnóstico y tratamiento de enfermedades del corazón y sistema cardiovascular',
-        maxLength: 500
+        maxLength: 500,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -48,7 +48,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Estado activo de la especialidad',
         example: true,
-        default: true
+        default: true,
     }),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),

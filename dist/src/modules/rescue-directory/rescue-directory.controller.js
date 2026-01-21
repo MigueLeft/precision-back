@@ -72,7 +72,9 @@ __decorate([
 ], RescueDirectoryController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener todas las entradas del directorio de rescate' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todas las entradas del directorio de rescate',
+    }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de entradas obtenida' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -91,7 +93,10 @@ __decorate([
 __decorate([
     (0, common_1.Get)('high-priority'),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener entradas de alta prioridad' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de entradas de alta prioridad' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de entradas de alta prioridad',
+    }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [query_rescue_directory_dto_1.QueryRescueDirectoryDto]),

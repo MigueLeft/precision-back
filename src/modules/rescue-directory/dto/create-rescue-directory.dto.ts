@@ -1,5 +1,17 @@
-import { IsString, IsEnum, IsOptional, IsDateString, IsInt, Min } from 'class-validator';
-import { RescueReason, RescueStatus, RescueCategory, RescuePriority } from '@prisma/client';
+import {
+  IsString,
+  IsEnum,
+  IsOptional,
+  IsDateString,
+  IsInt,
+  Min,
+} from 'class-validator';
+import {
+  RescueReason,
+  RescueStatus,
+  RescueCategory,
+  RescuePriority,
+} from '@prisma/client';
 
 export class CreateRescueDirectoryDto {
   @IsString()

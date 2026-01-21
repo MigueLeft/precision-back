@@ -26,6 +26,7 @@ async function bootstrap() {
         .addTag('ContactAttempt', 'Intentos de contacto')
         .addTag('RescueDirectory', 'Directorio de rescate')
         .addTag('Specialties', 'Especialidades')
+        .addTag('Questionnaires', 'Cuestionarios')
         .addBearerAuth()
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);

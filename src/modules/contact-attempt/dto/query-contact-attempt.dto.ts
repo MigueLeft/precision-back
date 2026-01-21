@@ -1,4 +1,11 @@
-import { IsOptional, IsString, IsEnum, IsDateString, IsBoolean, IsInt } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsEnum,
+  IsDateString,
+  IsBoolean,
+  IsInt,
+} from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 import { ContactMethod, ContactResult } from '@prisma/client';
 

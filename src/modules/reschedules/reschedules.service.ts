@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException, ConflictException, Logger, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  Logger,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreateRescheduleDto } from './dto/create-reschedule.dto';
 import { UpdateRescheduleDto } from './dto/update-reschedule.dto';
@@ -23,7 +29,9 @@ export class ReschedulesService {
       });
 
       if (!appointmentExists) {
-        throw new NotFoundException(`Appointment with ID ${createRescheduleDto.appointmentId} not found`);
+        throw new NotFoundException(
+          `Appointment with ID ${createRescheduleDto.appointmentId} not found`,
+        );
       }
 
       // Verificar que no haya conflicto con el nuevo horario
@@ -37,11 +45,13 @@ export class ReschedulesService {
       });
 
       if (conflictingAppointment) {
-        throw new ConflictException('The new time slot is already occupied by another appointment');
+        throw new ConflictException(
+          'The new time slot is already occupied by another appointment',
+        );
       }
 
-
-      const rescheduleStatus = createRescheduleDto.rescheduleStatus || 'pending';
+      const rescheduleStatus =
+        createRescheduleDto.rescheduleStatus || 'pending';
       const newDateTime = new Date(createRescheduleDto.newDateTime);
 
       // Si se crea con estado completed, actualizar la fecha de la cita
@@ -91,7 +101,9 @@ export class ReschedulesService {
         },
       });
 
-      this.logger.log(`Reschedule created for appointment ${createRescheduleDto.appointmentId}`);
+      this.logger.log(
+        `Reschedule created for appointment ${createRescheduleDto.appointmentId}`,
+      );
       return reschedule;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -104,15 +116,15 @@ export class ReschedulesService {
   }
 
   async findAll(query: QueryRescheduleDto) {
-    const { 
-      page = 1, 
-      limit = 10, 
-      appointmentId, 
-      rescheduleStatus, 
-      requestedBy, 
+    const {
+      page = 1,
+      limit = 10,
+      appointmentId,
+      rescheduleStatus,
+      requestedBy,
       rescheduleReason,
       sortBy = 'createdAt',
-      sortOrder = 'desc'
+      sortOrder = 'desc',
     } = query;
     const skip = (page - 1) * limit;
 
@@ -241,8 +253,12 @@ export class ReschedulesService {
         where: { id },
         data: {
           ...updateRescheduleDto,
-          ...(updateRescheduleDto.newDateTime && { newDateTime: new Date(updateRescheduleDto.newDateTime) }),
-          ...(updateRescheduleDto.previousDateTime && { previousDateTime: new Date(updateRescheduleDto.previousDateTime) }),
+          ...(updateRescheduleDto.newDateTime && {
+            newDateTime: new Date(updateRescheduleDto.newDateTime),
+          }),
+          ...(updateRescheduleDto.previousDateTime && {
+            previousDateTime: new Date(updateRescheduleDto.previousDateTime),
+          }),
         },
         include: {
           appointment: {
@@ -273,7 +289,9 @@ export class ReschedulesService {
         },
       });
 
-      this.logger.log(`Reschedule updated: ${id} - Status: ${reschedule.rescheduleStatus}`);
+      this.logger.log(
+        `Reschedule updated: ${id} - Status: ${reschedule.rescheduleStatus}`,
+      );
       return reschedule;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -303,7 +321,6 @@ export class ReschedulesService {
       throw error;
     }
   }
-
 
   async findByAppointment(appointmentId: string) {
     const reschedules = await this.prisma.reschedule.findMany({

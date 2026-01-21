@@ -27,14 +27,22 @@ export class ContactAttemptController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Crear nuevo intento de contacto' })
-  @ApiResponse({ status: 201, description: 'Intento de contacto creado exitosamente' })
+  @ApiResponse({
+    status: 201,
+    description: 'Intento de contacto creado exitosamente',
+  })
   create(@Body() createContactAttemptDto: CreateContactAttemptDto) {
     return this.contactAttemptService.create(createContactAttemptDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Obtener todos los intentos de contacto con filtros' })
-  @ApiResponse({ status: 200, description: 'Lista de intentos de contacto obtenida' })
+  @ApiOperation({
+    summary: 'Obtener todos los intentos de contacto con filtros',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de intentos de contacto obtenida',
+  })
   findAll(@Query() queryDto: QueryContactAttemptDto) {
     return this.contactAttemptService.findAll(queryDto);
   }
@@ -63,7 +71,10 @@ export class ContactAttemptController {
   @Get('follow-up/:followUpId')
   @ApiOperation({ summary: 'Obtener intentos por seguimiento' })
   @ApiParam({ name: 'followUpId', description: 'ID del seguimiento' })
-  @ApiResponse({ status: 200, description: 'Intentos del seguimiento obtenidos' })
+  @ApiResponse({
+    status: 200,
+    description: 'Intentos del seguimiento obtenidos',
+  })
   getByFollowUp(
     @Param('followUpId') followUpId: string,
     @Query() queryDto: QueryContactAttemptDto,

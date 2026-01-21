@@ -1,0 +1,83 @@
+// ========================================
+// CATÁLOGO DE EXÁMENES DE LABORATORIO
+// ========================================
+// Sistema de catálogo de exámenes médicos y sus resultados
+// Permite llevar historial completo de valores de laboratorio
+
+model ExamCatalog {
+  id              String   @id @default(uuid()) @db.Uuid
+  category        String   @db.VarChar(50) // 'HEMATOLOGÍA', 'QUÍMICA', 'PROTEINAS', etc.
+  examName        String   @map("exam_name") @db.VarChar(100) // 'Hemoglobina', 'Creatinina', etc.
+  measurementUnit String?  @map("measurement_unit") @db.VarChar(20) // 'g/dL', 'mg/dL', '%', etc.
+
+  // Valores de referencia
+  referenceMin    Decimal? @map("reference_min") @db.Decimal(10,3)
+  referenceMax    Decimal? @map("reference_max") @db.Decimal(10,3)
+
+  // Tipo de dato que acepta este examen
+  dataType        String   @map("data_type") @db.VarChar(20) // 'numerico', 'texto', 'boolean'
+
+  // Información adicional
+  description     String?  // Descripción del examen
+  normalRange     String?  @map("normal_range") // Rango normal en texto (ej: "12-16 g/dL")
+  active          Boolean  @default(true) // Para soft delete
+
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relaciones
+  examResults     ExamResult[]
+
+  // Índices
+  @@index([category])
+  @@index([examName])
+  @@index([active])
+  @@unique([category, examName]) // No duplicar exámenes en la misma categoría
+  @@map("exam_catalog")
+}
+
+// ========================================
+// RESULTADOS DE EXÁMENES
+// ========================================
+// Almacena los resultados de cada examen por paciente
+
+model ExamResult {
+  id               String    @id @default(uuid()) @db.Uuid
+  patientId        String    @map("patient_id")
+  examId           String    @map("exam_id") @db.Uuid
+  medicalStudyId   String?   @map("medical_study_id") @db.Uuid // Relación opcional con estudio médico
+
+  // Valores del resultado (solo uno se usa según el tipo de dato)
+  numericValue     Decimal?  @map("numeric_value") @db.Decimal(10,3)
+  textValue        String?   @map("text_value") @db.VarChar(255)
+  booleanValue     Boolean?  @map("boolean_value")
+
+  // Información del resultado
+  resultDate       DateTime  @map("result_date") // Fecha del resultado
+  observations     String?   // Observaciones sobre el resultado
+  isAbnormal       Boolean   @default(false) @map("is_abnormal") // Si está fuera de rango normal
+
+  // Control y seguimiento
+  orderedBy        String?   @map("ordered_by") // ID del médico que ordenó
+  interpretedBy    String?   @map("interpreted_by") // ID del médico que interpretó
+  active           Boolean   @default(true) // Para soft delete
+
+  // Timestamps
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  // Relaciones
+  patient          Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  exam             ExamCatalog   @relation(fields: [examId], references: [id], onDelete: Restrict)
+  medicalStudy     MedicalStudy? @relation(fields: [medicalStudyId], references: [id], onDelete: SetNull)
+
+  // Índices
+  @@index([patientId])
+  @@index([examId])
+  @@index([medicalStudyId])
+  @@index([resultDate])
+  @@index([isAbnormal])
+  @@index([active])
+  @@map("exam_results")
+}

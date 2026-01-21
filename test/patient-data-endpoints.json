@@ -1,0 +1,600 @@
+{
+  "description": "Endpoints para obtener todos los datos médicos de un paciente",
+  "baseUrl": "http://localhost:3001/api/v1",
+  "patientId": "cmg4iykys0000u8wkx0o1qepf",
+  "headers": {
+    "Authorization": "Bearer YOUR_JWT_TOKEN",
+    "Content-Type": "application/json"
+  },
+  "endpoints": {
+    "antecedents": {
+      "url": "http://localhost:3001/api/v1/antecedents/patient/cmg4iykys0000u8wkx0o1qepf",
+      "method": "GET",
+      "description": "Obtiene todos los antecedentes médicos (familiares y personales) del paciente",
+      "response_structure": {
+        "success": true,
+        "data": [
+          {
+            "id": "uuid-asociacion",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "antecedentId": "uuid-antecedente",
+            "diagnosedAt": "2024-01-15T10:30:00.000Z",
+            "notes": "Diagnosed during IM1 questionnaire",
+            "active": true,
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "updatedAt": "2024-01-15T10:30:00.000Z",
+            "antecedent": {
+              "id": "uuid-antecedente",
+              "name": "Diabetes",
+              "value": "diabetes",
+              "description": "Diabetes mellitus tipo 2",
+              "severity": "moderate",
+              "active": true,
+              "antecedentTypeId": "uuid-tipo",
+              "antecedentType": {
+                "id": "uuid-tipo",
+                "name": "familiar",
+                "description": "Antecedentes familiares",
+                "active": true
+              }
+            }
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": "pat_ant_001",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "antecedentId": "ant_diabetes_001",
+            "diagnosedAt": "2024-01-15T10:30:00.000Z",
+            "notes": "Reported in IM1 questionnaire",
+            "active": true,
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "antecedent": {
+              "id": "ant_diabetes_001",
+              "name": "Diabetes",
+              "value": "diabetes",
+              "description": "Diabetes mellitus",
+              "severity": "moderate",
+              "active": true,
+              "antecedentType": {
+                "id": "type_familiar_001",
+                "name": "familiar",
+                "description": "Antecedentes familiares"
+              }
+            }
+          },
+          {
+            "id": "pat_ant_002",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "antecedentId": "ant_hypertension_001",
+            "diagnosedAt": "2024-01-15T10:30:00.000Z",
+            "notes": "Reported in IM1 questionnaire",
+            "active": true,
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "antecedent": {
+              "id": "ant_hypertension_001",
+              "name": "Hipertensión arterial",
+              "value": "hipertension",
+              "description": "Presión arterial elevada",
+              "severity": "moderate",
+              "active": true,
+              "antecedentType": {
+                "id": "type_personal_001",
+                "name": "personal",
+                "description": "Antecedentes personales"
+              }
+            }
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      }
+    },
+    "symptoms": {
+      "url": "http://localhost:3001/api/v1/symptoms/patients/cmg4iykys0000u8wkx0o1qepf",
+      "method": "GET",
+      "description": "Obtiene todos los síntomas reportados por el paciente",
+      "response_structure": {
+        "success": true,
+        "data": [
+          {
+            "id": "uuid-paciente-sintoma",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "symptomId": "uuid-sintoma",
+            "hasSymptom": true,
+            "severity": "mild|moderate|severe",
+            "frequency": "daily|weekly|monthly|occasionally",
+            "duration": "string",
+            "notes": "string",
+            "reportedAt": "2024-01-15T10:30:00.000Z",
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "updatedAt": "2024-01-15T10:30:00.000Z",
+            "symptom": {
+              "id": "uuid-sintoma",
+              "name": "Palpitaciones",
+              "value": "palpitaciones",
+              "description": "Latidos cardíacos irregulares o fuertes",
+              "severity": "mild",
+              "active": true,
+              "symptomCategory": {
+                "id": "uuid-categoria",
+                "name": "Cardiovascular",
+                "description": "Síntomas relacionados con el corazón y sistema circulatorio"
+              }
+            }
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": "pat_symp_001",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "symptomId": "symp_palpitations_001",
+            "hasSymptom": true,
+            "severity": "mild",
+            "frequency": "occasionally",
+            "duration": "2 semanas",
+            "notes": "Reported in IM1 questionnaire",
+            "reportedAt": "2024-01-15T10:30:00.000Z",
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "symptom": {
+              "id": "symp_palpitations_001",
+              "name": "Palpitaciones",
+              "value": "palpitaciones",
+              "description": "Latidos cardíacos irregulares o fuertes",
+              "severity": "mild",
+              "active": true,
+              "symptomCategory": {
+                "id": "cat_cardiovascular_001",
+                "name": "Cardiovascular",
+                "description": "Síntomas relacionados con el corazón y sistema circulatorio"
+              }
+            }
+          },
+          {
+            "id": "pat_symp_002",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "symptomId": "symp_chest_pain_001",
+            "hasSymptom": true,
+            "severity": "moderate",
+            "frequency": "weekly",
+            "duration": "1 mes",
+            "notes": "Reported in IM1 questionnaire",
+            "reportedAt": "2024-01-15T10:30:00.000Z",
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "symptom": {
+              "id": "symp_chest_pain_001",
+              "name": "Dolor en el pecho",
+              "value": "dolor_pecho",
+              "description": "Dolor o molestia en la región torácica",
+              "severity": "moderate",
+              "active": true,
+              "symptomCategory": {
+                "id": "cat_cardiovascular_001",
+                "name": "Cardiovascular",
+                "description": "Síntomas relacionados con el corazón y sistema circulatorio"
+              }
+            }
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      }
+    },
+    "physicalExaminations": {
+      "url": "http://localhost:3001/api/v1/physical-examinations/patient/cmg4iykys0000u8wkx0o1qepf",
+      "method": "GET",
+      "description": "Obtiene todos los exámenes físicos del paciente",
+      "response_structure": {
+        "success": true,
+        "data": [
+          {
+            "id": "uuid-examen-paciente",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "physicalExaminationId": "uuid-examen",
+            "result": "string",
+            "value": "number",
+            "unit": "string",
+            "isNormal": true,
+            "notes": "string",
+            "examinationDate": "2024-01-15T10:30:00.000Z",
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "updatedAt": "2024-01-15T10:30:00.000Z",
+            "physicalExamination": {
+              "id": "uuid-examen",
+              "name": "Peso",
+              "code": "weight",
+              "description": "Medición del peso corporal",
+              "unit": "kg",
+              "dataType": "NUMERIC",
+              "normalRange": "60-90",
+              "active": true
+            }
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": "pat_exam_001",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "physicalExaminationId": "exam_weight_001",
+            "result": "75",
+            "value": 75,
+            "unit": "kg",
+            "isNormal": true,
+            "notes": "Measured during IM1 questionnaire",
+            "examinationDate": "2024-01-15T10:30:00.000Z",
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "physicalExamination": {
+              "id": "exam_weight_001",
+              "name": "Peso",
+              "code": "weight",
+              "description": "Medición del peso corporal",
+              "unit": "kg",
+              "dataType": "NUMERIC",
+              "normalRange": "60-90",
+              "active": true
+            }
+          },
+          {
+            "id": "pat_exam_002",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "physicalExaminationId": "exam_height_001",
+            "result": "175",
+            "value": 175,
+            "unit": "cm",
+            "isNormal": true,
+            "notes": "Measured during IM1 questionnaire",
+            "examinationDate": "2024-01-15T10:30:00.000Z",
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "physicalExamination": {
+              "id": "exam_height_001",
+              "name": "Altura",
+              "code": "height",
+              "description": "Medición de la altura corporal",
+              "unit": "cm",
+              "dataType": "NUMERIC",
+              "normalRange": "150-200",
+              "active": true
+            }
+          },
+          {
+            "id": "pat_exam_003",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "physicalExaminationId": "exam_bp_systolic_001",
+            "result": "120",
+            "value": 120,
+            "unit": "mmHg",
+            "isNormal": true,
+            "notes": "Systolic blood pressure - IM1 questionnaire",
+            "examinationDate": "2024-01-15T10:30:00.000Z",
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "physicalExamination": {
+              "id": "exam_bp_systolic_001",
+              "name": "Presión arterial sistólica",
+              "code": "systolic_bp",
+              "description": "Presión arterial cuando el corazón se contrae",
+              "unit": "mmHg",
+              "dataType": "NUMERIC",
+              "normalRange": "90-140",
+              "active": true
+            }
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      }
+    },
+    "physicalExaminationHistory": {
+      "url": "http://localhost:3001/api/v1/physical-examinations/patient/cmg4iykys0000u8wkx0o1qepf/history",
+      "method": "GET",
+      "description": "Obtiene el historial completo de exámenes físicos del paciente con evolución temporal",
+      "response_structure": {
+        "success": true,
+        "data": "Array con todos los exámenes agrupados por fecha",
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      }
+    },
+    "diagnostics": {
+      "url": "http://localhost:3001/api/v1/diagnostics/patients/cmg4iykys0000u8wkx0o1qepf",
+      "method": "GET",
+      "description": "Obtiene todos los diagnósticos del paciente con filtros y paginación",
+      "query_parameters": {
+        "page": "Número de página (opcional, default: 1)",
+        "limit": "Elementos por página (opcional, default: 10)",
+        "search": "Buscar por nombre de diagnóstico o grupo (opcional)",
+        "diagnosticGroupId": "Filtrar por grupo específico (opcional)",
+        "fromDate": "Fecha desde en formato ISO (opcional)",
+        "toDate": "Fecha hasta en formato ISO (opcional)",
+        "sortBy": "Ordenar por: diagnosedAt, percentage, obtainedScore (opcional, default: diagnosedAt)",
+        "sortOrder": "asc o desc (opcional, default: desc)"
+      },
+      "response_structure": {
+        "success": true,
+        "data": [
+          {
+            "id": "uuid-diagnostico-paciente",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "obtainedScore": 8,
+            "maxPossibleScore": 14,
+            "percentage": 57.14,
+            "riskLevel": "medium",
+            "diagnosedAt": "2024-01-15T10:30:00.000Z",
+            "observations": "string-opcional",
+            "recommendations": "object-opcional",
+            "diagnostic": {
+              "id": "uuid-diagnostico",
+              "name": "Adherencia Dieta Mediterránea",
+              "description": "Evaluación de adherencia a dieta mediterránea",
+              "minScore": 0,
+              "maxScore": 14,
+              "severity": "medium",
+              "recommendations": "Incrementar consumo de aceite de oliva",
+              "diagnosticGroup": {
+                "id": "uuid-grupo",
+                "name": "Nutrición",
+                "description": "Evaluación nutricional y hábitos alimentarios",
+                "diagnosticCode": "MEDAS"
+              }
+            },
+            "questionnaire": {
+              "id": "uuid-cuestionario",
+              "name": "Historia Clínica IM1",
+              "code": "im1",
+              "completedAt": "2024-01-15T10:45:00.000Z"
+            }
+          }
+        ],
+        "meta": {
+          "total": 25,
+          "page": 1,
+          "limit": 10,
+          "totalPages": 3,
+          "hasNextPage": true,
+          "hasPreviousPage": false
+        },
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": "pd_001",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "obtainedScore": 8,
+            "maxPossibleScore": 14,
+            "percentage": 57.14,
+            "riskLevel": "medium",
+            "diagnosedAt": "2024-01-15T10:45:00.000Z",
+            "observations": "Adherencia moderada a dieta mediterránea",
+            "recommendations": {
+              "diet": "Incrementar consumo de aceite de oliva y frutos secos",
+              "followUp": "Reevaluar en 3 meses"
+            },
+            "diagnostic": {
+              "id": "diag_medas_001",
+              "name": "Adherencia Dieta Mediterránea",
+              "description": "Evaluación de adherencia a dieta mediterránea",
+              "minScore": 0,
+              "maxScore": 14,
+              "severity": "medium",
+              "recommendations": "Incrementar consumo de aceite de oliva y frutos secos",
+              "diagnosticGroup": {
+                "id": "group_nutrition_001",
+                "name": "Nutrición",
+                "description": "Adherencia a dieta mediterránea y hábitos alimentarios",
+                "diagnosticCode": "MEDAS"
+              }
+            },
+            "questionnaire": {
+              "id": "q_im1_001",
+              "name": "Historia Clínica IM1",
+              "code": "im1",
+              "completedAt": "2024-01-15T10:45:00.000Z"
+            }
+          }
+        ],
+        "meta": {
+          "total": 5,
+          "page": 1,
+          "limit": 10,
+          "totalPages": 1,
+          "hasNextPage": false,
+          "hasPreviousPage": false
+        },
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      }
+    },
+    "latestDiagnostics": {
+      "url": "http://localhost:3001/api/v1/diagnostics/patients/cmg4iykys0000u8wkx0o1qepf/latest",
+      "method": "GET",
+      "description": "Obtiene los diagnósticos más recientes del paciente (uno por grupo diagnóstico), ordenados por nivel de riesgo",
+      "response_structure": {
+        "success": true,
+        "data": "Array con el diagnóstico más reciente de cada grupo",
+        "summary": {
+          "totalGroups": 4,
+          "highRisk": 1,
+          "mediumRisk": 2,
+          "lowRisk": 1,
+          "lastUpdated": "2024-01-15T10:45:00.000Z"
+        },
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": "pd_001",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "obtainedScore": 2,
+            "maxPossibleScore": 10,
+            "percentage": 20,
+            "riskLevel": "high",
+            "diagnosedAt": "2024-01-15T10:45:00.000Z",
+            "diagnostic": {
+              "name": "Nivel de Actividad Física",
+              "diagnosticGroup": {
+                "name": "D.2. Actividad física - Nivel"
+              }
+            }
+          },
+          {
+            "id": "pd_002",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "obtainedScore": 8,
+            "maxPossibleScore": 14,
+            "percentage": 57.14,
+            "riskLevel": "medium",
+            "diagnosedAt": "2024-01-15T10:45:00.000Z",
+            "diagnostic": {
+              "name": "Adherencia Dieta Mediterránea",
+              "diagnosticGroup": {
+                "name": "Nutrición"
+              }
+            }
+          }
+        ],
+        "summary": {
+          "totalGroups": 4,
+          "highRisk": 1,
+          "mediumRisk": 2,
+          "lowRisk": 1,
+          "lastUpdated": "2024-01-15T10:45:00.000Z"
+        },
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      }
+    },
+    "questionnaires": {
+      "url": "http://localhost:3001/api/v1/questionnaires/patients/cmg4iykys0000u8wkx0o1qepf/questionnaires",
+      "method": "GET",
+      "description": "Obtiene todos los cuestionarios completados por el paciente (más detallado, incluye respuestas)",
+      "response_structure": {
+        "success": true,
+        "data": [
+          {
+            "id": "uuid-sesion-cuestionario",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "questionnaireId": "uuid-cuestionario",
+            "startedAt": "2024-01-15T10:30:00.000Z",
+            "completedAt": "2024-01-15T10:45:00.000Z",
+            "status": "completed",
+            "questionnaire": {
+              "id": "uuid-cuestionario",
+              "code": "im1",
+              "name": "Historia Clínica IM1",
+              "description": "Cuestionario completo de historia clínica y estilo de vida"
+            },
+            "diagnostics": [
+              {
+                "id": "uuid-diagnostico-paciente",
+                "patientQuestionnaireId": "uuid-sesion-cuestionario",
+                "diagnosticId": "uuid-diagnostico",
+                "score": 8,
+                "threshold": 9,
+                "risk": "medium",
+                "calculatedAt": "2024-01-15T10:45:00.000Z",
+                "diagnostic": {
+                  "id": "uuid-diagnostico",
+                  "name": "Adherencia Dieta Mediterránea",
+                  "code": "MEDAS",
+                  "description": "Evaluación de adherencia a dieta mediterránea",
+                  "diagnosticGroup": {
+                    "name": "Nutrición",
+                    "description": "Evaluación nutricional y hábitos alimentarios"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": "pq_session_001",
+            "patientId": "cmg4iykys0000u8wkx0o1qepf",
+            "questionnaireId": "q_im1_001",
+            "startedAt": "2024-01-15T10:30:00.000Z",
+            "completedAt": "2024-01-15T10:45:00.000Z",
+            "status": "completed",
+            "questionnaire": {
+              "id": "q_im1_001",
+              "code": "im1",
+              "name": "Historia Clínica IM1",
+              "description": "Cuestionario completo de historia clínica y estilo de vida para evaluación integral de salud"
+            },
+            "diagnostics": [
+              {
+                "id": "pd_001",
+                "patientQuestionnaireId": "pq_session_001",
+                "diagnosticId": "diag_medas_001",
+                "score": 8,
+                "threshold": 9,
+                "risk": "medium",
+                "calculatedAt": "2024-01-15T10:45:00.000Z",
+                "diagnostic": {
+                  "id": "diag_medas_001",
+                  "name": "Adherencia Dieta Mediterránea",
+                  "code": "MEDAS",
+                  "description": "Evaluación de adherencia a dieta mediterránea",
+                  "diagnosticGroup": {
+                    "name": "Nutrición",
+                    "description": "Adherencia a dieta mediterránea y hábitos alimentarios"
+                  }
+                }
+              },
+              {
+                "id": "pd_002",
+                "patientQuestionnaireId": "pq_session_001",
+                "diagnosticId": "diag_activity_001",
+                "score": 2,
+                "threshold": 3,
+                "risk": "low",
+                "calculatedAt": "2024-01-15T10:45:00.000Z",
+                "diagnostic": {
+                  "id": "diag_activity_001",
+                  "name": "Nivel de Actividad Física",
+                  "code": "NIVEL_ACT",
+                  "description": "Autoidentificación del nivel de actividad física",
+                  "diagnosticGroup": {
+                    "name": "D.2. Actividad física - Nivel",
+                    "description": "Evaluación del nivel de actividad física autoreportado"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "timestamp": "2024-01-15T10:30:00.000Z"
+      }
+    }
+  },
+  "usage_notes": {
+    "authentication": "Todos los endpoints requieren token JWT en el header Authorization",
+    "patient_id_format": "Los IDs de paciente son CUID (ejemplo: cmg4iykys0000u8wkx0o1qepf)",
+    "response_format": "Todas las respuestas están envueltas en el formato estándar con success, data, timestamp",
+    "error_handling": "Errores 404 si el paciente no existe, 401 si no está autenticado",
+    "data_relationships": {
+      "antecedents": "Incluyen tipo (familiar/personal) y detalles del antecedente",
+      "symptoms": "Incluyen categoría médica, severidad, frecuencia y duración",
+      "physical_examinations": "Incluyen valores, unidades, rangos normales y resultados",
+      "diagnostics": "Calculados automáticamente basados en respuestas de cuestionarios"
+    },
+    "frontend_integration": {
+      "patient_dashboard": "Usar estos endpoints para mostrar el perfil médico completo",
+      "medical_history": "Combinar antecedents + symptoms + physical_examinations",
+      "risk_assessment": "Usar diagnostics para mostrar evaluación de riesgo",
+      "timeline_view": "Ordenar por fechas para mostrar evolución temporal"
+    }
+  }
+}

@@ -21,7 +21,7 @@ exports.UpdateConsultationDto = UpdateConsultationDto;
 __decorate([
     (0, swagger_2.ApiPropertyOptional)({
         description: 'Estado activo de la consulta',
-        example: true
+        example: true,
     }),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),

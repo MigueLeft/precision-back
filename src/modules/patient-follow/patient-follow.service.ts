@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreatePatientFollowDto } from './dto/create-patient-follow.dto';
 import { UpdatePatientFollowDto } from './dto/update-patient-follow.dto';
@@ -19,7 +24,9 @@ export class PatientFollowService {
       });
 
       if (!patient) {
-        throw new BadRequestException(`Patient with ID ${createPatientFollowDto.patientId} not found`);
+        throw new BadRequestException(
+          `Patient with ID ${createPatientFollowDto.patientId} not found`,
+        );
       }
 
       // Verificar que las citas existen si se proporcionan
@@ -28,7 +35,9 @@ export class PatientFollowService {
           where: { id: createPatientFollowDto.originAppointmentId },
         });
         if (!originAppointment) {
-          throw new BadRequestException(`Origin appointment with ID ${createPatientFollowDto.originAppointmentId} not found`);
+          throw new BadRequestException(
+            `Origin appointment with ID ${createPatientFollowDto.originAppointmentId} not found`,
+          );
         }
       }
 
@@ -37,20 +46,27 @@ export class PatientFollowService {
           where: { id: createPatientFollowDto.resultingAppointmentId },
         });
         if (!resultingAppointment) {
-          throw new BadRequestException(`Resulting appointment with ID ${createPatientFollowDto.resultingAppointmentId} not found`);
+          throw new BadRequestException(
+            `Resulting appointment with ID ${createPatientFollowDto.resultingAppointmentId} not found`,
+          );
         }
       }
 
       const patientFollow = await this.prisma.patientFollowUp.create({
         data: {
           ...createPatientFollowDto,
-          scheduledContactDate: new Date(createPatientFollowDto.scheduledContactDate),
-          actualContactDate: createPatientFollowDto.actualContactDate ? 
-            new Date(createPatientFollowDto.actualContactDate) : undefined,
-          nextContactDate: createPatientFollowDto.nextContactDate ? 
-            new Date(createPatientFollowDto.nextContactDate) : undefined,
-          completedAt: createPatientFollowDto.completedAt ? 
-            new Date(createPatientFollowDto.completedAt) : undefined,
+          scheduledContactDate: new Date(
+            createPatientFollowDto.scheduledContactDate,
+          ),
+          actualContactDate: createPatientFollowDto.actualContactDate
+            ? new Date(createPatientFollowDto.actualContactDate)
+            : undefined,
+          nextContactDate: createPatientFollowDto.nextContactDate
+            ? new Date(createPatientFollowDto.nextContactDate)
+            : undefined,
+          completedAt: createPatientFollowDto.completedAt
+            ? new Date(createPatientFollowDto.completedAt)
+            : undefined,
         },
         include: {
           patient: {
@@ -81,12 +97,16 @@ export class PatientFollowService {
         },
       });
 
-      this.logger.log(`Patient follow-up created for patient: ${patient.firstName} ${patient.lastName}`);
+      this.logger.log(
+        `Patient follow-up created for patient: ${patient.firstName} ${patient.lastName}`,
+      );
       return patientFollow;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new BadRequestException('A follow-up with these details already exists');
+          throw new BadRequestException(
+            'A follow-up with these details already exists',
+          );
         }
       }
       throw error;
@@ -94,7 +114,14 @@ export class PatientFollowService {
   }
 
   async findAll(queryDto: QueryPatientFollowDto) {
-    const { page = 1, limit = 10, search, sortBy = 'createdAt', sortOrder = 'desc', ...filters } = queryDto;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      ...filters
+    } = queryDto;
     const skip = (page - 1) * limit;
 
     // Construir filtros de fecha
@@ -231,13 +258,19 @@ export class PatientFollowService {
       // Procesar fechas si están presentes
       const dataToUpdate: any = { ...updatePatientFollowDto };
       if (updatePatientFollowDto.scheduledContactDate) {
-        dataToUpdate.scheduledContactDate = new Date(updatePatientFollowDto.scheduledContactDate);
+        dataToUpdate.scheduledContactDate = new Date(
+          updatePatientFollowDto.scheduledContactDate,
+        );
       }
       if (updatePatientFollowDto.actualContactDate) {
-        dataToUpdate.actualContactDate = new Date(updatePatientFollowDto.actualContactDate);
+        dataToUpdate.actualContactDate = new Date(
+          updatePatientFollowDto.actualContactDate,
+        );
       }
       if (updatePatientFollowDto.nextContactDate) {
-        dataToUpdate.nextContactDate = new Date(updatePatientFollowDto.nextContactDate);
+        dataToUpdate.nextContactDate = new Date(
+          updatePatientFollowDto.nextContactDate,
+        );
       }
       if (updatePatientFollowDto.completedAt) {
         dataToUpdate.completedAt = new Date(updatePatientFollowDto.completedAt);
@@ -280,7 +313,9 @@ export class PatientFollowService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new BadRequestException('A follow-up with these details already exists');
+          throw new BadRequestException(
+            'A follow-up with these details already exists',
+          );
         }
       }
       throw error;
@@ -300,7 +335,9 @@ export class PatientFollowService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
-          throw new BadRequestException('Cannot delete follow-up due to related records');
+          throw new BadRequestException(
+            'Cannot delete follow-up due to related records',
+          );
         }
       }
       throw error;
@@ -309,13 +346,15 @@ export class PatientFollowService {
 
   async incrementAttemptCount(id: string) {
     const patientFollow = await this.findOne(id);
-    
+
     const updatedFollow = await this.prisma.patientFollowUp.update({
       where: { id },
       data: {
         attemptCount: patientFollow.attemptCount + 1,
-        status: patientFollow.attemptCount + 1 >= patientFollow.maxAttempts ? 
-          'FAILED' : 'IN_PROGRESS',
+        status:
+          patientFollow.attemptCount + 1 >= patientFollow.maxAttempts
+            ? 'FAILED'
+            : 'IN_PROGRESS',
       },
       include: {
         patient: true,
@@ -323,7 +362,9 @@ export class PatientFollowService {
       },
     });
 
-    this.logger.log(`Attempt count incremented for follow-up ${id}: ${updatedFollow.attemptCount}/${updatedFollow.maxAttempts}`);
+    this.logger.log(
+      `Attempt count incremented for follow-up ${id}: ${updatedFollow.attemptCount}/${updatedFollow.maxAttempts}`,
+    );
     return updatedFollow;
   }
 
@@ -332,7 +373,7 @@ export class PatientFollowService {
   }
 
   async getPendingFollowUps() {
-    return this.findAll({ 
+    return this.findAll({
       status: 'PENDING',
       scheduledContactDateTo: new Date().toISOString(),
       active: true,

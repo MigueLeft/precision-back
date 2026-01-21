@@ -8,32 +8,48 @@ export declare class ConsultationsController {
     create(createConsultationDto: CreateConsultationDto): Promise<{
         appointment: {
             medic: {
+                email: string;
                 id: string;
                 name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 lastName: string;
                 identification: string;
                 phone: string | null;
-                active: boolean;
                 userId: string | null;
                 specialtyId: string;
                 professionalTitle: string;
             };
             patient: {
+                email: string;
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 firstName: string;
                 lastName: string;
                 identification: string;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
-                active: boolean;
                 userId: string | null;
+                identificationType: string | null;
+                nationality: string | null;
+                countryOfOrigin: string | null;
+                countryOfResidence: string | null;
+                address: string | null;
+                city: string | null;
+                maritalStatus: string | null;
+                ethnicity: string | null;
+                race: string | null;
+                preferredLanguage: string | null;
+                educationLevel: string | null;
+                socioeconomicStatus: number | null;
+                currentIllness: string | null;
+                diagnosticPlan: string | null;
+                lastClinicalUpdateBy: string | null;
+                lastClinicalUpdateAt: Date | null;
             };
         } & {
             id: string;
@@ -41,13 +57,13 @@ export declare class ConsultationsController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
-            notes: string | null;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
             followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -98,13 +114,13 @@ export declare class ConsultationsController {
                 updatedAt: Date;
                 active: boolean;
                 patientId: string;
+                notes: string | null;
                 medicId: string;
                 dateTime: Date;
                 appointmentType: string;
                 appointmentStatus: string;
                 modality: string;
                 reason: string | null;
-                notes: string | null;
                 requiresFollowUp: boolean;
                 followUpDate: Date | null;
                 followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -137,32 +153,48 @@ export declare class ConsultationsController {
     findOne(id: string): Promise<{
         appointment: {
             medic: {
+                email: string;
                 id: string;
                 name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 lastName: string;
                 identification: string;
                 phone: string | null;
-                active: boolean;
                 userId: string | null;
                 specialtyId: string;
                 professionalTitle: string;
             };
             patient: {
+                email: string;
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 firstName: string;
                 lastName: string;
                 identification: string;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
-                active: boolean;
                 userId: string | null;
+                identificationType: string | null;
+                nationality: string | null;
+                countryOfOrigin: string | null;
+                countryOfResidence: string | null;
+                address: string | null;
+                city: string | null;
+                maritalStatus: string | null;
+                ethnicity: string | null;
+                race: string | null;
+                preferredLanguage: string | null;
+                educationLevel: string | null;
+                socioeconomicStatus: number | null;
+                currentIllness: string | null;
+                diagnosticPlan: string | null;
+                lastClinicalUpdateBy: string | null;
+                lastClinicalUpdateAt: Date | null;
             };
         } & {
             id: string;
@@ -170,13 +202,13 @@ export declare class ConsultationsController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
-            notes: string | null;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
             followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -202,32 +234,48 @@ export declare class ConsultationsController {
     findByAppointmentId(appointmentId: string): Promise<({
         appointment: {
             medic: {
+                email: string;
                 id: string;
                 name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 lastName: string;
                 identification: string;
                 phone: string | null;
-                active: boolean;
                 userId: string | null;
                 specialtyId: string;
                 professionalTitle: string;
             };
             patient: {
+                email: string;
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 firstName: string;
                 lastName: string;
                 identification: string;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
-                active: boolean;
                 userId: string | null;
+                identificationType: string | null;
+                nationality: string | null;
+                countryOfOrigin: string | null;
+                countryOfResidence: string | null;
+                address: string | null;
+                city: string | null;
+                maritalStatus: string | null;
+                ethnicity: string | null;
+                race: string | null;
+                preferredLanguage: string | null;
+                educationLevel: string | null;
+                socioeconomicStatus: number | null;
+                currentIllness: string | null;
+                diagnosticPlan: string | null;
+                lastClinicalUpdateBy: string | null;
+                lastClinicalUpdateAt: Date | null;
             };
         } & {
             id: string;
@@ -235,13 +283,13 @@ export declare class ConsultationsController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
-            notes: string | null;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
             followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -267,32 +315,48 @@ export declare class ConsultationsController {
     update(id: string, updateConsultationDto: UpdateConsultationDto): Promise<{
         appointment: {
             medic: {
+                email: string;
                 id: string;
                 name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 lastName: string;
                 identification: string;
                 phone: string | null;
-                active: boolean;
                 userId: string | null;
                 specialtyId: string;
                 professionalTitle: string;
             };
             patient: {
+                email: string;
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                email: string;
+                active: boolean;
                 firstName: string;
                 lastName: string;
                 identification: string;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
-                active: boolean;
                 userId: string | null;
+                identificationType: string | null;
+                nationality: string | null;
+                countryOfOrigin: string | null;
+                countryOfResidence: string | null;
+                address: string | null;
+                city: string | null;
+                maritalStatus: string | null;
+                ethnicity: string | null;
+                race: string | null;
+                preferredLanguage: string | null;
+                educationLevel: string | null;
+                socioeconomicStatus: number | null;
+                currentIllness: string | null;
+                diagnosticPlan: string | null;
+                lastClinicalUpdateBy: string | null;
+                lastClinicalUpdateAt: Date | null;
             };
         } & {
             id: string;
@@ -300,13 +364,13 @@ export declare class ConsultationsController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
-            notes: string | null;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
             followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -356,13 +420,13 @@ export declare class ConsultationsController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
-            notes: string | null;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
             followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;

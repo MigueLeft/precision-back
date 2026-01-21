@@ -22,7 +22,9 @@ import { TransformInterceptor } from '../../common/interceptors/transform.interc
 @Controller('rescue-directory')
 @UseInterceptors(TransformInterceptor)
 export class RescueDirectoryController {
-  constructor(private readonly rescueDirectoryService: RescueDirectoryService) {}
+  constructor(
+    private readonly rescueDirectoryService: RescueDirectoryService,
+  ) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
@@ -33,7 +35,9 @@ export class RescueDirectoryController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Obtener todas las entradas del directorio de rescate' })
+  @ApiOperation({
+    summary: 'Obtener todas las entradas del directorio de rescate',
+  })
   @ApiResponse({ status: 200, description: 'Lista de entradas obtenida' })
   findAll(@Query() queryDto: QueryRescueDirectoryDto) {
     return this.rescueDirectoryService.findAll(queryDto);
@@ -48,7 +52,10 @@ export class RescueDirectoryController {
 
   @Get('high-priority')
   @ApiOperation({ summary: 'Obtener entradas de alta prioridad' })
-  @ApiResponse({ status: 200, description: 'Lista de entradas de alta prioridad' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de entradas de alta prioridad',
+  })
   getHighPriorityEntries(@Query() queryDto: QueryRescueDirectoryDto) {
     return this.rescueDirectoryService.getHighPriorityEntries(queryDto);
   }
@@ -98,7 +105,10 @@ export class RescueDirectoryController {
     @Param('id') id: string,
     @Body() body: { reactivationNotes?: string },
   ) {
-    return this.rescueDirectoryService.reactivateEntry(id, body.reactivationNotes);
+    return this.rescueDirectoryService.reactivateEntry(
+      id,
+      body.reactivationNotes,
+    );
   }
 
   @Patch(':id/archive')

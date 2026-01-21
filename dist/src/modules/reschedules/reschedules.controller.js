@@ -66,7 +66,9 @@ __decorate([
 ], ReschedulesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener todas las reprogramaciones con paginación y filtros' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todas las reprogramaciones con paginación y filtros',
+    }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Lista de reprogramaciones obtenida exitosamente',
@@ -143,7 +145,9 @@ __decorate([
 ], ReschedulesController.prototype, "remove", null);
 __decorate([
     (0, common_1.Get)('appointment/:appointmentId'),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener todas las reprogramaciones de una cita específica' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todas las reprogramaciones de una cita específica',
+    }),
     (0, swagger_1.ApiParam)({
         name: 'appointmentId',
         description: 'ID de la cita',

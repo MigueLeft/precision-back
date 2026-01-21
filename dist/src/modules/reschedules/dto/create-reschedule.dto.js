@@ -53,11 +53,23 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Razón de la reprogramación',
-        enum: ['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other'],
+        enum: [
+            'patient_request',
+            'medic_unavailable',
+            'emergency',
+            'system_error',
+            'other',
+        ],
         example: 'patient_request',
     }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsIn)(['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other']),
+    (0, class_validator_1.IsIn)([
+        'patient_request',
+        'medic_unavailable',
+        'emergency',
+        'system_error',
+        'other',
+    ]),
     __metadata("design:type", String)
 ], CreateRescheduleDto.prototype, "rescheduleReason", void 0);
 __decorate([

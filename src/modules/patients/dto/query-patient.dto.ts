@@ -1,4 +1,11 @@
-import { IsOptional, IsString, IsInt, Min, IsBoolean, IsDateString } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsInt,
+  Min,
+  IsBoolean,
+  IsDateString,
+} from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -6,7 +13,7 @@ export class QueryPatientDto {
   @ApiPropertyOptional({
     description: 'Número de página',
     example: 1,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -17,7 +24,7 @@ export class QueryPatientDto {
   @ApiPropertyOptional({
     description: 'Número de elementos por página',
     example: 10,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -27,7 +34,7 @@ export class QueryPatientDto {
 
   @ApiPropertyOptional({
     description: 'Buscar por nombre, apellido, identificación o email',
-    example: 'Juan'
+    example: 'Juan',
   })
   @IsOptional()
   @IsString()
@@ -35,7 +42,7 @@ export class QueryPatientDto {
 
   @ApiPropertyOptional({
     description: 'Filtrar por estado activo',
-    example: true
+    example: true,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -47,8 +54,17 @@ export class QueryPatientDto {
   active?: boolean;
 
   @ApiPropertyOptional({
+    description:
+      'Fecha de nacimiento exacta (ISO 8601). Si se proporciona, se ignoran birthdateFrom y birthdateTo',
+    example: '1990-05-15',
+  })
+  @IsOptional()
+  @IsDateString()
+  birthdate?: string;
+
+  @ApiPropertyOptional({
     description: 'Fecha de nacimiento desde (ISO 8601)',
-    example: '1980-01-01'
+    example: '1980-01-01',
   })
   @IsOptional()
   @IsDateString()
@@ -56,7 +72,7 @@ export class QueryPatientDto {
 
   @ApiPropertyOptional({
     description: 'Fecha de nacimiento hasta (ISO 8601)',
-    example: '2000-12-31'
+    example: '2000-12-31',
   })
   @IsOptional()
   @IsDateString()
@@ -65,7 +81,7 @@ export class QueryPatientDto {
   @ApiPropertyOptional({
     description: 'Género del paciente',
     example: 'Masculino',
-    enum: ['Masculino', 'Femenino']
+    enum: ['Masculino', 'Femenino'],
   })
   @IsOptional()
   @IsString()
@@ -74,7 +90,7 @@ export class QueryPatientDto {
   @ApiPropertyOptional({
     description: 'Ordenar por campo',
     example: 'firstName',
-    enum: ['firstName', 'lastName', 'email', 'birthdate', 'createdAt']
+    enum: ['firstName', 'lastName', 'email', 'birthdate', 'createdAt'],
   })
   @IsOptional()
   @IsString()
@@ -83,7 +99,7 @@ export class QueryPatientDto {
   @ApiPropertyOptional({
     description: 'Dirección del ordenamiento',
     example: 'asc',
-    enum: ['asc', 'desc']
+    enum: ['asc', 'desc'],
   })
   @IsOptional()
   @IsString()

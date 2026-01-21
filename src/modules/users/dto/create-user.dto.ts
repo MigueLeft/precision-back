@@ -1,4 +1,10 @@
-import { IsString, IsEmail, IsOptional, IsInt, IsPositive } from 'class-validator';
+import {
+  IsString,
+  IsEmail,
+  IsOptional,
+  IsInt,
+  IsPositive,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -32,5 +38,5 @@ export class CreateUserDto {
   @Type(() => Number)
   @IsInt()
   @IsPositive()
-  roleId: number; 
+  roleId: number;
 }

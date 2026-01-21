@@ -19,6 +19,7 @@ const patients_service_1 = require("./patients.service");
 const create_patient_dto_1 = require("./dto/create-patient.dto");
 const update_patient_dto_1 = require("./dto/update-patient.dto");
 const query_patient_dto_1 = require("./dto/query-patient.dto");
+const update_clinical_info_dto_1 = require("./dto/update-clinical-info.dto");
 let PatientsController = class PatientsController {
     patientsService;
     constructor(patientsService) {
@@ -60,6 +61,18 @@ let PatientsController = class PatientsController {
     bulkCreate(patients) {
         return this.patientsService.bulkCreate(patients);
     }
+    getPatientQuestionnaires(id) {
+        return this.patientsService.getPatientQuestionnaires(id);
+    }
+    getPatientQuestionnaireDetails(patientId, patientQuestionnaireId) {
+        return this.patientsService.getPatientQuestionnaireDetails(patientId, patientQuestionnaireId);
+    }
+    updateClinicalInfo(id, updateClinicalInfoDto) {
+        return this.patientsService.updateClinicalInfo(id, updateClinicalInfoDto.currentIllness, updateClinicalInfoDto.diagnosticPlan, updateClinicalInfoDto.lastClinicalUpdateBy);
+    }
+    getClinicalInfo(id) {
+        return this.patientsService.getClinicalInfo(id);
+    }
 };
 exports.PatientsController = PatientsController;
 __decorate([
@@ -84,7 +97,9 @@ __decorate([
 ], PatientsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener todos los pacientes con paginación y filtros' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todos los pacientes con paginación y filtros',
+    }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Lista de pacientes obtenida exitosamente',
@@ -235,7 +250,7 @@ __decorate([
     (0, common_1.Post)(':id/convert-to-user'),
     (0, swagger_1.ApiOperation)({
         summary: 'Convertir paciente en usuario del sistema',
-        description: 'Crea automáticamente un usuario del sistema usando los datos del paciente. La contraseña será su número de identificación.'
+        description: 'Crea automáticamente un usuario del sistema usando los datos del paciente. La contraseña será su número de identificación.',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
@@ -296,6 +311,103 @@ __decorate([
     __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", void 0)
 ], PatientsController.prototype, "bulkCreate", null);
+__decorate([
+    (0, common_1.Get)(':id/questionnaires'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener todos los cuestionarios de un paciente' }),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        description: 'ID del paciente',
+        type: 'string',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de cuestionarios del paciente obtenida exitosamente',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 404,
+        description: 'Paciente no encontrado',
+    }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PatientsController.prototype, "getPatientQuestionnaires", null);
+__decorate([
+    (0, common_1.Get)(':patientId/questionnaires/:patientQuestionnaireId'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener preguntas y respuestas de un cuestionario específico de un paciente',
+    }),
+    (0, swagger_1.ApiParam)({
+        name: 'patientId',
+        description: 'ID del paciente',
+        type: 'string',
+    }),
+    (0, swagger_1.ApiParam)({
+        name: 'patientQuestionnaireId',
+        description: 'ID del cuestionario del paciente (patient_questionnaire.id)',
+        type: 'string',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Detalle del cuestionario con preguntas y respuestas obtenido exitosamente',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 404,
+        description: 'Paciente o cuestionario no encontrado',
+    }),
+    __param(0, (0, common_1.Param)('patientId')),
+    __param(1, (0, common_1.Param)('patientQuestionnaireId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], PatientsController.prototype, "getPatientQuestionnaireDetails", null);
+__decorate([
+    (0, common_1.Patch)(':id/clinical-info'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Update clinical information for a patient',
+        description: 'Update current illness and diagnostic plan fields (free text)',
+    }),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        description: 'Patient ID (CUID)',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Clinical information updated successfully',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 404,
+        description: 'Patient not found',
+    }),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_clinical_info_dto_1.UpdateClinicalInfoDto]),
+    __metadata("design:returntype", void 0)
+], PatientsController.prototype, "updateClinicalInfo", null);
+__decorate([
+    (0, common_1.Get)(':id/clinical-info'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Get clinical information for a patient',
+        description: 'Retrieve current illness, diagnostic plan, and update information',
+    }),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        description: 'Patient ID (CUID)',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Clinical information retrieved successfully',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 404,
+        description: 'Patient not found',
+    }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PatientsController.prototype, "getClinicalInfo", null);
 exports.PatientsController = PatientsController = __decorate([
     (0, swagger_1.ApiTags)('Patients'),
     (0, swagger_1.ApiBearerAuth)(),

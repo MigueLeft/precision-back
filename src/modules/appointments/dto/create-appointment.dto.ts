@@ -1,7 +1,6 @@
 import { IsString, IsDateString, IsOptional, IsIn } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotPastDate } from 'src/common/dtos/validators/not-past-date.validator';
-
+import { IsNotPastDate } from '../../../common/dtos/validators/not-past-date.validator';
 
 export class CreateAppointmentDto {
   @ApiProperty({
@@ -19,12 +18,13 @@ export class CreateAppointmentDto {
   medicId: string;
 
   @ApiProperty({
-    description: 'Fecha y hora de la cita - No puede ser anterior al día actual',
+    description:
+      'Fecha y hora de la cita - No puede ser anterior al día actual',
     example: '2024-12-01T10:00:00Z',
   })
   @IsDateString()
   @IsNotPastDate({
-    message: 'La fecha de la cita no puede ser anterior al día actual'
+    message: 'La fecha de la cita no puede ser anterior al día actual',
   })
   dateTime: string;
 
@@ -50,7 +50,7 @@ export class CreateAppointmentDto {
   })
   @IsString()
   @IsIn(['presencial', 'online'], {
-    message: 'La modalidad debe ser presencial u online'
+    message: 'La modalidad debe ser presencial u online',
   })
   modality: string = 'presencial';
 

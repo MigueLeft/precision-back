@@ -47,7 +47,9 @@ export class ReschedulesController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Obtener todas las reprogramaciones con paginación y filtros' })
+  @ApiOperation({
+    summary: 'Obtener todas las reprogramaciones con paginación y filtros',
+  })
   @ApiResponse({
     status: 200,
     description: 'Lista de reprogramaciones obtenida exitosamente',
@@ -90,7 +92,10 @@ export class ReschedulesController {
     status: 404,
     description: 'Reprogramación no encontrada',
   })
-  update(@Param('id') id: string, @Body() updateRescheduleDto: UpdateRescheduleDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateRescheduleDto: UpdateRescheduleDto,
+  ) {
     return this.reschedulesService.update(id, updateRescheduleDto);
   }
 
@@ -115,7 +120,9 @@ export class ReschedulesController {
   }
 
   @Get('appointment/:appointmentId')
-  @ApiOperation({ summary: 'Obtener todas las reprogramaciones de una cita específica' })
+  @ApiOperation({
+    summary: 'Obtener todas las reprogramaciones de una cita específica',
+  })
   @ApiParam({
     name: 'appointmentId',
     description: 'ID de la cita',

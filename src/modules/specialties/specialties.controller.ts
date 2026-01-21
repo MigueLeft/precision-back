@@ -10,7 +10,13 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { SpecialtiesService } from './specialties.service';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
 import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
@@ -23,9 +29,9 @@ export class SpecialtiesController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Crear una nueva especialidad médica',
-    description: 'Crea una nueva especialidad médica en el sistema'
+    description: 'Crea una nueva especialidad médica en el sistema',
   })
   @ApiResponse({
     status: 201,
@@ -40,28 +46,50 @@ export class SpecialtiesController {
   }
 
   @Get()
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Obtener lista de especialidades médicas',
-    description: 'Obtiene una lista paginada de especialidades médicas con filtros opcionales'
+    description:
+      'Obtiene una lista paginada de especialidades médicas con filtros opcionales',
   })
   @ApiResponse({
     status: 200,
     description: 'Lista de especialidades obtenida exitosamente',
   })
   @ApiQuery({ name: 'page', required: false, description: 'Número de página' })
-  @ApiQuery({ name: 'limit', required: false, description: 'Elementos por página' })
-  @ApiQuery({ name: 'search', required: false, description: 'Término de búsqueda' })
-  @ApiQuery({ name: 'active', required: false, description: 'Filtrar por estado activo' })
-  @ApiQuery({ name: 'sortBy', required: false, description: 'Campo para ordenar' })
-  @ApiQuery({ name: 'sortOrder', required: false, description: 'Orden de clasificación' })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Elementos por página',
+  })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Término de búsqueda',
+  })
+  @ApiQuery({
+    name: 'active',
+    required: false,
+    description: 'Filtrar por estado activo',
+  })
+  @ApiQuery({
+    name: 'sortBy',
+    required: false,
+    description: 'Campo para ordenar',
+  })
+  @ApiQuery({
+    name: 'sortOrder',
+    required: false,
+    description: 'Orden de clasificación',
+  })
   findAll(@Query() queryDto: QuerySpecialtyDto) {
     return this.specialtiesService.findAll(queryDto);
   }
 
   @Get(':id')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Obtener una especialidad por ID',
-    description: 'Obtiene los detalles de una especialidad específica por su ID'
+    description:
+      'Obtiene los detalles de una especialidad específica por su ID',
   })
   @ApiParam({ name: 'id', description: 'ID de la especialidad' })
   @ApiResponse({
@@ -77,9 +105,9 @@ export class SpecialtiesController {
   }
 
   @Patch(':id')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Actualizar una especialidad',
-    description: 'Actualiza los datos de una especialidad existente'
+    description: 'Actualiza los datos de una especialidad existente',
   })
   @ApiParam({ name: 'id', description: 'ID de la especialidad' })
   @ApiResponse({
@@ -94,15 +122,19 @@ export class SpecialtiesController {
     status: 409,
     description: 'Ya existe una especialidad con este nombre',
   })
-  update(@Param('id') id: string, @Body() updateSpecialtyDto: UpdateSpecialtyDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateSpecialtyDto: UpdateSpecialtyDto,
+  ) {
     return this.specialtiesService.update(id, updateSpecialtyDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Eliminar una especialidad',
-    description: 'Elimina una especialidad del sistema (solo si no tiene médicos asociados)'
+    description:
+      'Elimina una especialidad del sistema (solo si no tiene médicos asociados)',
   })
   @ApiParam({ name: 'id', description: 'ID de la especialidad' })
   @ApiResponse({
@@ -115,16 +147,17 @@ export class SpecialtiesController {
   })
   @ApiResponse({
     status: 409,
-    description: 'No se puede eliminar una especialidad que tiene médicos asociados',
+    description:
+      'No se puede eliminar una especialidad que tiene médicos asociados',
   })
   remove(@Param('id') id: string) {
     return this.specialtiesService.remove(id);
   }
 
   @Get('name/:name')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Buscar especialidad por nombre',
-    description: 'Busca una especialidad específica por su nombre'
+    description: 'Busca una especialidad específica por su nombre',
   })
   @ApiParam({ name: 'name', description: 'Nombre de la especialidad' })
   @ApiResponse({

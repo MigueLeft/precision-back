@@ -1,0 +1,42 @@
+// ========================================
+// TRATAMIENTOS (MEDICAMENTOS)
+// ========================================
+// Gestión de medicamentos y tratamientos del paciente
+// Incluye medicamentos actuales y previos
+
+model Treatment {
+  id              String   @id @default(uuid()) @db.Uuid
+  patientId       String   @map("patient_id")
+
+  // Información del medicamento
+  medicationName  String   @map("medication_name") @db.VarChar(200)
+  presentation    String?  @db.VarChar(200) // Ej: "Tabletas 500mg", "Jarabe 120ml"
+  quantity        String?  @db.VarChar(100) // Ej: "30 tabletas", "1 frasco"
+  dosage          String?  @db.VarChar(200) // Ej: "1 tableta cada 8 horas", "5ml cada 12 horas"
+  duration        String?  @db.VarChar(100) // Ej: "7 días", "30 días", "Indefinido"
+
+  // Estado y control
+  status          String   @default("actual") @db.VarChar(20) // "actual" o "previo"
+  active          Boolean  @default(true) // Para soft delete
+
+  // Información de prescripción
+  prescribedBy    String?  @map("prescribed_by") // ID del médico que prescribió
+  prescribedAt    DateTime @default(now()) @map("prescribed_at")
+
+  // Notas adicionales
+  notes           String?  // Indicaciones especiales, reacciones adversas, etc.
+
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relaciones
+  patient         Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  // Índices
+  @@index([patientId])
+  @@index([status])
+  @@index([active])
+  @@index([prescribedAt])
+  @@map("treatments")
+}

@@ -30,6 +30,12 @@ let AppointmentsController = class AppointmentsController {
     findAll(query) {
         return this.appointmentsService.findAll(query);
     }
+    findAppointmentDates() {
+        return this.appointmentsService.findAppointmentDates();
+    }
+    getAppointmentStats() {
+        return this.appointmentsService.getAppointmentStats();
+    }
     findOne(id) {
         return this.appointmentsService.findOne(id);
     }
@@ -69,6 +75,68 @@ __decorate([
     __metadata("design:paramtypes", [query_appointment_dto_1.QueryAppointmentDto]),
     __metadata("design:returntype", void 0)
 ], AppointmentsController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('dates'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todas las fechas únicas donde existen citas',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de fechas únicas con citas',
+        schema: {
+            type: 'array',
+            items: {
+                type: 'string',
+                format: 'date',
+                example: '2025-10-18',
+            },
+        },
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppointmentsController.prototype, "findAppointmentDates", null);
+__decorate([
+    (0, common_1.Get)('stats'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener estadísticas de citas' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Estadísticas de citas obtenidas exitosamente',
+        schema: {
+            type: 'object',
+            properties: {
+                total: {
+                    type: 'number',
+                    description: 'Total de citas',
+                    example: 150,
+                },
+                today: {
+                    type: 'number',
+                    description: 'Citas del día de hoy',
+                    example: 5,
+                },
+                upcoming: {
+                    type: 'number',
+                    description: 'Citas en los próximos 7 días',
+                    example: 20,
+                },
+                pending: {
+                    type: 'number',
+                    description: 'Citas pendientes',
+                    example: 30,
+                },
+                completed: {
+                    type: 'number',
+                    description: 'Citas completadas',
+                    example: 80,
+                },
+            },
+        },
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppointmentsController.prototype, "getAppointmentStats", null);
 __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener una cita por ID' }),

@@ -7,9 +7,9 @@ export declare class MedicsController {
     constructor(medicsService: MedicsService);
     create(createMedicDto: CreateMedicDto): Promise<{
         user: {
+            email: string;
             id: string;
             name: string | null;
-            email: string;
         } | null;
         specialty: {
             id: string;
@@ -17,15 +17,15 @@ export declare class MedicsController {
             description: string | null;
         };
     } & {
+        email: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        email: string;
+        active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        active: boolean;
         userId: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -44,13 +44,13 @@ export declare class MedicsController {
     findAll(query: QueryMedicDto): Promise<{
         data: ({
             user: {
+                email: string;
                 id: string;
                 name: string | null;
                 role: {
                     id: number;
                     name: string;
                 };
-                email: string;
             } | null;
             specialty: {
                 id: string;
@@ -58,15 +58,15 @@ export declare class MedicsController {
                 description: string | null;
             };
         } & {
+            email: string;
             id: string;
             name: string;
             createdAt: Date;
             updatedAt: Date;
-            email: string;
+            active: boolean;
             lastName: string;
             identification: string;
             phone: string | null;
-            active: boolean;
             userId: string | null;
             specialtyId: string;
             professionalTitle: string;
@@ -82,54 +82,55 @@ export declare class MedicsController {
     }>;
     findByIdentification(identification: string): Promise<{
         user: {
+            email: string;
             id: string;
             name: string | null;
             role: {
                 id: number;
                 name: string;
             };
-            email: string;
         } | null;
     } & {
+        email: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        email: string;
+        active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        active: boolean;
         userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
     findByEmail(email: string): Promise<{
         user: {
+            email: string;
             id: string;
             name: string | null;
             role: {
                 id: number;
                 name: string;
             };
-            email: string;
         } | null;
     } & {
+        email: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        email: string;
+        active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        active: boolean;
         userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
     findOne(id: string): Promise<{
         user: {
+            email: string;
             id: string;
             name: string | null;
             role: {
@@ -137,31 +138,30 @@ export declare class MedicsController {
                 name: string;
                 description: string | null;
             };
-            email: string;
         } | null;
     } & {
+        email: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        email: string;
+        active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        active: boolean;
         userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
     update(id: string, updateMedicDto: UpdateMedicDto): Promise<{
         user: {
+            email: string;
             id: string;
             name: string | null;
             role: {
                 id: number;
                 name: string;
             };
-            email: string;
         } | null;
         specialty: {
             id: string;
@@ -169,15 +169,15 @@ export declare class MedicsController {
             description: string | null;
         };
     } & {
+        email: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        email: string;
+        active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        active: boolean;
         userId: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -187,13 +187,13 @@ export declare class MedicsController {
     }>;
     convertToUser(id: string): Promise<{
         user: {
+            email: string;
             id: string;
             name: string | null;
             role: {
                 id: number;
                 name: string;
             };
-            email: string;
         } | null;
         specialty: {
             id: string;
@@ -201,35 +201,35 @@ export declare class MedicsController {
             description: string | null;
         };
     } & {
+        email: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        email: string;
+        active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        active: boolean;
         userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
     removeUser(id: string): Promise<{
         user: {
+            email: string;
             id: string;
             name: string | null;
-            email: string;
         } | null;
     } & {
+        email: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        email: string;
+        active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        active: boolean;
         userId: string | null;
         specialtyId: string;
         professionalTitle: string;

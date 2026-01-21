@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException, BadRequestException, ConflictException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreateRescueDirectoryDto } from './dto/create-rescue-directory.dto';
 import { UpdateRescueDirectoryDto } from './dto/update-rescue-directory.dto';
@@ -19,7 +25,9 @@ export class RescueDirectoryService {
       });
 
       if (!patient) {
-        throw new BadRequestException(`Patient with ID ${createRescueDirectoryDto.patientId} not found`);
+        throw new BadRequestException(
+          `Patient with ID ${createRescueDirectoryDto.patientId} not found`,
+        );
       }
 
       // Verificar que el seguimiento original existe
@@ -28,7 +36,9 @@ export class RescueDirectoryService {
       });
 
       if (!originalFollowUp) {
-        throw new BadRequestException(`Follow-up with ID ${createRescueDirectoryDto.originalFollowUpId} not found`);
+        throw new BadRequestException(
+          `Follow-up with ID ${createRescueDirectoryDto.originalFollowUpId} not found`,
+        );
       }
 
       // Verificar que no existe ya una entrada activa para este paciente y seguimiento
@@ -41,22 +51,29 @@ export class RescueDirectoryService {
       });
 
       if (existingEntry) {
-        throw new ConflictException('An active rescue entry already exists for this patient and follow-up');
+        throw new ConflictException(
+          'An active rescue entry already exists for this patient and follow-up',
+        );
       }
 
       const rescueDirectory = await this.prisma.rescueDirectory.create({
         data: {
           ...createRescueDirectoryDto,
-          entryDate: createRescueDirectoryDto.entryDate ? 
-            new Date(createRescueDirectoryDto.entryDate) : new Date(),
-          exitDate: createRescueDirectoryDto.exitDate ? 
-            new Date(createRescueDirectoryDto.exitDate) : undefined,
-          lastContactDate: createRescueDirectoryDto.lastContactDate ? 
-            new Date(createRescueDirectoryDto.lastContactDate) : undefined,
-          lastAttemptDate: createRescueDirectoryDto.lastAttemptDate ? 
-            new Date(createRescueDirectoryDto.lastAttemptDate) : undefined,
-          reactivatedAt: createRescueDirectoryDto.reactivatedAt ? 
-            new Date(createRescueDirectoryDto.reactivatedAt) : undefined,
+          entryDate: createRescueDirectoryDto.entryDate
+            ? new Date(createRescueDirectoryDto.entryDate)
+            : new Date(),
+          exitDate: createRescueDirectoryDto.exitDate
+            ? new Date(createRescueDirectoryDto.exitDate)
+            : undefined,
+          lastContactDate: createRescueDirectoryDto.lastContactDate
+            ? new Date(createRescueDirectoryDto.lastContactDate)
+            : undefined,
+          lastAttemptDate: createRescueDirectoryDto.lastAttemptDate
+            ? new Date(createRescueDirectoryDto.lastAttemptDate)
+            : undefined,
+          reactivatedAt: createRescueDirectoryDto.reactivatedAt
+            ? new Date(createRescueDirectoryDto.reactivatedAt)
+            : undefined,
         },
         include: {
           patient: {
@@ -81,12 +98,16 @@ export class RescueDirectoryService {
         },
       });
 
-      this.logger.log(`Patient ${patient.firstName} ${patient.lastName} added to rescue directory due to ${createRescueDirectoryDto.rescueReason}`);
+      this.logger.log(
+        `Patient ${patient.firstName} ${patient.lastName} added to rescue directory due to ${createRescueDirectoryDto.rescueReason}`,
+      );
       return rescueDirectory;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ConflictException('A rescue entry with these details already exists');
+          throw new ConflictException(
+            'A rescue entry with these details already exists',
+          );
         }
       }
       throw error;
@@ -94,7 +115,14 @@ export class RescueDirectoryService {
   }
 
   async findAll(queryDto: QueryRescueDirectoryDto) {
-    const { page = 1, limit = 10, search, sortBy = 'entryDate', sortOrder = 'desc', ...filters } = queryDto;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      sortBy = 'entryDate',
+      sortOrder = 'desc',
+      ...filters
+    } = queryDto;
     const skip = (page - 1) * limit;
 
     // Construir filtros de fecha para entryDate
@@ -212,7 +240,9 @@ export class RescueDirectoryService {
     });
 
     if (!rescueEntry) {
-      throw new NotFoundException(`Rescue directory entry with ID ${id} not found`);
+      throw new NotFoundException(
+        `Rescue directory entry with ID ${id} not found`,
+      );
     }
 
     return rescueEntry;
@@ -232,13 +262,19 @@ export class RescueDirectoryService {
         dataToUpdate.exitDate = new Date(updateRescueDirectoryDto.exitDate);
       }
       if (updateRescueDirectoryDto.lastContactDate) {
-        dataToUpdate.lastContactDate = new Date(updateRescueDirectoryDto.lastContactDate);
+        dataToUpdate.lastContactDate = new Date(
+          updateRescueDirectoryDto.lastContactDate,
+        );
       }
       if (updateRescueDirectoryDto.lastAttemptDate) {
-        dataToUpdate.lastAttemptDate = new Date(updateRescueDirectoryDto.lastAttemptDate);
+        dataToUpdate.lastAttemptDate = new Date(
+          updateRescueDirectoryDto.lastAttemptDate,
+        );
       }
       if (updateRescueDirectoryDto.reactivatedAt) {
-        dataToUpdate.reactivatedAt = new Date(updateRescueDirectoryDto.reactivatedAt);
+        dataToUpdate.reactivatedAt = new Date(
+          updateRescueDirectoryDto.reactivatedAt,
+        );
       }
 
       const rescueEntry = await this.prisma.rescueDirectory.update({
@@ -272,7 +308,9 @@ export class RescueDirectoryService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ConflictException('A rescue entry with these details already exists');
+          throw new ConflictException(
+            'A rescue entry with these details already exists',
+          );
         }
       }
       throw error;
@@ -292,7 +330,9 @@ export class RescueDirectoryService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
-          throw new BadRequestException('Cannot delete rescue entry due to related records');
+          throw new BadRequestException(
+            'Cannot delete rescue entry due to related records',
+          );
         }
       }
       throw error;
@@ -308,16 +348,16 @@ export class RescueDirectoryService {
   }
 
   async getHighPriorityEntries(queryDto: QueryRescueDirectoryDto) {
-    return this.findAll({ 
-      ...queryDto, 
+    return this.findAll({
+      ...queryDto,
       status: 'ACTIVE',
       priority: 'HIGH',
     });
   }
 
   async getCriticalEntries(queryDto: QueryRescueDirectoryDto) {
-    return this.findAll({ 
-      ...queryDto, 
+    return this.findAll({
+      ...queryDto,
       status: 'ACTIVE',
       priority: 'CRITICAL',
     });
@@ -325,9 +365,11 @@ export class RescueDirectoryService {
 
   async reactivateEntry(id: string, reactivationNotes?: string) {
     const rescueEntry = await this.findOne(id);
-    
+
     if (rescueEntry.status !== 'ACTIVE') {
-      throw new BadRequestException('Only active rescue entries can be reactivated');
+      throw new BadRequestException(
+        'Only active rescue entries can be reactivated',
+      );
     }
 
     const updated = await this.prisma.rescueDirectory.update({
@@ -343,7 +385,9 @@ export class RescueDirectoryService {
       },
     });
 
-    this.logger.log(`Rescue entry reactivated: ${id} for patient ${updated.patient.firstName} ${updated.patient.lastName}`);
+    this.logger.log(
+      `Rescue entry reactivated: ${id} for patient ${updated.patient.firstName} ${updated.patient.lastName}`,
+    );
     return updated;
   }
 

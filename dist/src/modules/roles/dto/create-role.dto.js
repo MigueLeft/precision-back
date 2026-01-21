@@ -25,7 +25,7 @@ __decorate([
         description: 'Nombre único del rol',
         example: 'ADMIN',
         minLength: 2,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
@@ -36,7 +36,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Descripción del rol',
         example: 'Administrador del sistema',
-        maxLength: 255
+        maxLength: 255,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -46,7 +46,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Indica si es un rol del sistema',
-        example: false
+        example: false,
     }),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
@@ -56,7 +56,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'IDs de los permisos asociados al rol',
         example: [1, 2, 3],
-        type: [Number]
+        type: [Number],
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.IsInt)({ each: true }),

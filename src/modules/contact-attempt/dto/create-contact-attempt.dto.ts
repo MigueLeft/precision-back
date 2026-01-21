@@ -1,4 +1,12 @@
-import { IsString, IsInt, IsEnum, IsOptional, IsBoolean, IsDateString, Min } from 'class-validator';
+import {
+  IsString,
+  IsInt,
+  IsEnum,
+  IsOptional,
+  IsBoolean,
+  IsDateString,
+  Min,
+} from 'class-validator';
 import { ContactMethod, ContactResult } from '@prisma/client';
 
 export class CreateContactAttemptDto {

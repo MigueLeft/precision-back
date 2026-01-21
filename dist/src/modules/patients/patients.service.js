@@ -68,7 +68,7 @@ let PatientsService = PatientsService_1 = class PatientsService {
         }
     }
     async findAll(query) {
-        const { page = 1, limit = 10, search, active, birthdateFrom, birthdateTo, sortBy = 'id', sortOrder = 'asc', gender } = query;
+        const { page = 1, limit = 10, search, active, birthdate, birthdateFrom, birthdateTo, sortBy = 'id', sortOrder = 'asc', gender, } = query;
         const skip = (page - 1) * limit;
         const where = {
             ...(search && {
@@ -80,16 +80,28 @@ let PatientsService = PatientsService_1 = class PatientsService {
                 ],
             }),
             ...(typeof active === 'boolean' && { active }),
-            ...(birthdateFrom && birthdateTo && {
+            ...(birthdate && {
+                birthdate: {
+                    gte: new Date(new Date(birthdate).setHours(0, 0, 0, 0)),
+                    lte: new Date(new Date(birthdate).setHours(23, 59, 59, 999)),
+                },
+            }),
+            ...(!birthdate &&
+                birthdateFrom &&
+                birthdateTo && {
                 birthdate: {
                     gte: new Date(birthdateFrom),
                     lte: new Date(birthdateTo),
                 },
             }),
-            ...(birthdateFrom && !birthdateTo && {
+            ...(!birthdate &&
+                birthdateFrom &&
+                !birthdateTo && {
                 birthdate: { gte: new Date(birthdateFrom) },
             }),
-            ...(birthdateTo && !birthdateFrom && {
+            ...(!birthdate &&
+                birthdateTo &&
+                !birthdateFrom && {
                 birthdate: { lte: new Date(birthdateTo) },
             }),
             ...(gender && { gender }),
@@ -398,10 +410,7 @@ let PatientsService = PatientsService_1 = class PatientsService {
                 birthdate: true,
                 gender: true,
             },
-            orderBy: [
-                { firstName: 'asc' },
-                { lastName: 'asc' },
-            ],
+            orderBy: [{ firstName: 'asc' }, { lastName: 'asc' }],
         });
     }
     async bulkCreate(patients) {
@@ -438,6 +447,164 @@ let PatientsService = PatientsService_1 = class PatientsService {
                 withUser: total > 0 ? Math.round((withUser / total) * 100) : 0,
             },
         };
+    }
+    async getPatientQuestionnaires(patientId) {
+        const patient = await this.prisma.patient.findUnique({
+            where: { id: patientId },
+        });
+        if (!patient) {
+            throw new common_1.NotFoundException(`Patient with ID ${patientId} not found`);
+        }
+        const questionnaires = await this.prisma.patientQuestionnaire.findMany({
+            where: { patientId },
+            include: {
+                questionnaire: {
+                    select: {
+                        name: true,
+                    },
+                },
+                _count: {
+                    select: {
+                        answers: true,
+                    },
+                },
+            },
+            orderBy: {
+                startedAt: 'desc',
+            },
+        });
+        const result = questionnaires.map((q) => ({
+            id: q.id,
+            questionnaireName: q.questionnaire.name,
+            answeredAt: q.completedAt || q.startedAt,
+            numberOfQuestions: q._count.answers,
+        }));
+        this.logger.log(`Retrieved ${questionnaires.length} questionnaires for patient ${patientId}`);
+        return result;
+    }
+    async getPatientQuestionnaireDetails(patientId, patientQuestionnaireId) {
+        const patient = await this.prisma.patient.findUnique({
+            where: { id: patientId },
+        });
+        if (!patient) {
+            throw new common_1.NotFoundException(`Patient with ID ${patientId} not found`);
+        }
+        const patientQuestionnaire = await this.prisma.patientQuestionnaire.findUnique({
+            where: {
+                id: patientQuestionnaireId,
+            },
+            include: {
+                questionnaire: {
+                    select: {
+                        id: true,
+                        code: true,
+                        name: true,
+                        description: true,
+                        version: true,
+                    },
+                },
+                answers: {
+                    include: {
+                        question: {
+                            select: {
+                                id: true,
+                                code: true,
+                                questionText: true,
+                                questionType: true,
+                                inputType: true,
+                                options: true,
+                                hasScore: true,
+                            },
+                        },
+                    },
+                    orderBy: {
+                        answeredAt: 'asc',
+                    },
+                },
+            },
+        });
+        if (!patientQuestionnaire) {
+            throw new common_1.NotFoundException(`Patient questionnaire with ID ${patientQuestionnaireId} not found`);
+        }
+        if (patientQuestionnaire.patientId !== patientId) {
+            throw new common_1.NotFoundException(`Patient questionnaire with ID ${patientQuestionnaireId} not found for patient ${patientId}`);
+        }
+        const questionsWithAnswers = patientQuestionnaire.answers.map((answer) => ({
+            questionId: answer.question.id,
+            questionCode: answer.question.code,
+            questionText: answer.question.questionText,
+            questionType: answer.question.questionType,
+            inputType: answer.question.inputType,
+            options: answer.question.options,
+            hasScore: answer.question.hasScore,
+            answer: {
+                textValue: answer.textValue,
+                numericValue: answer.numericValue,
+                booleanValue: answer.booleanValue,
+                dateValue: answer.dateValue,
+                jsonValue: answer.jsonValue,
+                score: answer.score,
+                answeredAt: answer.answeredAt,
+            },
+        }));
+        this.logger.log(`Retrieved questionnaire details for patient ${patientId}: ${questionsWithAnswers.length} questions`);
+        return {
+            patientQuestionnaireId: patientQuestionnaire.id,
+            questionnaire: patientQuestionnaire.questionnaire,
+            startedAt: patientQuestionnaire.startedAt,
+            completedAt: patientQuestionnaire.completedAt,
+            isCompleted: patientQuestionnaire.isCompleted,
+            totalScore: patientQuestionnaire.totalScore,
+            notes: patientQuestionnaire.notes,
+            totalQuestions: questionsWithAnswers.length,
+            questionsWithAnswers,
+        };
+    }
+    async updateClinicalInfo(patientId, currentIllness, diagnosticPlan, updatedBy) {
+        this.logger.log(`Updating clinical information for patient ${patientId}`);
+        const patient = await this.findOne(patientId);
+        if (!patient) {
+            throw new common_1.NotFoundException(`Patient with ID ${patientId} not found`);
+        }
+        return this.prisma.patient.update({
+            where: { id: patientId },
+            data: {
+                currentIllness,
+                diagnosticPlan,
+                lastClinicalUpdateBy: updatedBy,
+                lastClinicalUpdateAt: new Date(),
+            },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                identification: true,
+                currentIllness: true,
+                diagnosticPlan: true,
+                lastClinicalUpdateBy: true,
+                lastClinicalUpdateAt: true,
+            },
+        });
+    }
+    async getClinicalInfo(patientId) {
+        this.logger.log(`Getting clinical information for patient ${patientId}`);
+        const patient = await this.prisma.patient.findUnique({
+            where: { id: patientId },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                identification: true,
+                currentIllness: true,
+                diagnosticPlan: true,
+                lastClinicalUpdateBy: true,
+                lastClinicalUpdateAt: true,
+            },
+        });
+        if (!patient) {
+            throw new common_1.NotFoundException(`Patient with ID ${patientId} not found`);
+        }
+        return patient;
     }
 };
 exports.PatientsService = PatientsService;

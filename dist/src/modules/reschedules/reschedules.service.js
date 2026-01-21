@@ -102,7 +102,7 @@ let ReschedulesService = ReschedulesService_1 = class ReschedulesService {
         }
     }
     async findAll(query) {
-        const { page = 1, limit = 10, appointmentId, rescheduleStatus, requestedBy, rescheduleReason, sortBy = 'createdAt', sortOrder = 'desc' } = query;
+        const { page = 1, limit = 10, appointmentId, rescheduleStatus, requestedBy, rescheduleReason, sortBy = 'createdAt', sortOrder = 'desc', } = query;
         const skip = (page - 1) * limit;
         const where = {
             active: true,
@@ -217,8 +217,12 @@ let ReschedulesService = ReschedulesService_1 = class ReschedulesService {
                 where: { id },
                 data: {
                     ...updateRescheduleDto,
-                    ...(updateRescheduleDto.newDateTime && { newDateTime: new Date(updateRescheduleDto.newDateTime) }),
-                    ...(updateRescheduleDto.previousDateTime && { previousDateTime: new Date(updateRescheduleDto.previousDateTime) }),
+                    ...(updateRescheduleDto.newDateTime && {
+                        newDateTime: new Date(updateRescheduleDto.newDateTime),
+                    }),
+                    ...(updateRescheduleDto.previousDateTime && {
+                        previousDateTime: new Date(updateRescheduleDto.previousDateTime),
+                    }),
                 },
                 include: {
                     appointment: {

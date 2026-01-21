@@ -57,7 +57,8 @@ let ConsultationsService = class ConsultationsService {
             return consultation;
         }
         catch (error) {
-            if (error instanceof common_1.NotFoundException || error instanceof common_1.BadRequestException) {
+            if (error instanceof common_1.NotFoundException ||
+                error instanceof common_1.BadRequestException) {
                 throw error;
             }
             throw new common_1.BadRequestException('Error al crear la consulta');
@@ -175,7 +176,9 @@ let ConsultationsService = class ConsultationsService {
             if (!existingConsultation) {
                 throw new common_1.NotFoundException('Consulta no encontrada');
             }
-            if (updateConsultationDto.appointmentId && updateConsultationDto.appointmentId !== existingConsultation.appointmentId) {
+            if (updateConsultationDto.appointmentId &&
+                updateConsultationDto.appointmentId !==
+                    existingConsultation.appointmentId) {
                 const appointment = await this.prisma.appointment.findUnique({
                     where: { id: updateConsultationDto.appointmentId },
                 });
@@ -219,7 +222,8 @@ let ConsultationsService = class ConsultationsService {
             return consultation;
         }
         catch (error) {
-            if (error instanceof common_1.NotFoundException || error instanceof common_1.BadRequestException) {
+            if (error instanceof common_1.NotFoundException ||
+                error instanceof common_1.BadRequestException) {
                 throw error;
             }
             throw new common_1.BadRequestException('Error al actualizar la consulta');

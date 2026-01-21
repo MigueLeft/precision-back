@@ -1,0 +1,53 @@
+model AntecedentType {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @unique @db.VarChar(50)
+  description String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  antecedents Antecedent[]
+
+  @@map("antecedent_types")
+}
+
+model Antecedent {
+  id                String   @id @default(uuid()) @db.Uuid
+  name              String   @db.VarChar(200)
+  value             String   @unique @db.VarChar(255) // Valor único para identificar el antecedente (diabetes, hipertension, sobrepeso, etc.)
+  description       String?
+  antecedentTypeId  String   @map("antecedent_type_id") @db.Uuid
+  active            Boolean  @default(true)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  antecedentType         AntecedentType         @relation(fields: [antecedentTypeId], references: [id], onDelete: Cascade)
+  patientAntecedents     PatientAntecedent[]
+
+  @@unique([name, antecedentTypeId])
+  @@index([antecedentTypeId])
+  @@index([value])
+  @@map("antecedents")
+}
+
+model PatientAntecedent {
+  id           String   @id @default(uuid()) @db.Uuid
+  patientId    String   @map("patient_id")
+  antecedentId String   @map("antecedent_id") @db.Uuid
+  hasCondition Boolean  @map("has_condition") @default(true)
+  notes        String?
+  diagnosedAt  DateTime? @map("diagnosed_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  patient    Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  antecedent Antecedent @relation(fields: [antecedentId], references: [id], onDelete: Cascade)
+
+  @@unique([patientId, antecedentId])
+  @@index([patientId])
+  @@index([antecedentId])
+  @@map("patient_antecedents")
+}

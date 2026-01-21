@@ -1,9 +1,15 @@
-import { Injectable, NotFoundException, ConflictException, BadRequestException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreateMedicDto } from './dto/create-medic.dto';
 import { UpdateMedicDto } from './dto/update-medic.dto';
 import { QueryMedicDto } from './dto/query-medic.dto';
- 
+
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -20,9 +26,10 @@ export class MedicsService {
       });
 
       if (!specialty) {
-        throw new BadRequestException(`Specialty with ID ${createMedicDto.specialtyId} not found`);
+        throw new BadRequestException(
+          `Specialty with ID ${createMedicDto.specialtyId} not found`,
+        );
       }
-
 
       // Verificar que el usuario existe si se proporciona userId
       if (createMedicDto.userId) {
@@ -31,7 +38,9 @@ export class MedicsService {
         });
 
         if (!user) {
-          throw new BadRequestException(`User with ID ${createMedicDto.userId} not found`);
+          throw new BadRequestException(
+            `User with ID ${createMedicDto.userId} not found`,
+          );
         }
 
         // Verificar que el usuario no esté ya asignado a otro médico
@@ -40,7 +49,9 @@ export class MedicsService {
         });
 
         if (existingMedic) {
-          throw new ConflictException('User is already assigned to another medic');
+          throw new ConflictException(
+            'User is already assigned to another medic',
+          );
         }
       }
 
@@ -87,11 +98,21 @@ export class MedicsService {
   }
 
   async findAll(query: QueryMedicDto) {
-    const { page = 1, limit = 10, search, active, specialty, sortBy = 'id', sortOrder = 'asc' } = query;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      active,
+      specialty,
+      sortBy = 'id',
+      sortOrder = 'asc',
+    } = query;
     const skip = (page - 1) * limit;
 
     this.logger.log(`Raw query object: ${JSON.stringify(query)}`);
-    this.logger.log(`Filtering medics with active: ${active} (type: ${typeof active})`);
+    this.logger.log(
+      `Filtering medics with active: ${active} (type: ${typeof active})`,
+    );
 
     const where: Prisma.MedicWhereInput = {
       ...(search && {
@@ -104,7 +125,9 @@ export class MedicsService {
         ],
       }),
       ...(active !== undefined && { active }),
-      ...(specialty && { specialty: { name: { contains: specialty, mode: 'insensitive' } } }),
+      ...(specialty && {
+        specialty: { name: { contains: specialty, mode: 'insensitive' } },
+      }),
     };
 
     this.logger.log(`Where clause: ${JSON.stringify(where)}`);
@@ -207,7 +230,9 @@ export class MedicsService {
     });
 
     if (!medic) {
-      throw new NotFoundException(`Medic with identification ${identification} not found`);
+      throw new NotFoundException(
+        `Medic with identification ${identification} not found`,
+      );
     }
 
     return medic;
@@ -240,7 +265,6 @@ export class MedicsService {
     return medic;
   }
 
-
   async update(id: string, updateMedicDto: UpdateMedicDto) {
     try {
       // Verificar que el médico existe
@@ -259,7 +283,9 @@ export class MedicsService {
         });
 
         if (!user) {
-          throw new BadRequestException(`User with ID ${updateMedicDto.userId} not found`);
+          throw new BadRequestException(
+            `User with ID ${updateMedicDto.userId} not found`,
+          );
         }
 
         // Verificar que el usuario no esté ya asignado a otro médico
@@ -269,7 +295,9 @@ export class MedicsService {
           });
 
           if (medicWithUser) {
-            throw new ConflictException('User is already assigned to another medic');
+            throw new ConflictException(
+              'User is already assigned to another medic',
+            );
           }
         }
       }
@@ -425,7 +453,9 @@ export class MedicsService {
         },
       });
 
-      this.logger.log(`Medic converted to user: ${medic.name} ${medic.lastName} (${newUser.email})`);
+      this.logger.log(
+        `Medic converted to user: ${medic.name} ${medic.lastName} (${newUser.email})`,
+      );
       return medic;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -453,7 +483,9 @@ export class MedicsService {
         },
       });
 
-      this.logger.log(`User removed from medic: ${medic.name} ${medic.lastName}`);
+      this.logger.log(
+        `User removed from medic: ${medic.name} ${medic.lastName}`,
+      );
       return medic;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -468,7 +500,7 @@ export class MedicsService {
   async bulkCreate(medics: CreateMedicDto[]) {
     try {
       const createdMedics: any[] = [];
-      
+
       for (const medicDto of medics) {
         const medic = await this.create(medicDto);
         createdMedics.push(medic);

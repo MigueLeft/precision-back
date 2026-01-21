@@ -1,4 +1,10 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, Logger } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Prisma } from '@prisma/client';
 
@@ -32,7 +38,10 @@ export class PrismaExceptionFilter implements ExceptionFilter {
         message = 'Invalid ID provided';
         break;
       default:
-        this.logger.error(`Unhandled Prisma error: ${exception.code}`, exception.stack);
+        this.logger.error(
+          `Unhandled Prisma error: ${exception.code}`,
+          exception.stack,
+        );
     }
 
     this.logger.error(

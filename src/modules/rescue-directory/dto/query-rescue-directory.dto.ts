@@ -1,6 +1,17 @@
-import { IsOptional, IsString, IsEnum, IsDateString, IsInt } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsEnum,
+  IsDateString,
+  IsInt,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { RescueReason, RescueStatus, RescueCategory, RescuePriority } from '@prisma/client';
+import {
+  RescueReason,
+  RescueStatus,
+  RescueCategory,
+  RescuePriority,
+} from '@prisma/client';
 
 export class QueryRescueDirectoryDto {
   @IsOptional()

@@ -47,16 +47,21 @@ let RescueDirectoryService = RescueDirectoryService_1 = class RescueDirectorySer
             const rescueDirectory = await this.prisma.rescueDirectory.create({
                 data: {
                     ...createRescueDirectoryDto,
-                    entryDate: createRescueDirectoryDto.entryDate ?
-                        new Date(createRescueDirectoryDto.entryDate) : new Date(),
-                    exitDate: createRescueDirectoryDto.exitDate ?
-                        new Date(createRescueDirectoryDto.exitDate) : undefined,
-                    lastContactDate: createRescueDirectoryDto.lastContactDate ?
-                        new Date(createRescueDirectoryDto.lastContactDate) : undefined,
-                    lastAttemptDate: createRescueDirectoryDto.lastAttemptDate ?
-                        new Date(createRescueDirectoryDto.lastAttemptDate) : undefined,
-                    reactivatedAt: createRescueDirectoryDto.reactivatedAt ?
-                        new Date(createRescueDirectoryDto.reactivatedAt) : undefined,
+                    entryDate: createRescueDirectoryDto.entryDate
+                        ? new Date(createRescueDirectoryDto.entryDate)
+                        : new Date(),
+                    exitDate: createRescueDirectoryDto.exitDate
+                        ? new Date(createRescueDirectoryDto.exitDate)
+                        : undefined,
+                    lastContactDate: createRescueDirectoryDto.lastContactDate
+                        ? new Date(createRescueDirectoryDto.lastContactDate)
+                        : undefined,
+                    lastAttemptDate: createRescueDirectoryDto.lastAttemptDate
+                        ? new Date(createRescueDirectoryDto.lastAttemptDate)
+                        : undefined,
+                    reactivatedAt: createRescueDirectoryDto.reactivatedAt
+                        ? new Date(createRescueDirectoryDto.reactivatedAt)
+                        : undefined,
                 },
                 include: {
                     patient: {

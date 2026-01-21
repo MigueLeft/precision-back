@@ -55,18 +55,36 @@ export class QueryRescheduleDto {
 
   @ApiPropertyOptional({
     description: 'Filtrar por razón de reprogramación',
-    enum: ['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other'],
+    enum: [
+      'patient_request',
+      'medic_unavailable',
+      'emergency',
+      'system_error',
+      'other',
+    ],
     example: 'patient_request',
   })
   @IsOptional()
   @IsString()
-  @IsIn(['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other'])
+  @IsIn([
+    'patient_request',
+    'medic_unavailable',
+    'emergency',
+    'system_error',
+    'other',
+  ])
   rescheduleReason?: string;
 
   @ApiPropertyOptional({
     description: 'Campo por el cual ordenar',
     example: 'createdAt',
-    enum: ['createdAt', 'originalDateTime', 'newDateTime', 'status', 'priority'],
+    enum: [
+      'createdAt',
+      'originalDateTime',
+      'newDateTime',
+      'status',
+      'priority',
+    ],
   })
   @IsOptional()
   @IsString()

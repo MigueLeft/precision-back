@@ -34,9 +34,9 @@ export declare class SpecialtiesService {
     }>;
     findOne(id: string): Promise<{
         medics: {
+            email: string;
             id: string;
             name: string;
-            email: string;
             lastName: string;
             professionalTitle: string;
         }[];

@@ -82,19 +82,37 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Filtrar por razón de reprogramación',
-        enum: ['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other'],
+        enum: [
+            'patient_request',
+            'medic_unavailable',
+            'emergency',
+            'system_error',
+            'other',
+        ],
         example: 'patient_request',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsIn)(['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other']),
+    (0, class_validator_1.IsIn)([
+        'patient_request',
+        'medic_unavailable',
+        'emergency',
+        'system_error',
+        'other',
+    ]),
     __metadata("design:type", String)
 ], QueryRescheduleDto.prototype, "rescheduleReason", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Campo por el cual ordenar',
         example: 'createdAt',
-        enum: ['createdAt', 'originalDateTime', 'newDateTime', 'status', 'priority'],
+        enum: [
+            'createdAt',
+            'originalDateTime',
+            'newDateTime',
+            'status',
+            'priority',
+        ],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

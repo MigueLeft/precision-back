@@ -53,7 +53,7 @@ __decorate([
         description: 'Nombre del paciente',
         example: 'Juan',
         minLength: 2,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
@@ -66,7 +66,7 @@ __decorate([
         description: 'Apellido del paciente',
         example: 'Pérez',
         minLength: 2,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
@@ -79,7 +79,7 @@ __decorate([
         description: 'Número de identificación único',
         example: '12345678',
         minLength: 5,
-        maxLength: 20
+        maxLength: 20,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(5),
@@ -91,7 +91,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de teléfono',
         example: '+57 300 123 4567',
-        maxLength: 20
+        maxLength: 20,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -102,7 +102,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Correo electrónico',
-        example: 'juan.perez@email.com'
+        example: 'juan.perez@email.com',
     }),
     (0, class_validator_1.IsEmail)(),
     (0, class_transformer_1.Transform)(({ value }) => value?.toLowerCase().trim()),
@@ -111,18 +111,18 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Fecha de nacimiento (ISO 8601) - No puede ser en el futuro',
-        example: '1990-05-15T00:00:00.000Z'
+        example: '1990-05-15T00:00:00.000Z',
     }),
     (0, class_validator_1.IsDateString)(),
     IsNotFutureDate({
-        message: 'La fecha de nacimiento no puede ser en el futuro'
+        message: 'La fecha de nacimiento no puede ser en el futuro',
     }),
     __metadata("design:type", String)
 ], CreatePatientDto.prototype, "birthdate", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Género del paciente',
-        example: 'Masculino'
+        example: 'Masculino',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -131,7 +131,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Estado activo del paciente',
         example: true,
-        default: true
+        default: true,
     }),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
@@ -140,7 +140,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'ID del usuario asociado (opcional)',
-        example: 'cluid123'
+        example: 'cluid123',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),

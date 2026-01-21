@@ -6,7 +6,7 @@ export class QueryPermissionDto {
   @ApiPropertyOptional({
     description: 'Número de página',
     example: 1,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -17,7 +17,7 @@ export class QueryPermissionDto {
   @ApiPropertyOptional({
     description: 'Número de elementos por página',
     example: 10,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -27,7 +27,7 @@ export class QueryPermissionDto {
 
   @ApiPropertyOptional({
     description: 'Buscar por nombre',
-    example: 'USER'
+    example: 'USER',
   })
   @IsOptional()
   @IsString()
@@ -35,7 +35,7 @@ export class QueryPermissionDto {
 
   @ApiPropertyOptional({
     description: 'Ordenar por campo',
-    example: 'name'
+    example: 'name',
   })
   @IsOptional()
   @IsString()
@@ -44,7 +44,7 @@ export class QueryPermissionDto {
   @ApiPropertyOptional({
     description: 'Dirección del ordenamiento',
     example: 'asc',
-    enum: ['asc', 'desc']
+    enum: ['asc', 'desc'],
   })
   @IsOptional()
   @IsString()

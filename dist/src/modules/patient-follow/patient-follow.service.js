@@ -48,12 +48,15 @@ let PatientFollowService = PatientFollowService_1 = class PatientFollowService {
                 data: {
                     ...createPatientFollowDto,
                     scheduledContactDate: new Date(createPatientFollowDto.scheduledContactDate),
-                    actualContactDate: createPatientFollowDto.actualContactDate ?
-                        new Date(createPatientFollowDto.actualContactDate) : undefined,
-                    nextContactDate: createPatientFollowDto.nextContactDate ?
-                        new Date(createPatientFollowDto.nextContactDate) : undefined,
-                    completedAt: createPatientFollowDto.completedAt ?
-                        new Date(createPatientFollowDto.completedAt) : undefined,
+                    actualContactDate: createPatientFollowDto.actualContactDate
+                        ? new Date(createPatientFollowDto.actualContactDate)
+                        : undefined,
+                    nextContactDate: createPatientFollowDto.nextContactDate
+                        ? new Date(createPatientFollowDto.nextContactDate)
+                        : undefined,
+                    completedAt: createPatientFollowDto.completedAt
+                        ? new Date(createPatientFollowDto.completedAt)
+                        : undefined,
                 },
                 include: {
                     patient: {
@@ -298,8 +301,9 @@ let PatientFollowService = PatientFollowService_1 = class PatientFollowService {
             where: { id },
             data: {
                 attemptCount: patientFollow.attemptCount + 1,
-                status: patientFollow.attemptCount + 1 >= patientFollow.maxAttempts ?
-                    'FAILED' : 'IN_PROGRESS',
+                status: patientFollow.attemptCount + 1 >= patientFollow.maxAttempts
+                    ? 'FAILED'
+                    : 'IN_PROGRESS',
             },
             include: {
                 patient: true,

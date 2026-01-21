@@ -41,7 +41,7 @@ let SpecialtiesService = SpecialtiesService_1 = class SpecialtiesService {
         }
     }
     async findAll(queryDto) {
-        const { page = 1, limit = 10, search, active, sortBy = "name", sortOrder = "asc" } = queryDto;
+        const { page = 1, limit = 10, search, active, sortBy = 'name', sortOrder = 'asc', } = queryDto;
         const skip = (page - 1) * limit;
         const where = {};
         if (search) {

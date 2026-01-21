@@ -6,7 +6,7 @@ export class CreatePermissionDto {
     description: 'Nombre único del permiso',
     example: 'USER_CREATE',
     minLength: 2,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @MinLength(2)
@@ -16,7 +16,7 @@ export class CreatePermissionDto {
   @ApiPropertyOptional({
     description: 'Descripción del permiso',
     example: 'Permite crear usuarios',
-    maxLength: 255
+    maxLength: 255,
   })
   @IsString()
   @IsOptional()

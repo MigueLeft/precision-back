@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreateContactAttemptDto } from './dto/create-contact-attempt.dto';
 import { UpdateContactAttemptDto } from './dto/update-contact-attempt.dto';
@@ -20,7 +25,9 @@ export class ContactAttemptService {
       });
 
       if (!followUp) {
-        throw new BadRequestException(`Follow-up with ID ${createContactAttemptDto.followUpId} not found`);
+        throw new BadRequestException(
+          `Follow-up with ID ${createContactAttemptDto.followUpId} not found`,
+        );
       }
 
       // Verificar que las citas y reprogramaciones existen si se proporcionan
@@ -29,7 +36,9 @@ export class ContactAttemptService {
           where: { id: createContactAttemptDto.newAppointmentId },
         });
         if (!appointment) {
-          throw new BadRequestException(`Appointment with ID ${createContactAttemptDto.newAppointmentId} not found`);
+          throw new BadRequestException(
+            `Appointment with ID ${createContactAttemptDto.newAppointmentId} not found`,
+          );
         }
       }
 
@@ -38,15 +47,18 @@ export class ContactAttemptService {
           where: { id: createContactAttemptDto.rescheduleId },
         });
         if (!reschedule) {
-          throw new BadRequestException(`Reschedule with ID ${createContactAttemptDto.rescheduleId} not found`);
+          throw new BadRequestException(
+            `Reschedule with ID ${createContactAttemptDto.rescheduleId} not found`,
+          );
         }
       }
 
       const contactAttempt = await this.prisma.contactAttempt.create({
         data: {
           ...createContactAttemptDto,
-          contactDateTime: createContactAttemptDto.contactDateTime ? 
-            new Date(createContactAttemptDto.contactDateTime) : new Date(),
+          contactDateTime: createContactAttemptDto.contactDateTime
+            ? new Date(createContactAttemptDto.contactDateTime)
+            : new Date(),
         },
         include: {
           followUp: {
@@ -80,12 +92,16 @@ export class ContactAttemptService {
         },
       });
 
-      this.logger.log(`Contact attempt created for follow-up ${createContactAttemptDto.followUpId}, attempt #${createContactAttemptDto.attemptNumber}`);
+      this.logger.log(
+        `Contact attempt created for follow-up ${createContactAttemptDto.followUpId}, attempt #${createContactAttemptDto.attemptNumber}`,
+      );
       return contactAttempt;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new BadRequestException('A contact attempt with these details already exists');
+          throw new BadRequestException(
+            'A contact attempt with these details already exists',
+          );
         }
       }
       throw error;
@@ -93,7 +109,14 @@ export class ContactAttemptService {
   }
 
   async findAll(queryDto: QueryContactAttemptDto) {
-    const { page = 1, limit = 10, search, sortBy = 'contactDateTime', sortOrder = 'desc', ...filters } = queryDto;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      sortBy = 'contactDateTime',
+      sortOrder = 'desc',
+      ...filters
+    } = queryDto;
     const skip = (page - 1) * limit;
 
     // Construir filtros de fecha
@@ -231,7 +254,9 @@ export class ContactAttemptService {
       // Procesar fechas si están presentes
       const dataToUpdate: any = { ...updateContactAttemptDto };
       if (updateContactAttemptDto.contactDateTime) {
-        dataToUpdate.contactDateTime = new Date(updateContactAttemptDto.contactDateTime);
+        dataToUpdate.contactDateTime = new Date(
+          updateContactAttemptDto.contactDateTime,
+        );
       }
 
       const contactAttempt = await this.prisma.contactAttempt.update({
@@ -274,7 +299,9 @@ export class ContactAttemptService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new BadRequestException('A contact attempt with these details already exists');
+          throw new BadRequestException(
+            'A contact attempt with these details already exists',
+          );
         }
       }
       throw error;
@@ -294,7 +321,9 @@ export class ContactAttemptService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2003') {
-          throw new BadRequestException('Cannot delete contact attempt due to related records');
+          throw new BadRequestException(
+            'Cannot delete contact attempt due to related records',
+          );
         }
       }
       throw error;
@@ -306,22 +335,22 @@ export class ContactAttemptService {
   }
 
   async getSuccessfulAttempts(queryDto: QueryContactAttemptDto) {
-    return this.findAll({ 
-      ...queryDto, 
+    return this.findAll({
+      ...queryDto,
       contactResult: 'SUCCESSFUL',
     });
   }
 
   async getFailedAttempts(queryDto: QueryContactAttemptDto) {
-    return this.findAll({ 
-      ...queryDto, 
+    return this.findAll({
+      ...queryDto,
       contactResult: 'NO_ANSWER',
     });
   }
 
   async getAttemptsWithAppointments(queryDto: QueryContactAttemptDto) {
-    return this.findAll({ 
-      ...queryDto, 
+    return this.findAll({
+      ...queryDto,
       appointmentScheduled: true,
     });
   }

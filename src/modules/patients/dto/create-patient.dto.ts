@@ -1,4 +1,15 @@
-import { IsString, IsOptional, IsEmail, IsDateString, IsBoolean, MinLength, MaxLength, registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEmail,
+  IsDateString,
+  IsBoolean,
+  MinLength,
+  MaxLength,
+  registerDecorator,
+  ValidationOptions,
+  ValidationArguments,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 
@@ -14,10 +25,10 @@ function IsNotFutureDate(validationOptions?: ValidationOptions) {
           if (!value) return false;
           const inputDate = new Date(value);
           const currentDate = new Date();
-          
+
           // Set current date to start of day for comparison
           currentDate.setHours(23, 59, 59, 999);
-          
+
           return inputDate <= currentDate;
         },
         defaultMessage(args: ValidationArguments) {
@@ -33,7 +44,7 @@ export class CreatePatientDto {
     description: 'Nombre del paciente',
     example: 'Juan',
     minLength: 2,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @MinLength(2)
@@ -45,7 +56,7 @@ export class CreatePatientDto {
     description: 'Apellido del paciente',
     example: 'Pérez',
     minLength: 2,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @MinLength(2)
@@ -57,7 +68,7 @@ export class CreatePatientDto {
     description: 'Número de identificación único',
     example: '12345678',
     minLength: 5,
-    maxLength: 20
+    maxLength: 20,
   })
   @IsString()
   @MinLength(5)
@@ -68,7 +79,7 @@ export class CreatePatientDto {
   @ApiPropertyOptional({
     description: 'Número de teléfono',
     example: '+57 300 123 4567',
-    maxLength: 20
+    maxLength: 20,
   })
   @IsString()
   @IsOptional()
@@ -78,7 +89,7 @@ export class CreatePatientDto {
 
   @ApiProperty({
     description: 'Correo electrónico',
-    example: 'juan.perez@email.com'
+    example: 'juan.perez@email.com',
   })
   @IsEmail()
   @Transform(({ value }) => value?.toLowerCase().trim())
@@ -86,17 +97,17 @@ export class CreatePatientDto {
 
   @ApiProperty({
     description: 'Fecha de nacimiento (ISO 8601) - No puede ser en el futuro',
-    example: '1990-05-15T00:00:00.000Z'
+    example: '1990-05-15T00:00:00.000Z',
   })
   @IsDateString()
   @IsNotFutureDate({
-    message: 'La fecha de nacimiento no puede ser en el futuro'
+    message: 'La fecha de nacimiento no puede ser en el futuro',
   })
   birthdate: string;
 
   @ApiProperty({
     description: 'Género del paciente',
-    example: 'Masculino'
+    example: 'Masculino',
   })
   @IsString()
   gender: string;
@@ -104,7 +115,7 @@ export class CreatePatientDto {
   @ApiPropertyOptional({
     description: 'Estado activo del paciente',
     example: true,
-    default: true
+    default: true,
   })
   @IsBoolean()
   @IsOptional()
@@ -112,7 +123,7 @@ export class CreatePatientDto {
 
   @ApiPropertyOptional({
     description: 'ID del usuario asociado (opcional)',
-    example: 'cluid123'
+    example: 'cluid123',
   })
   @IsString()
   @IsOptional()

@@ -11,7 +11,13 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { PatientFollowService } from './patient-follow.service';
 import { CreatePatientFollowDto } from './dto/create-patient-follow.dto';
 import { UpdatePatientFollowDto } from './dto/update-patient-follow.dto';
@@ -49,7 +55,10 @@ export class PatientFollowController {
   @Get('patient/:patientId')
   @ApiOperation({ summary: 'Obtener seguimientos por paciente' })
   @ApiParam({ name: 'patientId', description: 'ID del paciente' })
-  @ApiResponse({ status: 200, description: 'Seguimientos del paciente obtenidos' })
+  @ApiResponse({
+    status: 200,
+    description: 'Seguimientos del paciente obtenidos',
+  })
   getByPatient(
     @Param('patientId') patientId: string,
     @Query() queryDto: QueryPatientFollowDto,

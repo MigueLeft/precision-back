@@ -1,0 +1,61 @@
+{
+  "patientId": "cmg4iykys0000u8wkx0o1qepf",
+  "questionnaireId": "550e8400-e29b-41d4-a716-446655440001",
+  "answers": [
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440101",
+      "answerText": "Juan Carlos",
+      "score": 0
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440102",
+      "answerText": "Pérez García",
+      "score": 0
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440103",
+      "answerText": "1985-03-15",
+      "score": 0
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440104",
+      "answerText": "masculino",
+      "score": 1
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440105",
+      "answerText": "juan.perez@email.com",
+      "score": 0
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440106",
+      "answerText": "+57 312 456 7890",
+      "score": 0
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440301",
+      "answerText": "diabetes,hipertension,asma",
+      "score": 3
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440302",
+      "answerText": "alergia_medicamentos,cirugia_anterior",
+      "score": 2
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440303",
+      "answerText": "palpitaciones,dolor_pecho,fatiga,dolor_cabeza",
+      "score": 4
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440401",
+      "answerValue": 75,
+      "score": 1
+    },
+    {
+      "questionId": "550e8400-e29b-41d4-a716-446655440402",
+      "answerValue": 1.75,
+      "score": 0
+    }
+  ]
+}

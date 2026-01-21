@@ -6,7 +6,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 export class UpdateConsultationDto extends PartialType(CreateConsultationDto) {
   @ApiPropertyOptional({
     description: 'Estado activo de la consulta',
-    example: true
+    example: true,
   })
   @IsBoolean()
   @IsOptional()

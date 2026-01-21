@@ -1,4 +1,11 @@
-import { IsString, IsOptional, IsEmail, IsBoolean, MinLength, MaxLength } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEmail,
+  IsBoolean,
+  MinLength,
+  MaxLength,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 
@@ -7,7 +14,7 @@ export class CreateMedicDto {
     description: 'Nombre del médico',
     example: 'Juan',
     minLength: 2,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @MinLength(2)
@@ -19,7 +26,7 @@ export class CreateMedicDto {
     description: 'Apellido del médico',
     example: 'Gómez',
     minLength: 2,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @MinLength(2)
@@ -31,7 +38,7 @@ export class CreateMedicDto {
     description: 'Número de identificación único',
     example: '12345678',
     minLength: 5,
-    maxLength: 20
+    maxLength: 20,
   })
   @IsString()
   @MinLength(5)
@@ -42,7 +49,7 @@ export class CreateMedicDto {
   @ApiPropertyOptional({
     description: 'Número de teléfono',
     example: '+57 300 123 4567',
-    maxLength: 20
+    maxLength: 20,
   })
   @IsString()
   @IsOptional()
@@ -52,7 +59,7 @@ export class CreateMedicDto {
 
   @ApiProperty({
     description: 'Correo electrónico',
-    example: 'juan.gomez@email.com'
+    example: 'juan.gomez@email.com',
   })
   @IsEmail()
   @Transform(({ value }) => value?.toLowerCase().trim())
@@ -60,14 +67,14 @@ export class CreateMedicDto {
 
   @ApiProperty({
     description: 'ID de la especialidad médica',
-    example: 'cluid123'
+    example: 'cluid123',
   })
   @IsString()
   specialtyId: string;
 
   @ApiProperty({
     description: 'Título profesional',
-    example: 'Médico Cirujano'
+    example: 'Médico Cirujano',
   })
   @IsString()
   @Transform(({ value }) => value?.trim())
@@ -76,7 +83,7 @@ export class CreateMedicDto {
   @ApiPropertyOptional({
     description: 'Estado activo del médico',
     example: true,
-    default: true
+    default: true,
   })
   @IsBoolean()
   @IsOptional()
@@ -84,7 +91,7 @@ export class CreateMedicDto {
 
   @ApiPropertyOptional({
     description: 'ID del usuario asociado (opcional)',
-    example: 'cluid123'
+    example: 'cluid123',
   })
   @IsString()
   @IsOptional()

@@ -1,0 +1,47 @@
+// ========================================
+// ESTUDIOS MÉDICOS / MEDICAL STUDIES
+// ========================================
+// Gestión de estudios, laboratorios, radiografías, etc.
+
+model MedicalStudy {
+  id              String   @id @default(uuid()) @db.Uuid
+  patientId       String   @map("patient_id")
+
+  // Información del estudio
+  studyDate       DateTime @map("study_date") // Fecha de realización
+  studyType       String   @map("study_type") @db.VarChar(100) // "Hematología", "Radiografía", "Laboratorio", etc.
+  studyLocation   String?  @map("study_location") @db.VarChar(200) // Lugar donde se realizó
+
+  // Resultados
+  resultFilePath  String?  @map("result_file_path") // Ruta del PDF en S3 o almacenamiento
+  resultFileUrl   String?  @map("result_file_url") // URL firmada o pública del archivo
+  imageFilePath   String?  @map("image_file_path") // Ruta de imagen (si aplica)
+  imageFileUrl    String?  @map("image_file_url") // URL de la imagen
+
+  // Información adicional
+  studyName       String?  @map("study_name") @db.VarChar(200) // Nombre específico del estudio
+  description     String?  // Descripción o notas del estudio
+  findings        String?  // Hallazgos principales (texto libre)
+
+  // Control y seguimiento
+  orderedBy       String?  @map("ordered_by") // ID del médico que ordenó el estudio
+  interpretedBy   String?  @map("interpreted_by") // ID del médico que interpretó
+  status          String   @default("pending") @db.VarChar(20) // "pending", "completed", "reviewed"
+  active          Boolean  @default(true) // Para soft delete
+
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relaciones
+  patient         Patient      @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  examResults     ExamResult[] // Relación con resultados de exámenes
+
+  // Índices
+  @@index([patientId])
+  @@index([studyDate])
+  @@index([studyType])
+  @@index([status])
+  @@index([active])
+  @@map("medical_studies")
+}

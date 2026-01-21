@@ -1,0 +1,231 @@
+model Questionnaire {
+  id          String   @id @default(uuid()) @db.Uuid
+  code        String   @unique @db.VarChar(50)
+  name        String   @db.VarChar(200)
+  description String?
+  version     String   @default("1.0") @db.VarChar(10)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  questionnaireQuestions       QuestionnaireQuestion[]
+  diagnosticGroups            DiagnosticGroup[]
+  patientQuestionnaires       PatientQuestionnaire[]
+  patientQuestionnaireHistory PatientQuestionnaireHistory[]
+
+  @@map("questionnaires")
+}
+
+model Question {
+  id               String   @id @default(uuid()) @db.Uuid
+  code             String   @unique @db.VarChar(50)
+  questionText     String   @map("question_text")
+  questionType     QuestionType @map("question_type")
+  inputType        String?  @map("input_type") @db.VarChar(50) // For UI rendering (radio, checkbox, text, range)
+  options          Json?    @db.JsonB
+  hasScore         Boolean  @default(false) @map("has_score")
+  active           Boolean  @default(true)
+
+  // Conditional logic fields
+  dependsOn        String?  @map("depends_on") @db.VarChar(50) // Código de la pregunta padre
+  showWhen         Json?    @map("show_when") @db.JsonB // Condiciones para mostrar: { values: ["si", "femenino"], operator: "IN" }
+
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  questionnaireQuestions     QuestionnaireQuestion[]
+  questionDiagnosticGroups   QuestionDiagnosticGroup[]
+  answers                   Answer[]
+
+  @@map("questions")
+}
+
+enum QuestionType {
+  SINGLE_CHOICE    @map("single_choice")
+  MULTIPLE_CHOICE  @map("multiple_choice")
+  TEXT            @map("text")
+  SCALE           @map("scale")
+  NUMERIC         @map("numeric")
+  BOOLEAN         @map("boolean")
+  DATE            @map("date")
+  EMAIL           @map("email")
+
+  @@map("question_type")
+}
+
+model QuestionnaireQuestion {
+  id              String        @id @default(uuid()) @db.Uuid
+  questionnaireId String        @map("questionnaire_id") @db.Uuid
+  questionId      String        @map("question_id") @db.Uuid
+  order           Int
+  required        Boolean       @default(true)
+  section         String?       @db.VarChar(100)
+
+  // Relations
+  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  question        Question      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([questionnaireId, questionId])
+  @@unique([questionnaireId, order])
+  @@index([questionnaireId, order])
+  @@map("questionnaire_questions")
+}
+
+model DiagnosticGroup {
+  id              String   @id @default(uuid()) @db.Uuid
+  name            String   @db.VarChar(100)
+  description     String?
+  questionnaireId String   @map("questionnaire_id") @db.Uuid
+  diagnosticCode  String?  @map("diagnostic_code") @db.VarChar(50)
+  scoringMethod   String?  @map("scoring_method") @db.VarChar(50)
+  scoringConfig   Json?    @map("scoring_config") @db.JsonB
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  questionnaire            Questionnaire             @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  diagnostics             Diagnostic[]
+  questionDiagnosticGroups QuestionDiagnosticGroup[]
+
+  @@unique([questionnaireId, name])
+  @@map("diagnostic_groups")
+}
+
+model Diagnostic {
+  id                String   @id @default(uuid()) @db.Uuid
+  diagnosticGroupId String   @map("diagnostic_group_id") @db.Uuid
+  name              String   @db.VarChar(100)
+  description       String?
+  minScore          Decimal  @map("min_score") @db.Decimal(10,2)
+  maxScore          Decimal  @map("max_score") @db.Decimal(10,2)
+  severity          String?  @db.VarChar(50) // low, medium, high, critical
+  recommendations   String?
+  colorCode         String?  @map("color_code") @db.VarChar(7)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  diagnosticGroup     DiagnosticGroup     @relation(fields: [diagnosticGroupId], references: [id], onDelete: Cascade)
+  patientDiagnostics PatientDiagnostic[]
+
+  @@unique([diagnosticGroupId, name])
+  @@index([minScore, maxScore])
+  @@map("diagnostics")
+}
+
+model QuestionDiagnosticGroup {
+  id                String   @id @default(uuid()) @db.Uuid
+  questionId        String   @map("question_id") @db.Uuid
+  diagnosticGroupId String   @map("diagnostic_group_id") @db.Uuid
+  weight            Decimal  @default(1.00) @db.Decimal(5,2)
+  scoringRules      Json?    @map("scoring_rules") @db.JsonB
+  assignedAt        DateTime @default(now()) @map("assigned_at")
+
+  // Relations
+  question        Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  diagnosticGroup DiagnosticGroup @relation(fields: [diagnosticGroupId], references: [id], onDelete: Cascade)
+
+  @@unique([questionId, diagnosticGroupId])
+  @@map("question_diagnostic_groups")
+}
+
+model PatientQuestionnaire {
+  id              String    @id @default(uuid()) @db.Uuid
+  patientId       String    @map("patient_id")
+  questionnaireId String    @map("questionnaire_id") @db.Uuid
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  isCompleted     Boolean   @default(false) @map("is_completed")
+  totalScore      Decimal?  @map("total_score") @db.Decimal(10,2)
+  sourceIp        String?   @map("source_ip") @db.Inet
+  device          String?   @db.VarChar(100)
+  notes           String?
+
+  // Relationship processing status
+  relationsProcessed        Boolean   @default(false) @map("relations_processed")
+  relationsProcessingStatus String?   @default("pending") @map("relations_processing_status") @db.VarChar(50)
+  relationsProcessingError  String?   @map("relations_processing_error")
+  relationsProcessedAt      DateTime? @map("relations_processed_at")
+
+  // Relations
+  patient                      Patient                       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  questionnaire                Questionnaire                 @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  answers                     Answer[]
+  patientDiagnostics          PatientDiagnostic[]
+  patientQuestionnaireHistory PatientQuestionnaireHistory[]
+
+  @@index([patientId])
+  @@index([startedAt])
+  @@index([isCompleted])
+  @@index([relationsProcessed])
+  @@map("patient_questionnaires")
+}
+
+model Answer {
+  id                      String   @id @default(uuid()) @db.Uuid
+  patientQuestionnaireId  String   @map("patient_questionnaire_id") @db.Uuid
+  questionId              String   @map("question_id") @db.Uuid
+  textValue               String?  @map("text_value")
+  numericValue            Decimal? @map("numeric_value") @db.Decimal(10,2)
+  booleanValue            Boolean? @map("boolean_value")
+  dateValue               DateTime? @map("date_value")
+  jsonValue               Json?    @map("json_value") @db.JsonB // For multiple choice options
+  score                   Decimal? @db.Decimal(10,2)
+  answeredAt              DateTime @default(now()) @map("answered_at")
+
+  // Relations
+  patientQuestionnaire PatientQuestionnaire @relation(fields: [patientQuestionnaireId], references: [id], onDelete: Cascade)
+  question             Question             @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([patientQuestionnaireId, questionId])
+  @@index([patientQuestionnaireId])
+  @@index([questionId])
+  @@map("answers")
+}
+
+model PatientDiagnostic {
+  id                     String   @id @default(uuid()) @db.Uuid
+  patientId              String   @map("patient_id")
+  patientQuestionnaireId String   @map("patient_questionnaire_id") @db.Uuid
+  diagnosticId           String   @map("diagnostic_id") @db.Uuid
+  diagnosticGroupId      String   @map("diagnostic_group_id") @db.Uuid
+  obtainedScore          Decimal  @map("obtained_score") @db.Decimal(10,2)
+  maxPossibleScore       Decimal  @map("max_possible_score") @db.Decimal(10,2)
+  percentage             Decimal  @db.Decimal(5,2)
+  diagnosedAt            DateTime @default(now()) @map("diagnosed_at")
+  observations           String?
+  recommendations        Json?    @db.JsonB
+
+  // Relations
+  patient              Patient              @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientQuestionnaire PatientQuestionnaire @relation(fields: [patientQuestionnaireId], references: [id], onDelete: Cascade)
+  diagnostic           Diagnostic           @relation(fields: [diagnosticId], references: [id], onDelete: Cascade)
+
+  @@unique([patientQuestionnaireId, diagnosticId])
+  @@index([patientId, diagnosedAt])
+  @@index([patientQuestionnaireId])
+  @@map("patient_diagnostics")
+}
+
+model PatientQuestionnaireHistory {
+  id                     String   @id @default(uuid()) @db.Uuid
+  patientId              String   @map("patient_id")
+  questionnaireId        String   @map("questionnaire_id") @db.Uuid
+  patientQuestionnaireId String   @map("patient_questionnaire_id") @db.Uuid
+  completedAt            DateTime @map("completed_at")
+  totalScore             Decimal? @map("total_score") @db.Decimal(10,2)
+  summary                Json?    @db.JsonB
+  createdAt              DateTime @default(now()) @map("created_at")
+
+  // Relations
+  patient              Patient              @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  questionnaire        Questionnaire        @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  patientQuestionnaire PatientQuestionnaire @relation(fields: [patientQuestionnaireId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, questionnaireId])
+  @@index([completedAt])
+  @@map("patient_questionnaire_history")
+}

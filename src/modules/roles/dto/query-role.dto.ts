@@ -6,7 +6,7 @@ export class QueryRoleDto {
   @ApiPropertyOptional({
     description: 'Número de página',
     example: 1,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -17,7 +17,7 @@ export class QueryRoleDto {
   @ApiPropertyOptional({
     description: 'Número de elementos por página',
     example: 10,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -27,7 +27,7 @@ export class QueryRoleDto {
 
   @ApiPropertyOptional({
     description: 'Buscar por nombre o descripción',
-    example: 'ADMIN'
+    example: 'ADMIN',
   })
   @IsOptional()
   @IsString()
@@ -35,7 +35,7 @@ export class QueryRoleDto {
 
   @ApiPropertyOptional({
     description: 'Filtrar por roles del sistema',
-    example: false
+    example: false,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -48,7 +48,7 @@ export class QueryRoleDto {
 
   @ApiPropertyOptional({
     description: 'Ordenar por campo',
-    example: 'name'
+    example: 'name',
   })
   @IsOptional()
   @IsString()
@@ -57,7 +57,7 @@ export class QueryRoleDto {
   @ApiPropertyOptional({
     description: 'Dirección del ordenamiento',
     example: 'asc',
-    enum: ['asc', 'desc']
+    enum: ['asc', 'desc'],
   })
   @IsOptional()
   @IsString()

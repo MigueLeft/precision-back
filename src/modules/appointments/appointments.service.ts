@@ -1,7 +1,12 @@
-import { Injectable, NotFoundException, ConflictException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
-import { CreateAppointmentDto } from './dto/create-appointment.dto'; 
-import { UpdateAppointmentDto } from './dto/update-appointment.dto'; 
+import { CreateAppointmentDto } from './dto/create-appointment.dto';
+import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { QueryAppointmentDto } from './dto/query-appointment.dto';
 import { Prisma } from '@prisma/client';
 
@@ -19,7 +24,9 @@ export class AppointmentsService {
       });
 
       if (!patientExists) {
-        throw new ConflictException(`Patient with ID ${createAppointmentDto.patientId} not found`);
+        throw new ConflictException(
+          `Patient with ID ${createAppointmentDto.patientId} not found`,
+        );
       }
 
       // Verificar que el médico existe
@@ -28,7 +35,9 @@ export class AppointmentsService {
       });
 
       if (!medicExists) {
-        throw new ConflictException(`Medic with ID ${createAppointmentDto.medicId} not found`);
+        throw new ConflictException(
+          `Medic with ID ${createAppointmentDto.medicId} not found`,
+        );
       }
 
       // Verificar si ya existe una cita para el mismo médico y la misma fecha
@@ -40,7 +49,9 @@ export class AppointmentsService {
       });
 
       if (existingAppointment) {
-        throw new ConflictException('A appointment already exists for this medic at the specified time.');
+        throw new ConflictException(
+          'A appointment already exists for this medic at the specified time.',
+        );
       }
 
       const appointment = await this.prisma.appointment.create({
@@ -61,19 +72,19 @@ export class AppointmentsService {
   }
 
   async findAll(query: QueryAppointmentDto) {
-    const { 
-      page = 1, 
-      limit = 10, 
-      search, 
-      specificDate, 
-      startDate, 
-      endDate, 
-      specificTime, 
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      specificDate,
+      startDate,
+      endDate,
+      specificTime,
       appointmentStatus,
       patientId,
       medicId,
       sortBy = 'dateTime',
-      sortOrder = 'asc'
+      sortOrder = 'asc',
     } = query;
     const skip = (page - 1) * limit;
 
@@ -93,22 +104,25 @@ export class AppointmentsService {
           lt: new Date(`${specificDate}T23:59:59Z`),
         },
       }),
-      ...(startDate && endDate && {
-        dateTime: {
-          gte: new Date(startDate),
-          lte: new Date(endDate),
-        },
-      }),
-      ...(startDate && !endDate && {
-        dateTime: {
-          gte: new Date(startDate),
-        },
-      }),
-      ...(endDate && !startDate && {
-        dateTime: {
-          lte: new Date(endDate),
-        },
-      }),
+      ...(startDate &&
+        endDate && {
+          dateTime: {
+            gte: new Date(startDate),
+            lte: new Date(endDate),
+          },
+        }),
+      ...(startDate &&
+        !endDate && {
+          dateTime: {
+            gte: new Date(startDate),
+          },
+        }),
+      ...(endDate &&
+        !startDate && {
+          dateTime: {
+            lte: new Date(endDate),
+          },
+        }),
     };
 
     // Configurar el ordenamiento
@@ -129,7 +143,7 @@ export class AppointmentsService {
               firstName: true,
               lastName: true,
               identification: true,
-              email: true
+              email: true,
             },
           },
           medic: {
@@ -153,8 +167,10 @@ export class AppointmentsService {
 
     // Filtrar por hora si se proporciona (esto debería hacerse en la query, no después)
     const filteredAppointments = specificTime
-      ? appointments.filter(appointment => {
-          const appointmentTime = new Date(appointment.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      ? appointments.filter((appointment) => {
+          const appointmentTime = new Date(
+            appointment.dateTime,
+          ).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           return appointmentTime === specificTime;
         })
       : appointments;
@@ -254,6 +270,111 @@ export class AppointmentsService {
           throw new NotFoundException(`Appointment with ID ${id} not found`);
         }
       }
+      throw error;
+    }
+  }
+
+  async findAppointmentDates() {
+    try {
+      // Obtener todas las citas con solo el campo dateTime
+      const appointments = await this.prisma.appointment.findMany({
+        select: {
+          dateTime: true,
+        },
+        orderBy: {
+          dateTime: 'asc',
+        },
+      });
+
+      // Extraer fechas únicas (solo la parte de fecha, sin hora)
+      const uniqueDates = Array.from(
+        new Set(
+          appointments.map((appointment) => {
+            const date = new Date(appointment.dateTime);
+            return date.toISOString().split('T')[0]; // Formato: YYYY-MM-DD
+          }),
+        ),
+      );
+
+      this.logger.log(`Found ${uniqueDates.length} unique appointment dates`);
+      return uniqueDates;
+    } catch (error) {
+      this.logger.error('Error fetching appointment dates', error);
+      throw error;
+    }
+  }
+
+  async getAppointmentStats() {
+    try {
+      const now = new Date();
+      const startOfToday = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        0,
+        0,
+        0,
+      );
+      const endOfToday = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        23,
+        59,
+        59,
+      );
+      const next7Days = new Date(now);
+      next7Days.setDate(next7Days.getDate() + 7);
+
+      // Total de citas
+      const totalAppointments = await this.prisma.appointment.count();
+
+      // Citas del día hoy
+      const todayAppointments = await this.prisma.appointment.count({
+        where: {
+          dateTime: {
+            gte: startOfToday,
+            lte: endOfToday,
+          },
+        },
+      });
+
+      // Próximas citas (en los próximos 7 días)
+      const upcomingAppointments = await this.prisma.appointment.count({
+        where: {
+          dateTime: {
+            gte: now,
+            lte: next7Days,
+          },
+        },
+      });
+
+      // Citas pendientes
+      const pendingAppointments = await this.prisma.appointment.count({
+        where: {
+          appointmentStatus: 'pending',
+        },
+      });
+
+      // Citas completadas
+      const completedAppointments = await this.prisma.appointment.count({
+        where: {
+          appointmentStatus: 'completed',
+        },
+      });
+
+      const stats = {
+        total: totalAppointments,
+        today: todayAppointments,
+        upcoming: upcomingAppointments,
+        pending: pendingAppointments,
+        completed: completedAppointments,
+      };
+
+      this.logger.log('Appointment statistics retrieved successfully');
+      return stats;
+    } catch (error) {
+      this.logger.error('Error fetching appointment statistics', error);
       throw error;
     }
   }

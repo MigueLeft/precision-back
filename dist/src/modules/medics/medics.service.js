@@ -84,7 +84,7 @@ let MedicsService = MedicsService_1 = class MedicsService {
         }
     }
     async findAll(query) {
-        const { page = 1, limit = 10, search, active, specialty, sortBy = 'id', sortOrder = 'asc' } = query;
+        const { page = 1, limit = 10, search, active, specialty, sortBy = 'id', sortOrder = 'asc', } = query;
         const skip = (page - 1) * limit;
         this.logger.log(`Raw query object: ${JSON.stringify(query)}`);
         this.logger.log(`Filtering medics with active: ${active} (type: ${typeof active})`);
@@ -99,7 +99,9 @@ let MedicsService = MedicsService_1 = class MedicsService {
                 ],
             }),
             ...(active !== undefined && { active }),
-            ...(specialty && { specialty: { name: { contains: specialty, mode: 'insensitive' } } }),
+            ...(specialty && {
+                specialty: { name: { contains: specialty, mode: 'insensitive' } },
+            }),
         };
         this.logger.log(`Where clause: ${JSON.stringify(where)}`);
         const orderBy = {

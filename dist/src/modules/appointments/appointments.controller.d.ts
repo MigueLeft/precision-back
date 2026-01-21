@@ -11,13 +11,13 @@ export declare class AppointmentsController {
         updatedAt: Date;
         active: boolean;
         patientId: string;
+        notes: string | null;
         medicId: string;
         dateTime: Date;
         appointmentType: string;
         appointmentStatus: string;
         modality: string;
         reason: string | null;
-        notes: string | null;
         requiresFollowUp: boolean;
         followUpDate: Date | null;
         followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -36,8 +36,8 @@ export declare class AppointmentsController {
                 lastName: string;
             };
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 identification: string;
@@ -48,13 +48,13 @@ export declare class AppointmentsController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
-            notes: string | null;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
             followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -69,11 +69,19 @@ export declare class AppointmentsController {
             hasPrev: boolean;
         };
     }>;
+    findAppointmentDates(): Promise<string[]>;
+    getAppointmentStats(): Promise<{
+        total: number;
+        today: number;
+        upcoming: number;
+        pending: number;
+        completed: number;
+    }>;
     findOne(id: string): Promise<{
         medic: {
+            email: string;
             id: string;
             name: string;
-            email: string;
             specialty: {
                 id: string;
                 name: string;
@@ -82,8 +90,8 @@ export declare class AppointmentsController {
             lastName: string;
         };
         patient: {
-            id: string;
             email: string;
+            id: string;
             firstName: string;
             lastName: string;
             identification: string;
@@ -95,13 +103,13 @@ export declare class AppointmentsController {
         updatedAt: Date;
         active: boolean;
         patientId: string;
+        notes: string | null;
         medicId: string;
         dateTime: Date;
         appointmentType: string;
         appointmentStatus: string;
         modality: string;
         reason: string | null;
-        notes: string | null;
         requiresFollowUp: boolean;
         followUpDate: Date | null;
         followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -113,13 +121,13 @@ export declare class AppointmentsController {
         updatedAt: Date;
         active: boolean;
         patientId: string;
+        notes: string | null;
         medicId: string;
         dateTime: Date;
         appointmentType: string;
         appointmentStatus: string;
         modality: string;
         reason: string | null;
-        notes: string | null;
         requiresFollowUp: boolean;
         followUpDate: Date | null;
         followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;

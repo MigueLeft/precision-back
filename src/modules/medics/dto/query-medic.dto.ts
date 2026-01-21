@@ -6,7 +6,7 @@ export class QueryMedicDto {
   @ApiPropertyOptional({
     description: 'Número de página',
     example: 1,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -17,7 +17,7 @@ export class QueryMedicDto {
   @ApiPropertyOptional({
     description: 'Número de elementos por página',
     example: 10,
-    minimum: 1
+    minimum: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -26,8 +26,9 @@ export class QueryMedicDto {
   limit?: number = 10;
 
   @ApiPropertyOptional({
-    description: 'Buscar por nombre, apellido, identificación, email o número de registro',
-    example: 'Juan'
+    description:
+      'Buscar por nombre, apellido, identificación, email o número de registro',
+    example: 'Juan',
   })
   @IsOptional()
   @IsString()
@@ -35,7 +36,7 @@ export class QueryMedicDto {
 
   @ApiPropertyOptional({
     description: 'Filtrar por estado activo',
-    example: true
+    example: true,
   })
   @IsOptional()
   // @Transform(({ value }) => {
@@ -48,7 +49,7 @@ export class QueryMedicDto {
 
   @ApiPropertyOptional({
     description: 'Filtrar por especialidad',
-    example: 'Cardiología'
+    example: 'Cardiología',
   })
   @IsOptional()
   @IsString()
@@ -57,7 +58,7 @@ export class QueryMedicDto {
   @ApiPropertyOptional({
     description: 'Ordenar por campo',
     example: 'name',
-    enum: ['name', 'lastName', 'email', 'registrationNumber', 'createdAt']
+    enum: ['name', 'lastName', 'email', 'registrationNumber', 'createdAt'],
   })
   @IsOptional()
   @IsString()
@@ -66,7 +67,7 @@ export class QueryMedicDto {
   @ApiPropertyOptional({
     description: 'Dirección del ordenamiento',
     example: 'asc',
-    enum: ['asc', 'desc']
+    enum: ['asc', 'desc'],
   })
   @IsOptional()
   @IsString()

@@ -1,0 +1,44 @@
+model PhysicalExamination {
+  id                        String   @id @default(uuid()) @db.Uuid
+  weight                    Decimal? @db.Decimal(5,2) // Peso en kg
+  height                    Decimal? @db.Decimal(5,2) // Talla en metros
+  bmi                       Decimal? @map("body_mass_index") @db.Decimal(5,2) // IMC calculado automáticamente
+  waistCircumference        Decimal? @map("waist_circumference") @db.Decimal(5,2) // Circunferencia abdominal en cm
+  neckCircumference         Decimal? @map("neck_circumference") @db.Decimal(5,2) // Circunferencia del cuello en cm
+  bodyFatPercentage         Decimal? @map("body_fat_percentage") @db.Decimal(5,2) // Porcentaje de grasa corporal
+  bloodPressureSystolic     Int?     @map("blood_pressure_systolic") // Presión arterial sistólica en mmHg
+  bloodPressureDiastolic    Int?     @map("blood_pressure_diastolic") // Presión arterial diastólica en mmHg
+  heartRate                 Int?     @map("heart_rate") // Frecuencia cardíaca en latidos por minuto
+  respiratoryRate           Int?     @map("respiratory_rate") // Frecuencia respiratoria en respiraciones por minuto
+  temperature               Decimal? @db.Decimal(4,2) // Temperatura en °C
+  oxygenSaturation          Int?     @map("oxygen_saturation") // Saturación de oxígeno en %
+  generalFindings           String?  @map("general_findings") // Hallazgos generales
+  additionalObservations    String?  @map("additional_observations") // Observaciones adicionales
+  performedBy               String?  @map("performed_by") @db.VarChar(100) // Quien realizó el examen
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  patientPhysicalExaminations PatientPhysicalExamination[]
+
+  @@map("physical_examinations")
+}
+
+model PatientPhysicalExamination {
+  id                     String   @id @default(uuid()) @db.Uuid
+  patientId              String   @map("patient_id")
+  physicalExaminationId  String   @map("physical_examination_id") @db.Uuid
+  examinationDate        DateTime @map("examination_date") // Fecha cuando se realizó el examen
+  notes                  String?  // Notas específicas para este examen del paciente
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  patient              Patient              @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  physicalExamination  PhysicalExamination  @relation(fields: [physicalExaminationId], references: [id], onDelete: Cascade)
+
+  @@unique([patientId, physicalExaminationId, examinationDate])
+  @@index([patientId])
+  @@index([examinationDate])
+  @@map("patient_physical_examinations")
+}

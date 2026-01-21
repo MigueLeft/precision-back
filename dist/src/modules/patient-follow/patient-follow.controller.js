@@ -82,7 +82,10 @@ __decorate([
     (0, common_1.Get)('patient/:patientId'),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener seguimientos por paciente' }),
     (0, swagger_1.ApiParam)({ name: 'patientId', description: 'ID del paciente' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Seguimientos del paciente obtenidos' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Seguimientos del paciente obtenidos',
+    }),
     __param(0, (0, common_1.Param)('patientId')),
     __param(1, (0, common_1.Query)()),
     __metadata("design:type", Function),

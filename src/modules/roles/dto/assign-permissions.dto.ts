@@ -6,7 +6,7 @@ export class AssignPermissionsDto {
   @ApiProperty({
     description: 'IDs de los permisos a asignar',
     example: [1, 2, 3],
-    type: [Number]
+    type: [Number],
   })
   @IsArray()
   @IsInt({ each: true })

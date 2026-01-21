@@ -60,7 +60,7 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
         }
     }
     async findAll(query) {
-        const { page = 1, limit = 10, search, specificDate, startDate, endDate, specificTime, appointmentStatus, patientId, medicId, sortBy = 'dateTime', sortOrder = 'asc' } = query;
+        const { page = 1, limit = 10, search, specificDate, startDate, endDate, specificTime, appointmentStatus, patientId, medicId, sortBy = 'dateTime', sortOrder = 'asc', } = query;
         const skip = (page - 1) * limit;
         const where = {
             ...(search && {
@@ -78,18 +78,21 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
                     lt: new Date(`${specificDate}T23:59:59Z`),
                 },
             }),
-            ...(startDate && endDate && {
+            ...(startDate &&
+                endDate && {
                 dateTime: {
                     gte: new Date(startDate),
                     lte: new Date(endDate),
                 },
             }),
-            ...(startDate && !endDate && {
+            ...(startDate &&
+                !endDate && {
                 dateTime: {
                     gte: new Date(startDate),
                 },
             }),
-            ...(endDate && !startDate && {
+            ...(endDate &&
+                !startDate && {
                 dateTime: {
                     lte: new Date(endDate),
                 },
@@ -111,7 +114,7 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
                             firstName: true,
                             lastName: true,
                             identification: true,
-                            email: true
+                            email: true,
                         },
                     },
                     medic: {
@@ -133,7 +136,7 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
             this.prisma.appointment.count({ where }),
         ]);
         const filteredAppointments = specificTime
-            ? appointments.filter(appointment => {
+            ? appointments.filter((appointment) => {
                 const appointmentTime = new Date(appointment.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 return appointmentTime === specificTime;
             })
@@ -225,6 +228,77 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
                     throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
                 }
             }
+            throw error;
+        }
+    }
+    async findAppointmentDates() {
+        try {
+            const appointments = await this.prisma.appointment.findMany({
+                select: {
+                    dateTime: true,
+                },
+                orderBy: {
+                    dateTime: 'asc',
+                },
+            });
+            const uniqueDates = Array.from(new Set(appointments.map((appointment) => {
+                const date = new Date(appointment.dateTime);
+                return date.toISOString().split('T')[0];
+            })));
+            this.logger.log(`Found ${uniqueDates.length} unique appointment dates`);
+            return uniqueDates;
+        }
+        catch (error) {
+            this.logger.error('Error fetching appointment dates', error);
+            throw error;
+        }
+    }
+    async getAppointmentStats() {
+        try {
+            const now = new Date();
+            const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+            const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            const next7Days = new Date(now);
+            next7Days.setDate(next7Days.getDate() + 7);
+            const totalAppointments = await this.prisma.appointment.count();
+            const todayAppointments = await this.prisma.appointment.count({
+                where: {
+                    dateTime: {
+                        gte: startOfToday,
+                        lte: endOfToday,
+                    },
+                },
+            });
+            const upcomingAppointments = await this.prisma.appointment.count({
+                where: {
+                    dateTime: {
+                        gte: now,
+                        lte: next7Days,
+                    },
+                },
+            });
+            const pendingAppointments = await this.prisma.appointment.count({
+                where: {
+                    appointmentStatus: 'pending',
+                },
+            });
+            const completedAppointments = await this.prisma.appointment.count({
+                where: {
+                    appointmentStatus: 'completed',
+                },
+            });
+            const stats = {
+                total: totalAppointments,
+                today: todayAppointments,
+                upcoming: upcomingAppointments,
+                pending: pendingAppointments,
+                completed: completedAppointments,
+            };
+            this.logger.log('Appointment statistics retrieved successfully');
+            return stats;
+        }
+        catch (error) {
+            this.logger.error('Error fetching appointment statistics', error);
             throw error;
         }
     }

@@ -22,7 +22,7 @@ __decorate([
         description: 'Nombre único del permiso',
         example: 'USER_CREATE',
         minLength: 2,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
@@ -33,7 +33,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Descripción del permiso',
         example: 'Permite crear usuarios',
-        maxLength: 255
+        maxLength: 255,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),

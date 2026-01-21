@@ -1,4 +1,10 @@
-import { IsOptional, IsString, IsEnum, IsDateString, IsBoolean } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsEnum,
+  IsDateString,
+  IsBoolean,
+} from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 import { FollowUpType, FollowUpStatus, FollowUpPriority } from '@prisma/client';
 

@@ -3,6 +3,7 @@ export declare class QueryPatientDto {
     limit?: number;
     search?: string;
     active?: boolean;
+    birthdate?: string;
     birthdateFrom?: string;
     birthdateTo?: string;
     gender?: string;

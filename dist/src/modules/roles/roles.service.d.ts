@@ -53,9 +53,9 @@ export declare class RolesService {
             users: number;
         };
         users: {
+            email: string;
             id: string;
             name: string | null;
-            email: string;
         }[];
         permissions: {
             id: number;

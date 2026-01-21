@@ -1,6 +1,6 @@
 import { IsString, IsDateString, IsOptional, IsIn } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotPastDate } from 'src/common/dtos/validators/not-past-date.validator';
+import { IsNotPastDate } from '../../../common/dtos/validators/not-past-date.validator';
 
 export class CreateRescheduleDto {
   @ApiProperty({
@@ -18,22 +18,36 @@ export class CreateRescheduleDto {
   previousDateTime: string;
 
   @ApiProperty({
-    description: 'Nueva fecha y hora programada - No puede ser anterior al día actual',
+    description:
+      'Nueva fecha y hora programada - No puede ser anterior al día actual',
     example: '2023-10-02T14:00:00Z',
   })
   @IsDateString()
   @IsNotPastDate({
-    message: 'La nueva fecha de reprogramación no puede ser anterior al día actual',
+    message:
+      'La nueva fecha de reprogramación no puede ser anterior al día actual',
   })
   newDateTime: string;
 
   @ApiProperty({
     description: 'Razón de la reprogramación',
-    enum: ['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other'],
+    enum: [
+      'patient_request',
+      'medic_unavailable',
+      'emergency',
+      'system_error',
+      'other',
+    ],
     example: 'patient_request',
   })
   @IsString()
-  @IsIn(['patient_request', 'medic_unavailable', 'emergency', 'system_error', 'other'])
+  @IsIn([
+    'patient_request',
+    'medic_unavailable',
+    'emergency',
+    'system_error',
+    'other',
+  ])
   rescheduleReason: string;
 
   @ApiProperty({

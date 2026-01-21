@@ -49,7 +49,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     (0, swagger_1.ApiOperation)({
         summary: 'Crear una nueva especialidad médica',
-        description: 'Crea una nueva especialidad médica en el sistema'
+        description: 'Crea una nueva especialidad médica en el sistema',
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
@@ -68,18 +68,38 @@ __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Obtener lista de especialidades médicas',
-        description: 'Obtiene una lista paginada de especialidades médicas con filtros opcionales'
+        description: 'Obtiene una lista paginada de especialidades médicas con filtros opcionales',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Lista de especialidades obtenida exitosamente',
     }),
     (0, swagger_1.ApiQuery)({ name: 'page', required: false, description: 'Número de página' }),
-    (0, swagger_1.ApiQuery)({ name: 'limit', required: false, description: 'Elementos por página' }),
-    (0, swagger_1.ApiQuery)({ name: 'search', required: false, description: 'Término de búsqueda' }),
-    (0, swagger_1.ApiQuery)({ name: 'active', required: false, description: 'Filtrar por estado activo' }),
-    (0, swagger_1.ApiQuery)({ name: 'sortBy', required: false, description: 'Campo para ordenar' }),
-    (0, swagger_1.ApiQuery)({ name: 'sortOrder', required: false, description: 'Orden de clasificación' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'limit',
+        required: false,
+        description: 'Elementos por página',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'search',
+        required: false,
+        description: 'Término de búsqueda',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'active',
+        required: false,
+        description: 'Filtrar por estado activo',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'sortBy',
+        required: false,
+        description: 'Campo para ordenar',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'sortOrder',
+        required: false,
+        description: 'Orden de clasificación',
+    }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [query_specialty_dto_1.QuerySpecialtyDto]),
@@ -89,7 +109,7 @@ __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Obtener una especialidad por ID',
-        description: 'Obtiene los detalles de una especialidad específica por su ID'
+        description: 'Obtiene los detalles de una especialidad específica por su ID',
     }),
     (0, swagger_1.ApiParam)({ name: 'id', description: 'ID de la especialidad' }),
     (0, swagger_1.ApiResponse)({
@@ -109,7 +129,7 @@ __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Actualizar una especialidad',
-        description: 'Actualiza los datos de una especialidad existente'
+        description: 'Actualiza los datos de una especialidad existente',
     }),
     (0, swagger_1.ApiParam)({ name: 'id', description: 'ID de la especialidad' }),
     (0, swagger_1.ApiResponse)({
@@ -135,7 +155,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, swagger_1.ApiOperation)({
         summary: 'Eliminar una especialidad',
-        description: 'Elimina una especialidad del sistema (solo si no tiene médicos asociados)'
+        description: 'Elimina una especialidad del sistema (solo si no tiene médicos asociados)',
     }),
     (0, swagger_1.ApiParam)({ name: 'id', description: 'ID de la especialidad' }),
     (0, swagger_1.ApiResponse)({
@@ -159,7 +179,7 @@ __decorate([
     (0, common_1.Get)('name/:name'),
     (0, swagger_1.ApiOperation)({
         summary: 'Buscar especialidad por nombre',
-        description: 'Busca una especialidad específica por su nombre'
+        description: 'Busca una especialidad específica por su nombre',
     }),
     (0, swagger_1.ApiParam)({ name: 'name', description: 'Nombre de la especialidad' }),
     (0, swagger_1.ApiResponse)({

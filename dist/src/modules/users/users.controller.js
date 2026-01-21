@@ -59,7 +59,9 @@ __decorate([
 ], UsersController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener todos los usuarios con paginación y filtros' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todos los usuarios con paginación y filtros',
+    }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Lista de usuarios obtenida exitosamente',

@@ -47,7 +47,7 @@ __decorate([
     }),
     (0, class_validator_1.IsDateString)(),
     (0, not_past_date_validator_1.IsNotPastDate)({
-        message: 'La fecha de la cita no puede ser anterior al día actual'
+        message: 'La fecha de la cita no puede ser anterior al día actual',
     }),
     __metadata("design:type", String)
 ], CreateAppointmentDto.prototype, "dateTime", void 0);
@@ -76,7 +76,7 @@ __decorate([
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsIn)(['presencial', 'online'], {
-        message: 'La modalidad debe ser presencial u online'
+        message: 'La modalidad debe ser presencial u online',
     }),
     __metadata("design:type", String)
 ], CreateAppointmentDto.prototype, "modality", void 0);

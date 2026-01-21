@@ -1,0 +1,197 @@
+{
+  "endpoint": "http://localhost:3001/api/v1/questionnaires/batch-answers",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_JWT_TOKEN"
+  },
+  "description": "Ejemplo de cómo enviar respuestas del cuestionario IM1. Este endpoint procesa todas las respuestas de una vez, crea/actualiza el paciente, asocia antecedentes y síntomas, y calcula diagnósticos automáticamente.",
+  "requestBody": {
+    "patientId": "cmg4iykys0000u8wkx0o1qepf",
+    "questionnaireId": "550e8400-e29b-41d4-a716-446655440001",
+    "answers": [
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440101",
+        "answerText": "Juan Carlos",
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440102",
+        "answerText": "Pérez García",
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440103",
+        "answerText": "1985-03-15",
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440104",
+        "answerText": "masculino",
+        "score": 1
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440105",
+        "answerText": "juan.perez@email.com",
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440106",
+        "answerText": "+57 312 456 7890",
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440107",
+        "answerText": "Colombiana",
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440201",
+        "answerText": "casado",
+        "score": 1
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440301",
+        "answerText": "diabetes,hipertension,asma",
+        "score": 3
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440302",
+        "answerText": "alergia_medicamentos,cirugia_anterior",
+        "score": 2
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440303",
+        "answerText": "palpitaciones,dolor_pecho,fatiga,dolor_cabeza",
+        "score": 4
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440401",
+        "answerValue": 75,
+        "score": 1
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440402",
+        "answerValue": 1.75,
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440403",
+        "answerValue": 120,
+        "score": 1
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440404",
+        "answerValue": 80,
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440501",
+        "answerBoolean": false,
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440502",
+        "answerValue": 0,
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440503",
+        "answerBoolean": false,
+        "score": 0
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440504",
+        "answerValue": 2,
+        "score": 1
+      },
+      {
+        "questionId": "550e8400-e29b-41d4-a716-446655440505",
+        "answerText": "moderadamente_activo",
+        "score": 2
+      }
+    ]
+  },
+  "notes": {
+    "patientId": "OPCIONAL - Si se proporciona, actualiza paciente existente. Si no se proporciona, crea nuevo paciente.",
+    "questionnaireId": "REQUERIDO - UUID del cuestionario IM1 en la base de datos",
+    "answers": {
+      "estructura": "Array de objetos con questionId y uno de: answerText, answerValue, answerBoolean",
+      "questionId": "UUID de la pregunta específica en la base de datos",
+      "answerText": "Para preguntas de texto, selección múltiple, fechas",
+      "answerValue": "Para preguntas numéricas (peso, altura, presión arterial)",
+      "answerBoolean": "Para preguntas de sí/no",
+      "score": "Puntaje de la respuesta para cálculos diagnósticos"
+    },
+    "procesamiento_automatico": {
+      "paciente": "Se crea/actualiza automáticamente con datos demográficos del IM1",
+      "antecedentes": "Se extraen de im1_b1_1 (familiares) e im1_b2_1 (personales)",
+      "sintomas": "Se extraen de im1_b3_1 y se asocian al paciente",
+      "examen_fisico": "Se extraen mediciones físicas y se guardan",
+      "diagnosticos": "Se calculan automáticamente basado en puntajes y umbrales"
+    },
+    "ejemplos_respuestas": {
+      "antecedentes_familiares": "diabetes,hipertension,cancer_colon",
+      "antecedentes_personales": "alergia_medicamentos,cirugia_anterior,asma",
+      "sintomas": "palpitaciones,dolor_pecho,fatiga,mareos,dolor_cabeza",
+      "estado_civil": "soltero|casado|divorciado|viudo",
+      "sexo": "masculino|femenino|otro",
+      "nivel_actividad": "sedentario|ligeramente_activo|moderadamente_activo|muy_activo"
+    }
+  },
+  "expectedResponse": {
+    "patientQuestionnaireId": "nueva-sesion-uuid",
+    "patient": {
+      "id": "cmg4iykys0000u8wkx0o1qepf",
+      "firstName": "Juan Carlos",
+      "lastName": "Pérez García",
+      "email": "juan.perez@email.com"
+    },
+    "questionnaire": {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "name": "Historia Clínica IM1",
+      "code": "im1"
+    },
+    "answers": [
+      {
+        "id": "respuesta-uuid",
+        "questionText": "Nombre",
+        "questionCode": "im1_a1_1",
+        "questionType": "TEXT",
+        "textValue": "Juan Carlos",
+        "score": 0,
+        "readableAnswer": "Juan Carlos"
+      }
+    ],
+    "diagnostics": [
+      {
+        "group": "Nutrición",
+        "name": "Adherencia Dieta Mediterránea",
+        "score": 8,
+        "threshold": 9,
+        "risk": "medium"
+      }
+    ],
+    "summary": {
+      "totalScore": 15,
+      "maxPossibleScore": 20,
+      "scorePercentage": 75,
+      "overallRisk": "medium",
+      "completedAt": "2024-01-15T10:30:00.000Z"
+    },
+    "answersBySection": [
+      {
+        "sectionName": "A. ESTADO CIVIL Y DATOS DEMOGRÁFICOS",
+        "questions": [
+          {
+            "questionText": "Nombre",
+            "answer": "Juan Carlos",
+            "score": 0
+          }
+        ],
+        "sectionScore": 5,
+        "maxSectionScore": 10
+      }
+    ]
+  }
+}

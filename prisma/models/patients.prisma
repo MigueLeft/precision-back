@@ -1,21 +1,65 @@
 model Patient {
-  id             String   @id @default(cuid())
-  firstName      String
-  lastName       String
-  identification String   @unique
-  phone          String?
-  email          String   @unique
-  birthdate      DateTime
-  gender         String
-  active         Boolean  @default(true)
-  userId         String?  @unique
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  user           User?    @relation(fields: [userId], references: [id])
+  id                String   @id @default(cuid())
+  firstName         String
+  lastName          String
+  identificationType String?  @default("passport") @map("identification_type")
+  identification    String   @unique
+  phone             String?
+  email             String   @unique
+  birthdate         DateTime
+  gender            String
+  nationality       String?
+  countryOfOrigin   String?  @map("country_of_origin")
+  countryOfResidence String? @map("country_of_residence")
+  address           String?
+  city              String?
+
+  // Campos adicionales para IM1
+  maritalStatus     String?  @map("marital_status") // Estado civil
+  ethnicity         String?  // Etnia
+  race              String?  // Raza
+  preferredLanguage String?  @map("preferred_language") // Idioma preferido
+  educationLevel    String?  @map("education_level") // Nivel educativo
+  socioeconomicStatus Int?   @map("socioeconomic_status") // Estatus socioeconómico (1-10)
+
+  // Información clínica actual (llenado por el médico)
+  currentIllness           String?  @map("current_illness") // Enfermedad actual - Texto libre
+  diagnosticPlan           String?  @map("diagnostic_plan") // Plan diagnóstico - Texto libre
+  lastClinicalUpdateBy     String?  @map("last_clinical_update_by") // ID del médico que actualizó
+  lastClinicalUpdateAt     DateTime? @map("last_clinical_update_at") // Fecha de última actualización clínica
+
+  active            Boolean  @default(true)
+  userId            String?  @unique
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User?    @relation(fields: [userId], references: [id])
 
   appointments Appointment[] @relation("PatientAppointments")
 
   // Nuevas relaciones para seguimiento
   followUps      PatientFollowUp[] @relation("PatientFollowUps")
   rescueEntries  RescueDirectory[] @relation("PatientRescueEntries")
+  
+  // Relaciones para cuestionarios
+  patientQuestionnaires       PatientQuestionnaire[]
+  patientDiagnostics         PatientDiagnostic[]
+  patientQuestionnaireHistory PatientQuestionnaireHistory[]
+
+  // Relaciones para antecedentes
+  patientAntecedents         PatientAntecedent[]
+
+  // Relaciones para exámenes físicos
+  patientPhysicalExaminations PatientPhysicalExamination[]
+
+  // Relaciones para síntomas
+  patientSymptoms             PatientSymptom[]
+
+  // Relaciones para tratamientos
+  treatments                  Treatment[]
+
+  // Relaciones para estudios médicos
+  medicalStudies              MedicalStudy[]
+
+  // Relaciones para resultados de exámenes de laboratorio
+  examResults                 ExamResult[]
 }

@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
@@ -19,13 +24,19 @@ export class SpecialtiesService {
         data: createSpecialtyDto,
       });
 
-      this.logger.log(`Specialty created successfully with ID: ${specialty.id}`);
+      this.logger.log(
+        `Specialty created successfully with ID: ${specialty.id}`,
+      );
       return specialty;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          this.logger.error(`Specialty name already exists: ${createSpecialtyDto.name}`);
-          throw new ConflictException('Ya existe una especialidad con este nombre');
+          this.logger.error(
+            `Specialty name already exists: ${createSpecialtyDto.name}`,
+          );
+          throw new ConflictException(
+            'Ya existe una especialidad con este nombre',
+          );
         }
       }
       this.logger.error(`Error creating specialty: ${error.message}`);
@@ -34,7 +45,14 @@ export class SpecialtiesService {
   }
 
   async findAll(queryDto: QuerySpecialtyDto) {
-    const { page = 1, limit = 10, search, active, sortBy = "name", sortOrder = "asc" } = queryDto;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      active,
+      sortBy = 'name',
+      sortOrder = 'asc',
+    } = queryDto;
     const skip = (page - 1) * limit;
 
     const where: Prisma.SpecialtyWhereInput = {};
@@ -66,7 +84,9 @@ export class SpecialtiesService {
 
     const totalPages = Math.ceil(total / limit);
 
-    this.logger.log(`Retrieved ${specialties.length} specialties (page ${page}/${totalPages})`);
+    this.logger.log(
+      `Retrieved ${specialties.length} specialties (page ${page}/${totalPages})`,
+    );
 
     return {
       data: specialties,
@@ -128,13 +148,19 @@ export class SpecialtiesService {
         },
       });
 
-      this.logger.log(`Specialty updated successfully: ${updatedSpecialty.name}`);
+      this.logger.log(
+        `Specialty updated successfully: ${updatedSpecialty.name}`,
+      );
       return updatedSpecialty;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          this.logger.error(`Specialty name already exists: ${updateSpecialtyDto.name}`);
-          throw new ConflictException('Ya existe una especialidad con este nombre');
+          this.logger.error(
+            `Specialty name already exists: ${updateSpecialtyDto.name}`,
+          );
+          throw new ConflictException(
+            'Ya existe una especialidad con este nombre',
+          );
         }
       }
       this.logger.error(`Error updating specialty: ${error.message}`);
@@ -150,7 +176,9 @@ export class SpecialtiesService {
     // Check if specialty has associated medic
     if (specialty.medics.length > 0) {
       this.logger.error(`Cannot delete specialty ${id}: has associated medic`);
-      throw new ConflictException('No se puede eliminar una especialidad que tiene un médico asociado');
+      throw new ConflictException(
+        'No se puede eliminar una especialidad que tiene un médico asociado',
+      );
     }
 
     await this.prisma.specialty.delete({

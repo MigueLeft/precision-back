@@ -1,4 +1,12 @@
-import { IsString, IsOptional, IsBoolean, IsArray, IsInt, MinLength, MaxLength } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+  IsInt,
+  MinLength,
+  MaxLength,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -7,7 +15,7 @@ export class CreateRoleDto {
     description: 'Nombre único del rol',
     example: 'ADMIN',
     minLength: 2,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @MinLength(2)
@@ -17,7 +25,7 @@ export class CreateRoleDto {
   @ApiPropertyOptional({
     description: 'Descripción del rol',
     example: 'Administrador del sistema',
-    maxLength: 255
+    maxLength: 255,
   })
   @IsString()
   @IsOptional()
@@ -26,7 +34,7 @@ export class CreateRoleDto {
 
   @ApiPropertyOptional({
     description: 'Indica si es un rol del sistema',
-    example: false
+    example: false,
   })
   @IsBoolean()
   @IsOptional()
@@ -35,7 +43,7 @@ export class CreateRoleDto {
   @ApiPropertyOptional({
     description: 'IDs de los permisos asociados al rol',
     example: [1, 2, 3],
-    type: [Number]
+    type: [Number],
   })
   @IsArray()
   @IsInt({ each: true })

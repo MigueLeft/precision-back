@@ -14,8 +14,8 @@ export declare class ContactAttemptController {
         } | null;
         followUp: {
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -26,6 +26,7 @@ export declare class ContactAttemptController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            completedAt: Date | null;
             notes: string | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -38,7 +39,6 @@ export declare class ContactAttemptController {
             attemptCount: number;
             maxAttempts: number;
             assignedTo: string | null;
-            completedAt: Date | null;
         };
         newAppointment: {
             id: string;
@@ -72,8 +72,8 @@ export declare class ContactAttemptController {
             } | null;
             followUp: {
                 patient: {
-                    id: string;
                     email: string;
+                    id: string;
                     firstName: string;
                     lastName: string;
                     phone: string | null;
@@ -84,6 +84,7 @@ export declare class ContactAttemptController {
                 updatedAt: Date;
                 active: boolean;
                 patientId: string;
+                completedAt: Date | null;
                 notes: string | null;
                 status: import("@prisma/client").$Enums.FollowUpStatus;
                 priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -96,7 +97,6 @@ export declare class ContactAttemptController {
                 attemptCount: number;
                 maxAttempts: number;
                 assignedTo: string | null;
-                completedAt: Date | null;
             };
             newAppointment: {
                 id: string;
@@ -137,8 +137,8 @@ export declare class ContactAttemptController {
             } | null;
             followUp: {
                 patient: {
-                    id: string;
                     email: string;
+                    id: string;
                     firstName: string;
                     lastName: string;
                     phone: string | null;
@@ -149,6 +149,7 @@ export declare class ContactAttemptController {
                 updatedAt: Date;
                 active: boolean;
                 patientId: string;
+                completedAt: Date | null;
                 notes: string | null;
                 status: import("@prisma/client").$Enums.FollowUpStatus;
                 priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -161,7 +162,6 @@ export declare class ContactAttemptController {
                 attemptCount: number;
                 maxAttempts: number;
                 assignedTo: string | null;
-                completedAt: Date | null;
             };
             newAppointment: {
                 id: string;
@@ -202,8 +202,8 @@ export declare class ContactAttemptController {
             } | null;
             followUp: {
                 patient: {
-                    id: string;
                     email: string;
+                    id: string;
                     firstName: string;
                     lastName: string;
                     phone: string | null;
@@ -214,6 +214,7 @@ export declare class ContactAttemptController {
                 updatedAt: Date;
                 active: boolean;
                 patientId: string;
+                completedAt: Date | null;
                 notes: string | null;
                 status: import("@prisma/client").$Enums.FollowUpStatus;
                 priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -226,7 +227,6 @@ export declare class ContactAttemptController {
                 attemptCount: number;
                 maxAttempts: number;
                 assignedTo: string | null;
-                completedAt: Date | null;
             };
             newAppointment: {
                 id: string;
@@ -267,8 +267,8 @@ export declare class ContactAttemptController {
             } | null;
             followUp: {
                 patient: {
-                    id: string;
                     email: string;
+                    id: string;
                     firstName: string;
                     lastName: string;
                     phone: string | null;
@@ -279,6 +279,7 @@ export declare class ContactAttemptController {
                 updatedAt: Date;
                 active: boolean;
                 patientId: string;
+                completedAt: Date | null;
                 notes: string | null;
                 status: import("@prisma/client").$Enums.FollowUpStatus;
                 priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -291,7 +292,6 @@ export declare class ContactAttemptController {
                 attemptCount: number;
                 maxAttempts: number;
                 assignedTo: string | null;
-                completedAt: Date | null;
             };
             newAppointment: {
                 id: string;
@@ -332,8 +332,8 @@ export declare class ContactAttemptController {
             } | null;
             followUp: {
                 patient: {
-                    id: string;
                     email: string;
+                    id: string;
                     firstName: string;
                     lastName: string;
                     phone: string | null;
@@ -344,6 +344,7 @@ export declare class ContactAttemptController {
                 updatedAt: Date;
                 active: boolean;
                 patientId: string;
+                completedAt: Date | null;
                 notes: string | null;
                 status: import("@prisma/client").$Enums.FollowUpStatus;
                 priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -356,7 +357,6 @@ export declare class ContactAttemptController {
                 attemptCount: number;
                 maxAttempts: number;
                 assignedTo: string | null;
-                completedAt: Date | null;
             };
             newAppointment: {
                 id: string;
@@ -396,8 +396,8 @@ export declare class ContactAttemptController {
         } | null;
         followUp: {
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -408,6 +408,7 @@ export declare class ContactAttemptController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            completedAt: Date | null;
             notes: string | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -420,7 +421,6 @@ export declare class ContactAttemptController {
             attemptCount: number;
             maxAttempts: number;
             assignedTo: string | null;
-            completedAt: Date | null;
         };
         newAppointment: {
             id: string;
@@ -453,8 +453,8 @@ export declare class ContactAttemptController {
         } | null;
         followUp: {
             patient: {
-                id: string;
                 email: string;
+                id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
@@ -465,6 +465,7 @@ export declare class ContactAttemptController {
             updatedAt: Date;
             active: boolean;
             patientId: string;
+            completedAt: Date | null;
             notes: string | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -477,7 +478,6 @@ export declare class ContactAttemptController {
             attemptCount: number;
             maxAttempts: number;
             assignedTo: string | null;
-            completedAt: Date | null;
         };
         newAppointment: {
             id: string;

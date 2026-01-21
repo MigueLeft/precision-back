@@ -26,7 +26,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de página',
         example: 1,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Number),
@@ -38,7 +38,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de elementos por página',
         example: 10,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Number),
@@ -49,7 +49,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Buscar por nombre o descripción',
-        example: 'ADMIN'
+        example: 'ADMIN',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -58,7 +58,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Filtrar por roles del sistema',
-        example: false
+        example: false,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Transform)(({ value }) => {
@@ -74,7 +74,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Ordenar por campo',
-        example: 'name'
+        example: 'name',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -84,7 +84,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Dirección del ordenamiento',
         example: 'asc',
-        enum: ['asc', 'desc']
+        enum: ['asc', 'desc'],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

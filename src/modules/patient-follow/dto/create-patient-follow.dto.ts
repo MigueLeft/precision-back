@@ -1,4 +1,13 @@
-import { IsString, IsOptional, IsEnum, IsDateString, IsInt, IsBoolean, Min, Max } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsDateString,
+  IsInt,
+  IsBoolean,
+  Min,
+  Max,
+} from 'class-validator';
 import { FollowUpType, FollowUpStatus, FollowUpPriority } from '@prisma/client';
 
 export class CreatePatientFollowDto {

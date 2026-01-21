@@ -48,7 +48,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Crear nueva consulta',
-        description: 'Crea una nueva consulta médica asociada a una cita existente'
+        description: 'Crea una nueva consulta médica asociada a una cita existente',
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
@@ -71,7 +71,7 @@ __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Obtener lista de consultas',
-        description: 'Obtiene una lista paginada de consultas con filtros opcionales'
+        description: 'Obtiene una lista paginada de consultas con filtros opcionales',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -90,12 +90,12 @@ __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Obtener consulta por ID',
-        description: 'Obtiene los detalles de una consulta específica por su ID'
+        description: 'Obtiene los detalles de una consulta específica por su ID',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         description: 'ID único de la consulta',
-        example: 'clm123abc456def'
+        example: 'clm123abc456def',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -114,12 +114,12 @@ __decorate([
     (0, common_1.Get)('appointment/:appointmentId'),
     (0, swagger_1.ApiOperation)({
         summary: 'Obtener consulta por ID de cita',
-        description: 'Obtiene la consulta asociada a una cita específica'
+        description: 'Obtiene la consulta asociada a una cita específica',
     }),
     (0, swagger_1.ApiParam)({
         name: 'appointmentId',
         description: 'ID único de la cita',
-        example: 'clm789xyz123abc'
+        example: 'clm789xyz123abc',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -138,12 +138,12 @@ __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Actualizar consulta',
-        description: 'Actualiza los datos de una consulta existente'
+        description: 'Actualiza los datos de una consulta existente',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         description: 'ID único de la consulta',
-        example: 'clm123abc456def'
+        example: 'clm123abc456def',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -168,12 +168,12 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, swagger_1.ApiOperation)({
         summary: 'Eliminar consulta',
-        description: 'Elimina una consulta (soft delete - marca como inactiva)'
+        description: 'Elimina una consulta (soft delete - marca como inactiva)',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         description: 'ID único de la consulta',
-        example: 'clm123abc456def'
+        example: 'clm123abc456def',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,

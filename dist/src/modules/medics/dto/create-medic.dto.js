@@ -30,7 +30,7 @@ __decorate([
         description: 'Nombre del médico',
         example: 'Juan',
         minLength: 2,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
@@ -43,7 +43,7 @@ __decorate([
         description: 'Apellido del médico',
         example: 'Gómez',
         minLength: 2,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
@@ -56,7 +56,7 @@ __decorate([
         description: 'Número de identificación único',
         example: '12345678',
         minLength: 5,
-        maxLength: 20
+        maxLength: 20,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(5),
@@ -68,7 +68,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de teléfono',
         example: '+57 300 123 4567',
-        maxLength: 20
+        maxLength: 20,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -79,7 +79,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Correo electrónico',
-        example: 'juan.gomez@email.com'
+        example: 'juan.gomez@email.com',
     }),
     (0, class_validator_1.IsEmail)(),
     (0, class_transformer_1.Transform)(({ value }) => value?.toLowerCase().trim()),
@@ -88,7 +88,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'ID de la especialidad médica',
-        example: 'cluid123'
+        example: 'cluid123',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -96,7 +96,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Título profesional',
-        example: 'Médico Cirujano'
+        example: 'Médico Cirujano',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_transformer_1.Transform)(({ value }) => value?.trim()),
@@ -106,7 +106,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Estado activo del médico',
         example: true,
-        default: true
+        default: true,
     }),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
@@ -115,7 +115,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'ID del usuario asociado (opcional)',
-        example: 'cluid123'
+        example: 'cluid123',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),

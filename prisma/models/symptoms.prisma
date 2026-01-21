@@ -1,0 +1,59 @@
+model SymptomCategory {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @unique @db.VarChar(100)
+  description String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  symptoms Symptom[]
+
+  @@map("symptom_categories")
+}
+
+model Symptom {
+  id                String   @id @default(uuid()) @db.Uuid
+  name              String   @db.VarChar(200)
+  value             String   @unique @db.VarChar(255) // Valor único para identificar el síntoma
+  description       String?
+  symptomCategoryId String   @map("symptom_category_id") @db.Uuid
+  severity          String?  @db.VarChar(50) // mild, moderate, severe
+  active            Boolean  @default(true)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  symptomCategory    SymptomCategory    @relation(fields: [symptomCategoryId], references: [id], onDelete: Cascade)
+  patientSymptoms    PatientSymptom[]
+
+  @@unique([name, symptomCategoryId])
+  @@index([symptomCategoryId])
+  @@index([value])
+  @@map("symptoms")
+}
+
+model PatientSymptom {
+  id           String    @id @default(uuid()) @db.Uuid
+  patientId    String    @map("patient_id")
+  symptomId    String    @map("symptom_id") @db.Uuid
+  hasSymptom   Boolean   @map("has_symptom") @default(true)
+  severity     String?   @db.VarChar(50) // mild, moderate, severe
+  frequency    String?   @db.VarChar(50) // daily, weekly, monthly, occasionally
+  duration     String?   @db.VarChar(100) // how long they've had it
+  notes        String?
+  reportedAt   DateTime? @map("reported_at")
+  resolvedAt   DateTime? @map("resolved_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  symptom Symptom @relation(fields: [symptomId], references: [id], onDelete: Cascade)
+
+  @@unique([patientId, symptomId])
+  @@index([patientId])
+  @@index([symptomId])
+  @@index([reportedAt])
+  @@map("patient_symptoms")
+}

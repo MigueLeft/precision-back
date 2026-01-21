@@ -30,7 +30,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Página para la paginación',
         example: 1,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsInt)(),
@@ -42,7 +42,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de elementos por página',
         example: 10,
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsInt)(),
@@ -53,7 +53,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'ID de la cita para filtrar consultas',
-        example: 'clm123abc456def'
+        example: 'clm123abc456def',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -62,7 +62,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'ID del usuario que registró la consulta',
-        example: 'clm789xyz123abc'
+        example: 'clm789xyz123abc',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -71,7 +71,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Fecha de inicio para filtrar consultas (ISO 8601)',
-        example: '2024-01-01T00:00:00Z'
+        example: '2024-01-01T00:00:00Z',
     }),
     (0, class_validator_1.IsDateString)(),
     (0, class_validator_1.IsOptional)(),
@@ -80,7 +80,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Fecha de fin para filtrar consultas (ISO 8601)',
-        example: '2024-12-31T23:59:59Z'
+        example: '2024-12-31T23:59:59Z',
     }),
     (0, class_validator_1.IsDateString)(),
     (0, class_validator_1.IsOptional)(),
@@ -89,7 +89,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Filtrar por consultas activas o inactivas',
-        example: true
+        example: true,
     }),
     (0, class_transformer_1.Transform)(({ value }) => {
         if (value === 'true')
@@ -105,7 +105,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Buscar en anamnesis, tratamiento indicado o notas médicas',
-        example: 'dolor abdominal'
+        example: 'dolor abdominal',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -115,7 +115,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Campo por el cual ordenar los resultados',
         example: 'realizationDateTime',
-        enum: ['realizationDateTime', 'clinicalRegistrationDate', 'createdAt']
+        enum: ['realizationDateTime', 'clinicalRegistrationDate', 'createdAt'],
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -125,7 +125,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Orden de los resultados',
         example: 'desc',
-        enum: ['asc', 'desc']
+        enum: ['asc', 'desc'],
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),

@@ -1,9 +1,14 @@
 // src/modules/permissions/permissions.service.ts
-import { Injectable, NotFoundException, ConflictException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/database/prisma.service';
-import { CreatePermissionDto } from './dto/create-permission.dto'; 
-import { UpdatePermissionDto } from './dto/update-permission.dto'; 
-import { QueryPermissionDto } from './dto/query-permission.dto'; 
+import { CreatePermissionDto } from './dto/create-permission.dto';
+import { UpdatePermissionDto } from './dto/update-permission.dto';
+import { QueryPermissionDto } from './dto/query-permission.dto';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -17,7 +22,7 @@ export class PermissionsService {
       const permission = await this.prisma.permission.create({
         data: createPermissionDto,
       });
-      
+
       this.logger.log(`Permission created: ${permission.name}`);
       return permission;
     } catch (error) {
@@ -31,7 +36,13 @@ export class PermissionsService {
   }
 
   async findAll(query: QueryPermissionDto) {
-    const { page = 1, limit = 10, search, sortBy = 'id', sortOrder = 'asc' } = query;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      sortBy = 'id',
+      sortOrder = 'asc',
+    } = query;
     const skip = (page - 1) * limit;
 
     const where: Prisma.PermissionWhereInput = search

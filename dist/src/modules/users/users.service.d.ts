@@ -7,12 +7,12 @@ export declare class UsersService {
     private readonly logger;
     constructor(prisma: PrismaService);
     create(createUserDto: CreateUserDto): Promise<{
+        email: string;
         id: string;
         name: string | null;
         createdAt: Date;
         updatedAt: Date;
         password: string | null;
-        email: string;
         emailVerified: Date | null;
         image: string | null;
         roleId: number;
@@ -25,12 +25,12 @@ export declare class UsersService {
                 description: string | null;
             };
         } & {
+            email: string;
             id: string;
             name: string | null;
             createdAt: Date;
             updatedAt: Date;
             password: string | null;
-            email: string;
             emailVerified: Date | null;
             image: string | null;
             roleId: number;
@@ -51,23 +51,23 @@ export declare class UsersService {
             description: string | null;
         };
     } & {
+        email: string;
         id: string;
         name: string | null;
         createdAt: Date;
         updatedAt: Date;
         password: string | null;
-        email: string;
         emailVerified: Date | null;
         image: string | null;
         roleId: number;
     }>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<{
+        email: string;
         id: string;
         name: string | null;
         createdAt: Date;
         updatedAt: Date;
         password: string | null;
-        email: string;
         emailVerified: Date | null;
         image: string | null;
         roleId: number;

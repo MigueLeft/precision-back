@@ -38,7 +38,7 @@ let PermissionsService = PermissionsService_1 = class PermissionsService {
         }
     }
     async findAll(query) {
-        const { page = 1, limit = 10, search, sortBy = 'id', sortOrder = 'asc' } = query;
+        const { page = 1, limit = 10, search, sortBy = 'id', sortOrder = 'asc', } = query;
         const skip = (page - 1) * limit;
         const where = search
             ? {

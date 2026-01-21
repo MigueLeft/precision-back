@@ -58,7 +58,10 @@ __decorate([
     (0, common_1.Post)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     (0, swagger_1.ApiOperation)({ summary: 'Crear nuevo intento de contacto' }),
-    (0, swagger_1.ApiResponse)({ status: 201, description: 'Intento de contacto creado exitosamente' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Intento de contacto creado exitosamente',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_contact_attempt_dto_1.CreateContactAttemptDto]),
@@ -66,8 +69,13 @@ __decorate([
 ], ContactAttemptController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener todos los intentos de contacto con filtros' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de intentos de contacto obtenida' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener todos los intentos de contacto con filtros',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de intentos de contacto obtenida',
+    }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [query_contact_attempt_dto_1.QueryContactAttemptDto]),
@@ -104,7 +112,10 @@ __decorate([
     (0, common_1.Get)('follow-up/:followUpId'),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener intentos por seguimiento' }),
     (0, swagger_1.ApiParam)({ name: 'followUpId', description: 'ID del seguimiento' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Intentos del seguimiento obtenidos' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Intentos del seguimiento obtenidos',
+    }),
     __param(0, (0, common_1.Param)('followUpId')),
     __param(1, (0, common_1.Query)()),
     __metadata("design:type", Function),
