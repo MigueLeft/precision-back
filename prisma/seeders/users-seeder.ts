@@ -1,5 +1,6 @@
 import { PrismaClient, Role } from '@prisma/client';
 import { Logger } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 
 // ==========================================
 // USERS DATA
@@ -69,18 +70,35 @@ export async function seedUsers(
         continue;
       }
 
+      const userId = randomUUID();
       const user = await prisma.user.upsert({
         where: { email: userData.email },
         update: {},
         create: {
+          id: userId,
           name: userData.name,
           email: userData.email,
-          password: userData.password,
           role: {
             connect: { id: role.id },
           },
         },
       });
+
+      // Create credential account with password (Better Auth schema)
+      const existingAccount = await prisma.account.findFirst({
+        where: { userId: user.id, providerId: 'credential' },
+      });
+      if (!existingAccount) {
+        await prisma.account.create({
+          data: {
+            id: randomUUID(),
+            accountId: user.id,
+            providerId: 'credential',
+            userId: user.id,
+            password: userData.password,
+          },
+        });
+      }
 
       createdUsers.push(user);
       logger.log(

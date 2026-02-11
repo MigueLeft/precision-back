@@ -87,16 +87,41 @@
       ]
     },
     "im1_a3_1": {
-      "question": "Etnia",
+      "question": "¿Cuáles son sus orígenes étnicos o ancestros?",
       "patient_field": "ethnicity",
-      "data_type": "string",
-      "example": "latino_hispano"
+      "data_type": "string (comma-separated for multiple choices)",
+      "example": "sudamerica,centroamerica_caribe",
+      "options": [
+        "europa_occidental",
+        "europa_oriental",
+        "norte_africa",
+        "africa_subsahariana",
+        "asia_occidental",
+        "asia_sur_sudeste",
+        "asia_oriental_central",
+        "pacifico_oceania",
+        "norteamerica",
+        "centroamerica_caribe",
+        "sudamerica",
+        "autodescripcion",
+        "no_responde"
+      ]
     },
     "im1_a3_2": {
-      "question": "Raza",
+      "question": "¿Cómo te identificarías en términos de raza?",
       "patient_field": "race",
-      "data_type": "string",
-      "example": "mixto"
+      "data_type": "string (comma-separated for multiple choices)",
+      "example": "hispano_latino,blanco",
+      "options": [
+        "asiatico_isleno_pacifico",
+        "negro",
+        "hispano_latino",
+        "indigena",
+        "medio_oriente_norte_africa",
+        "blanco",
+        "autodescripcion",
+        "no_responde"
+      ]
     },
     "im1_a4_1": {
       "question": "Idioma preferido",

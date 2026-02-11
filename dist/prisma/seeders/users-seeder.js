@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usersData = void 0;
 exports.seedUsers = seedUsers;
+const crypto_1 = require("crypto");
 exports.usersData = [
     {
         name: 'Developer User',
@@ -44,18 +45,33 @@ async function seedUsers(prisma, logger, roles) {
                 logger.warn(`⚠️  Role ${userData.roleName} not found for user ${userData.email}`);
                 continue;
             }
+            const userId = (0, crypto_1.randomUUID)();
             const user = await prisma.user.upsert({
                 where: { email: userData.email },
                 update: {},
                 create: {
+                    id: userId,
                     name: userData.name,
                     email: userData.email,
-                    password: userData.password,
                     role: {
                         connect: { id: role.id },
                     },
                 },
             });
+            const existingAccount = await prisma.account.findFirst({
+                where: { userId: user.id, providerId: 'credential' },
+            });
+            if (!existingAccount) {
+                await prisma.account.create({
+                    data: {
+                        id: (0, crypto_1.randomUUID)(),
+                        accountId: user.id,
+                        providerId: 'credential',
+                        userId: user.id,
+                        password: userData.password,
+                    },
+                });
+            }
             createdUsers.push(user);
             logger.log(`✅ User created: ${userData.name} (${userData.email}) - Role: ${userData.roleName}`);
         }

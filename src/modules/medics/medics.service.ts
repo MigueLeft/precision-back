@@ -5,6 +5,7 @@ import {
   BadRequestException,
   Logger,
 } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreateMedicDto } from './dto/create-medic.dto';
 import { UpdateMedicDto } from './dto/update-medic.dto';
@@ -408,11 +409,12 @@ export class MedicsService {
       }
 
       // Crear el usuario usando los datos del médico
+      const userId = randomUUID();
       const newUser = await this.prisma.user.create({
         data: {
+          id: userId,
           name: `${existingMedic.name} ${existingMedic.lastName}`,
           email: existingMedic.email,
-          password: existingMedic.identification, // Password será la identificación
           roleId: medicRole.id,
         },
         include: {
@@ -422,6 +424,17 @@ export class MedicsService {
               name: true,
             },
           },
+        },
+      });
+
+      // Create credential account with password (Better Auth schema)
+      await this.prisma.account.create({
+        data: {
+          id: randomUUID(),
+          accountId: userId,
+          providerId: 'credential',
+          userId: userId,
+          password: existingMedic.identification, // Password será la identificación
         },
       });
 

@@ -33,6 +33,7 @@ const laboratory_exams_module_1 = require("./modules/laboratory-exams/laboratory
 const prisma_exception_filter_1 = require("./common/filters/prisma-exception.filter");
 const transform_interceptor_1 = require("./common/interceptors/transform.interceptor");
 const validation_pipe_1 = require("./common/pipes/validation.pipe");
+const auth_guard_1 = require("./common/guards/auth.guard");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 let AppModule = class AppModule {
@@ -69,6 +70,10 @@ exports.AppModule = AppModule = __decorate([
         controllers: [app_controller_1.AppController],
         providers: [
             app_service_1.AppService,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: auth_guard_1.AuthGuard,
+            },
             {
                 provide: core_1.APP_FILTER,
                 useClass: prisma_exception_filter_1.PrismaExceptionFilter,

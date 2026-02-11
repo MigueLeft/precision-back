@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 
 // Database
@@ -30,6 +30,7 @@ import { LaboratoryExamsModule } from './modules/laboratory-exams/laboratory-exa
 import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { ValidationPipe } from './common/pipes/validation.pipe';
+import { AuthGuard } from './common/guards/auth.guard';
 
 // Controllers and Services
 import { AppController } from './app.controller';
@@ -69,6 +70,12 @@ import { AppService } from './app.service';
   controllers: [AppController],
   providers: [
     AppService,
+
+    // Global Auth Guard
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
 
     // Global Exception Filter
     {

@@ -50,7 +50,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ description: 'Filter by active status' }),
     (0, class_validator_1.IsOptional)(),
-    (0, class_transformer_1.Transform)(({ value }) => value === 'true'),
+    (0, class_transformer_1.Transform)(({ value }) => value === undefined ? undefined : value === 'true'),
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], QueryQuestionnaireDto.prototype, "active", void 0);

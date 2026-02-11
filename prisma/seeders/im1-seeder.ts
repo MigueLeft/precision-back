@@ -55,7 +55,7 @@ export async function seedIM1Questionnaire(
         groupName: 'A.6. Estatus Socioeconómico',
         diagnosticsKey: 'estatus_socio',
       },
-      { groupName: 'Nutrición', diagnosticsKey: 'medas' },
+      { groupName: 'Nutrición', diagnosticsKey: 'nutricion' },
       {
         groupName: 'D.2. Actividad física - Nivel',
         diagnosticsKey: 'nivel_actividad',
@@ -66,10 +66,6 @@ export async function seedIM1Questionnaire(
       },
       { groupName: 'D.3.1. Calidad de sueño', diagnosticsKey: 'calidad_sueno' },
       { groupName: 'D.3.1. Horas de sueño', diagnosticsKey: 'horas_sueno' },
-      {
-        groupName: 'D.3.2. Apnea obstructiva del sueño (NoSAS)',
-        diagnosticsKey: 'apnea_sueno',
-      },
       {
         groupName: 'D.4.1. Síntomas de ansiedad (GAD-7)',
         diagnosticsKey: 'mental_health',
@@ -122,7 +118,16 @@ export async function seedIM1Questionnaire(
     for (const question of scoringQuestions) {
       const created = await prisma.question.upsert({
         where: { code: question.code },
-        update: {},
+        update: {
+          questionText: question.questionText,
+          questionType: question.questionType,
+          inputType: question.inputType,
+          options: question.options || undefined,
+          hasScore: question.hasScore,
+          active: true,
+          dependsOn: (question as any).dependsOn || null,
+          showWhen: (question as any).showWhen || null,
+        },
         create: {
           code: question.code,
           questionText: question.questionText,
@@ -138,13 +143,22 @@ export async function seedIM1Questionnaire(
       createdQuestions[question.code] = created;
     }
 
-    logger.log('✅ Created questions with scoring');
+    logger.log('✅ Created/Updated questions with scoring');
 
     // 5. Crear preguntas sin puntuación
     for (const question of nonScoringQuestions) {
       const created = await prisma.question.upsert({
         where: { code: question.code },
-        update: {},
+        update: {
+          questionText: question.text,
+          questionType: question.type,
+          inputType: question.inputType,
+          options: question.options || undefined,
+          hasScore: false,
+          active: true,
+          dependsOn: (question as any).dependsOn || null,
+          showWhen: (question as any).showWhen || null,
+        },
         create: {
           code: question.code,
           questionText: question.text,
@@ -232,6 +246,11 @@ export async function seedIM1Questionnaire(
       return aData.number - bData.number;
     });
 
+    // Eliminar relaciones existentes para evitar conflictos de unique constraint en order
+    await prisma.questionnaireQuestion.deleteMany({
+      where: { questionnaireId: questionnaire.id },
+    });
+
     let order = 1;
     for (const questionCode of sortedQuestionCodes) {
       const question = createdQuestions[questionCode];
@@ -244,15 +263,8 @@ export async function seedIM1Questionnaire(
           (q) => q.code === questionCode,
         );
 
-        await prisma.questionnaireQuestion.upsert({
-          where: {
-            questionnaireId_questionId: {
-              questionnaireId: questionnaire.id,
-              questionId: question.id,
-            },
-          },
-          update: {},
-          create: {
+        await prisma.questionnaireQuestion.create({
+          data: {
             questionnaireId: questionnaire.id,
             questionId: question.id,
             order: order++,
@@ -268,6 +280,16 @@ export async function seedIM1Questionnaire(
     }
 
     logger.log('✅ Created questionnaire-question relationships');
+
+    // 8. Desactivar preguntas eliminadas
+    const deletedQuestionCodes = ['im1_d3_3']; // Pregunta de apnea NoSAS eliminada
+    for (const code of deletedQuestionCodes) {
+      await prisma.question.updateMany({
+        where: { code },
+        data: { active: false },
+      });
+    }
+    logger.log('✅ Deactivated removed questions');
 
     // Summary
     logger.log('🎉 IM1 Questionnaire seeded successfully!');

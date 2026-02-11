@@ -222,11 +222,11 @@ class IM1QuestionnaireTest {
     // A.2. Estado civil (1 question)
     this.addAnswer(answers, questionMap, 'im1_a2_1', { answerText: 'casado' });
 
-    // A.3. Etnia-raza (2 questions)
+    // A.3. Etnia-raza (2 questions) - MULTIPLE_CHOICE
     this.addAnswer(answers, questionMap, 'im1_a3_1', {
-      answerText: 'latino_hispano',
+      answerText: 'sudamerica,centroamerica_caribe',
     });
-    this.addAnswer(answers, questionMap, 'im1_a3_2', { answerText: 'mixto' });
+    this.addAnswer(answers, questionMap, 'im1_a3_2', { answerText: 'hispano_latino,blanco' });
 
     // A.4. Idioma (1 question)
     this.addAnswer(answers, questionMap, 'im1_a4_1', { answerText: 'espanol' });
@@ -309,66 +309,42 @@ class IM1QuestionnaireTest {
     this.addAnswer(answers, questionMap, 'im1_c4_5', { answerValue: 35 });
     this.addAnswer(answers, questionMap, 'im1_c4_6', { answerText: 'no' });
 
-    // D.1. Nutrición (MEDAS) - CON PUNTUACIÓN (14 questions)
+    // D.1. Nutrición - CON PUNTUACIÓN (8 questions)
     this.addAnswer(answers, questionMap, 'im1_d1_1', {
-      answerText: 'no',
-      score: 0,
-    });
+      answerText: '1_2_al_dia',
+      score: 1,
+    }); // Frutas diarias
     this.addAnswer(answers, questionMap, 'im1_d1_2', {
-      answerText: 'no',
+      answerText: 'no_todos_dias',
       score: 0,
-    });
+    }); // Vegetales diarios
     this.addAnswer(answers, questionMap, 'im1_d1_3', {
-      answerText: 'si',
+      answerText: '1_2_al_dia',
       score: 1,
-    });
+    }); // Grano entero diario
     this.addAnswer(answers, questionMap, 'im1_d1_4', {
-      answerText: 'no',
+      answerText: 'no_todos_dias',
       score: 0,
-    });
+    }); // Frutos secos y legumbres
     this.addAnswer(answers, questionMap, 'im1_d1_5', {
-      answerText: 'no',
-      score: 0,
-    });
+      answerText: 'no_todos_dias',
+      score: 1,
+    }); // Lácteos bajos en grasa
     this.addAnswer(answers, questionMap, 'im1_d1_6', {
-      answerText: 'si',
-      score: 1,
-    });
+      answerText: 'evita',
+      score: 2,
+    }); // Sal
     this.addAnswer(answers, questionMap, 'im1_d1_7', {
-      answerText: 'no',
-      score: 0,
-    });
+      answerText: '1_2_semana',
+      score: 1,
+    }); // Carnes rojas y procesadas
     this.addAnswer(answers, questionMap, 'im1_d1_8', {
-      answerText: 'no',
-      score: 0,
-    });
-    this.addAnswer(answers, questionMap, 'im1_d1_9', {
-      answerText: 'no',
-      score: 0,
-    });
-    this.addAnswer(answers, questionMap, 'im1_d1_10', {
-      answerText: 'si',
+      answerText: '4_menos',
       score: 1,
-    });
-    this.addAnswer(answers, questionMap, 'im1_d1_11', {
-      answerText: 'no',
-      score: 0,
-    });
-    this.addAnswer(answers, questionMap, 'im1_d1_12', {
-      answerText: 'si',
-      score: 1,
-    });
-    this.addAnswer(answers, questionMap, 'im1_d1_13', {
-      answerText: 'no',
-      score: 0,
-    });
-    this.addAnswer(answers, questionMap, 'im1_d1_14', {
-      answerText: 'no',
-      score: 0,
-    }); // Salt question (inverse scoring)
+    }); // Bebidas azucaradas
 
     // D.1.2. Preferencias Dietéticas (1 question)
-    this.addAnswer(answers, questionMap, 'im1_d1_15', {
+    this.addAnswer(answers, questionMap, 'im1_d1_9', {
       answerText: 'ninguno',
     });
 

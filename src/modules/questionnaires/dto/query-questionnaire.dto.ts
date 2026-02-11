@@ -28,7 +28,7 @@ export class QueryQuestionnaireDto {
 
   @ApiPropertyOptional({ description: 'Filter by active status' })
   @IsOptional()
-  @Transform(({ value }) => value === 'true')
+  @Transform(({ value }) => value === undefined ? undefined : value === 'true')
   @IsBoolean()
   active?: boolean;
 

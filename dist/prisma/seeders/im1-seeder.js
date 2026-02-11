@@ -35,7 +35,7 @@ async function seedIM1Questionnaire(prisma, logger) {
                 groupName: 'A.6. Estatus Socioeconómico',
                 diagnosticsKey: 'estatus_socio',
             },
-            { groupName: 'Nutrición', diagnosticsKey: 'medas' },
+            { groupName: 'Nutrición', diagnosticsKey: 'nutricion' },
             {
                 groupName: 'D.2. Actividad física - Nivel',
                 diagnosticsKey: 'nivel_actividad',
@@ -46,10 +46,6 @@ async function seedIM1Questionnaire(prisma, logger) {
             },
             { groupName: 'D.3.1. Calidad de sueño', diagnosticsKey: 'calidad_sueno' },
             { groupName: 'D.3.1. Horas de sueño', diagnosticsKey: 'horas_sueno' },
-            {
-                groupName: 'D.3.2. Apnea obstructiva del sueño (NoSAS)',
-                diagnosticsKey: 'apnea_sueno',
-            },
             {
                 groupName: 'D.4.1. Síntomas de ansiedad (GAD-7)',
                 diagnosticsKey: 'mental_health',
@@ -95,7 +91,16 @@ async function seedIM1Questionnaire(prisma, logger) {
         for (const question of im1_1.scoringQuestions) {
             const created = await prisma.question.upsert({
                 where: { code: question.code },
-                update: {},
+                update: {
+                    questionText: question.questionText,
+                    questionType: question.questionType,
+                    inputType: question.inputType,
+                    options: question.options || undefined,
+                    hasScore: question.hasScore,
+                    active: true,
+                    dependsOn: question.dependsOn || null,
+                    showWhen: question.showWhen || null,
+                },
                 create: {
                     code: question.code,
                     questionText: question.questionText,
@@ -110,11 +115,20 @@ async function seedIM1Questionnaire(prisma, logger) {
             });
             createdQuestions[question.code] = created;
         }
-        logger.log('✅ Created questions with scoring');
+        logger.log('✅ Created/Updated questions with scoring');
         for (const question of im1_1.nonScoringQuestions) {
             const created = await prisma.question.upsert({
                 where: { code: question.code },
-                update: {},
+                update: {
+                    questionText: question.text,
+                    questionType: question.type,
+                    inputType: question.inputType,
+                    options: question.options || undefined,
+                    hasScore: false,
+                    active: true,
+                    dependsOn: question.dependsOn || null,
+                    showWhen: question.showWhen || null,
+                },
                 create: {
                     code: question.code,
                     questionText: question.text,
@@ -182,21 +196,17 @@ async function seedIM1Questionnaire(prisma, logger) {
             }
             return aData.number - bData.number;
         });
+        await prisma.questionnaireQuestion.deleteMany({
+            where: { questionnaireId: questionnaire.id },
+        });
         let order = 1;
         for (const questionCode of sortedQuestionCodes) {
             const question = createdQuestions[questionCode];
             if (question) {
                 const isScoringQuestion = im1_1.scoringQuestions.some((q) => q.code === questionCode);
                 const nonScoringQuestion = im1_1.nonScoringQuestions.find((q) => q.code === questionCode);
-                await prisma.questionnaireQuestion.upsert({
-                    where: {
-                        questionnaireId_questionId: {
-                            questionnaireId: questionnaire.id,
-                            questionId: question.id,
-                        },
-                    },
-                    update: {},
-                    create: {
+                await prisma.questionnaireQuestion.create({
+                    data: {
                         questionnaireId: questionnaire.id,
                         questionId: question.id,
                         order: order++,
@@ -211,6 +221,14 @@ async function seedIM1Questionnaire(prisma, logger) {
             }
         }
         logger.log('✅ Created questionnaire-question relationships');
+        const deletedQuestionCodes = ['im1_d3_3'];
+        for (const code of deletedQuestionCodes) {
+            await prisma.question.updateMany({
+                where: { code },
+                data: { active: false },
+            });
+        }
+        logger.log('✅ Deactivated removed questions');
         logger.log('🎉 IM1 Questionnaire seeded successfully!');
         logger.log(`📊 Summary:`);
         logger.log(`   - 1 Questionnaire: IM1`);

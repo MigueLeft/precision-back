@@ -4,6 +4,7 @@ import {
   IsEmail,
   IsDateString,
   IsBoolean,
+  IsInt,
   MinLength,
   MaxLength,
   registerDecorator,
@@ -128,4 +129,85 @@ export class CreatePatientDto {
   @IsString()
   @IsOptional()
   userId?: string;
+
+  @ApiPropertyOptional({ description: 'Nacionalidad', example: 'Colombiana' })
+  @IsString()
+  @IsOptional()
+  nationality?: string;
+
+  @ApiPropertyOptional({ description: 'País de origen', example: 'Colombia' })
+  @IsString()
+  @IsOptional()
+  countryOfOrigin?: string;
+
+  @ApiPropertyOptional({
+    description: 'País de residencia',
+    example: 'Colombia',
+  })
+  @IsString()
+  @IsOptional()
+  countryOfResidence?: string;
+
+  @ApiPropertyOptional({
+    description: 'Dirección de residencia',
+    example: 'Calle 123 #45-67',
+  })
+  @IsString()
+  @IsOptional()
+  address?: string;
+
+  @ApiPropertyOptional({ description: 'Ciudad', example: 'Bogotá' })
+  @IsString()
+  @IsOptional()
+  city?: string;
+
+  @ApiPropertyOptional({
+    description: 'Estado civil',
+    example: 'soltero',
+  })
+  @IsString()
+  @IsOptional()
+  maritalStatus?: string;
+
+  @ApiPropertyOptional({ description: 'Etnia', example: 'mestizo' })
+  @IsString()
+  @IsOptional()
+  ethnicity?: string;
+
+  @ApiPropertyOptional({ description: 'Raza', example: 'latina' })
+  @IsString()
+  @IsOptional()
+  race?: string;
+
+  @ApiPropertyOptional({
+    description: 'Idioma preferido',
+    example: 'español',
+  })
+  @IsString()
+  @IsOptional()
+  preferredLanguage?: string;
+
+  @ApiPropertyOptional({
+    description: 'Nivel educativo',
+    example: '8',
+  })
+  @IsString()
+  @IsOptional()
+  educationLevel?: string;
+
+  @ApiPropertyOptional({
+    description: 'Estatus socioeconómico (1-10)',
+    example: 5,
+  })
+  @IsInt()
+  @IsOptional()
+  socioeconomicStatus?: number;
+
+  @ApiPropertyOptional({
+    description: 'Tipo de identificación',
+    example: 'cedula',
+  })
+  @IsString()
+  @IsOptional()
+  identificationType?: string;
 }

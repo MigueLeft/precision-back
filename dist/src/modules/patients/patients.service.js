@@ -12,6 +12,7 @@ var PatientsService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PatientsService = void 0;
 const common_1 = require("@nestjs/common");
+const crypto_1 = require("crypto");
 const prisma_service_1 = require("../../config/database/prisma.service");
 const client_1 = require("@prisma/client");
 let PatientsService = PatientsService_1 = class PatientsService {
@@ -323,11 +324,12 @@ let PatientsService = PatientsService_1 = class PatientsService {
             if (existingUser) {
                 throw new common_1.ConflictException('A user with this email already exists');
             }
+            const userId = (0, crypto_1.randomUUID)();
             const newUser = await this.prisma.user.create({
                 data: {
+                    id: userId,
                     name: `${existingPatient.firstName} ${existingPatient.lastName}`,
                     email: existingPatient.email,
-                    password: existingPatient.identification,
                     roleId: patientRole.id,
                 },
                 include: {
@@ -337,6 +339,15 @@ let PatientsService = PatientsService_1 = class PatientsService {
                             name: true,
                         },
                     },
+                },
+            });
+            await this.prisma.account.create({
+                data: {
+                    id: (0, crypto_1.randomUUID)(),
+                    accountId: userId,
+                    providerId: 'credential',
+                    userId: userId,
+                    password: existingPatient.identification,
                 },
             });
             const patient = await this.prisma.patient.update({

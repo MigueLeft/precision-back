@@ -35,10 +35,10 @@ export const diagnosticGroups = [
   },
   {
     name: 'Nutrición',
-    description: 'Adherencia a dieta mediterránea y hábitos alimentarios',
-    diagnosticCode: 'MEDAS',
+    description: 'Evaluación de hábitos alimentarios saludables',
+    diagnosticCode: 'NUTRICION',
     scoringMethod: 'SUM',
-    scoringConfig: { maxScore: 14 },
+    scoringConfig: { maxScore: 16 },
     active: true,
   },
   {
@@ -67,17 +67,6 @@ export const diagnosticGroups = [
     description: 'Evaluación de horas de sueño nocturno',
     diagnosticCode: 'SUENO_HORAS',
     scoringMethod: 'DIRECT',
-    active: true,
-  },
-  {
-    name: 'D.3.2. Apnea obstructiva del sueño (NoSAS)',
-    description: 'Evaluación de riesgo de apnea del sueño',
-    diagnosticCode: 'NOSAS',
-    scoringMethod: 'FORMULA',
-    scoringConfig: {
-      formula: 'neck_circumference + snoring + age + gender',
-      maxScore: 17,
-    },
     active: true,
   },
   {
@@ -175,29 +164,29 @@ export const diagnostics = {
     },
   ],
 
-  // MEDAS (Alimentación)
-  medas: [
+  // Nutrición (Hábitos alimentarios)
+  nutricion: [
     {
-      name: 'Adherencia estricta',
-      description: 'Excelente adherencia a dieta mediterránea',
-      minScore: 9,
-      maxScore: 14,
+      name: 'Hábitos alimentarios saludables',
+      description: 'Excelente adherencia a hábitos alimentarios saludables',
+      minScore: 12,
+      maxScore: 16,
       severity: 'low',
       colorCode: '#28a745',
     },
     {
-      name: 'Adherencia moderada',
-      description: 'Adherencia moderada a dieta mediterránea',
-      minScore: 7,
-      maxScore: 8,
+      name: 'Hábitos alimentarios moderados',
+      description: 'Adherencia moderada a hábitos alimentarios saludables',
+      minScore: 8,
+      maxScore: 11,
       severity: 'medium',
       colorCode: '#ffc107',
     },
     {
-      name: 'Adherencia deficiente',
-      description: 'Baja adherencia a dieta mediterránea',
+      name: 'Hábitos alimentarios deficientes',
+      description: 'Baja adherencia a hábitos alimentarios saludables',
       minScore: 0,
-      maxScore: 6,
+      maxScore: 7,
       severity: 'high',
       colorCode: '#dc3545',
     },
@@ -363,34 +352,6 @@ export const diagnostics = {
     },
   ],
 
-  // Apnea del Sueño
-  apnea_sueno: [
-    {
-      name: 'Riesgo bajo',
-      description: 'Bajo riesgo de apnea del sueño',
-      minScore: 0,
-      maxScore: 7,
-      severity: 'low',
-      colorCode: '#28a745',
-    },
-    {
-      name: 'Riesgo intermedio',
-      description: 'Riesgo intermedio de apnea del sueño',
-      minScore: 8,
-      maxScore: 10,
-      severity: 'medium',
-      colorCode: '#ffc107',
-    },
-    {
-      name: 'Riesgo alto',
-      description: 'Alto riesgo de apnea del sueño',
-      minScore: 11,
-      maxScore: 17,
-      severity: 'high',
-      colorCode: '#dc3545',
-    },
-  ],
-
   // Ansiedad y Depresión (mismo patrón)
   mental_health: [
     {
@@ -543,49 +504,126 @@ export const scoringQuestions = [
     groupName: 'Estatus Socioeconómico',
   },
 
-  // D.1.1. MEDAS - Preguntas de alimentación (im1_d1_1 a im1_d1_14)
-  ...Array.from({ length: 14 }, (_, i) => {
-    const medasTexts = [
-      '¿Utiliza aceite de oliva como principal fuente de grasa para cocinar?',
-      '¿Cuatro cucharadas o más de aceite de oliva por día?',
-      '¿Dos raciones o más de vegetales por día?',
-      '¿Tres raciones o más de fruta por día?',
-      '¿Menos de una ración de carnes rojas por día?',
-      '¿Menos de una ración de mantequilla/margarina por día?',
-      '¿Menos de una bebida carbonatada por día?',
-      '¿Tres o más raciones de leguminosas por semana?',
-      '¿Tres o más raciones de pescado/mariscos por semana?',
-      '¿Menos de 2 veces pastelería comercial por semana?',
-      '¿Tres veces o más frutos secos por semana?',
-      '¿Prefiere pollo/pavo en lugar de carne roja?',
-      '¿Dos veces o más por semana vegetales con salsa de tomate/ajo/cebolla en aceite de oliva?',
-      '¿Agregás sal a tu comida en la mesa?',
-    ];
-
-    const isLastQuestion = i === 13; // La pregunta de sal tiene puntuación inversa
-    return {
-      code: `im1_d1_${i + 1}`,
-      questionText: medasTexts[i],
-      questionType: QuestionType.BOOLEAN,
-      inputType: 'radio',
-      options: {
-        choices: [
-          {
-            value: 'si',
-            label: 'Sí',
-            score: isLastQuestion ? 0 : 1, // La pregunta de sal tiene puntuación inversa
-          },
-          {
-            value: 'no',
-            label: 'No',
-            score: isLastQuestion ? 1 : 0,
-          },
-        ],
-      },
-      hasScore: true,
-      groupName: 'Nutrición',
-    };
-  }),
+  // D.1.1. Nutrición - Preguntas de alimentación (im1_d1_1 a im1_d1_8)
+  {
+    code: 'im1_d1_1',
+    questionText: '¿Cuántas raciones de frutas consume DIARIAMENTE? (1 ración = 1 fruta mediana o 1 taza)',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_todos_dias', label: 'No todos los días', score: 0 },
+        { value: '1_2_al_dia', label: '1 o 2 al día', score: 1 },
+        { value: '3_mas_al_dia', label: '3 o más al día', score: 2 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
+  {
+    code: 'im1_d1_2',
+    questionText: '¿Cuántas raciones de vegetales consume DIARIAMENTE? (1 ración = 1 taza)',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_todos_dias', label: 'No todos los días', score: 0 },
+        { value: '1_2_al_dia', label: '1 o 2 al día', score: 1 },
+        { value: '4_mas_al_dia', label: '4 o más al día', score: 2 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
+  {
+    code: 'im1_d1_3',
+    questionText: '¿Cuántas raciones de grano entero (arroz integral, pasta integral, cereales integrales, avena, palomitas de maíz, maíz de grano entero) consume DIARIAMENTE? (1 ración = 1 taza)',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_todos_dias', label: 'No todos los días', score: 0 },
+        { value: '1_2_al_dia', label: '1 o 2 al día', score: 1 },
+        { value: '2_mas_al_dia', label: '2 o más al día', score: 2 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
+  {
+    code: 'im1_d1_4',
+    questionText: '¿Con qué frecuencia consume frutos secos y legumbres (judías o alubias, guisantes, garbanzos, lentejas)?',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_todos_dias', label: 'No todos los días', score: 0 },
+        { value: '1_2_al_dia', label: '1 o 2 al día', score: 1 },
+        { value: '2_mas_al_dia', label: '2 o más al día', score: 2 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
+  {
+    code: 'im1_d1_5',
+    questionText: '¿Con qué frecuencia consumes productos lácteos bajos en grasa o quesos (leche desnatada, yogur, requesón, etc.)?',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_consumo', label: 'No consumo productos lácteos bajos en grasa', score: 0 },
+        { value: 'no_todos_dias', label: 'No todos los días', score: 1 },
+        { value: 'todos_dias', label: 'Todos los días', score: 2 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
+  {
+    code: 'im1_d1_6',
+    questionText: 'Con respecto a la sal',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_evita', label: 'No evito la sal y comidas procesadas', score: 0 },
+        { value: 'evita', label: 'Evita la sal y comidas procesadas', score: 2 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
+  {
+    code: 'im1_d1_7',
+    questionText: '¿Con qué frecuencia consumes carnes rojas y procesadas (carne de res, cerdo, cordero, fiambres, vísceras, salchichas, tocino, etc.)?',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_come', label: 'No como carnes rojas o procesadas', score: 2 },
+        { value: '1_2_semana', label: '1 o 2 veces a la semana', score: 1 },
+        { value: 'mas_2_semana', label: 'Más de dos veces a la semana', score: 0 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
+  {
+    code: 'im1_d1_8',
+    questionText: '¿Cuántos vasos de bebidas azucaradas toma SEMANALMENTE?',
+    questionType: QuestionType.SINGLE_CHOICE,
+    inputType: 'radio',
+    options: {
+      choices: [
+        { value: 'no_toma', label: 'No tomo bebidas azucaradas', score: 2 },
+        { value: '4_menos', label: '4 o menos a la semana', score: 1 },
+        { value: '5_mas', label: '5 o más a la semana', score: 0 },
+      ],
+    },
+    hasScore: true,
+    groupName: 'Nutrición',
+  },
 
   // D.2.1. Nivel de actividad física - im1_d2_1
   {
@@ -661,31 +699,6 @@ export const scoringQuestions = [
     },
     hasScore: true,
     groupName: 'Horas de sueño',
-  },
-
-  // D.3.3. Apnea del sueño NoSAS - im1_d3_3
-  {
-    code: 'im1_d3_3',
-    questionText:
-      'Seleccione todas las opciones que apliquen para el cálculo de riesgo de apnea del sueño (NoSAS):',
-    questionType: QuestionType.MULTIPLE_CHOICE,
-    inputType: 'checkbox',
-    options: {
-      choices: [
-        {
-          value: 'neck_40',
-          label: 'Circunferencia del cuello ≥40 cm',
-          score: 4,
-        },
-        { value: 'age_55', label: 'Edad ≥55 años', score: 4 },
-        { value: 'snoring', label: 'Ronquidos', score: 3 },
-        { value: 'male', label: 'Sexo masculino', score: 2 },
-        { value: 'hypertension', label: 'Hipertensión arterial', score: 4 },
-      ],
-      maxSelections: 5,
-    },
-    hasScore: true,
-    groupName: 'Apnea del sueño (NoSAS)',
   },
 
   // D.3.4. Insomnio - im1_d3_4
@@ -1026,11 +1039,19 @@ export const nonScoringQuestions = [
   },
   {
     code: 'im1_a1_2',
-    text: 'Apellidos',
+    text: 'Primer Apellido',
     type: QuestionType.TEXT,
     inputType: 'text',
     section: 'Estado Civil Y Datos Demográficos',
     required: true,
+  },
+  {
+    code: 'im1_a1_2b',
+    text: 'Segundo Apellido',
+    type: QuestionType.TEXT,
+    inputType: 'text',
+    section: 'Estado Civil Y Datos Demográficos',
+    required: false,
   },
   {
     code: 'im1_a1_3',
@@ -1111,6 +1132,22 @@ export const nonScoringQuestions = [
     section: 'Estado Civil Y Datos Demográficos',
     required: false,
   },
+  {
+    code: 'im1_a1_12',
+    text: 'Estado',
+    type: QuestionType.TEXT,
+    inputType: 'text',
+    section: 'Estado Civil Y Datos Demográficos',
+    required: false,
+  },
+  {
+    code: 'im1_a1_13',
+    text: 'Código Postal',
+    type: QuestionType.TEXT,
+    inputType: 'text',
+    section: 'Estado Civil Y Datos Demográficos',
+    required: false,
+  },
 
   // A.2. Estado civil (1 question)
   {
@@ -1136,34 +1173,48 @@ export const nonScoringQuestions = [
   // A.3. Etnia-raza (2 questions)
   {
     code: 'im1_a3_1',
-    text: '¿Cuál es su etnia?',
-    type: QuestionType.SINGLE_CHOICE,
-    inputType: 'radio',
+    text: '¿Cuáles son sus orígenes étnicos o ancestros?',
+    helpText: 'Selecciona todas las áreas geográficas de donde se originaron tus antepasados.',
+    type: QuestionType.MULTIPLE_CHOICE,
+    inputType: 'checkbox',
     section: 'Estado Civil Y Datos Demográficos',
     required: false,
     options: {
       choices: [
-        { value: 'latino_hispano', label: 'Latino / Hispano' },
-        { value: 'no_latino_hispano', label: 'No Latino / No hispano' },
-        { value: 'no_responde', label: 'No desea responder / No sabe' },
+        { value: 'europa_occidental', label: 'Europa Occidental (por ejemplo, Grecia, Suecia, Reino Unido)' },
+        { value: 'europa_oriental', label: 'Europa del Este (por ejemplo, Hungría, Polonia, Rusia)' },
+        { value: 'norte_africa', label: 'Norte de África (por ejemplo, Egipto, Marruecos, Sudán)' },
+        { value: 'africa_subsahariana', label: 'África subsahariana (por ejemplo, Kenia, Nigeria, Sudáfrica)' },
+        { value: 'asia_occidental', label: 'Asia Occidental / Oriente Medio (por ejemplo, Irán, Israel, Arabia Saudí)' },
+        { value: 'asia_sur_sudeste', label: 'Asia del Sur y Sudeste (por ejemplo, India, Indonesia, Singapur)' },
+        { value: 'asia_oriental_central', label: 'Asia Oriental y Central (por ejemplo, China, Japón, Uzbekistán)' },
+        { value: 'pacifico_oceania', label: 'Pacífico / Oceanía (por ejemplo, Australia, Fiyi, Papúa Nueva Guinea)' },
+        { value: 'norteamerica', label: 'Norteamérica (Canadá, Estados Unidos)' },
+        { value: 'centroamerica_caribe', label: 'Centroamérica y el Caribe (por ejemplo, Jamaica, México, Panamá)' },
+        { value: 'sudamerica', label: 'Sudamérica (por ejemplo, Brasil, Chile, Colombia)' },
+        { value: 'autodescripcion', label: 'Autodescripción' },
+        { value: 'no_responde', label: 'No desea responder' },
       ],
     },
   },
   {
     code: 'im1_a3_2',
-    text: '¿Cuál es su raza?',
-    type: QuestionType.SINGLE_CHOICE,
-    inputType: 'radio',
+    text: '¿Cómo te identificarías en términos de raza?',
+    helpText: 'Selecciona todos los grupos que se aplican a ti.',
+    type: QuestionType.MULTIPLE_CHOICE,
+    inputType: 'checkbox',
     section: 'Estado Civil Y Datos Demográficos',
     required: false,
     options: {
       choices: [
-        { value: 'blanco', label: 'Blanco / Caucásicos' },
+        { value: 'asiatico_isleno_pacifico', label: 'Asiático o isleño del Pacífico' },
         { value: 'negro', label: 'Negro' },
-        { value: 'asiatico', label: 'Asiático' },
-        { value: 'indigena', label: 'Indígena' },
-        { value: 'mixto', label: 'Mixto' },
-        { value: 'no_responde', label: 'No desea responder / No sabe' },
+        { value: 'hispano_latino', label: 'Hispano o latino/a/x' },
+        { value: 'indigena', label: 'Indígenas (por ejemplo, navajos indios norteamericanos, quechuas indios sudamericanos, aborígenes o isleños del Estrecho de Torres en Australia)' },
+        { value: 'medio_oriente_norte_africa', label: 'Oriente Medio o Norte de África' },
+        { value: 'blanco', label: 'Blanco' },
+        { value: 'autodescripcion', label: 'Autodescripción' },
+        { value: 'no_responde', label: 'No desea responder' },
       ],
     },
   },
@@ -1240,20 +1291,66 @@ export const nonScoringQuestions = [
         { value: 'prediabetes', label: 'Prediabetes' },
         { value: 'resistencia_insulina', label: 'Resistencia a la insulina' },
         { value: 'hipertension', label: 'Hipertensión arterial' },
-        {
-          value: 'colesterol_alto',
-          label: 'Colesterol o triglicéridos elevados',
-        },
+        { value: 'colesterol_alto', label: 'Colesterol o triglicéridos elevados' },
         { value: 'acido_urico', label: 'Ácido úrico elevado o gota' },
         { value: 'apnea_sueno', label: 'Apnea obstructiva del sueño' },
         { value: 'infarto', label: 'Infarto al corazón o angina' },
         { value: 'accidente_cerebral', label: 'Accidente cerebrovascular' },
         { value: 'arritmia', label: 'Arritmia cardíaca' },
-        { value: 'cancer', label: 'Cáncer' },
+        { value: 'crecimiento_cardiaco', label: 'Crecimiento cardíaco' },
+        { value: 'insuficiencia_cardiaca', label: 'Insuficiencia cardíaca' },
+        { value: 'otra_enfermedad_cardiaca', label: 'Otra enfermedad cardíaca' },
+        { value: 'neuropatia', label: 'Neuropatía' },
+        { value: 'neuropatia_diabetes', label: 'Neuropatía consecuencia de la diabetes' },
+        { value: 'retinopatia_diabetes', label: 'Disminución de la visión o ceguera (retinopatía por la diabetes)' },
+        { value: 'enfermedad_renal_diabetes', label: 'Enfermedad renal crónica consecuencia de la diabetes' },
+        { value: 'osteoartritis', label: 'Osteoartritis u otro tipo de artritis' },
+        { value: 'artrosis_peso', label: 'Artrosis de cadera o rodillas consecuencia del peso' },
+        { value: 'osteoporosis', label: 'Osteoporosis u osteopenia' },
+        { value: 'dolor_lumbar', label: 'Dolor lumbar u otro problema crónico de espalda' },
+        { value: 'dolor_cuello', label: 'Dolor de cuello u otro problema crónico del cuello' },
+        { value: 'hernia_discal', label: 'Hernia discal' },
+        { value: 'alzheimer_demencia', label: 'Enfermedad de Alzheimer u otra causa de demencia' },
+        { value: 'otra_enfermedad_neurologica', label: 'Otra enfermedad neurológica' },
+        { value: 'disminucion_vision', label: 'Disminución de la visión o ceguera' },
+        { value: 'epilepsia', label: 'Epilepsia o convulsiones' },
+        { value: 'sordera', label: 'Sordera o pérdida de audición' },
+        { value: 'discapacidad_aprendizaje', label: 'Alguna discapacidad de aprendizaje' },
+        { value: 'autismo', label: 'Autismo o condición del espectro autista' },
         { value: 'depresion', label: 'Depresión o tristeza crónica' },
         { value: 'ansiedad', label: 'Ansiedad o miedo anticipado' },
+        { value: 'tept', label: 'Trastorno de estrés postraumático (TEPT)' },
+        { value: 'otra_salud_mental', label: 'Otra condición de salud mental' },
+        { value: 'dolor_cabeza', label: 'Dolor de cabeza' },
+        { value: 'migrana', label: 'Migraña' },
+        { value: 'cancer', label: 'Cáncer' },
+        { value: 'nodulos_mamas', label: 'Nódulos en las mamas' },
+        { value: 'enfermedad_renal_cronica', label: 'Enfermedad renal crónica (en personas sin diabetes)' },
+        { value: 'calculos_rinones', label: 'Cálculos en los riñones' },
+        { value: 'incontinencia_urinaria', label: 'Incontinencia urinaria, problemas para controlar la vejiga' },
+        { value: 'epoc', label: 'Enfermedad pulmonar obstructiva crónica u otra enfermedad pulmonar' },
         { value: 'asma', label: 'Asma' },
+        { value: 'alergia', label: 'Alergia, como rinitis, alergia al polen, conjuntivitis alérgica, dermatitis, alergia alimentaria u otra alergia' },
+        { value: 'sinusitis', label: 'Sinusitis' },
+        { value: 'recuperacion_covid', label: 'En proceso de recuperación después de una infección por COVID-19' },
+        { value: 'complicaciones_covid', label: 'Complicaciones después de una infección por COVID-19' },
+        { value: 'otra_infeccion_viral', label: 'Otra infección viral o bacteriana tal como VIH/SIDA o tuberculosis' },
+        { value: 'hepatitis', label: 'Hepatitis' },
+        { value: 'otra_enfermedad_higado', label: 'Otra enfermedad del hígado' },
+        { value: 'colon_irritable', label: 'Colon irritable o colitis' },
+        { value: 'gastritis_ulceras', label: 'Gastritis o úlceras (por endoscopia)' },
+        { value: 'calculos_vesicula', label: 'Cálculos en la vesícula' },
+        { value: 'hemorroides', label: 'Hemorroides' },
         { value: 'tiroides', label: 'Enfermedad de la tiroides' },
+        { value: 'miomas_utero', label: 'Miomas en el útero' },
+        { value: 'ovario_poliquistico', label: 'Ovario poliquístico' },
+        { value: 'problemas_prostata', label: 'Problemas en la próstata' },
+        { value: 'infertilidad', label: 'Infertilidad' },
+        { value: 'abortos', label: 'Abortos' },
+        { value: 'desnutricion', label: 'Desnutrición o bajo peso' },
+        { value: 'anemia', label: 'Anemia' },
+        { value: 'plaquetas_bajas', label: 'Plaquetas bajas' },
+        { value: 'varices', label: 'Várices' },
       ],
     },
   },
@@ -1753,7 +1850,7 @@ export const nonScoringQuestions = [
 
   // D.1.2. Preferencias Dietéticas (1 question)
   {
-    code: 'im1_d1_15',
+    code: 'im1_d1_9',
     text: 'Has seguido algún patrón dietético anteriormente. ¿Señale cuál o cuáles?',
     type: QuestionType.MULTIPLE_CHOICE,
     inputType: 'checkbox',
@@ -1914,7 +2011,6 @@ export const questionGroupMappings = [
   { questionCode: 'im1_d2_2', groupName: 'Minutos actividad física' },
   { questionCode: 'im1_d3_1', groupName: 'Calidad de sueño' },
   { questionCode: 'im1_d3_2', groupName: 'Horas de sueño' },
-  { questionCode: 'im1_d3_3', groupName: 'Apnea del sueño (NoSAS)' },
   { questionCode: 'im1_d3_4', groupName: 'Calidad de sueño' },
   { questionCode: 'im1_d4_1', groupName: 'Síntomas de ansiedad (GAD-7)' },
   { questionCode: 'im1_d4_2', groupName: 'Síntomas de ansiedad (GAD-7)' },
@@ -1931,8 +2027,8 @@ export const questionGroupMappings = [
   { questionCode: 'im1_d5_9', groupName: 'Drogas (ASSIST)' },
   { questionCode: 'im1_d5_10', groupName: 'Drogas (ASSIST)' },
   { questionCode: 'im1_d5_11', groupName: 'Drogas (ASSIST)' },
-  // MEDAS questions mapping
-  ...Array.from({ length: 14 }, (_, i) => ({
+  // Nutrición questions mapping (8 preguntas)
+  ...Array.from({ length: 8 }, (_, i) => ({
     questionCode: `im1_d1_${i + 1}`,
     groupName: 'Nutrición',
   })),
@@ -1942,12 +2038,12 @@ export const questionGroupMappings = [
 // SUMMARY
 // ==========================================
 
-// Total questions: 91 (27 with scoring + 64 without scoring)
+// Total questions: 84 (21 with scoring + 63 without scoring)
 // Total diagnostic groups: 13
 // Total diagnostics: 35+
 export const questionaireSummary = {
-  totalQuestions: 90,
-  questionsWithScoring: 27,
+  totalQuestions: 84,
+  questionsWithScoring: 21,
   questionsWithoutScoring: 63,
   totalDiagnosticGroups: 13,
   sections: [

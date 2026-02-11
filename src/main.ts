@@ -1,39 +1,42 @@
+import 'dotenv/config'; // 1. Importante para leer variables de entorno
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, Logger } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common'; // 2. Agregamos ValidationPipe
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
-
   const app = await NestFactory.create(AppModule);
 
-  // Enable CORS
+  // 3. Configuración de Pipes (Copiado del segundo archivo para que los datos lleguen bien)
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+      whitelist: true,
+    }),
+  );
+
+  // 4. CORS mejorado (Copiado del segundo archivo)
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: [
+      process.env.FRONTEND_URL || 'http://localhost:3000',
+      'https://lown-scholars-platform.vercel.app', // Tu URL de producción
+    ],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
-  // Global prefix
-  app.setGlobalPrefix('api/v1');
+  // Prefijo Global
+  // app.setGlobalPrefix('api/v1'); 
 
   // Swagger Documentation
   const config = new DocumentBuilder()
     .setTitle('Precision Care Clinis API')
-    // .setDescription('API para sistema médico con gestión de roles, permisos y pacientes')
     .setVersion('1.0')
-    .addTag('Users', 'Gestión de usuarios')
-    .addTag('Roles', 'Gestión de roles')
-    .addTag('Permissions', 'Gestión de permisos')
-    .addTag('Patients', 'Gestión de pacientes')
-    .addTag('Medics', 'Gestión de médicos')
-    .addTag('Appointments', 'Gestión de citas')
-    .addTag('Reschedules', 'Gestión de Reprogramaciones')
-    .addTag('PatientFollow', 'Seguimiento de pacientes')
-    .addTag('ContactAttempt', 'Intentos de contacto')
-    .addTag('RescueDirectory', 'Directorio de rescate')
-    .addTag('Specialties', 'Especialidades')
-    .addTag('Questionnaires', 'Cuestionarios')
     .addBearerAuth()
     .build();
 
@@ -42,23 +45,16 @@ async function bootstrap() {
     swaggerOptions: {
       persistAuthorization: true,
     },
+    // Esto ayuda a que Swagger cargue mejor en Vercel
+    customSiteTitle: 'Precision Care API Docs',
   });
 
+  // 5. Puerto dinámico para Vercel
   const port = process.env.PORT || 3001;
   await app.listen(port);
 
-  logger.log(`🚀 Application is running on: http://localhost:${port}`);
-  logger.log(`📚 Swagger docs available at: http://localhost:${port}/api/docs`);
-  logger.log(`👥 Patients API: http://localhost:${port}/api/v1/patients`);
-  logger.log(
-    `🔄 Patient Follow API: http://localhost:${port}/api/v1/patient-follow`,
-  );
-  logger.log(
-    `📞 Contact Attempt API: http://localhost:${port}/api/v1/contact-attempt`,
-  );
-  logger.log(
-    `🆘 Rescue Directory API: http://localhost:${port}/api/v1/rescue-directory`,
-  );
+  logger.log(`🚀 Application running on: http://localhost:${port}/api/v1`);
+  logger.log(`📚 Swagger: http://localhost:${port}/api/docs`);
 }
 
 bootstrap();

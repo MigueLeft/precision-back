@@ -42,6 +42,7 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
         if (version) {
             where.version = version;
         }
+        this.logger.log(`[DEBUG] Querying questionnaires with where: ${JSON.stringify(where)}, skip: ${skip}, limit: ${limit}`);
         const [questionnaires, total] = await Promise.all([
             this.prisma.questionnaire.findMany({
                 where,
@@ -60,6 +61,7 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
             }),
             this.prisma.questionnaire.count({ where }),
         ]);
+        this.logger.log(`[DEBUG] Found ${questionnaires.length} questionnaires, total count: ${total}`);
         return {
             data: questionnaires,
             meta: {
@@ -974,6 +976,9 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                 case 'im1_a1_2':
                     data.lastName = answer.answerText || answer.textValue;
                     break;
+                case 'im1_a1_2b':
+                    data.secondLastName = answer.answerText || answer.textValue;
+                    break;
                 case 'im1_a1_3':
                     if (answer.answerText || answer.textValue) {
                         data.birthdate = new Date(answer.answerText || answer.textValue);
@@ -1002,6 +1007,12 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                     break;
                 case 'im1_a1_11':
                     data.city = answer.answerText || answer.textValue;
+                    break;
+                case 'im1_a1_12':
+                    data.state = answer.answerText || answer.textValue;
+                    break;
+                case 'im1_a1_13':
+                    data.postalCode = answer.answerText || answer.textValue;
                     break;
                 case 'im1_a2_1':
                     data.maritalStatus = answer.answerText || answer.textValue;

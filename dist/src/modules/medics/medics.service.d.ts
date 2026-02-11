@@ -10,7 +10,7 @@ export declare class MedicsService {
         user: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
         } | null;
         specialty: {
             id: string;
@@ -23,11 +23,11 @@ export declare class MedicsService {
         name: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string | null;
         active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
@@ -36,7 +36,7 @@ export declare class MedicsService {
             user: {
                 email: string;
                 id: string;
-                name: string | null;
+                name: string;
                 role: {
                     id: number;
                     name: string;
@@ -53,11 +53,11 @@ export declare class MedicsService {
             name: string;
             createdAt: Date;
             updatedAt: Date;
+            userId: string | null;
             active: boolean;
             lastName: string;
             identification: string;
             phone: string | null;
-            userId: string | null;
             specialtyId: string;
             professionalTitle: string;
         })[];
@@ -74,7 +74,7 @@ export declare class MedicsService {
         user: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
             role: {
                 id: number;
                 name: string;
@@ -87,11 +87,11 @@ export declare class MedicsService {
         name: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string | null;
         active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
@@ -99,7 +99,7 @@ export declare class MedicsService {
         user: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
             role: {
                 id: number;
                 name: string;
@@ -111,11 +111,11 @@ export declare class MedicsService {
         name: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string | null;
         active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
@@ -123,7 +123,7 @@ export declare class MedicsService {
         user: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
             role: {
                 id: number;
                 name: string;
@@ -135,11 +135,11 @@ export declare class MedicsService {
         name: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string | null;
         active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
@@ -147,7 +147,7 @@ export declare class MedicsService {
         user: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
             role: {
                 id: number;
                 name: string;
@@ -164,11 +164,11 @@ export declare class MedicsService {
         name: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string | null;
         active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
@@ -179,7 +179,7 @@ export declare class MedicsService {
         user: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
             role: {
                 id: number;
                 name: string;
@@ -196,11 +196,11 @@ export declare class MedicsService {
         name: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string | null;
         active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;
@@ -208,7 +208,7 @@ export declare class MedicsService {
         user: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
         } | null;
     } & {
         email: string;
@@ -216,11 +216,11 @@ export declare class MedicsService {
         name: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string | null;
         active: boolean;
         lastName: string;
         identification: string;
         phone: string | null;
-        userId: string | null;
         specialtyId: string;
         professionalTitle: string;
     }>;

@@ -8,11 +8,10 @@ export declare class UsersController {
     create(createUserDto: CreateUserDto): Promise<{
         email: string;
         id: string;
-        name: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
-        password: string | null;
-        emailVerified: Date | null;
+        emailVerified: boolean;
         image: string | null;
         roleId: number;
     }>;
@@ -26,11 +25,10 @@ export declare class UsersController {
         } & {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
             createdAt: Date;
             updatedAt: Date;
-            password: string | null;
-            emailVerified: Date | null;
+            emailVerified: boolean;
             image: string | null;
             roleId: number;
         })[];
@@ -52,22 +50,20 @@ export declare class UsersController {
     } & {
         email: string;
         id: string;
-        name: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
-        password: string | null;
-        emailVerified: Date | null;
+        emailVerified: boolean;
         image: string | null;
         roleId: number;
     }>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<{
         email: string;
         id: string;
-        name: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
-        password: string | null;
-        emailVerified: Date | null;
+        emailVerified: boolean;
         image: string | null;
         roleId: number;
     }>;

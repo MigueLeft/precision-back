@@ -12,6 +12,7 @@ var UsersService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
+const crypto_1 = require("crypto");
 const prisma_service_1 = require("../../config/database/prisma.service");
 const client_1 = require("@prisma/client");
 let UsersService = UsersService_1 = class UsersService {
@@ -28,14 +29,26 @@ let UsersService = UsersService_1 = class UsersService {
             if (!roleExists) {
                 throw new common_1.ConflictException(`Role with ID ${createUserDto.roleId} not found`);
             }
+            const userId = (0, crypto_1.randomUUID)();
             const user = await this.prisma.user.create({
                 data: {
+                    id: userId,
                     name: createUserDto.name,
                     email: createUserDto.email,
-                    password: createUserDto.password,
                     roleId: createUserDto.roleId,
                 },
             });
+            if (createUserDto.password) {
+                await this.prisma.account.create({
+                    data: {
+                        id: (0, crypto_1.randomUUID)(),
+                        accountId: userId,
+                        providerId: 'credential',
+                        userId: userId,
+                        password: createUserDto.password,
+                    },
+                });
+            }
             this.logger.log(`User created: ${user.name}`);
             return user;
         }

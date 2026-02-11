@@ -411,6 +411,7 @@ export declare class QuestionnairesController {
             id: string;
             createdAt: Date;
             updatedAt: Date;
+            userId: string | null;
             active: boolean;
             firstName: string;
             lastName: string;
@@ -418,8 +419,6 @@ export declare class QuestionnairesController {
             phone: string | null;
             birthdate: Date;
             gender: string;
-            userId: string | null;
-            identificationType: string | null;
             nationality: string | null;
             countryOfOrigin: string | null;
             countryOfResidence: string | null;
@@ -431,6 +430,16 @@ export declare class QuestionnairesController {
             preferredLanguage: string | null;
             educationLevel: string | null;
             socioeconomicStatus: number | null;
+            identificationType: string | null;
+            secondLastName: string | null;
+            state: string | null;
+            postalCode: string | null;
+            emergencyContact: string | null;
+            emergencyPhone: string | null;
+            medicalHistory: string | null;
+            allergies: string | null;
+            currentMedications: string | null;
+            bloodType: string | null;
             currentIllness: string | null;
             diagnosticPlan: string | null;
             lastClinicalUpdateBy: string | null;

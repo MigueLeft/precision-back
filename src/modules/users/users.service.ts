@@ -4,6 +4,7 @@ import {
   ConflictException,
   Logger,
 } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { PrismaService } from '../../config/database/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -29,14 +30,28 @@ export class UsersService {
         );
       }
 
+      const userId = randomUUID();
       const user = await this.prisma.user.create({
         data: {
+          id: userId,
           name: createUserDto.name,
           email: createUserDto.email,
-          password: createUserDto.password, // Asegúrate de que la contraseña esté encriptada si es necesario
-          roleId: createUserDto.roleId, // Asignar el roleId directamente
+          roleId: createUserDto.roleId,
         },
       });
+
+      // Create credential account with password (Better Auth schema)
+      if (createUserDto.password) {
+        await this.prisma.account.create({
+          data: {
+            id: randomUUID(),
+            accountId: userId,
+            providerId: 'credential',
+            userId: userId,
+            password: createUserDto.password,
+          },
+        });
+      }
 
       this.logger.log(`User created: ${user.name}`);
       return user;

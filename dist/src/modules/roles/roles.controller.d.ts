@@ -54,7 +54,7 @@ export declare class RolesController {
         users: {
             email: string;
             id: string;
-            name: string | null;
+            name: string;
         }[];
         permissions: {
             id: number;

@@ -46,6 +46,18 @@ class CreatePatientDto {
     gender;
     active = true;
     userId;
+    nationality;
+    countryOfOrigin;
+    countryOfResidence;
+    address;
+    city;
+    maritalStatus;
+    ethnicity;
+    race;
+    preferredLanguage;
+    educationLevel;
+    socioeconomicStatus;
+    identificationType;
 }
 exports.CreatePatientDto = CreatePatientDto;
 __decorate([
@@ -146,4 +158,97 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreatePatientDto.prototype, "userId", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Nacionalidad', example: 'Colombiana' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "nationality", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'País de origen', example: 'Colombia' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "countryOfOrigin", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'País de residencia',
+        example: 'Colombia',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "countryOfResidence", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Dirección de residencia',
+        example: 'Calle 123 #45-67',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "address", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Ciudad', example: 'Bogotá' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "city", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Estado civil',
+        example: 'soltero',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "maritalStatus", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Etnia', example: 'mestizo' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "ethnicity", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'Raza', example: 'latina' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "race", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Idioma preferido',
+        example: 'español',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "preferredLanguage", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Nivel educativo',
+        example: '8',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "educationLevel", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Estatus socioeconómico (1-10)',
+        example: 5,
+    }),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], CreatePatientDto.prototype, "socioeconomicStatus", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Tipo de identificación',
+        example: 'cedula',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreatePatientDto.prototype, "identificationType", void 0);
 //# sourceMappingURL=create-patient.dto.js.map

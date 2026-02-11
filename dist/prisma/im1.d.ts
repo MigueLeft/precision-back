@@ -19,17 +19,6 @@ export declare const diagnosticGroups: ({
     scoringMethod: string;
     scoringConfig: {
         maxScore: number;
-        formula?: undefined;
-    };
-    active: boolean;
-} | {
-    name: string;
-    description: string;
-    diagnosticCode: string;
-    scoringMethod: string;
-    scoringConfig: {
-        formula: string;
-        maxScore: number;
     };
     active: boolean;
 })[];
@@ -50,7 +39,7 @@ export declare const diagnostics: {
         severity: string;
         colorCode: string;
     }[];
-    medas: {
+    nutricion: {
         name: string;
         description: string;
         minScore: number;
@@ -83,14 +72,6 @@ export declare const diagnostics: {
         colorCode: string;
     }[];
     horas_sueno: {
-        name: string;
-        description: string;
-        minScore: number;
-        maxScore: number;
-        severity: string;
-        colorCode: string;
-    }[];
-    apnea_sueno: {
         name: string;
         description: string;
         minScore: number;
@@ -134,20 +115,6 @@ export declare const diagnostics: {
 export declare const scoringQuestions: ({
     code: string;
     questionText: string;
-    questionType: "BOOLEAN";
-    inputType: string;
-    options: {
-        choices: {
-            value: string;
-            label: string;
-            score: number;
-        }[];
-    };
-    hasScore: boolean;
-    groupName: string;
-} | {
-    code: string;
-    questionText: string;
     questionType: "SINGLE_CHOICE";
     inputType: string;
     options: {
@@ -160,7 +127,6 @@ export declare const scoringQuestions: ({
         max?: undefined;
         step?: undefined;
         placeholder?: undefined;
-        maxSelections?: undefined;
     };
     hasScore: boolean;
     groupName: string;
@@ -177,7 +143,6 @@ export declare const scoringQuestions: ({
         step: number;
         choices?: undefined;
         placeholder?: undefined;
-        maxSelections?: undefined;
     };
     hasScore: boolean;
     groupName: string;
@@ -194,28 +159,6 @@ export declare const scoringQuestions: ({
         step: number;
         placeholder: string;
         choices?: undefined;
-        maxSelections?: undefined;
-    };
-    hasScore: boolean;
-    groupName: string;
-    dependsOn?: undefined;
-    showWhen?: undefined;
-} | {
-    code: string;
-    questionText: string;
-    questionType: "MULTIPLE_CHOICE";
-    inputType: string;
-    options: {
-        choices: {
-            value: string;
-            label: string;
-            score: number;
-        }[];
-        maxSelections: number;
-        min?: undefined;
-        max?: undefined;
-        step?: undefined;
-        placeholder?: undefined;
     };
     hasScore: boolean;
     groupName: string;
@@ -236,7 +179,6 @@ export declare const scoringQuestions: ({
         max?: undefined;
         step?: undefined;
         placeholder?: undefined;
-        maxSelections?: undefined;
     };
     hasScore: boolean;
     groupName: string;
@@ -254,6 +196,7 @@ export declare const nonScoringQuestions: ({
     section: string;
     required: boolean;
     options?: undefined;
+    helpText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
@@ -264,12 +207,30 @@ export declare const nonScoringQuestions: ({
     section: string;
     required: boolean;
     options?: undefined;
+    helpText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
     code: string;
     text: string;
     type: "SINGLE_CHOICE";
+    inputType: string;
+    section: string;
+    required: boolean;
+    options: {
+        choices: {
+            value: string;
+            label: string;
+        }[];
+    };
+    helpText?: undefined;
+    dependsOn?: undefined;
+    showWhen?: undefined;
+} | {
+    code: string;
+    text: string;
+    helpText: string;
+    type: "MULTIPLE_CHOICE";
     inputType: string;
     section: string;
     required: boolean;
@@ -294,6 +255,7 @@ export declare const nonScoringQuestions: ({
             label: string;
         }[];
     };
+    helpText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
@@ -314,6 +276,7 @@ export declare const nonScoringQuestions: ({
             label: string;
         }[];
     };
+    helpText?: undefined;
 } | {
     code: string;
     text: string;
@@ -327,6 +290,7 @@ export declare const nonScoringQuestions: ({
         operator: string;
     };
     options?: undefined;
+    helpText?: undefined;
 } | {
     code: string;
     text: string;
@@ -335,6 +299,7 @@ export declare const nonScoringQuestions: ({
     section: string;
     required: boolean;
     options?: undefined;
+    helpText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 })[];

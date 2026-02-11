@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const common_1 = require("@nestjs/common");
+const crypto_1 = require("crypto");
 const prisma = new client_1.PrismaClient();
 const logger = new common_1.Logger('DatabaseSeeder');
 async function main() {
@@ -121,18 +122,33 @@ async function main() {
     };
     logger.log('Creating developer user...');
     try {
-        await prisma.user.upsert({
+        const userId = (0, crypto_1.randomUUID)();
+        const user = await prisma.user.upsert({
             where: { email: developerUser.email },
             update: {},
             create: {
+                id: userId,
                 name: developerUser.name,
                 email: developerUser.email,
-                password: developerUser.password,
                 role: {
                     connect: { id: developerUser.roleId },
                 },
             },
         });
+        const existingAccount = await prisma.account.findFirst({
+            where: { userId: user.id, providerId: 'credential' },
+        });
+        if (!existingAccount) {
+            await prisma.account.create({
+                data: {
+                    id: (0, crypto_1.randomUUID)(),
+                    accountId: user.id,
+                    providerId: 'credential',
+                    userId: user.id,
+                    password: developerUser.password,
+                },
+            });
+        }
         logger.log(`Developer user created: ${developerUser.name}`);
     }
     catch (error) {

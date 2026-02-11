@@ -23,8 +23,8 @@ async function main() {
     // 2. Seed Roles (depends on permissions)
     const roles = await seedRoles(prisma, logger, allPermissions);
 
-    // 3. Seed Users (depends on roles)
-    await seedUsers(prisma, logger, roles);
+    // 3. Seed Users (depends on roles) - Disabled: seed should not create/modify users
+    // await seedUsers(prisma, logger, roles);
 
     // 4. Seed Questionnaires
     await seedIM1Questionnaire(prisma, logger);

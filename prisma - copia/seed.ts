@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Logger } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 
 const prisma = new PrismaClient();
 const logger = new Logger('DatabaseSeeder');
@@ -147,18 +148,36 @@ async function main() {
   logger.log('Creating developer user...');
 
   try {
-    await prisma.user.upsert({
+    const userId = randomUUID();
+    const user = await prisma.user.upsert({
       where: { email: developerUser.email },
       update: {},
       create: {
+        id: userId,
         name: developerUser.name,
         email: developerUser.email,
-        password: developerUser.password, // Asegúrate de que la contraseña esté encriptada si es necesario
         role: {
           connect: { id: developerUser.roleId },
         },
       },
     });
+
+    // Create credential account with password (Better Auth schema)
+    const existingAccount = await prisma.account.findFirst({
+      where: { userId: user.id, providerId: 'credential' },
+    });
+    if (!existingAccount) {
+      await prisma.account.create({
+        data: {
+          id: randomUUID(),
+          accountId: user.id,
+          providerId: 'credential',
+          userId: user.id,
+          password: developerUser.password,
+        },
+      });
+    }
+
     logger.log(`Developer user created: ${developerUser.name}`);
   } catch (error) {
     logger.error(`Error creating developer user:`, error);

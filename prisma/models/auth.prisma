@@ -1,42 +1,54 @@
+// Better Auth compatible schema
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  password      String?
+  id            String    @id
+  name          String
   email         String    @unique
-  emailVerified DateTime?
+  emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  roleId        Int
+  roleId        Int       @default(4) // Default to PATIENT role
+  sessions      Session[]
   accounts      Account[]
   medics        Medic?
   patients      Patient?
   role          Role      @relation(fields: [roleId], references: [id])
 }
 
-model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@id([provider, providerAccountId])
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+model Account {
+  id           String   @id
+  accountId    String
+  providerId   String
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken  String?
+  refreshToken String?
+  idToken      String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope        String?
+  password     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
 
-  @@id([identifier, token])
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
 }

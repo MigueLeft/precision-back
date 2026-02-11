@@ -1,26 +1,41 @@
 model Patient {
-  id                String   @id @default(cuid())
-  firstName         String
-  lastName          String
+  id                 String   @id @default(cuid())
+  firstName          String
+  lastName           String
+  secondLastName     String?  @map("second_last_name") // Segundo apellido
   identificationType String?  @default("passport") @map("identification_type")
-  identification    String   @unique
-  phone             String?
-  email             String   @unique
-  birthdate         DateTime
-  gender            String
-  nationality       String?
-  countryOfOrigin   String?  @map("country_of_origin")
-  countryOfResidence String? @map("country_of_residence")
-  address           String?
-  city              String?
+  identification     String   @unique
+  phone              String?
+  email              String   @unique
+  birthdate          DateTime
+  gender             String
+  nationality        String?
+  countryOfOrigin    String?  @map("country_of_origin")
+  countryOfResidence String?  @map("country_of_residence")
+
+  // Dirección completa
+  address            String?
+  city               String?
+  state              String?  // Estado/Provincia
+  postalCode         String?  @map("postal_code") // Código postal
 
   // Campos adicionales para IM1
-  maritalStatus     String?  @map("marital_status") // Estado civil
-  ethnicity         String?  // Etnia
-  race              String?  // Raza
-  preferredLanguage String?  @map("preferred_language") // Idioma preferido
-  educationLevel    String?  @map("education_level") // Nivel educativo
-  socioeconomicStatus Int?   @map("socioeconomic_status") // Estatus socioeconómico (1-10)
+  maritalStatus       String?  @map("marital_status") // Estado civil
+  ethnicity           String?  // Etnia
+  race                String?  // Raza
+  preferredLanguage   String?  @map("preferred_language") // Idioma preferido
+  educationLevel      String?  @map("education_level") // Nivel educativo
+  socioeconomicStatus Int?     @map("socioeconomic_status") // Estatus socioeconómico (1-10)
+
+  // Contacto de emergencia
+  emergencyContact    String?  @map("emergency_contact") // Nombre del contacto de emergencia
+  emergencyPhone      String?  @map("emergency_phone") // Teléfono del contacto de emergencia
+
+  // Información médica básica
+  medicalHistory      String?  @map("medical_history") @db.Text // Historial médico general
+  allergies           String?  @db.Text // Alergias
+  currentMedications  String?  @map("current_medications") @db.Text // Medicamentos actuales
+  bloodType           String?  @map("blood_type") // Tipo de sangre (A+, A-, B+, B-, AB+, AB-, O+, O-)
 
   // Información clínica actual (llenado por el médico)
   currentIllness           String?  @map("current_illness") // Enfermedad actual - Texto libre

@@ -11,7 +11,6 @@ async function main() {
     try {
         const allPermissions = await (0, seeders_1.seedPermissions)(prisma, logger);
         const roles = await (0, seeders_1.seedRoles)(prisma, logger, allPermissions);
-        await (0, seeders_1.seedUsers)(prisma, logger, roles);
         await (0, seeders_1.seedIM1Questionnaire)(prisma, logger);
         await (0, seeders_1.seedAntecedents)(prisma, logger);
         await (0, seeders_1.seedSymptoms)(prisma, logger);

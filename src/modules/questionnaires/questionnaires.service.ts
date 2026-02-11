@@ -53,6 +53,8 @@ export class QuestionnairesService {
       where.version = version;
     }
 
+    this.logger.log(`[DEBUG] Querying questionnaires with where: ${JSON.stringify(where)}, skip: ${skip}, limit: ${limit}`);
+
     const [questionnaires, total] = await Promise.all([
       this.prisma.questionnaire.findMany({
         where,
@@ -71,6 +73,8 @@ export class QuestionnairesService {
       }),
       this.prisma.questionnaire.count({ where }),
     ]);
+
+    this.logger.log(`[DEBUG] Found ${questionnaires.length} questionnaires, total count: ${total}`);
 
     return {
       data: questionnaires,
@@ -1350,8 +1354,11 @@ export class QuestionnairesService {
         case 'im1_a1_1': // Nombre
           data.firstName = answer.answerText || answer.textValue;
           break;
-        case 'im1_a1_2': // Apellidos
+        case 'im1_a1_2': // Primer Apellido
           data.lastName = answer.answerText || answer.textValue;
+          break;
+        case 'im1_a1_2b': // Segundo Apellido
+          data.secondLastName = answer.answerText || answer.textValue;
           break;
         case 'im1_a1_3': // Fecha de nacimiento
           if (answer.answerText || answer.textValue) {
@@ -1381,6 +1388,12 @@ export class QuestionnairesService {
           break;
         case 'im1_a1_11': // Ciudad
           data.city = answer.answerText || answer.textValue;
+          break;
+        case 'im1_a1_12': // Estado
+          data.state = answer.answerText || answer.textValue;
+          break;
+        case 'im1_a1_13': // Código Postal
+          data.postalCode = answer.answerText || answer.textValue;
           break;
         case 'im1_a2_1': // Estado civil
           data.maritalStatus = answer.answerText || answer.textValue;
