@@ -82,10 +82,10 @@ export declare class SymptomsService {
             severity: string | null;
             patientId: string;
             notes: string | null;
+            frequency: string | null;
             duration: string | null;
             symptomId: string;
             hasSymptom: boolean;
-            frequency: string | null;
             reportedAt: Date | null;
             resolvedAt: Date | null;
         })[];
@@ -147,10 +147,10 @@ export declare class SymptomsService {
         severity: string | null;
         patientId: string;
         notes: string | null;
+        frequency: string | null;
         duration: string | null;
         symptomId: string;
         hasSymptom: boolean;
-        frequency: string | null;
         reportedAt: Date | null;
         resolvedAt: Date | null;
     }>;
@@ -182,10 +182,10 @@ export declare class SymptomsService {
         severity: string | null;
         patientId: string;
         notes: string | null;
+        frequency: string | null;
         duration: string | null;
         symptomId: string;
         hasSymptom: boolean;
-        frequency: string | null;
         reportedAt: Date | null;
         resolvedAt: Date | null;
     })[]>;
@@ -223,10 +223,10 @@ export declare class SymptomsService {
             severity: string | null;
             patientId: string;
             notes: string | null;
+            frequency: string | null;
             duration: string | null;
             symptomId: string;
             hasSymptom: boolean;
-            frequency: string | null;
             reportedAt: Date | null;
             resolvedAt: Date | null;
         })[];

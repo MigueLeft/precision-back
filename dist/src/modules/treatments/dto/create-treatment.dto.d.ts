@@ -4,6 +4,7 @@ export declare class CreateTreatmentDto {
     presentation?: string;
     quantity?: string;
     dosage?: string;
+    frequency?: string;
     duration?: string;
     status?: string;
     prescribedBy?: string;

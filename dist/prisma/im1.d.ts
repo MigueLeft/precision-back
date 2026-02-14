@@ -130,11 +130,13 @@ export declare const scoringQuestions: ({
     };
     hasScore: boolean;
     groupName: string;
+    descriptionText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
     code: string;
     questionText: string;
+    descriptionText: string;
     questionType: "SCALE";
     inputType: string;
     options: {
@@ -162,6 +164,7 @@ export declare const scoringQuestions: ({
     };
     hasScore: boolean;
     groupName: string;
+    descriptionText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
@@ -187,6 +190,7 @@ export declare const scoringQuestions: ({
         values: string[];
         operator: string;
     };
+    descriptionText?: undefined;
 })[];
 export declare const nonScoringQuestions: ({
     code: string;
@@ -196,7 +200,6 @@ export declare const nonScoringQuestions: ({
     section: string;
     required: boolean;
     options?: undefined;
-    helpText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
@@ -207,30 +210,12 @@ export declare const nonScoringQuestions: ({
     section: string;
     required: boolean;
     options?: undefined;
-    helpText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
     code: string;
     text: string;
     type: "SINGLE_CHOICE";
-    inputType: string;
-    section: string;
-    required: boolean;
-    options: {
-        choices: {
-            value: string;
-            label: string;
-        }[];
-    };
-    helpText?: undefined;
-    dependsOn?: undefined;
-    showWhen?: undefined;
-} | {
-    code: string;
-    text: string;
-    helpText: string;
-    type: "MULTIPLE_CHOICE";
     inputType: string;
     section: string;
     required: boolean;
@@ -255,7 +240,6 @@ export declare const nonScoringQuestions: ({
             label: string;
         }[];
     };
-    helpText?: undefined;
     dependsOn?: undefined;
     showWhen?: undefined;
 } | {
@@ -276,7 +260,6 @@ export declare const nonScoringQuestions: ({
             label: string;
         }[];
     };
-    helpText?: undefined;
 } | {
     code: string;
     text: string;
@@ -290,7 +273,6 @@ export declare const nonScoringQuestions: ({
         operator: string;
     };
     options?: undefined;
-    helpText?: undefined;
 } | {
     code: string;
     text: string;
@@ -299,7 +281,21 @@ export declare const nonScoringQuestions: ({
     section: string;
     required: boolean;
     options?: undefined;
-    helpText?: undefined;
+    dependsOn?: undefined;
+    showWhen?: undefined;
+} | {
+    code: string;
+    text: string;
+    type: "TEXT";
+    inputType: string;
+    section: string;
+    required: boolean;
+    options: {
+        choices: {
+            value: string;
+            label: string;
+        }[];
+    };
     dependsOn?: undefined;
     showWhen?: undefined;
 })[];

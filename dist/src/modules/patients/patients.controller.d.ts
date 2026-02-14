@@ -21,7 +21,7 @@ export declare class PatientsController {
         active: boolean;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -31,7 +31,6 @@ export declare class PatientsController {
         address: string | null;
         city: string | null;
         maritalStatus: string | null;
-        ethnicity: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
@@ -71,7 +70,7 @@ export declare class PatientsController {
             active: boolean;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             phone: string | null;
             birthdate: Date;
             gender: string;
@@ -81,7 +80,6 @@ export declare class PatientsController {
             address: string | null;
             city: string | null;
             maritalStatus: string | null;
-            ethnicity: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
@@ -115,7 +113,7 @@ export declare class PatientsController {
         id: string;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -150,7 +148,7 @@ export declare class PatientsController {
         active: boolean;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -160,7 +158,6 @@ export declare class PatientsController {
         address: string | null;
         city: string | null;
         maritalStatus: string | null;
-        ethnicity: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
@@ -199,7 +196,7 @@ export declare class PatientsController {
         active: boolean;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -209,7 +206,6 @@ export declare class PatientsController {
         address: string | null;
         city: string | null;
         maritalStatus: string | null;
-        ethnicity: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
@@ -249,7 +245,7 @@ export declare class PatientsController {
         active: boolean;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -259,7 +255,6 @@ export declare class PatientsController {
         address: string | null;
         city: string | null;
         maritalStatus: string | null;
-        ethnicity: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
@@ -298,7 +293,7 @@ export declare class PatientsController {
         active: boolean;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -308,7 +303,6 @@ export declare class PatientsController {
         address: string | null;
         city: string | null;
         maritalStatus: string | null;
-        ethnicity: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
@@ -350,7 +344,7 @@ export declare class PatientsController {
         active: boolean;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -360,7 +354,6 @@ export declare class PatientsController {
         address: string | null;
         city: string | null;
         maritalStatus: string | null;
-        ethnicity: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
@@ -395,7 +388,7 @@ export declare class PatientsController {
         active: boolean;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         phone: string | null;
         birthdate: Date;
         gender: string;
@@ -405,7 +398,6 @@ export declare class PatientsController {
         address: string | null;
         city: string | null;
         maritalStatus: string | null;
-        ethnicity: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
@@ -470,7 +462,7 @@ export declare class PatientsController {
         id: string;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
         lastClinicalUpdateBy: string | null;
@@ -480,7 +472,7 @@ export declare class PatientsController {
         id: string;
         firstName: string;
         lastName: string;
-        identification: string;
+        identification: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
         lastClinicalUpdateBy: string | null;

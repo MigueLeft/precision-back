@@ -4,7 +4,7 @@ model Patient {
   lastName           String
   secondLastName     String?  @map("second_last_name") // Segundo apellido
   identificationType String?  @default("passport") @map("identification_type")
-  identification     String   @unique
+  identification     String?  @unique
   phone              String?
   email              String   @unique
   birthdate          DateTime
@@ -21,7 +21,6 @@ model Patient {
 
   // Campos adicionales para IM1
   maritalStatus       String?  @map("marital_status") // Estado civil
-  ethnicity           String?  // Etnia
   race                String?  // Raza
   preferredLanguage   String?  @map("preferred_language") // Idioma preferido
   educationLevel      String?  @map("education_level") // Nivel educativo

@@ -93,6 +93,7 @@ async function seedIM1Questionnaire(prisma, logger) {
                 where: { code: question.code },
                 update: {
                     questionText: question.questionText,
+                    descriptionText: question.descriptionText || null,
                     questionType: question.questionType,
                     inputType: question.inputType,
                     options: question.options || undefined,
@@ -104,6 +105,7 @@ async function seedIM1Questionnaire(prisma, logger) {
                 create: {
                     code: question.code,
                     questionText: question.questionText,
+                    descriptionText: question.descriptionText || null,
                     questionType: question.questionType,
                     inputType: question.inputType,
                     options: question.options || undefined,
@@ -121,6 +123,7 @@ async function seedIM1Questionnaire(prisma, logger) {
                 where: { code: question.code },
                 update: {
                     questionText: question.text,
+                    descriptionText: question.descriptionText || null,
                     questionType: question.type,
                     inputType: question.inputType,
                     options: question.options || undefined,
@@ -132,6 +135,7 @@ async function seedIM1Questionnaire(prisma, logger) {
                 create: {
                     code: question.code,
                     questionText: question.text,
+                    descriptionText: question.descriptionText || null,
                     questionType: question.type,
                     inputType: question.inputType,
                     options: question.options || undefined,

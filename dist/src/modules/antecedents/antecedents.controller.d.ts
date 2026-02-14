@@ -84,7 +84,7 @@ export declare class AntecedentsController {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;
@@ -152,7 +152,7 @@ export declare class AntecedentsController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;

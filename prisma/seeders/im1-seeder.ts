@@ -120,6 +120,7 @@ export async function seedIM1Questionnaire(
         where: { code: question.code },
         update: {
           questionText: question.questionText,
+          descriptionText: (question as any).descriptionText || null,
           questionType: question.questionType,
           inputType: question.inputType,
           options: question.options || undefined,
@@ -131,6 +132,7 @@ export async function seedIM1Questionnaire(
         create: {
           code: question.code,
           questionText: question.questionText,
+          descriptionText: (question as any).descriptionText || null,
           questionType: question.questionType,
           inputType: question.inputType,
           options: question.options || undefined,
@@ -151,6 +153,7 @@ export async function seedIM1Questionnaire(
         where: { code: question.code },
         update: {
           questionText: question.text,
+          descriptionText: (question as any).descriptionText || null,
           questionType: question.type,
           inputType: question.inputType,
           options: question.options || undefined,
@@ -162,6 +165,7 @@ export async function seedIM1Questionnaire(
         create: {
           code: question.code,
           questionText: question.text,
+          descriptionText: (question as any).descriptionText || null,
           questionType: question.type,
           inputType: question.inputType,
           options: question.options || undefined,

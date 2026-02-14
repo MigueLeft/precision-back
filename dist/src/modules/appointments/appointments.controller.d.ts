@@ -40,7 +40,7 @@ export declare class AppointmentsController {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;
@@ -94,7 +94,7 @@ export declare class AppointmentsController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             phone: string | null;
         };
     } & {

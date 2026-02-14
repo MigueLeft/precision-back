@@ -65,17 +65,16 @@ export class CreatePatientDto {
   @Transform(({ value }) => value?.trim())
   lastName: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Número de identificación único',
     example: '12345678',
-    minLength: 5,
     maxLength: 20,
   })
   @IsString()
-  @MinLength(5)
+  @IsOptional()
   @MaxLength(20)
-  @Transform(({ value }) => value?.trim())
-  identification: string;
+  @Transform(({ value }) => value?.trim() || undefined)
+  identification?: string;
 
   @ApiPropertyOptional({
     description: 'Número de teléfono',
@@ -168,11 +167,6 @@ export class CreatePatientDto {
   @IsString()
   @IsOptional()
   maritalStatus?: string;
-
-  @ApiPropertyOptional({ description: 'Etnia', example: 'mestizo' })
-  @IsString()
-  @IsOptional()
-  ethnicity?: string;
 
   @ApiPropertyOptional({ description: 'Raza', example: 'latina' })
   @IsString()

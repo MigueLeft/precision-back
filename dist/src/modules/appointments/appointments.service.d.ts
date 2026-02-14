@@ -41,7 +41,7 @@ export declare class AppointmentsService {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;
@@ -87,7 +87,7 @@ export declare class AppointmentsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             phone: string | null;
         };
     } & {

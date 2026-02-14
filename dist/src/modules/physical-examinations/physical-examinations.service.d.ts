@@ -69,7 +69,7 @@ export declare class PhysicalExaminationsService {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;
@@ -128,7 +128,7 @@ export declare class PhysicalExaminationsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
         physicalExamination: {
             id: string;
@@ -197,7 +197,7 @@ export declare class PhysicalExaminationsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
         physicalExamination: {
             id: string;
@@ -233,7 +233,7 @@ export declare class PhysicalExaminationsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
         totalExaminations: number;
         history: {};

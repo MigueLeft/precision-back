@@ -13,6 +13,7 @@ model Treatment {
   presentation    String?  @db.VarChar(200) // Ej: "Tabletas 500mg", "Jarabe 120ml"
   quantity        String?  @db.VarChar(100) // Ej: "30 tabletas", "1 frasco"
   dosage          String?  @db.VarChar(200) // Ej: "1 tableta cada 8 horas", "5ml cada 12 horas"
+  frequency       String?  @db.VarChar(100) // Ej: "Cada 8 horas", "Una vez al día", "Según necesidad"
   duration        String?  @db.VarChar(100) // Ej: "7 días", "30 días", "Indefinido"
 
   // Estado y control

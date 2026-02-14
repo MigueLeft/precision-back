@@ -21,6 +21,7 @@ model Question {
   id               String   @id @default(uuid()) @db.Uuid
   code             String   @unique @db.VarChar(50)
   questionText     String   @map("question_text")
+  descriptionText  String?  @map("description_text") @db.Text
   questionType     QuestionType @map("question_type")
   inputType        String?  @map("input_type") @db.VarChar(50) // For UI rendering (radio, checkbox, text, range)
   options          Json?    @db.JsonB

@@ -19,6 +19,7 @@ class CreateTreatmentDto {
     presentation;
     quantity;
     dosage;
+    frequency;
     duration;
     status;
     prescribedBy;
@@ -81,6 +82,18 @@ __decorate([
     (0, class_validator_1.MaxLength)(200),
     __metadata("design:type", String)
 ], CreateTreatmentDto.prototype, "dosage", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Frequency of administration',
+        example: 'Cada 12 horas',
+        required: false,
+        maxLength: 100,
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.MaxLength)(100),
+    __metadata("design:type", String)
+], CreateTreatmentDto.prototype, "frequency", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Duration of treatment',

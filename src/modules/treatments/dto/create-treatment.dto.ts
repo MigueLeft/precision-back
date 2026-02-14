@@ -60,6 +60,17 @@ export class CreateTreatmentDto {
   dosage?: string;
 
   @ApiProperty({
+    description: 'Frequency of administration',
+    example: 'Cada 12 horas',
+    required: false,
+    maxLength: 100,
+  })
+  @IsString()
+  @IsOptional()
+  @MaxLength(100)
+  frequency?: string;
+
+  @ApiProperty({
     description: 'Duration of treatment',
     example: '30 días',
     required: false,

@@ -1398,9 +1398,6 @@ export class QuestionnairesService {
         case 'im1_a2_1': // Estado civil
           data.maritalStatus = answer.answerText || answer.textValue;
           break;
-        case 'im1_a3_1': // Etnia
-          data.ethnicity = answer.answerText || answer.textValue;
-          break;
         case 'im1_a3_2': // Raza
           data.race = answer.answerText || answer.textValue;
           break;
@@ -1542,30 +1539,22 @@ export class QuestionnairesService {
             }
           }
 
-          // If not found, something is wrong - list available symptoms for debug
+          // If not found, create it so processing doesn't fail
           if (!symptom) {
-            this.logger.error(`Symptom not found for value: "${selection}"`);
-
-            // Debug: list some existing symptoms with similar values
-            const similarSymptoms = await prismaClient.symptom.findMany({
-              where: {
-                OR: [
-                  { value: { contains: selection.substring(0, 5) } },
-                  { name: { contains: selection.substring(0, 5) } },
-                ],
-              },
-              take: 5,
+            this.logger.warn(
+              `Symptom not found for value: "${selection}", creating it dynamically.`,
+            );
+            const defaultCategory = await prismaClient.symptomCategory.findFirst({
+              where: { name: 'general' },
             });
-
-            this.logger.error(
-              `Similar symptoms found:`,
-              similarSymptoms.map((s) => `${s.name} (${s.value})`),
-            );
-
-            // Don't create, throw error instead
-            throw new Error(
-              `Symptom with value "${selection}" should exist but was not found. Available similar: ${similarSymptoms.map((s) => s.value).join(', ')}`,
-            );
+            symptom = await prismaClient.symptom.create({
+              data: {
+                name: selection.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+                value: selection,
+                symptomCategoryId: defaultCategory?.id || null,
+                active: true,
+              },
+            });
           }
 
           this.logger.log(`Using symptom: ${symptom.name} (${symptom.value})`);
@@ -1653,74 +1642,62 @@ export class QuestionnairesService {
             },
           });
 
-          // If not found by value, try to find by value globally (any type)
-          if (!antecedent) {
-            this.logger.log(
-              `Not found by value+type, searching globally by value: "${selection}"`,
-            );
-            antecedent = await prismaClient.antecedent.findFirst({
-              where: {
-                value: selection,
-              },
-            });
-
-            if (antecedent) {
-              this.logger.log(
-                `Found antecedent globally: ${antecedent.name} (${antecedent.value}) with type: ${antecedent.antecedentTypeId}`,
-              );
-            }
-          }
-
-          // If still not found, try to find by formatted name to avoid duplication
+          // If not found by value+type, try by formatted name with same type
           if (!antecedent) {
             const formattedName = this.formatAntecedentName(selection);
-            this.logger.log(
-              `Not found by value, searching by name: "${formattedName}"`,
-            );
-
             antecedent = await prismaClient.antecedent.findFirst({
               where: {
                 name: formattedName,
                 antecedentTypeId: antecedentType.id,
               },
             });
-
             if (antecedent) {
               this.logger.log(
-                `Found antecedent by name: ${antecedent.name} (${antecedent.value})`,
+                `Found antecedent by name+type: ${antecedent.name} (${antecedent.value})`,
               );
             }
           }
 
-          // If not found, something is wrong - list available antecedents for debug
+          // If still not found, upsert by value (handles global unique constraint on value)
           if (!antecedent) {
-            this.logger.error(`Antecedent not found for value: "${selection}"`);
-
-            // Debug: list some existing antecedents with similar values
-            const similarAntecedents = await prismaClient.antecedent.findMany({
-              where: {
-                OR: [
-                  { value: { contains: selection.substring(0, 5) } },
-                  { name: { contains: selection.substring(0, 5) } },
-                ],
-              },
-              take: 5,
-            });
-
-            this.logger.error(
-              `Similar antecedents found:`,
-              similarAntecedents.map((a) => `${a.name} (${a.value})`),
+            const formattedName = this.formatAntecedentName(selection);
+            this.logger.log(
+              `Antecedent "${selection}" not found for type "${type}", upserting.`,
             );
-
-            // Don't create, throw error instead
-            throw new Error(
-              `Antecedent with value "${selection}" should exist but was not found. Available similar: ${similarAntecedents.map((a) => a.value).join(', ')}`,
-            );
+            try {
+              antecedent = await prismaClient.antecedent.upsert({
+                where: { value: selection },
+                update: {},
+                create: {
+                  name: formattedName,
+                  value: selection,
+                  description: formattedName,
+                  antecedentTypeId: antecedentType.id,
+                  active: true,
+                },
+              });
+            } catch {
+              // Last resort: find by value regardless of type
+              antecedent = await prismaClient.antecedent.findFirst({
+                where: { value: selection },
+              });
+            }
+            if (antecedent) {
+              this.logger.log(
+                `Upserted antecedent: ${antecedent.name} (${antecedent.value})`,
+              );
+            }
           }
 
           this.logger.log(
             `Using antecedent: ${antecedent.name} (${antecedent.value})`,
           );
+
+          // Skip if antecedent could not be resolved
+          if (!antecedent) {
+            this.logger.warn(`Skipping antecedent "${selection}" - could not resolve.`);
+            continue;
+          }
 
           // Check if patient already has this antecedent
           const existingPatientAntecedent =
@@ -1992,7 +1969,7 @@ export class QuestionnairesService {
             quantity: med.quantity?.trim() || null,
             dosage: med.dosage?.trim() || null,
             duration: med.duration?.trim() || null,
-            status: 'actual',
+            status: 'previo',
             notes: 'Registrado desde cuestionario IM1',
             prescribedAt: new Date(),
           },

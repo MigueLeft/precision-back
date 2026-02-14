@@ -11,7 +11,7 @@ export declare class MedicalStudiesService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;
@@ -39,7 +39,7 @@ export declare class MedicalStudiesService {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;
@@ -74,7 +74,7 @@ export declare class MedicalStudiesService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             phone: string | null;
         };
     } & {
@@ -122,7 +122,7 @@ export declare class MedicalStudiesService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;
@@ -149,7 +149,7 @@ export declare class MedicalStudiesService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;

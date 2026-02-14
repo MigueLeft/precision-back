@@ -10,7 +10,7 @@ export declare class MedicalStudiesController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;
@@ -38,7 +38,7 @@ export declare class MedicalStudiesController {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;
@@ -153,7 +153,7 @@ export declare class MedicalStudiesController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             phone: string | null;
         };
     } & {
@@ -181,7 +181,7 @@ export declare class MedicalStudiesController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;
@@ -208,7 +208,7 @@ export declare class MedicalStudiesController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;

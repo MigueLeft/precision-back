@@ -1,7 +1,7 @@
 export declare class CreatePatientDto {
     firstName: string;
     lastName: string;
-    identification: string;
+    identification?: string;
     phone?: string;
     email: string;
     birthdate: string;
@@ -14,7 +14,6 @@ export declare class CreatePatientDto {
     address?: string;
     city?: string;
     maritalStatus?: string;
-    ethnicity?: string;
     race?: string;
     preferredLanguage?: string;
     educationLevel?: string;

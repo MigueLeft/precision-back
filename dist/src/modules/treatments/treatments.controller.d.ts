@@ -11,7 +11,7 @@ export declare class TreatmentsController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;
@@ -25,6 +25,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -35,7 +36,7 @@ export declare class TreatmentsController {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;
@@ -49,6 +50,7 @@ export declare class TreatmentsController {
             presentation: string | null;
             quantity: string | null;
             dosage: string | null;
+            frequency: string | null;
             duration: string | null;
             prescribedBy: string | null;
             prescribedAt: Date;
@@ -72,6 +74,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -88,6 +91,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -104,6 +108,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -114,7 +119,7 @@ export declare class TreatmentsController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             phone: string | null;
         };
     } & {
@@ -129,6 +134,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -138,7 +144,7 @@ export declare class TreatmentsController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;
@@ -152,6 +158,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -161,7 +168,7 @@ export declare class TreatmentsController {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
     } & {
         id: string;
@@ -175,6 +182,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -191,6 +199,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -207,6 +216,7 @@ export declare class TreatmentsController {
         presentation: string | null;
         quantity: string | null;
         dosage: string | null;
+        frequency: string | null;
         duration: string | null;
         prescribedBy: string | null;
         prescribedAt: Date;
@@ -226,6 +236,7 @@ export declare class TreatmentsController {
             presentation: string | null;
             quantity: string | null;
             dosage: string | null;
+            frequency: string | null;
             duration: string | null;
             prescribedBy: string | null;
             prescribedAt: Date;

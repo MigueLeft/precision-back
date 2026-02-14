@@ -30,15 +30,16 @@ export declare class QuestionnairesController {
             questionnaireQuestions: ({
                 question: {
                     dependsOn: string | null;
+                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     id: string;
                     createdAt: Date;
                     updatedAt: Date;
                     active: boolean;
                     code: string;
                     questionText: string;
+                    descriptionText: string | null;
                     questionType: import("@prisma/client").$Enums.QuestionType;
                     inputType: string | null;
-                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     hasScore: boolean;
                     showWhen: import("@prisma/client/runtime/library").JsonValue | null;
                 };
@@ -83,15 +84,16 @@ export declare class QuestionnairesController {
         questionnaireQuestions: ({
             question: {
                 dependsOn: string | null;
+                options: import("@prisma/client/runtime/library").JsonValue | null;
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
                 active: boolean;
                 code: string;
                 questionText: string;
+                descriptionText: string | null;
                 questionType: import("@prisma/client").$Enums.QuestionType;
                 inputType: string | null;
-                options: import("@prisma/client/runtime/library").JsonValue | null;
                 hasScore: boolean;
                 showWhen: import("@prisma/client/runtime/library").JsonValue | null;
             };
@@ -161,30 +163,32 @@ export declare class QuestionnairesController {
     }>;
     createQuestion(createQuestionDto: CreateQuestionDto): Promise<{
         dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
         createdAt: Date;
         updatedAt: Date;
         active: boolean;
         code: string;
         questionText: string;
+        descriptionText: string | null;
         questionType: import("@prisma/client").$Enums.QuestionType;
         inputType: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         hasScore: boolean;
         showWhen: import("@prisma/client/runtime/library").JsonValue | null;
     }>;
     findAllQuestions(page?: number, limit?: number, search?: string): Promise<{
         data: {
             dependsOn: string | null;
+            options: import("@prisma/client/runtime/library").JsonValue | null;
             id: string;
             createdAt: Date;
             updatedAt: Date;
             active: boolean;
             code: string;
             questionText: string;
+            descriptionText: string | null;
             questionType: import("@prisma/client").$Enums.QuestionType;
             inputType: string | null;
-            options: import("@prisma/client/runtime/library").JsonValue | null;
             hasScore: boolean;
             showWhen: import("@prisma/client/runtime/library").JsonValue | null;
         }[];
@@ -197,43 +201,46 @@ export declare class QuestionnairesController {
     }>;
     findQuestionById(id: string): Promise<{
         dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
         createdAt: Date;
         updatedAt: Date;
         active: boolean;
         code: string;
         questionText: string;
+        descriptionText: string | null;
         questionType: import("@prisma/client").$Enums.QuestionType;
         inputType: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         hasScore: boolean;
         showWhen: import("@prisma/client/runtime/library").JsonValue | null;
     }>;
     updateQuestion(id: string, updateQuestionDto: UpdateQuestionDto): Promise<{
         dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
         createdAt: Date;
         updatedAt: Date;
         active: boolean;
         code: string;
         questionText: string;
+        descriptionText: string | null;
         questionType: import("@prisma/client").$Enums.QuestionType;
         inputType: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         hasScore: boolean;
         showWhen: import("@prisma/client/runtime/library").JsonValue | null;
     }>;
     removeQuestion(id: string): Promise<{
         dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
         createdAt: Date;
         updatedAt: Date;
         active: boolean;
         code: string;
         questionText: string;
+        descriptionText: string | null;
         questionType: import("@prisma/client").$Enums.QuestionType;
         inputType: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         hasScore: boolean;
         showWhen: import("@prisma/client/runtime/library").JsonValue | null;
     }>;
@@ -373,15 +380,16 @@ export declare class QuestionnairesController {
     findAnswersByPatientQuestionnaire(id: string): Promise<({
         question: {
             dependsOn: string | null;
+            options: import("@prisma/client/runtime/library").JsonValue | null;
             id: string;
             createdAt: Date;
             updatedAt: Date;
             active: boolean;
             code: string;
             questionText: string;
+            descriptionText: string | null;
             questionType: import("@prisma/client").$Enums.QuestionType;
             inputType: string | null;
-            options: import("@prisma/client/runtime/library").JsonValue | null;
             hasScore: boolean;
             showWhen: import("@prisma/client/runtime/library").JsonValue | null;
         };
@@ -415,7 +423,7 @@ export declare class QuestionnairesController {
             active: boolean;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             phone: string | null;
             birthdate: Date;
             gender: string;
@@ -425,7 +433,6 @@ export declare class QuestionnairesController {
             address: string | null;
             city: string | null;
             maritalStatus: string | null;
-            ethnicity: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
@@ -449,15 +456,16 @@ export declare class QuestionnairesController {
             questionnaireQuestions: ({
                 question: {
                     dependsOn: string | null;
+                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     id: string;
                     createdAt: Date;
                     updatedAt: Date;
                     active: boolean;
                     code: string;
                     questionText: string;
+                    descriptionText: string | null;
                     questionType: import("@prisma/client").$Enums.QuestionType;
                     inputType: string | null;
-                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     hasScore: boolean;
                     showWhen: import("@prisma/client/runtime/library").JsonValue | null;
                 };

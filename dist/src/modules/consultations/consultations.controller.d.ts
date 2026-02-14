@@ -30,7 +30,7 @@ export declare class ConsultationsController {
                 active: boolean;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
@@ -40,7 +40,6 @@ export declare class ConsultationsController {
                 address: string | null;
                 city: string | null;
                 maritalStatus: string | null;
-                ethnicity: string | null;
                 race: string | null;
                 preferredLanguage: string | null;
                 educationLevel: string | null;
@@ -115,7 +114,7 @@ export declare class ConsultationsController {
                     id: string;
                     firstName: string;
                     lastName: string;
-                    identification: string;
+                    identification: string | null;
                 };
             } & {
                 id: string;
@@ -184,7 +183,7 @@ export declare class ConsultationsController {
                 active: boolean;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
@@ -194,7 +193,6 @@ export declare class ConsultationsController {
                 address: string | null;
                 city: string | null;
                 maritalStatus: string | null;
-                ethnicity: string | null;
                 race: string | null;
                 preferredLanguage: string | null;
                 educationLevel: string | null;
@@ -274,7 +272,7 @@ export declare class ConsultationsController {
                 active: boolean;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
@@ -284,7 +282,6 @@ export declare class ConsultationsController {
                 address: string | null;
                 city: string | null;
                 maritalStatus: string | null;
-                ethnicity: string | null;
                 race: string | null;
                 preferredLanguage: string | null;
                 educationLevel: string | null;
@@ -364,7 +361,7 @@ export declare class ConsultationsController {
                 active: boolean;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
                 phone: string | null;
                 birthdate: Date;
                 gender: string;
@@ -374,7 +371,6 @@ export declare class ConsultationsController {
                 address: string | null;
                 city: string | null;
                 maritalStatus: string | null;
-                ethnicity: string | null;
                 race: string | null;
                 preferredLanguage: string | null;
                 educationLevel: string | null;
@@ -448,7 +444,7 @@ export declare class ConsultationsController {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
         } & {
             id: string;

@@ -52,7 +52,6 @@ class CreatePatientDto {
     address;
     city;
     maritalStatus;
-    ethnicity;
     race;
     preferredLanguage;
     educationLevel;
@@ -87,16 +86,15 @@ __decorate([
     __metadata("design:type", String)
 ], CreatePatientDto.prototype, "lastName", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({
+    (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de identificación único',
         example: '12345678',
-        minLength: 5,
         maxLength: 20,
     }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(5),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.MaxLength)(20),
-    (0, class_transformer_1.Transform)(({ value }) => value?.trim()),
+    (0, class_transformer_1.Transform)(({ value }) => value?.trim() || undefined),
     __metadata("design:type", String)
 ], CreatePatientDto.prototype, "identification", void 0);
 __decorate([
@@ -203,12 +201,6 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreatePatientDto.prototype, "maritalStatus", void 0);
-__decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Etnia', example: 'mestizo' }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreatePatientDto.prototype, "ethnicity", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ description: 'Raza', example: 'latina' }),
     (0, class_validator_1.IsString)(),

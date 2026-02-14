@@ -133,7 +133,7 @@ export declare class LaboratoryExamsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
         exam: {
             id: string;
@@ -178,7 +178,7 @@ export declare class LaboratoryExamsService {
                 id: string;
                 firstName: string;
                 lastName: string;
-                identification: string;
+                identification: string | null;
             };
             exam: {
                 id: string;
@@ -243,7 +243,7 @@ export declare class LaboratoryExamsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
             birthdate: Date;
             gender: string;
         };
@@ -303,7 +303,7 @@ export declare class LaboratoryExamsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
         exam: {
             id: string;
@@ -390,7 +390,7 @@ export declare class LaboratoryExamsService {
             id: string;
             firstName: string;
             lastName: string;
-            identification: string;
+            identification: string | null;
         };
         exam: {
             id: string;
