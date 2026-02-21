@@ -79,11 +79,11 @@ export class CreateConsultationDto {
   @IsOptional()
   additionalMedicalNotes?: string;
 
-  @ApiProperty({
-    description: 'ID del usuario que registra la consulta',
+  @ApiPropertyOptional({
+    description: 'ID del usuario que registra la consulta (se toma del token si no se provee)',
     example: 'clm789xyz123abc',
   })
   @IsString()
-  @IsNotEmpty()
-  registeredByUserId: string;
+  @IsOptional()
+  registeredByUserId?: string;
 }

@@ -224,6 +224,8 @@ export declare const nonScoringQuestions: ({
             value: string;
             label: string;
         }[];
+        min?: undefined;
+        step?: undefined;
     };
     dependsOn?: undefined;
     showWhen?: undefined;
@@ -239,9 +241,28 @@ export declare const nonScoringQuestions: ({
             value: string;
             label: string;
         }[];
+        min?: undefined;
+        step?: undefined;
     };
     dependsOn?: undefined;
     showWhen?: undefined;
+} | {
+    code: string;
+    text: string;
+    type: "NUMERIC";
+    inputType: string;
+    section: string;
+    required: boolean;
+    dependsOn: string;
+    showWhen: {
+        values: string[];
+        operator: string;
+    };
+    options: {
+        min: number;
+        step: number;
+        choices?: undefined;
+    };
 } | {
     code: string;
     text: string;
@@ -259,6 +280,8 @@ export declare const nonScoringQuestions: ({
             value: string;
             label: string;
         }[];
+        min?: undefined;
+        step?: undefined;
     };
 } | {
     code: string;
@@ -295,6 +318,8 @@ export declare const nonScoringQuestions: ({
             value: string;
             label: string;
         }[];
+        min?: undefined;
+        step?: undefined;
     };
     dependsOn?: undefined;
     showWhen?: undefined;

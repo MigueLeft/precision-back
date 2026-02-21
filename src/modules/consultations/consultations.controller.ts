@@ -9,6 +9,7 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  Req,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -46,7 +47,8 @@ export class ConsultationsController {
     status: 404,
     description: 'La cita o usuario especificado no existe',
   })
-  create(@Body() createConsultationDto: CreateConsultationDto) {
+  create(@Body() createConsultationDto: CreateConsultationDto, @Req() req: any) {
+    createConsultationDto.registeredByUserId = req.userId;
     return this.consultationService.create(createConsultationDto);
   }
 

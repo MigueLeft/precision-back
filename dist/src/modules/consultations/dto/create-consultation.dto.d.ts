@@ -8,5 +8,5 @@ export declare class CreateConsultationDto {
     patientInstructions?: string;
     suggestedNextControl?: string;
     additionalMedicalNotes?: string;
-    registeredByUserId: string;
+    registeredByUserId?: string;
 }

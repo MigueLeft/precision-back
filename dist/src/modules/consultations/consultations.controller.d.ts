@@ -5,7 +5,7 @@ import { QueryConsultationDto } from './dto/query-consultation.dto';
 export declare class ConsultationsController {
     private readonly consultationService;
     constructor(consultationService: ConsultationsService);
-    create(createConsultationDto: CreateConsultationDto): Promise<{
+    create(createConsultationDto: CreateConsultationDto, req: any): Promise<{
         appointment: {
             medic: {
                 email: string;

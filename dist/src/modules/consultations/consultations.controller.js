@@ -24,7 +24,8 @@ let ConsultationsController = class ConsultationsController {
     constructor(consultationService) {
         this.consultationService = consultationService;
     }
-    create(createConsultationDto) {
+    create(createConsultationDto, req) {
+        createConsultationDto.registeredByUserId = req.userId;
         return this.consultationService.create(createConsultationDto);
     }
     findAll(queryDto) {
@@ -63,8 +64,9 @@ __decorate([
         description: 'La cita o usuario especificado no existe',
     }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_consultation_dto_1.CreateConsultationDto]),
+    __metadata("design:paramtypes", [create_consultation_dto_1.CreateConsultationDto, Object]),
     __metadata("design:returntype", void 0)
 ], ConsultationsController.prototype, "create", null);
 __decorate([

@@ -25,6 +25,7 @@ import { DiagnosticsModule } from './modules/diagnostics/diagnostics.module';
 import { TreatmentsModule } from './modules/treatments/treatments.module';
 import { MedicalStudiesModule } from './modules/medical-studies/medical-studies.module';
 import { LaboratoryExamsModule } from './modules/laboratory-exams/laboratory-exams.module';
+import { ConsultationModule } from './modules/consultations/consultations.module';
 
 // Common
 import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter';
@@ -66,6 +67,7 @@ import { AppService } from './app.service';
     TreatmentsModule,
     MedicalStudiesModule,
     LaboratoryExamsModule,
+    ConsultationModule,
   ],
   controllers: [AppController],
   providers: [

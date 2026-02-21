@@ -34,8 +34,14 @@ export class ConsultationsService {
       }
 
       // Verificar que el usuario existe
+      const { registeredByUserId, realizationDateTime, suggestedNextControl, ...rest } = createConsultationDto;
+
+      if (!registeredByUserId) {
+        throw new BadRequestException('No se pudo identificar el usuario registrador');
+      }
+
       const user = await this.prisma.user.findUnique({
-        where: { id: createConsultationDto.registeredByUserId },
+        where: { id: registeredByUserId },
       });
 
       if (!user) {
@@ -44,12 +50,11 @@ export class ConsultationsService {
 
       const consultation = await this.prisma.consultation.create({
         data: {
-          ...createConsultationDto,
-          realizationDateTime: new Date(
-            createConsultationDto.realizationDateTime,
-          ),
-          suggestedNextControl: createConsultationDto.suggestedNextControl
-            ? new Date(createConsultationDto.suggestedNextControl)
+          ...rest,
+          registeredByUserId,
+          realizationDateTime: new Date(realizationDateTime),
+          suggestedNextControl: suggestedNextControl
+            ? new Date(suggestedNextControl)
             : null,
         },
         include: {

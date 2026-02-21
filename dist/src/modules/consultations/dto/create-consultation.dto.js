@@ -107,12 +107,12 @@ __decorate([
     __metadata("design:type", String)
 ], CreateConsultationDto.prototype, "additionalMedicalNotes", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        description: 'ID del usuario que registra la consulta',
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'ID del usuario que registra la consulta (se toma del token si no se provee)',
         example: 'clm789xyz123abc',
     }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateConsultationDto.prototype, "registeredByUserId", void 0);
 //# sourceMappingURL=create-consultation.dto.js.map

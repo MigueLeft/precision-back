@@ -470,7 +470,7 @@ export const diagnostics = {
 // ==========================================
 
 export const scoringQuestions = [
-  // A.5. Educación - im1_a5_1
+  // A.5. Educación - im1_a5_1 
   {
     code: 'im1_a5_1',
     questionText: '¿Cuál es el nivel más alto de educación que completó?',
@@ -670,7 +670,7 @@ export const scoringQuestions = [
     code: 'im1_d3_1',
     questionText:
       '¿Durante los últimos 7 días, qué puntuación le pondría a la calidad general de su sueño? (Escala 1-10)',
-    descriptionText: 'Las siguientes preguntas se refieren a la calidad general de tu sueño para la mayoría de las noches en los últimos 7 días solamente. Por favor, piense sobre la calidad de su sueño como un todo, incluyendo cuantas horas durmió, con que facilidad se quedó dormido, con qué frecuencia se despertó durante la noche (excepto para ir al baño), con qué frecuencia se despertó antes de lo que había planificado en la mañana, y cuan reconfortante fue su sueño y descanso.',
+    descriptionText: 'La siguiente pregunta se refieren a la calidad general de tu sueño para la mayoría de las noches en los últimos 7 días solamente. Por favor, piense sobre la calidad de su sueño como un todo, incluyendo cuantas horas durmió, con que facilidad se quedó dormido, con qué frecuencia se despertó durante la noche (excepto para ir al baño), con qué frecuencia se despertó antes de lo que había planificado en la mañana, y cuan reconfortante fue su sueño y descanso.',
     questionType: QuestionType.SCALE,
     inputType: 'range',
     options: {
@@ -1444,10 +1444,95 @@ export const nonScoringQuestions = [
     },
   },
 
-  // B.4. Embarazo (2 questions)
+  // B.4. Embarazos y partos (7 questions — solo se muestran si género es femenino)
   {
     code: 'im1_b4_1',
-    text: '¿Si es mujer, está embarazada actualmente?',
+    text: '¿Cuántas veces ha quedado embarazada en total, incluyendo pérdidas o embarazos que no hayan llegado a término? (Gestas)',
+    type: QuestionType.NUMERIC,
+    inputType: 'number',
+    section: 'Historia Médica',
+    required: false,
+    dependsOn: 'im1_a1_4',
+    showWhen: {
+      values: ['femenino'],
+      operator: 'IN',
+    },
+    options: {
+      min: 0,
+      step: 1,
+    },
+  },
+  {
+    code: 'im1_b4_2',
+    text: '¿Cuántas veces ha llegado el embarazo hasta el final, es decir, hasta un parto? (Partos totales)',
+    type: QuestionType.NUMERIC,
+    inputType: 'number',
+    section: 'Historia Médica',
+    required: false,
+    dependsOn: 'im1_a1_4',
+    showWhen: {
+      values: ['femenino'],
+      operator: 'IN',
+    },
+    options: {
+      min: 0,
+      step: 1,
+    },
+  },
+  {
+    code: 'im1_b4_3',
+    text: 'De esos partos, ¿cuántos han sido por vía vaginal? (Partos vaginales)',
+    type: QuestionType.NUMERIC,
+    inputType: 'number',
+    section: 'Historia Médica',
+    required: false,
+    dependsOn: 'im1_a1_4',
+    showWhen: {
+      values: ['femenino'],
+      operator: 'IN',
+    },
+    options: {
+      min: 0,
+      step: 1,
+    },
+  },
+  {
+    code: 'im1_b4_4',
+    text: '¿Cuántos partos han sido por cesárea? (Cesáreas)',
+    type: QuestionType.NUMERIC,
+    inputType: 'number',
+    section: 'Historia Médica',
+    required: false,
+    dependsOn: 'im1_a1_4',
+    showWhen: {
+      values: ['femenino'],
+      operator: 'IN',
+    },
+    options: {
+      min: 0,
+      step: 1,
+    },
+  },
+  {
+    code: 'im1_b4_5',
+    text: '¿Ha tenido algún aborto o pérdida del embarazo, ya sea espontánea o provocada? ¿Cuántos? (Abortos)',
+    type: QuestionType.NUMERIC,
+    inputType: 'number',
+    section: 'Historia Médica',
+    required: false,
+    dependsOn: 'im1_a1_4',
+    showWhen: {
+      values: ['femenino'],
+      operator: 'IN',
+    },
+    options: {
+      min: 0,
+      step: 1,
+    },
+  },
+  {
+    code: 'im1_b4_6',
+    text: '¿Está embarazada actualmente?',
     type: QuestionType.SINGLE_CHOICE,
     inputType: 'radio',
     section: 'Historia Médica',
@@ -1466,13 +1551,13 @@ export const nonScoringQuestions = [
     },
   },
   {
-    code: 'im1_b4_2',
+    code: 'im1_b4_7',
     text: '(En caso afirmativo) ¿Cuánto tiempo de embarazo tiene?',
     type: QuestionType.SINGLE_CHOICE,
     inputType: 'radio',
     section: 'Historia Médica',
     required: false,
-    dependsOn: 'im1_b4_1',
+    dependsOn: 'im1_b4_6',
     showWhen: {
       values: ['si'],
       operator: 'IN',

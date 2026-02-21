@@ -30,6 +30,7 @@ const diagnostics_module_1 = require("./modules/diagnostics/diagnostics.module")
 const treatments_module_1 = require("./modules/treatments/treatments.module");
 const medical_studies_module_1 = require("./modules/medical-studies/medical-studies.module");
 const laboratory_exams_module_1 = require("./modules/laboratory-exams/laboratory-exams.module");
+const consultations_module_1 = require("./modules/consultations/consultations.module");
 const prisma_exception_filter_1 = require("./common/filters/prisma-exception.filter");
 const transform_interceptor_1 = require("./common/interceptors/transform.interceptor");
 const validation_pipe_1 = require("./common/pipes/validation.pipe");
@@ -66,6 +67,7 @@ exports.AppModule = AppModule = __decorate([
             treatments_module_1.TreatmentsModule,
             medical_studies_module_1.MedicalStudiesModule,
             laboratory_exams_module_1.LaboratoryExamsModule,
+            consultations_module_1.ConsultationModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

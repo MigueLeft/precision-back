@@ -31,18 +31,23 @@ let ConsultationsService = class ConsultationsService {
             if (existingConsultation) {
                 throw new common_1.BadRequestException('Ya existe una consulta para esta cita');
             }
+            const { registeredByUserId, realizationDateTime, suggestedNextControl, ...rest } = createConsultationDto;
+            if (!registeredByUserId) {
+                throw new common_1.BadRequestException('No se pudo identificar el usuario registrador');
+            }
             const user = await this.prisma.user.findUnique({
-                where: { id: createConsultationDto.registeredByUserId },
+                where: { id: registeredByUserId },
             });
             if (!user) {
                 throw new common_1.NotFoundException('El usuario especificado no existe');
             }
             const consultation = await this.prisma.consultation.create({
                 data: {
-                    ...createConsultationDto,
-                    realizationDateTime: new Date(createConsultationDto.realizationDateTime),
-                    suggestedNextControl: createConsultationDto.suggestedNextControl
-                        ? new Date(createConsultationDto.suggestedNextControl)
+                    ...rest,
+                    registeredByUserId,
+                    realizationDateTime: new Date(realizationDateTime),
+                    suggestedNextControl: suggestedNextControl
+                        ? new Date(suggestedNextControl)
                         : null,
                 },
                 include: {
