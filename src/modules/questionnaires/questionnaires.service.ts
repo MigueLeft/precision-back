@@ -484,19 +484,9 @@ export class QuestionnairesService {
         data: { relationsProcessingStatus: 'processing' },
       });
 
-      // Process in a transaction for data consistency
+      // Calculate and save diagnostics
       await this.prisma.$transaction(
         async (tx) => {
-          // Process antecedents, symptoms and physical examinations for IM1
-          if (questionnaireCode === 'im1') {
-            await this.processIM1AntecedentsSymptomsAndPhysicalExaminationInTransaction(
-              patientId,
-              createdAnswers,
-              tx,
-            );
-          }
-
-          // Calculate and save diagnostics
           await this.calculateAndSaveDiagnosticsInTransaction(
             patientId,
             patientQuestionnaireId,
@@ -509,14 +499,6 @@ export class QuestionnairesService {
           timeout: 30000, // 30 seconds timeout
         },
       );
-
-      // Process medications and lab results for IM1 (outside transaction)
-      if (questionnaireCode === 'im1') {
-        await this.processIM1MedicationsAndLabResults(
-          patientId,
-          createdAnswers,
-        );
-      }
 
       // Mark as completed
       await this.prisma.patientQuestionnaire.update({
@@ -902,48 +884,11 @@ export class QuestionnairesService {
       );
     }
 
-    // Delete existing relations to avoid duplicates
+    // Delete existing diagnostics to avoid duplicates
     await this.prisma.$transaction(async (tx) => {
-      // Delete existing diagnostics
       await tx.patientDiagnostic.deleteMany({
         where: { patientQuestionnaireId },
       });
-
-      // Delete existing antecedents created from this questionnaire
-      await tx.patientAntecedent.deleteMany({
-        where: {
-          patientId: patientQuestionnaire.patientId,
-          notes: { contains: 'cuestionario IM1' },
-        },
-      });
-
-      // Delete existing symptoms created from this questionnaire
-      await tx.patientSymptom.deleteMany({
-        where: {
-          patientId: patientQuestionnaire.patientId,
-          notes: 'Reported in IM1 questionnaire',
-        },
-      });
-
-      // Delete existing physical examinations created from this questionnaire
-      const physicalExaminations = await tx.patientPhysicalExamination.findMany(
-        {
-          where: {
-            patientId: patientQuestionnaire.patientId,
-            notes: 'Basic physical examination data from IM1 questionnaire',
-          },
-          include: { physicalExamination: true },
-        },
-      );
-
-      for (const pe of physicalExaminations) {
-        await tx.patientPhysicalExamination.delete({
-          where: { id: pe.id },
-        });
-        await tx.physicalExamination.delete({
-          where: { id: pe.physicalExaminationId },
-        });
-      }
     });
 
     // Reprocess in background
@@ -963,7 +908,7 @@ export class QuestionnairesService {
     return {
       success: true,
       message:
-        'Reprocessing started successfully. Relations will be recreated in background.',
+        'Reprocessing started successfully. Diagnostics will be recalculated in background.',
     };
   }
 

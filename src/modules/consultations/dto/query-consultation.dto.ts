@@ -41,6 +41,14 @@ export class QueryConsultationDto {
   appointmentId?: string;
 
   @ApiPropertyOptional({
+    description: 'ID del paciente para filtrar consultas',
+    example: 'clm123abc456def',
+  })
+  @IsString()
+  @IsOptional()
+  patientId?: string;
+
+  @ApiPropertyOptional({
     description: 'ID del usuario que registró la consulta',
     example: 'clm789xyz123abc',
   })
@@ -76,6 +84,19 @@ export class QueryConsultationDto {
   @IsBoolean()
   @IsOptional()
   active?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'Filtrar solo consultas que tienen datos de hoja blanca',
+    example: true,
+  })
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
+  })
+  @IsBoolean()
+  @IsOptional()
+  withHojaBlanca?: boolean;
 
   @ApiPropertyOptional({
     description: 'Buscar en anamnesis, tratamiento indicado o notas médicas',

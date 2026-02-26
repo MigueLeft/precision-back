@@ -84,11 +84,13 @@ export class ConsultationsService {
       page = 1,
       limit = 10,
       appointmentId,
+      patientId,
       registeredByUserId,
       startDate,
       endDate,
       active,
       search,
+      withHojaBlanca,
       sortBy = 'realizationDateTime',
       sortOrder = 'desc',
     } = queryDto;
@@ -101,6 +103,10 @@ export class ConsultationsService {
 
     if (appointmentId) {
       where.appointmentId = appointmentId;
+    }
+
+    if (patientId) {
+      where.appointment = { patientId };
     }
 
     if (registeredByUserId) {
@@ -119,6 +125,10 @@ export class ConsultationsService {
       if (endDate) {
         where.realizationDateTime.lte = new Date(endDate);
       }
+    }
+
+    if (withHojaBlanca) {
+      where.hojaBlanca = { not: Prisma.DbNull };
     }
 
     if (search) {

@@ -930,8 +930,8 @@ export const scoringQuestions = [
     inputType: 'radio',
     options: {
       choices: [
-        { value: '0', label: 'No', score: 0 },
         { value: '1', label: 'Sí', score: 1 },
+        { value: '0', label: 'No', score: 0 },
       ],
     },
     hasScore: true,
@@ -1266,7 +1266,7 @@ export const nonScoringQuestions = [
     code: 'im1_b1_1',
     text: '¿Tiene familiares que padezcan o hayan padecido alguna de las siguientes condiciones?',
     type: QuestionType.MULTIPLE_CHOICE,
-    inputType: 'checkbox',
+    inputType: 'family-history',
     section: 'Historia Médica',
     required: false,
     options: {
@@ -1375,6 +1375,7 @@ export const nonScoringQuestions = [
         { value: 'anemia', label: 'Anemia' },
         { value: 'plaquetas_bajas', label: 'Plaquetas bajas' },
         { value: 'varices', label: 'Várices' },
+        { value: 'ninguna', label: 'Ninguna de las anteriores' },
       ],
     },
   },
@@ -1440,6 +1441,7 @@ export const nonScoringQuestions = [
           label: 'Levantarse a comer de noche',
         },
         { value: 'comer_compulsivamente', label: 'Comer compulsivamente' },
+        { value: 'ninguna', label: 'Ninguna de las anteriores' },
       ],
     },
   },
@@ -1469,10 +1471,10 @@ export const nonScoringQuestions = [
     inputType: 'number',
     section: 'Historia Médica',
     required: false,
-    dependsOn: 'im1_a1_4',
+    dependsOn: 'im1_b4_1',
     showWhen: {
-      values: ['femenino'],
-      operator: 'IN',
+      values: ['0'],
+      operator: 'GREATER_THAN',
     },
     options: {
       min: 0,
@@ -1486,10 +1488,10 @@ export const nonScoringQuestions = [
     inputType: 'number',
     section: 'Historia Médica',
     required: false,
-    dependsOn: 'im1_a1_4',
+    dependsOn: 'im1_b4_2',
     showWhen: {
-      values: ['femenino'],
-      operator: 'IN',
+      values: ['0'],
+      operator: 'GREATER_THAN',
     },
     options: {
       min: 0,
@@ -1503,10 +1505,10 @@ export const nonScoringQuestions = [
     inputType: 'number',
     section: 'Historia Médica',
     required: false,
-    dependsOn: 'im1_a1_4',
+    dependsOn: 'im1_b4_2',
     showWhen: {
-      values: ['femenino'],
-      operator: 'IN',
+      values: ['0'],
+      operator: 'GREATER_THAN',
     },
     options: {
       min: 0,
@@ -2009,7 +2011,7 @@ export const nonScoringQuestions = [
   },
   {
     code: 'im1_d2_5',
-    text: '¿Practica actualmente algún deporte?',
+    text: '¿Practica actualmente o practico algún deporte?',
     type: QuestionType.TEXT,
     inputType: 'sports-with-frequency',
     section: 'Actividad Física',
@@ -2052,9 +2054,9 @@ export const nonScoringQuestions = [
   },
   {
     code: 'im1_d2_6',
-    text: '¿Realiza actualmente alguna de las siguientes actividades físicas o ejercicios?',
-    type: QuestionType.MULTIPLE_CHOICE,
-    inputType: 'checkbox',
+    text: '¿Realiza actualmente o realizo alguna de las siguientes actividades físicas o ejercicios?',
+    type: QuestionType.TEXT,
+    inputType: 'activities-with-frequency',
     section: 'Actividad Física',
     required: false,
     options: {
@@ -2067,7 +2069,8 @@ export const nonScoringQuestions = [
         { value: 'pilates', label: 'Pilates' },
         { value: 'baile', label: 'Baile (salsa, bachata, danza, etc.)' },
         { value: 'trabajo_fisico', label: 'Trabajo físico intenso (construcción, agricultura, etc.)' },
-        { value: 'calistenia', label: 'Calistenia / Entrenamiento funcional' },
+        { value: 'calistenia', label: 'Calistenia (entrenamiento físico basado en el uso del propio peso corporal)' },
+        { value: 'entrenamiento_funcional', label: 'Entrenamiento funcional' },
         { value: 'crossfit', label: 'CrossFit' },
         { value: 'natacion_recreativa', label: 'Natación recreativa' },
         { value: 'senderismo', label: 'Senderismo / Hiking' },
@@ -2084,7 +2087,7 @@ export const nonScoringQuestions = [
     text: '¿Cuáles son tus principales metas al consultarnos? (Selección múltiple)',
     type: QuestionType.MULTIPLE_CHOICE,
     inputType: 'checkbox',
-    section: 'Metas Y Motivaciones Personales',
+    section: 'Metas y Motivaciones Personales',
     required: false,
     options: {
       choices: [

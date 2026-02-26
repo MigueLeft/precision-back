@@ -34,18 +34,6 @@ export class CreateMedicDto {
   @Transform(({ value }) => value?.trim())
   lastName: string;
 
-  @ApiProperty({
-    description: 'Número de identificación único',
-    example: '12345678',
-    minLength: 5,
-    maxLength: 20,
-  })
-  @IsString()
-  @MinLength(5)
-  @MaxLength(20)
-  @Transform(({ value }) => value?.trim())
-  identification: string;
-
   @ApiPropertyOptional({
     description: 'Número de teléfono',
     example: '+57 300 123 4567',

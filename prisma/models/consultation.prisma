@@ -10,6 +10,7 @@ model Consultation {
   suggestedNextControl       DateTime? // proximo_control_sugerido
   additionalMedicalNotes     String?   // notas_medicas_adicionales
   registeredByUserId         String    // id_usuario_registra
+  hojaBlanca                 Json?     // campos marcados en hoja blanca
   clinicalRegistrationDate   DateTime  @default(now()) // fecha_registro_clinico
   createdAt                  DateTime  @default(now())
   updatedAt                  DateTime  @updatedAt

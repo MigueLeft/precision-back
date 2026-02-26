@@ -82,9 +82,6 @@ export class MedicsService {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           const field = error.meta?.target as string[];
-          if (field?.includes('identification')) {
-            throw new ConflictException('Identification number already exists');
-          }
           if (field?.includes('email')) {
             throw new ConflictException('Email already exists');
           }
@@ -120,7 +117,6 @@ export class MedicsService {
         OR: [
           { name: { contains: search, mode: 'insensitive' } },
           { lastName: { contains: search, mode: 'insensitive' } },
-          { identification: { contains: search, mode: 'insensitive' } },
           { email: { contains: search, mode: 'insensitive' } },
           { specialty: { name: { contains: search, mode: 'insensitive' } } },
         ],
@@ -205,35 +201,6 @@ export class MedicsService {
 
     if (!medic) {
       throw new NotFoundException(`Medic with ID ${id} not found`);
-    }
-
-    return medic;
-  }
-
-  async findByIdentification(identification: string) {
-    const medic = await this.prisma.medic.findUnique({
-      where: { identification },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            role: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-      },
-    });
-
-    if (!medic) {
-      throw new NotFoundException(
-        `Medic with identification ${identification} not found`,
-      );
     }
 
     return medic;
@@ -336,9 +303,6 @@ export class MedicsService {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           const field = error.meta?.target as string[];
-          if (field?.includes('identification')) {
-            throw new ConflictException('Identification number already exists');
-          }
           if (field?.includes('email')) {
             throw new ConflictException('Email already exists');
           }
@@ -434,7 +398,7 @@ export class MedicsService {
           accountId: userId,
           providerId: 'credential',
           userId: userId,
-          password: existingMedic.identification, // Password será la identificación
+          password: randomUUID(), // Temporary password, must be changed by admin
         },
       });
 

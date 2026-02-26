@@ -34,9 +34,6 @@ let MedicsController = class MedicsController {
         console.log('QUERYYYYYYYYYYYYYYYY', query);
         return this.medicsService.findAll(query);
     }
-    findByIdentification(identification) {
-        return this.medicsService.findByIdentification(identification);
-    }
     findByEmail(email) {
         return this.medicsService.findByEmail(email);
     }
@@ -105,27 +102,6 @@ __decorate([
     __metadata("design:paramtypes", [query_medic_dto_1.QueryMedicDto]),
     __metadata("design:returntype", void 0)
 ], MedicsController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)('identification/:identification'),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener un médico por número de identificación' }),
-    (0, swagger_1.ApiParam)({
-        name: 'identification',
-        description: 'Número de identificación del médico',
-        type: 'string',
-    }),
-    (0, swagger_1.ApiResponse)({
-        status: 200,
-        description: 'Médico encontrado',
-    }),
-    (0, swagger_1.ApiResponse)({
-        status: 404,
-        description: 'Médico no encontrado',
-    }),
-    __param(0, (0, common_1.Param)('identification')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], MedicsController.prototype, "findByIdentification", null);
 __decorate([
     (0, common_1.Get)('email/:email'),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener un médico por email' }),

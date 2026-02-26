@@ -16,9 +16,6 @@ export declare class PhysicalExaminationsService {
         weight: Prisma.Decimal | null;
         height: Prisma.Decimal | null;
         bmi: Prisma.Decimal | null;
-        waistCircumference: Prisma.Decimal | null;
-        neckCircumference: Prisma.Decimal | null;
-        bodyFatPercentage: Prisma.Decimal | null;
         bloodPressureSystolic: number | null;
         bloodPressureDiastolic: number | null;
         heartRate: number | null;
@@ -28,6 +25,9 @@ export declare class PhysicalExaminationsService {
         generalFindings: string | null;
         additionalObservations: string | null;
         performedBy: string | null;
+        waistCircumference: Prisma.Decimal | null;
+        neckCircumference: Prisma.Decimal | null;
+        bodyFatPercentage: Prisma.Decimal | null;
     }>;
     findAll(queryDto: QueryPhysicalExaminationsDto): Promise<{
         data: ({
@@ -41,9 +41,6 @@ export declare class PhysicalExaminationsService {
             weight: Prisma.Decimal | null;
             height: Prisma.Decimal | null;
             bmi: Prisma.Decimal | null;
-            waistCircumference: Prisma.Decimal | null;
-            neckCircumference: Prisma.Decimal | null;
-            bodyFatPercentage: Prisma.Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -53,6 +50,9 @@ export declare class PhysicalExaminationsService {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: Prisma.Decimal | null;
+            neckCircumference: Prisma.Decimal | null;
+            bodyFatPercentage: Prisma.Decimal | null;
         })[];
         pagination: {
             page: number;
@@ -87,9 +87,6 @@ export declare class PhysicalExaminationsService {
         weight: Prisma.Decimal | null;
         height: Prisma.Decimal | null;
         bmi: Prisma.Decimal | null;
-        waistCircumference: Prisma.Decimal | null;
-        neckCircumference: Prisma.Decimal | null;
-        bodyFatPercentage: Prisma.Decimal | null;
         bloodPressureSystolic: number | null;
         bloodPressureDiastolic: number | null;
         heartRate: number | null;
@@ -99,6 +96,9 @@ export declare class PhysicalExaminationsService {
         generalFindings: string | null;
         additionalObservations: string | null;
         performedBy: string | null;
+        waistCircumference: Prisma.Decimal | null;
+        neckCircumference: Prisma.Decimal | null;
+        bodyFatPercentage: Prisma.Decimal | null;
     }>;
     update(id: string, updatePhysicalExaminationDto: UpdatePhysicalExaminationDto): Promise<{
         id: string;
@@ -107,9 +107,6 @@ export declare class PhysicalExaminationsService {
         weight: Prisma.Decimal | null;
         height: Prisma.Decimal | null;
         bmi: Prisma.Decimal | null;
-        waistCircumference: Prisma.Decimal | null;
-        neckCircumference: Prisma.Decimal | null;
-        bodyFatPercentage: Prisma.Decimal | null;
         bloodPressureSystolic: number | null;
         bloodPressureDiastolic: number | null;
         heartRate: number | null;
@@ -119,6 +116,9 @@ export declare class PhysicalExaminationsService {
         generalFindings: string | null;
         additionalObservations: string | null;
         performedBy: string | null;
+        waistCircumference: Prisma.Decimal | null;
+        neckCircumference: Prisma.Decimal | null;
+        bodyFatPercentage: Prisma.Decimal | null;
     }>;
     remove(id: string): Promise<{
         message: string;
@@ -137,9 +137,6 @@ export declare class PhysicalExaminationsService {
             weight: Prisma.Decimal | null;
             height: Prisma.Decimal | null;
             bmi: Prisma.Decimal | null;
-            waistCircumference: Prisma.Decimal | null;
-            neckCircumference: Prisma.Decimal | null;
-            bodyFatPercentage: Prisma.Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -149,6 +146,9 @@ export declare class PhysicalExaminationsService {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: Prisma.Decimal | null;
+            neckCircumference: Prisma.Decimal | null;
+            bodyFatPercentage: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -167,9 +167,6 @@ export declare class PhysicalExaminationsService {
             weight: Prisma.Decimal | null;
             height: Prisma.Decimal | null;
             bmi: Prisma.Decimal | null;
-            waistCircumference: Prisma.Decimal | null;
-            neckCircumference: Prisma.Decimal | null;
-            bodyFatPercentage: Prisma.Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -179,6 +176,9 @@ export declare class PhysicalExaminationsService {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: Prisma.Decimal | null;
+            neckCircumference: Prisma.Decimal | null;
+            bodyFatPercentage: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -206,9 +206,6 @@ export declare class PhysicalExaminationsService {
             weight: Prisma.Decimal | null;
             height: Prisma.Decimal | null;
             bmi: Prisma.Decimal | null;
-            waistCircumference: Prisma.Decimal | null;
-            neckCircumference: Prisma.Decimal | null;
-            bodyFatPercentage: Prisma.Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -218,6 +215,9 @@ export declare class PhysicalExaminationsService {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: Prisma.Decimal | null;
+            neckCircumference: Prisma.Decimal | null;
+            bodyFatPercentage: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -245,9 +245,6 @@ export declare class PhysicalExaminationsService {
                 weight: Prisma.Decimal | null;
                 height: Prisma.Decimal | null;
                 bmi: Prisma.Decimal | null;
-                waistCircumference: Prisma.Decimal | null;
-                neckCircumference: Prisma.Decimal | null;
-                bodyFatPercentage: Prisma.Decimal | null;
                 bloodPressureSystolic: number | null;
                 bloodPressureDiastolic: number | null;
                 heartRate: number | null;
@@ -257,6 +254,9 @@ export declare class PhysicalExaminationsService {
                 generalFindings: string | null;
                 additionalObservations: string | null;
                 performedBy: string | null;
+                waistCircumference: Prisma.Decimal | null;
+                neckCircumference: Prisma.Decimal | null;
+                bodyFatPercentage: Prisma.Decimal | null;
             };
         } & {
             id: string;
@@ -276,9 +276,6 @@ export declare class PhysicalExaminationsService {
             weight: Prisma.Decimal | null;
             height: Prisma.Decimal | null;
             bmi: Prisma.Decimal | null;
-            waistCircumference: Prisma.Decimal | null;
-            neckCircumference: Prisma.Decimal | null;
-            bodyFatPercentage: Prisma.Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -288,6 +285,9 @@ export declare class PhysicalExaminationsService {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: Prisma.Decimal | null;
+            neckCircumference: Prisma.Decimal | null;
+            bodyFatPercentage: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -306,9 +306,6 @@ export declare class PhysicalExaminationsService {
             weight: Prisma.Decimal | null;
             height: Prisma.Decimal | null;
             bmi: Prisma.Decimal | null;
-            waistCircumference: Prisma.Decimal | null;
-            neckCircumference: Prisma.Decimal | null;
-            bodyFatPercentage: Prisma.Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -318,6 +315,9 @@ export declare class PhysicalExaminationsService {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: Prisma.Decimal | null;
+            neckCircumference: Prisma.Decimal | null;
+            bodyFatPercentage: Prisma.Decimal | null;
         };
     } & {
         id: string;

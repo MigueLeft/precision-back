@@ -69,9 +69,6 @@ let MedicsService = MedicsService_1 = class MedicsService {
             if (error instanceof client_1.Prisma.PrismaClientKnownRequestError) {
                 if (error.code === 'P2002') {
                     const field = error.meta?.target;
-                    if (field?.includes('identification')) {
-                        throw new common_1.ConflictException('Identification number already exists');
-                    }
                     if (field?.includes('email')) {
                         throw new common_1.ConflictException('Email already exists');
                     }
@@ -94,7 +91,6 @@ let MedicsService = MedicsService_1 = class MedicsService {
                 OR: [
                     { name: { contains: search, mode: 'insensitive' } },
                     { lastName: { contains: search, mode: 'insensitive' } },
-                    { identification: { contains: search, mode: 'insensitive' } },
                     { email: { contains: search, mode: 'insensitive' } },
                     { specialty: { name: { contains: search, mode: 'insensitive' } } },
                 ],
@@ -173,30 +169,6 @@ let MedicsService = MedicsService_1 = class MedicsService {
         });
         if (!medic) {
             throw new common_1.NotFoundException(`Medic with ID ${id} not found`);
-        }
-        return medic;
-    }
-    async findByIdentification(identification) {
-        const medic = await this.prisma.medic.findUnique({
-            where: { identification },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                        role: {
-                            select: {
-                                id: true,
-                                name: true,
-                            },
-                        },
-                    },
-                },
-            },
-        });
-        if (!medic) {
-            throw new common_1.NotFoundException(`Medic with identification ${identification} not found`);
         }
         return medic;
     }
@@ -281,9 +253,6 @@ let MedicsService = MedicsService_1 = class MedicsService {
             if (error instanceof client_1.Prisma.PrismaClientKnownRequestError) {
                 if (error.code === 'P2002') {
                     const field = error.meta?.target;
-                    if (field?.includes('identification')) {
-                        throw new common_1.ConflictException('Identification number already exists');
-                    }
                     if (field?.includes('email')) {
                         throw new common_1.ConflictException('Email already exists');
                     }
@@ -363,7 +332,7 @@ let MedicsService = MedicsService_1 = class MedicsService {
                     accountId: userId,
                     providerId: 'credential',
                     userId: userId,
-                    password: existingMedic.identification,
+                    password: (0, crypto_1.randomUUID)(),
                 },
             });
             const medic = await this.prisma.medic.update({

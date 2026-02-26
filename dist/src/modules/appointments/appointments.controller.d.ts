@@ -6,6 +6,23 @@ export declare class AppointmentsController {
     private readonly appointmentsService;
     constructor(appointmentsService: AppointmentsService);
     create(createAppointmentDto: CreateAppointmentDto): Promise<{
+        medic: {
+            id: string;
+            name: string;
+            specialty: {
+                id: string;
+                name: string;
+            };
+            lastName: string;
+        };
+        patient: {
+            email: string;
+            id: string;
+            firstName: string;
+            lastName: string;
+            identification: string | null;
+        };
+    } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;
@@ -116,6 +133,23 @@ export declare class AppointmentsController {
         originatedFromFollowUpId: string | null;
     }>;
     update(id: string, updateAppointmentDto: UpdateAppointmentDto): Promise<{
+        medic: {
+            id: string;
+            name: string;
+            specialty: {
+                id: string;
+                name: string;
+            };
+            lastName: string;
+        };
+        patient: {
+            email: string;
+            id: string;
+            firstName: string;
+            lastName: string;
+            identification: string | null;
+        };
+    } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;

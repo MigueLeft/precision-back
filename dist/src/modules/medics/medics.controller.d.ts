@@ -25,7 +25,6 @@ export declare class MedicsController {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -66,7 +65,6 @@ export declare class MedicsController {
             userId: string | null;
             active: boolean;
             lastName: string;
-            identification: string;
             phone: string | null;
             specialtyId: string;
             professionalTitle: string;
@@ -79,30 +77,6 @@ export declare class MedicsController {
             hasNext: boolean;
             hasPrev: boolean;
         };
-    }>;
-    findByIdentification(identification: string): Promise<{
-        user: {
-            email: string;
-            id: string;
-            name: string;
-            role: {
-                id: number;
-                name: string;
-            };
-        } | null;
-    } & {
-        email: string;
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
-        lastName: string;
-        identification: string;
-        phone: string | null;
-        specialtyId: string;
-        professionalTitle: string;
     }>;
     findByEmail(email: string): Promise<{
         user: {
@@ -123,7 +97,6 @@ export declare class MedicsController {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -148,7 +121,6 @@ export declare class MedicsController {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -177,7 +149,6 @@ export declare class MedicsController {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -209,7 +180,6 @@ export declare class MedicsController {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -229,7 +199,6 @@ export declare class MedicsController {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;

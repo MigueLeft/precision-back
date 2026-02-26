@@ -3,6 +3,7 @@ import {
   IsOptional,
   IsDateString,
   IsNotEmpty,
+  IsObject,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -86,4 +87,12 @@ export class CreateConsultationDto {
   @IsString()
   @IsOptional()
   registeredByUserId?: string;
+
+  @ApiPropertyOptional({
+    description: 'Campos marcados en la hoja blanca durante la consulta',
+    example: { E: true, P: false, N: true },
+  })
+  @IsObject()
+  @IsOptional()
+  hojaBlanca?: Record<string, boolean>;
 }

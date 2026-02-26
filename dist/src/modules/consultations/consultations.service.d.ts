@@ -2,6 +2,7 @@ import { PrismaService } from 'src/config/database/prisma.service';
 import { CreateConsultationDto } from './dto/create-consultation.dto';
 import { UpdateConsultationDto } from './dto/update-consultation.dto';
 import { QueryConsultationDto } from './dto/query-consultation.dto';
+import { Prisma } from '@prisma/client';
 export declare class ConsultationsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
@@ -16,7 +17,6 @@ export declare class ConsultationsService {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -92,6 +92,7 @@ export declare class ConsultationsService {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: Prisma.JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
     findAll(queryDto: QueryConsultationDto): Promise<{
@@ -149,6 +150,7 @@ export declare class ConsultationsService {
             suggestedNextControl: Date | null;
             additionalMedicalNotes: string | null;
             registeredByUserId: string;
+            hojaBlanca: Prisma.JsonValue | null;
             clinicalRegistrationDate: Date;
         })[];
         pagination: {
@@ -169,7 +171,6 @@ export declare class ConsultationsService {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -245,6 +246,7 @@ export declare class ConsultationsService {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: Prisma.JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
     update(id: string, updateConsultationDto: UpdateConsultationDto): Promise<{
@@ -258,7 +260,6 @@ export declare class ConsultationsService {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -334,6 +335,7 @@ export declare class ConsultationsService {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: Prisma.JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
     remove(id: string): Promise<{
@@ -390,6 +392,7 @@ export declare class ConsultationsService {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: Prisma.JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
     findByAppointmentId(appointmentId: string): Promise<({
@@ -403,7 +406,6 @@ export declare class ConsultationsService {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -479,6 +481,7 @@ export declare class ConsultationsService {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: Prisma.JsonValue | null;
         clinicalRegistrationDate: Date;
     }) | null>;
 }

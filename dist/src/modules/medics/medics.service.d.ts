@@ -26,7 +26,6 @@ export declare class MedicsService {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -56,7 +55,6 @@ export declare class MedicsService {
             userId: string | null;
             active: boolean;
             lastName: string;
-            identification: string;
             phone: string | null;
             specialtyId: string;
             professionalTitle: string;
@@ -90,31 +88,6 @@ export declare class MedicsService {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
-        phone: string | null;
-        specialtyId: string;
-        professionalTitle: string;
-    }>;
-    findByIdentification(identification: string): Promise<{
-        user: {
-            email: string;
-            id: string;
-            name: string;
-            role: {
-                id: number;
-                name: string;
-            };
-        } | null;
-    } & {
-        email: string;
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
-        lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -138,7 +111,6 @@ export declare class MedicsService {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -167,7 +139,6 @@ export declare class MedicsService {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -199,7 +170,6 @@ export declare class MedicsService {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;
@@ -219,7 +189,6 @@ export declare class MedicsService {
         userId: string | null;
         active: boolean;
         lastName: string;
-        identification: string;
         phone: string | null;
         specialtyId: string;
         professionalTitle: string;

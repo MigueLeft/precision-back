@@ -14,9 +14,6 @@ export declare class PhysicalExaminationsController {
         weight: import("@prisma/client/runtime/library").Decimal | null;
         height: import("@prisma/client/runtime/library").Decimal | null;
         bmi: import("@prisma/client/runtime/library").Decimal | null;
-        waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-        neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-        bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         bloodPressureSystolic: number | null;
         bloodPressureDiastolic: number | null;
         heartRate: number | null;
@@ -26,6 +23,9 @@ export declare class PhysicalExaminationsController {
         generalFindings: string | null;
         additionalObservations: string | null;
         performedBy: string | null;
+        waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+        neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+        bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
     }>;
     findAll(query: QueryPhysicalExaminationsDto): Promise<{
         data: ({
@@ -39,9 +39,6 @@ export declare class PhysicalExaminationsController {
             weight: import("@prisma/client/runtime/library").Decimal | null;
             height: import("@prisma/client/runtime/library").Decimal | null;
             bmi: import("@prisma/client/runtime/library").Decimal | null;
-            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -51,6 +48,9 @@ export declare class PhysicalExaminationsController {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         })[];
         pagination: {
             page: number;
@@ -85,9 +85,6 @@ export declare class PhysicalExaminationsController {
         weight: import("@prisma/client/runtime/library").Decimal | null;
         height: import("@prisma/client/runtime/library").Decimal | null;
         bmi: import("@prisma/client/runtime/library").Decimal | null;
-        waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-        neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-        bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         bloodPressureSystolic: number | null;
         bloodPressureDiastolic: number | null;
         heartRate: number | null;
@@ -97,6 +94,9 @@ export declare class PhysicalExaminationsController {
         generalFindings: string | null;
         additionalObservations: string | null;
         performedBy: string | null;
+        waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+        neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+        bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
     }>;
     update(id: string, updatePhysicalExaminationDto: UpdatePhysicalExaminationDto): Promise<{
         id: string;
@@ -105,9 +105,6 @@ export declare class PhysicalExaminationsController {
         weight: import("@prisma/client/runtime/library").Decimal | null;
         height: import("@prisma/client/runtime/library").Decimal | null;
         bmi: import("@prisma/client/runtime/library").Decimal | null;
-        waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-        neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-        bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         bloodPressureSystolic: number | null;
         bloodPressureDiastolic: number | null;
         heartRate: number | null;
@@ -117,6 +114,9 @@ export declare class PhysicalExaminationsController {
         generalFindings: string | null;
         additionalObservations: string | null;
         performedBy: string | null;
+        waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+        neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+        bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
     }>;
     remove(id: string): Promise<{
         message: string;
@@ -135,9 +135,6 @@ export declare class PhysicalExaminationsController {
             weight: import("@prisma/client/runtime/library").Decimal | null;
             height: import("@prisma/client/runtime/library").Decimal | null;
             bmi: import("@prisma/client/runtime/library").Decimal | null;
-            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -147,6 +144,9 @@ export declare class PhysicalExaminationsController {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         };
     } & {
         id: string;
@@ -165,9 +165,6 @@ export declare class PhysicalExaminationsController {
             weight: import("@prisma/client/runtime/library").Decimal | null;
             height: import("@prisma/client/runtime/library").Decimal | null;
             bmi: import("@prisma/client/runtime/library").Decimal | null;
-            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -177,6 +174,9 @@ export declare class PhysicalExaminationsController {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         };
     } & {
         id: string;
@@ -204,9 +204,6 @@ export declare class PhysicalExaminationsController {
                 weight: import("@prisma/client/runtime/library").Decimal | null;
                 height: import("@prisma/client/runtime/library").Decimal | null;
                 bmi: import("@prisma/client/runtime/library").Decimal | null;
-                waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-                neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-                bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
                 bloodPressureSystolic: number | null;
                 bloodPressureDiastolic: number | null;
                 heartRate: number | null;
@@ -216,6 +213,9 @@ export declare class PhysicalExaminationsController {
                 generalFindings: string | null;
                 additionalObservations: string | null;
                 performedBy: string | null;
+                waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+                neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+                bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
             };
         } & {
             id: string;
@@ -241,9 +241,6 @@ export declare class PhysicalExaminationsController {
             weight: import("@prisma/client/runtime/library").Decimal | null;
             height: import("@prisma/client/runtime/library").Decimal | null;
             bmi: import("@prisma/client/runtime/library").Decimal | null;
-            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -253,6 +250,9 @@ export declare class PhysicalExaminationsController {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         };
     } & {
         id: string;
@@ -274,9 +274,6 @@ export declare class PhysicalExaminationsController {
             weight: import("@prisma/client/runtime/library").Decimal | null;
             height: import("@prisma/client/runtime/library").Decimal | null;
             bmi: import("@prisma/client/runtime/library").Decimal | null;
-            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -286,6 +283,9 @@ export declare class PhysicalExaminationsController {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         };
     } & {
         id: string;
@@ -304,9 +304,6 @@ export declare class PhysicalExaminationsController {
             weight: import("@prisma/client/runtime/library").Decimal | null;
             height: import("@prisma/client/runtime/library").Decimal | null;
             bmi: import("@prisma/client/runtime/library").Decimal | null;
-            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
-            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
             bloodPressureSystolic: number | null;
             bloodPressureDiastolic: number | null;
             heartRate: number | null;
@@ -316,6 +313,9 @@ export declare class PhysicalExaminationsController {
             generalFindings: string | null;
             additionalObservations: string | null;
             performedBy: string | null;
+            waistCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            neckCircumference: import("@prisma/client/runtime/library").Decimal | null;
+            bodyFatPercentage: import("@prisma/client/runtime/library").Decimal | null;
         };
     } & {
         id: string;

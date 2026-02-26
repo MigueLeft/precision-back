@@ -9,4 +9,5 @@ export declare class CreateConsultationDto {
     suggestedNextControl?: string;
     additionalMedicalNotes?: string;
     registeredByUserId?: string;
+    hojaBlanca?: Record<string, boolean>;
 }

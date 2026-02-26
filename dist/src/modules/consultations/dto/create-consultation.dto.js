@@ -23,6 +23,7 @@ class CreateConsultationDto {
     suggestedNextControl;
     additionalMedicalNotes;
     registeredByUserId;
+    hojaBlanca;
 }
 exports.CreateConsultationDto = CreateConsultationDto;
 __decorate([
@@ -115,4 +116,13 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateConsultationDto.prototype, "registeredByUserId", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Campos marcados en la hoja blanca durante la consulta',
+        example: { E: true, P: false, N: true },
+    }),
+    (0, class_validator_1.IsObject)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Object)
+], CreateConsultationDto.prototype, "hojaBlanca", void 0);
 //# sourceMappingURL=create-consultation.dto.js.map

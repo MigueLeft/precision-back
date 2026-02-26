@@ -17,10 +17,12 @@ class QueryConsultationDto {
     page = 1;
     limit = 10;
     appointmentId;
+    patientId;
     registeredByUserId;
     startDate;
     endDate;
     active;
+    withHojaBlanca;
     search;
     sortBy = 'realizationDateTime';
     sortOrder = 'desc';
@@ -59,6 +61,15 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QueryConsultationDto.prototype, "appointmentId", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'ID del paciente para filtrar consultas',
+        example: 'clm123abc456def',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], QueryConsultationDto.prototype, "patientId", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'ID del usuario que registró la consulta',
@@ -102,6 +113,22 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)
 ], QueryConsultationDto.prototype, "active", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Filtrar solo consultas que tienen datos de hoja blanca',
+        example: true,
+    }),
+    (0, class_transformer_1.Transform)(({ value }) => {
+        if (value === 'true')
+            return true;
+        if (value === 'false')
+            return false;
+        return value;
+    }),
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], QueryConsultationDto.prototype, "withHojaBlanca", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Buscar en anamnesis, tratamiento indicado o notas médicas',

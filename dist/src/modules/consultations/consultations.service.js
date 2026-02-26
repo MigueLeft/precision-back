@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConsultationsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../config/database/prisma.service");
+const client_1 = require("@prisma/client");
 let ConsultationsService = class ConsultationsService {
     prisma;
     constructor(prisma) {
@@ -70,12 +71,15 @@ let ConsultationsService = class ConsultationsService {
         }
     }
     async findAll(queryDto) {
-        const { page = 1, limit = 10, appointmentId, registeredByUserId, startDate, endDate, active, search, sortBy = 'realizationDateTime', sortOrder = 'desc', } = queryDto;
+        const { page = 1, limit = 10, appointmentId, patientId, registeredByUserId, startDate, endDate, active, search, withHojaBlanca, sortBy = 'realizationDateTime', sortOrder = 'desc', } = queryDto;
         const skip = (page - 1) * limit;
         const take = limit;
         const where = {};
         if (appointmentId) {
             where.appointmentId = appointmentId;
+        }
+        if (patientId) {
+            where.appointment = { patientId };
         }
         if (registeredByUserId) {
             where.registeredByUserId = registeredByUserId;
@@ -91,6 +95,9 @@ let ConsultationsService = class ConsultationsService {
             if (endDate) {
                 where.realizationDateTime.lte = new Date(endDate);
             }
+        }
+        if (withHojaBlanca) {
+            where.hojaBlanca = { not: client_1.Prisma.DbNull };
         }
         if (search) {
             where.OR = [

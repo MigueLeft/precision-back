@@ -69,25 +69,6 @@ export class MedicsController {
     return this.medicsService.findAll(query);
   }
 
-  @Get('identification/:identification')
-  @ApiOperation({ summary: 'Obtener un médico por número de identificación' })
-  @ApiParam({
-    name: 'identification',
-    description: 'Número de identificación del médico',
-    type: 'string',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Médico encontrado',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Médico no encontrado',
-  })
-  findByIdentification(@Param('identification') identification: string) {
-    return this.medicsService.findByIdentification(identification);
-  }
-
   @Get('email/:email')
   @ApiOperation({ summary: 'Obtener un médico por email' })
   @ApiParam({

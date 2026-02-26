@@ -16,7 +16,6 @@ const class_transformer_1 = require("class-transformer");
 class CreateMedicDto {
     name;
     lastName;
-    identification;
     phone;
     email;
     specialtyId;
@@ -51,19 +50,6 @@ __decorate([
     (0, class_transformer_1.Transform)(({ value }) => value?.trim()),
     __metadata("design:type", String)
 ], CreateMedicDto.prototype, "lastName", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        description: 'Número de identificación único',
-        example: '12345678',
-        minLength: 5,
-        maxLength: 20,
-    }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(5),
-    (0, class_validator_1.MaxLength)(20),
-    (0, class_transformer_1.Transform)(({ value }) => value?.trim()),
-    __metadata("design:type", String)
-], CreateMedicDto.prototype, "identification", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Número de teléfono',

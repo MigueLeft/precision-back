@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.im1SpecificAntecedentsData = exports.psicobiologicoAntecedentsData = exports.personalAntecedentsData = exports.familiarAntecedentsData = exports.antecedentTypesData = void 0;
+exports.psicobiologicoAntecedentsData = exports.personalAntecedentsData = exports.familiarAntecedentsData = exports.antecedentTypesData = void 0;
 exports.seedAntecedents = seedAntecedents;
 exports.antecedentTypesData = [
     {
@@ -17,87 +17,147 @@ exports.antecedentTypesData = [
     },
 ];
 exports.familiarAntecedentsData = [
-    'Diabetes o glucosa elevada',
-    'Hipertensión arterial',
-    'Cardiopatía isquémica (infarto de miocardio, angina de pecho)',
-    'Muerte súbita',
-    'Accidente cerebrovascular',
-    'Colesterol o triglicéridos elevados',
-    'Sobrepeso u Obesidad',
-    'Cáncer',
-    'Enfermedad de la tiroides',
-    'Poliquistosis renal',
-    'Enfermedades psiquiátricas',
-    'Asma',
-    'Enfermedad autoinmune (lupus, artritis reumatoide)',
+    { value: 'diabetes', name: 'Diabetes o glucosa elevada' },
+    { value: 'hipertension', name: 'Hipertensión arterial' },
+    {
+        value: 'cardiopatia',
+        name: 'Cardiopatía isquémica (infarto de miocardio, angina de pecho)',
+    },
+    { value: 'muerte_subita', name: 'Muerte súbita' },
+    { value: 'accidente_cerebral', name: 'Accidente cerebrovascular' },
+    {
+        value: 'colesterol_alto_familiar',
+        name: 'Colesterol o triglicéridos elevados',
+    },
+    { value: 'sobrepeso', name: 'Sobrepeso u Obesidad' },
+    { value: 'cancer', name: 'Cáncer' },
+    { value: 'tiroides', name: 'Enfermedad de la tiroides' },
+    { value: 'poliquistosis', name: 'Poliquistosis renal' },
+    { value: 'psiquiatricas', name: 'Enfermedades psiquiátricas' },
+    { value: 'asma', name: 'Asma' },
+    {
+        value: 'autoinmune',
+        name: 'Enfermedad autoinmune (lupus, artritis reumatoide)',
+    },
 ];
 exports.personalAntecedentsData = [
-    'Sobrepeso u obesidad',
-    'Grasa en el hígado',
-    'Diabetes o glucosa elevada',
-    'Prediabetes',
-    'Resistencia a la insulina',
-    'Hipertensión arterial',
-    'Colesterol o triglicéridos elevados',
-    'Ácido úrico elevado o gota',
-    'Apnea obstructiva del sueño',
-    'Infarto al corazón o angina',
-    'Accidente cerebrovascular',
-    'Arritmia cardíaca',
-    'Crecimiento cardíaco',
-    'Insuficiencia cardíaca',
-    'Otra enfermedad cardíaca',
-    'Neuropatía',
-    'Neuropatía consecuencia de la diabetes',
-    'Disminución de la visión o ceguera (retinopatía por la diabetes)',
-    'Enfermedad renal crónica consecuencia de la diabetes',
-    'Osteoartritis u otro tipo de artritis',
-    'Artrosis de cadera o rodillas consecuencia del peso',
-    'Osteoporosis u osteopenia',
-    'Dolor lumbar u otro problema crónico de espalda',
-    'Dolor de cuello u otro problema crónico del cuello',
-    'Hernia discal',
-    'Enfermedad de Alzheimer u otra causa de demencia',
-    'Otra enfermedad neurológica',
-    'Disminución de la visión o ceguera',
-    'Epilepsia o convulsiones',
-    'Sordera o pérdida de audición',
-    'Alguna discapacidad de aprendizaje',
-    'Autismo o condición del espectro autista',
-    'Depresión o tristeza crónica',
-    'Ansiedad o miedo anticipado',
-    'Trastorno de estrés postraumático (TEPT)',
-    'Otra condición de salud mental',
-    'Dolor de cabeza',
-    'Migraña',
-    'Cáncer',
-    'Nódulos en las mamas',
-    'Enfermedad renal crónica (en personas sin diabetes)',
-    'Cálculos en los riñones',
-    'Incontinencia urinaria, problemas para controlar la vejiga',
-    'Enfermedad pulmonar obstructiva crónica u otra enfermedad pulmonar',
-    'Asma',
-    'Alergia, como rinitis, alergia al polen, conjuntivitis alérgica, dermatitis, alergia alimentaria u otra alergia',
-    'Sinusitis',
-    'En proceso de recuperación después de una infección por COVID-19',
-    'Complicaciones después de una infección por COVID-19',
-    'Otra infección viral o bacteriana tal como VIH/SIDA o tuberculosis',
-    'Hepatitis',
-    'Otra enfermedad del hígado',
-    'Colon irritable o colitis',
-    'Gastritis o úlceras (por endoscopia)',
-    'Cálculos en la vesícula',
-    'Hemorroides',
-    'Enfermedad de la tiroides',
-    'Miomas en el útero',
-    'Ovario poliquístico',
-    'Problemas en la próstata',
-    'Infertilidad',
-    'Abortos',
-    'Desnutrición o bajo peso',
-    'Anemia',
-    'Plaquetas bajas',
-    'Várices',
+    { value: 'sobrepeso_obesidad', name: 'Sobrepeso u obesidad' },
+    { value: 'grasa_higado', name: 'Grasa en el hígado' },
+    { value: 'diabetes', name: 'Diabetes o glucosa elevada' },
+    { value: 'prediabetes', name: 'Prediabetes' },
+    { value: 'resistencia_insulina', name: 'Resistencia a la insulina' },
+    { value: 'hipertension', name: 'Hipertensión arterial' },
+    { value: 'colesterol_alto', name: 'Colesterol o triglicéridos elevados' },
+    { value: 'acido_urico', name: 'Ácido úrico elevado o gota' },
+    { value: 'apnea_sueno', name: 'Apnea obstructiva del sueño' },
+    { value: 'infarto', name: 'Infarto al corazón o angina' },
+    { value: 'accidente_cerebral', name: 'Accidente cerebrovascular' },
+    { value: 'arritmia', name: 'Arritmia cardíaca' },
+    { value: 'crecimiento_cardiaco', name: 'Crecimiento cardíaco' },
+    { value: 'insuficiencia_cardiaca', name: 'Insuficiencia cardíaca' },
+    { value: 'otra_enfermedad_cardiaca', name: 'Otra enfermedad cardíaca' },
+    { value: 'neuropatia', name: 'Neuropatía' },
+    {
+        value: 'neuropatia_diabetes',
+        name: 'Neuropatía consecuencia de la diabetes',
+    },
+    {
+        value: 'retinopatia_diabetes',
+        name: 'Disminución de la visión o ceguera (retinopatía por la diabetes)',
+    },
+    {
+        value: 'enfermedad_renal_diabetes',
+        name: 'Enfermedad renal crónica consecuencia de la diabetes',
+    },
+    {
+        value: 'osteoartritis',
+        name: 'Osteoartritis u otro tipo de artritis',
+    },
+    {
+        value: 'artrosis_peso',
+        name: 'Artrosis de cadera o rodillas consecuencia del peso',
+    },
+    { value: 'osteoporosis', name: 'Osteoporosis u osteopenia' },
+    {
+        value: 'dolor_lumbar',
+        name: 'Dolor lumbar u otro problema crónico de espalda',
+    },
+    {
+        value: 'dolor_cuello',
+        name: 'Dolor de cuello u otro problema crónico del cuello',
+    },
+    { value: 'hernia_discal', name: 'Hernia discal' },
+    {
+        value: 'alzheimer_demencia',
+        name: 'Enfermedad de Alzheimer u otra causa de demencia',
+    },
+    { value: 'otra_enfermedad_neurologica', name: 'Otra enfermedad neurológica' },
+    { value: 'disminucion_vision', name: 'Disminución de la visión o ceguera' },
+    { value: 'epilepsia', name: 'Epilepsia o convulsiones' },
+    { value: 'sordera', name: 'Sordera o pérdida de audición' },
+    {
+        value: 'discapacidad_aprendizaje',
+        name: 'Alguna discapacidad de aprendizaje',
+    },
+    { value: 'autismo', name: 'Autismo o condición del espectro autista' },
+    { value: 'depresion', name: 'Depresión o tristeza crónica' },
+    { value: 'ansiedad', name: 'Ansiedad o miedo anticipado' },
+    {
+        value: 'tept',
+        name: 'Trastorno de estrés postraumático (TEPT)',
+    },
+    { value: 'otra_salud_mental', name: 'Otra condición de salud mental' },
+    { value: 'dolor_cabeza', name: 'Dolor de cabeza' },
+    { value: 'migrana', name: 'Migraña' },
+    { value: 'cancer', name: 'Cáncer' },
+    { value: 'nodulos_mamas', name: 'Nódulos en las mamas' },
+    {
+        value: 'enfermedad_renal_cronica',
+        name: 'Enfermedad renal crónica (en personas sin diabetes)',
+    },
+    { value: 'calculos_rinones', name: 'Cálculos en los riñones' },
+    {
+        value: 'incontinencia_urinaria',
+        name: 'Incontinencia urinaria, problemas para controlar la vejiga',
+    },
+    {
+        value: 'epoc',
+        name: 'Enfermedad pulmonar obstructiva crónica u otra enfermedad pulmonar',
+    },
+    { value: 'asma', name: 'Asma' },
+    {
+        value: 'alergia',
+        name: 'Alergia, como rinitis, alergia al polen, conjuntivitis alérgica, dermatitis, alergia alimentaria u otra alergia',
+    },
+    { value: 'sinusitis', name: 'Sinusitis' },
+    {
+        value: 'recuperacion_covid',
+        name: 'En proceso de recuperación después de una infección por COVID-19',
+    },
+    {
+        value: 'complicaciones_covid',
+        name: 'Complicaciones después de una infección por COVID-19',
+    },
+    {
+        value: 'otra_infeccion_viral',
+        name: 'Otra infección viral o bacteriana tal como VIH/SIDA o tuberculosis',
+    },
+    { value: 'hepatitis', name: 'Hepatitis' },
+    { value: 'otra_enfermedad_higado', name: 'Otra enfermedad del hígado' },
+    { value: 'colon_irritable', name: 'Colon irritable o colitis' },
+    { value: 'gastritis_ulceras', name: 'Gastritis o úlceras (por endoscopia)' },
+    { value: 'calculos_vesicula', name: 'Cálculos en la vesícula' },
+    { value: 'hemorroides', name: 'Hemorroides' },
+    { value: 'tiroides', name: 'Enfermedad de la tiroides' },
+    { value: 'miomas_utero', name: 'Miomas en el útero' },
+    { value: 'ovario_poliquistico', name: 'Ovario poliquístico' },
+    { value: 'problemas_prostata', name: 'Problemas en la próstata' },
+    { value: 'infertilidad', name: 'Infertilidad' },
+    { value: 'abortos', name: 'Abortos' },
+    { value: 'desnutricion', name: 'Desnutrición o bajo peso' },
+    { value: 'anemia', name: 'Anemia' },
+    { value: 'plaquetas_bajas', name: 'Plaquetas bajas' },
+    { value: 'varices', name: 'Várices' },
 ];
 exports.psicobiologicoAntecedentsData = [
     'Palpitaciones',
@@ -143,20 +203,6 @@ exports.psicobiologicoAntecedentsData = [
     'Levantarse a comer de noche',
     'Comer compulsivamente',
 ];
-exports.im1SpecificAntecedentsData = [
-    'diabetes',
-    'hipertension',
-    'sobrepeso',
-    'sobrepeso_obesidad',
-    'obesidad',
-    'colesterol_alto',
-    'trigliceridos_altos',
-    'enfermedad_cardiaca',
-    'cancer',
-    'asma',
-    'depresion',
-    'ansiedad',
-];
 function generateAntecedentValue(name) {
     return name
         .toLowerCase()
@@ -196,23 +242,19 @@ async function seedAntecedents(prisma, logger) {
         }
         logger.log('Creating familiar antecedents...');
         for (const antecedent of exports.familiarAntecedentsData) {
-            const value = generateAntecedentValue(antecedent);
             const existing = await prisma.antecedent.findFirst({
                 where: {
                     OR: [
-                        { value: value },
-                        {
-                            name: antecedent,
-                            antecedentTypeId: familiarType.id,
-                        },
+                        { value: antecedent.value },
+                        { name: antecedent.name, antecedentTypeId: familiarType.id },
                     ],
                 },
             });
             if (!existing) {
                 await prisma.antecedent.create({
                     data: {
-                        name: antecedent,
-                        value: value,
+                        name: antecedent.name,
+                        value: antecedent.value,
                         antecedentTypeId: familiarType.id,
                     },
                 });
@@ -220,23 +262,19 @@ async function seedAntecedents(prisma, logger) {
         }
         logger.log('Creating personal antecedents...');
         for (const antecedent of exports.personalAntecedentsData) {
-            const value = generateAntecedentValue(antecedent);
             const existing = await prisma.antecedent.findFirst({
                 where: {
                     OR: [
-                        { value: value },
-                        {
-                            name: antecedent,
-                            antecedentTypeId: personalType.id,
-                        },
+                        { value: antecedent.value },
+                        { name: antecedent.name, antecedentTypeId: personalType.id },
                     ],
                 },
             });
             if (!existing) {
                 await prisma.antecedent.create({
                     data: {
-                        name: antecedent,
-                        value: value,
+                        name: antecedent.name,
+                        value: antecedent.value,
                         antecedentTypeId: personalType.id,
                     },
                 });
@@ -249,10 +287,7 @@ async function seedAntecedents(prisma, logger) {
                 where: {
                     OR: [
                         { value: value },
-                        {
-                            name: antecedent,
-                            antecedentTypeId: psicobiologicoType.id,
-                        },
+                        { name: antecedent, antecedentTypeId: psicobiologicoType.id },
                     ],
                 },
             });
@@ -266,37 +301,12 @@ async function seedAntecedents(prisma, logger) {
                 });
             }
         }
-        logger.log('Creating IM1-specific antecedents...');
-        for (const antecedentValue of exports.im1SpecificAntecedentsData) {
-            const existingAntecedent = await prisma.antecedent.findUnique({
-                where: { value: antecedentValue },
-            });
-            if (!existingAntecedent) {
-                const antecedentName = antecedentValue.charAt(0).toUpperCase() +
-                    antecedentValue.slice(1).replace(/_/g, ' ');
-                await prisma.antecedent.create({
-                    data: {
-                        name: antecedentName,
-                        value: antecedentValue,
-                        antecedentTypeId: personalType.id,
-                    },
-                });
-                await prisma.antecedent.create({
-                    data: {
-                        name: antecedentName,
-                        value: `${antecedentValue}_familiar`,
-                        antecedentTypeId: familiarType.id,
-                    },
-                });
-            }
-        }
         logger.log('✅ Antecedents created successfully');
         logger.log(`📊 Antecedents Summary:`);
         logger.log(`   - 3 Antecedent Types`);
         logger.log(`   - ${exports.familiarAntecedentsData.length} Familiar Antecedents`);
         logger.log(`   - ${exports.personalAntecedentsData.length} Personal Antecedents`);
         logger.log(`   - ${exports.psicobiologicoAntecedentsData.length} Psicobiological Antecedents`);
-        logger.log(`   - ${exports.im1SpecificAntecedentsData.length} IM1-specific Antecedents (Personal & Familiar)`);
     }
     catch (error) {
         logger.error('❌ Error seeding antecedents:', error);

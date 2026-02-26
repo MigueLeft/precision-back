@@ -361,16 +361,10 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                 data: { relationsProcessingStatus: 'processing' },
             });
             await this.prisma.$transaction(async (tx) => {
-                if (questionnaireCode === 'im1') {
-                    await this.processIM1AntecedentsSymptomsAndPhysicalExaminationInTransaction(patientId, createdAnswers, tx);
-                }
                 await this.calculateAndSaveDiagnosticsInTransaction(patientId, patientQuestionnaireId, questionnaireId, createdAnswers, tx);
             }, {
                 timeout: 30000,
             });
-            if (questionnaireCode === 'im1') {
-                await this.processIM1MedicationsAndLabResults(patientId, createdAnswers);
-            }
             await this.prisma.patientQuestionnaire.update({
                 where: { id: patientQuestionnaireId },
                 data: {
@@ -673,40 +667,13 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
             await tx.patientDiagnostic.deleteMany({
                 where: { patientQuestionnaireId },
             });
-            await tx.patientAntecedent.deleteMany({
-                where: {
-                    patientId: patientQuestionnaire.patientId,
-                    notes: { contains: 'cuestionario IM1' },
-                },
-            });
-            await tx.patientSymptom.deleteMany({
-                where: {
-                    patientId: patientQuestionnaire.patientId,
-                    notes: 'Reported in IM1 questionnaire',
-                },
-            });
-            const physicalExaminations = await tx.patientPhysicalExamination.findMany({
-                where: {
-                    patientId: patientQuestionnaire.patientId,
-                    notes: 'Basic physical examination data from IM1 questionnaire',
-                },
-                include: { physicalExamination: true },
-            });
-            for (const pe of physicalExaminations) {
-                await tx.patientPhysicalExamination.delete({
-                    where: { id: pe.id },
-                });
-                await tx.physicalExamination.delete({
-                    where: { id: pe.physicalExaminationId },
-                });
-            }
         });
         this.processRelationsInBackground(patientQuestionnaireId, patientQuestionnaire.patientId, patientQuestionnaire.questionnaire.code, patientQuestionnaire.questionnaireId, patientQuestionnaire.answers).catch((error) => {
             this.logger.error(`Reprocessing failed for patient questionnaire ${patientQuestionnaireId}: ${error.message}`, error.stack);
         });
         return {
             success: true,
-            message: 'Reprocessing started successfully. Relations will be recreated in background.',
+            message: 'Reprocessing started successfully. Diagnostics will be recalculated in background.',
         };
     }
     async calculateAndSaveDiagnostics(patientId, patientQuestionnaireId, questionnaireId, answers) {

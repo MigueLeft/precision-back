@@ -40,11 +40,13 @@ export class AppointmentsService {
         );
       }
 
+      const parsedDateTime = new Date(createAppointmentDto.dateTime);
+
       // Verificar si ya existe una cita para el mismo médico y la misma fecha
       const existingAppointment = await this.prisma.appointment.findFirst({
         where: {
           medicId: createAppointmentDto.medicId,
-          dateTime: createAppointmentDto.dateTime,
+          dateTime: parsedDateTime,
         },
       });
 
@@ -54,8 +56,34 @@ export class AppointmentsService {
         );
       }
 
+      const { dateTime, ...restDto } = createAppointmentDto;
+
       const appointment = await this.prisma.appointment.create({
-        data: createAppointmentDto,
+        data: {
+          ...restDto,
+          dateTime: parsedDateTime,
+        },
+        include: {
+          patient: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              identification: true,
+              email: true,
+            },
+          },
+          medic: {
+            select: {
+              id: true,
+              name: true,
+              lastName: true,
+              specialty: {
+                select: { id: true, name: true },
+              },
+            },
+          },
+        },
       });
 
       this.logger.log(`Appointment created: ${appointment.id}`);
@@ -239,9 +267,35 @@ export class AppointmentsService {
         throw new NotFoundException(`Appointment with ID ${id} not found`);
       }
 
+      const updateData: any = { ...updateAppointmentDto };
+      if (updateAppointmentDto.dateTime) {
+        updateData.dateTime = new Date(updateAppointmentDto.dateTime);
+      }
+
       const appointment = await this.prisma.appointment.update({
         where: { id },
-        data: updateAppointmentDto,
+        data: updateData,
+        include: {
+          patient: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              identification: true,
+              email: true,
+            },
+          },
+          medic: {
+            select: {
+              id: true,
+              name: true,
+              lastName: true,
+              specialty: {
+                select: { id: true, name: true },
+              },
+            },
+          },
+        },
       });
 
       this.logger.log(`Appointment updated: ${appointment.id}`);

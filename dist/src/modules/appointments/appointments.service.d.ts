@@ -7,6 +7,23 @@ export declare class AppointmentsService {
     private readonly logger;
     constructor(prisma: PrismaService);
     create(createAppointmentDto: CreateAppointmentDto): Promise<{
+        medic: {
+            id: string;
+            name: string;
+            specialty: {
+                id: string;
+                name: string;
+            };
+            lastName: string;
+        };
+        patient: {
+            email: string;
+            id: string;
+            firstName: string;
+            lastName: string;
+            identification: string | null;
+        };
+    } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;
@@ -109,6 +126,23 @@ export declare class AppointmentsService {
         originatedFromFollowUpId: string | null;
     }>;
     update(id: string, updateAppointmentDto: UpdateAppointmentDto): Promise<{
+        medic: {
+            id: string;
+            name: string;
+            specialty: {
+                id: string;
+                name: string;
+            };
+            lastName: string;
+        };
+        patient: {
+            email: string;
+            id: string;
+            firstName: string;
+            lastName: string;
+            identification: string | null;
+        };
+    } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;

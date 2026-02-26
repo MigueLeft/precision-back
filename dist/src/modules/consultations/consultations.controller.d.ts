@@ -16,7 +16,6 @@ export declare class ConsultationsController {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -92,6 +91,7 @@ export declare class ConsultationsController {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: import("@prisma/client/runtime/library").JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
     findAll(queryDto: QueryConsultationDto): Promise<{
@@ -149,6 +149,7 @@ export declare class ConsultationsController {
             suggestedNextControl: Date | null;
             additionalMedicalNotes: string | null;
             registeredByUserId: string;
+            hojaBlanca: import("@prisma/client/runtime/library").JsonValue | null;
             clinicalRegistrationDate: Date;
         })[];
         pagination: {
@@ -169,7 +170,6 @@ export declare class ConsultationsController {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -245,6 +245,7 @@ export declare class ConsultationsController {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: import("@prisma/client/runtime/library").JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
     findByAppointmentId(appointmentId: string): Promise<({
@@ -258,7 +259,6 @@ export declare class ConsultationsController {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -334,6 +334,7 @@ export declare class ConsultationsController {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: import("@prisma/client/runtime/library").JsonValue | null;
         clinicalRegistrationDate: Date;
     }) | null>;
     update(id: string, updateConsultationDto: UpdateConsultationDto): Promise<{
@@ -347,7 +348,6 @@ export declare class ConsultationsController {
                 userId: string | null;
                 active: boolean;
                 lastName: string;
-                identification: string;
                 phone: string | null;
                 specialtyId: string;
                 professionalTitle: string;
@@ -423,6 +423,7 @@ export declare class ConsultationsController {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: import("@prisma/client/runtime/library").JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
     remove(id: string): Promise<{
@@ -479,6 +480,7 @@ export declare class ConsultationsController {
         suggestedNextControl: Date | null;
         additionalMedicalNotes: string | null;
         registeredByUserId: string;
+        hojaBlanca: import("@prisma/client/runtime/library").JsonValue | null;
         clinicalRegistrationDate: Date;
     }>;
 }

@@ -34,17 +34,43 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
             if (!medicExists) {
                 throw new common_1.ConflictException(`Medic with ID ${createAppointmentDto.medicId} not found`);
             }
+            const parsedDateTime = new Date(createAppointmentDto.dateTime);
             const existingAppointment = await this.prisma.appointment.findFirst({
                 where: {
                     medicId: createAppointmentDto.medicId,
-                    dateTime: createAppointmentDto.dateTime,
+                    dateTime: parsedDateTime,
                 },
             });
             if (existingAppointment) {
                 throw new common_1.ConflictException('A appointment already exists for this medic at the specified time.');
             }
+            const { dateTime, ...restDto } = createAppointmentDto;
             const appointment = await this.prisma.appointment.create({
-                data: createAppointmentDto,
+                data: {
+                    ...restDto,
+                    dateTime: parsedDateTime,
+                },
+                include: {
+                    patient: {
+                        select: {
+                            id: true,
+                            firstName: true,
+                            lastName: true,
+                            identification: true,
+                            email: true,
+                        },
+                    },
+                    medic: {
+                        select: {
+                            id: true,
+                            name: true,
+                            lastName: true,
+                            specialty: {
+                                select: { id: true, name: true },
+                            },
+                        },
+                    },
+                },
             });
             this.logger.log(`Appointment created: ${appointment.id}`);
             return appointment;
@@ -198,9 +224,34 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
             if (!existingAppointment) {
                 throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
             }
+            const updateData = { ...updateAppointmentDto };
+            if (updateAppointmentDto.dateTime) {
+                updateData.dateTime = new Date(updateAppointmentDto.dateTime);
+            }
             const appointment = await this.prisma.appointment.update({
                 where: { id },
-                data: updateAppointmentDto,
+                data: updateData,
+                include: {
+                    patient: {
+                        select: {
+                            id: true,
+                            firstName: true,
+                            lastName: true,
+                            identification: true,
+                            email: true,
+                        },
+                    },
+                    medic: {
+                        select: {
+                            id: true,
+                            name: true,
+                            lastName: true,
+                            specialty: {
+                                select: { id: true, name: true },
+                            },
+                        },
+                    },
+                },
             });
             this.logger.log(`Appointment updated: ${appointment.id}`);
             return appointment;

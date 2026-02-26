@@ -4,8 +4,13 @@ export declare const antecedentTypesData: {
     name: string;
     description: string;
 }[];
-export declare const familiarAntecedentsData: string[];
-export declare const personalAntecedentsData: string[];
+export declare const familiarAntecedentsData: {
+    value: string;
+    name: string;
+}[];
+export declare const personalAntecedentsData: {
+    value: string;
+    name: string;
+}[];
 export declare const psicobiologicoAntecedentsData: string[];
-export declare const im1SpecificAntecedentsData: string[];
 export declare function seedAntecedents(prisma: PrismaClient, logger: Logger): Promise<void>;
