@@ -2,6 +2,7 @@ import { PrismaService } from '../../config/database/prisma.service';
 import { CreatePatientFollowDto } from './dto/create-patient-follow.dto';
 import { UpdatePatientFollowDto } from './dto/update-patient-follow.dto';
 import { QueryPatientFollowDto } from './dto/query-patient-follow.dto';
+import { Prisma } from '@prisma/client';
 export declare class PatientFollowService {
     private readonly prisma;
     private readonly logger;
@@ -349,6 +350,8 @@ export declare class PatientFollowService {
             bloodType: string | null;
             currentIllness: string | null;
             diagnosticPlan: string | null;
+            treatmentPlan: string | null;
+            problems: Prisma.JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
         };

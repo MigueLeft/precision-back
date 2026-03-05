@@ -2,6 +2,7 @@ import { PrismaService } from '../../config/database/prisma.service';
 import { CreateRescueDirectoryDto } from './dto/create-rescue-directory.dto';
 import { UpdateRescueDirectoryDto } from './dto/update-rescue-directory.dto';
 import { QueryRescueDirectoryDto } from './dto/query-rescue-directory.dto';
+import { Prisma } from '@prisma/client';
 export declare class RescueDirectoryService {
     private readonly prisma;
     private readonly logger;
@@ -395,6 +396,8 @@ export declare class RescueDirectoryService {
             bloodType: string | null;
             currentIllness: string | null;
             diagnosticPlan: string | null;
+            treatmentPlan: string | null;
+            problems: Prisma.JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
         };
@@ -473,6 +476,8 @@ export declare class RescueDirectoryService {
             bloodType: string | null;
             currentIllness: string | null;
             diagnosticPlan: string | null;
+            treatmentPlan: string | null;
+            problems: Prisma.JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
         };

@@ -68,7 +68,7 @@ let PatientsController = class PatientsController {
         return this.patientsService.getPatientQuestionnaireDetails(patientId, patientQuestionnaireId);
     }
     updateClinicalInfo(id, updateClinicalInfoDto) {
-        return this.patientsService.updateClinicalInfo(id, updateClinicalInfoDto.currentIllness, updateClinicalInfoDto.diagnosticPlan, updateClinicalInfoDto.lastClinicalUpdateBy);
+        return this.patientsService.updateClinicalInfo(id, updateClinicalInfoDto.currentIllness, updateClinicalInfoDto.diagnosticPlan, updateClinicalInfoDto.treatmentPlan, updateClinicalInfoDto.problems, updateClinicalInfoDto.lastClinicalUpdateBy);
     }
     getClinicalInfo(id) {
         return this.patientsService.getClinicalInfo(id);

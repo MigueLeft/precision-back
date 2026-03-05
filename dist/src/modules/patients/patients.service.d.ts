@@ -48,6 +48,8 @@ export declare class PatientsService {
         bloodType: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -97,6 +99,8 @@ export declare class PatientsService {
             bloodType: string | null;
             currentIllness: string | null;
             diagnosticPlan: string | null;
+            treatmentPlan: string | null;
+            problems: Prisma.JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
         })[];
@@ -155,6 +159,8 @@ export declare class PatientsService {
         bloodType: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -203,6 +209,8 @@ export declare class PatientsService {
         bloodType: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -251,6 +259,8 @@ export declare class PatientsService {
         bloodType: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -299,6 +309,8 @@ export declare class PatientsService {
         bloodType: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -350,6 +362,8 @@ export declare class PatientsService {
         bloodType: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -394,6 +408,8 @@ export declare class PatientsService {
         bloodType: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -459,13 +475,18 @@ export declare class PatientsService {
             };
         }[];
     }>;
-    updateClinicalInfo(patientId: string, currentIllness?: string, diagnosticPlan?: string, updatedBy?: string): Promise<{
+    updateClinicalInfo(patientId: string, currentIllness?: string, diagnosticPlan?: string, treatmentPlan?: string, problems?: {
+        actuales: string[];
+        previos: string[];
+    }, updatedBy?: string): Promise<{
         id: string;
         firstName: string;
         lastName: string;
         identification: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -476,6 +497,8 @@ export declare class PatientsService {
         identification: string | null;
         currentIllness: string | null;
         diagnosticPlan: string | null;
+        treatmentPlan: string | null;
+        problems: Prisma.JsonValue;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;

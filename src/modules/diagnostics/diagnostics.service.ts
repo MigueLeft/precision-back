@@ -117,10 +117,7 @@ export class DiagnosticsService {
 
     // Formatear respuesta
     const formattedDiagnostics = diagnostics.map((diagnostic) => {
-      const riskLevel = this.calculateRiskLevel(
-        Number(diagnostic.percentage),
-        diagnostic.diagnostic.diagnosticGroup.name,
-      );
+      const riskLevel = diagnostic.diagnostic.severity as 'low' | 'medium' | 'high';
 
       return {
         id: diagnostic.id,
@@ -224,10 +221,7 @@ export class DiagnosticsService {
     // Formatear respuesta
     const formattedDiagnostics = Array.from(diagnosticsByGroup.values()).map(
       (diagnostic) => {
-        const riskLevel = this.calculateRiskLevel(
-          Number(diagnostic.percentage),
-          diagnostic.diagnostic.diagnosticGroup.name,
-        );
+        const riskLevel = diagnostic.diagnostic.severity as 'low' | 'medium' | 'high';
 
         return {
           id: diagnostic.id,
@@ -293,35 +287,4 @@ export class DiagnosticsService {
     };
   }
 
-  private calculateRiskLevel(
-    percentage: number,
-    groupName: string,
-  ): 'low' | 'medium' | 'high' {
-    // Lógica de cálculo de riesgo basada en el grupo diagnóstico
-    switch (groupName.toLowerCase()) {
-      case 'nutrición':
-      case 'medas':
-        // Adherencia a dieta mediterránea: más alto es mejor
-        return percentage >= 70 ? 'low' : percentage >= 40 ? 'medium' : 'high';
-
-      case 'actividad física':
-      case 'nivel_act':
-        // Nivel de actividad física: más alto es mejor
-        return percentage >= 80 ? 'low' : percentage >= 50 ? 'medium' : 'high';
-
-      case 'educación':
-      case 'educ':
-        // Nivel educativo: más alto es mejor
-        return percentage >= 75 ? 'low' : percentage >= 50 ? 'medium' : 'high';
-
-      case 'socioeconómico':
-      case 'socio':
-        // Estatus socioeconómico: más alto es mejor
-        return percentage >= 70 ? 'low' : percentage >= 40 ? 'medium' : 'high';
-
-      default:
-        // Lógica general: más bajo es mejor riesgo
-        return percentage <= 30 ? 'low' : percentage <= 60 ? 'medium' : 'high';
-    }
-  }
 }

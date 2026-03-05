@@ -70,6 +70,13 @@ export const diagnosticGroups = [
     active: true,
   },
   {
+    name: 'D.3.2. Apnea obstructiva del sueño (NoSAS)',
+    description: 'Evaluación de riesgo de apnea obstructiva del sueño usando la escala NoSAS',
+    diagnosticCode: 'NOSAS',
+    scoringMethod: 'FORMULA',
+    active: true,
+  },
+  {
     name: 'D.4.1. Síntomas de ansiedad (GAD-7)',
     description: 'Evaluación de síntomas de ansiedad',
     diagnosticCode: 'GAD7',
@@ -147,7 +154,7 @@ export const diagnostics = {
       colorCode: '#28a745',
     },
     {
-      name: 'Riesgo intermedio',
+      name: 'Riesgo moderado',
       description: 'Estatus socioeconómico medio',
       minScore: 4,
       maxScore: 7,
@@ -283,20 +290,44 @@ export const diagnostics = {
   // Calidad de Sueño
   calidad_sueno: [
     {
-      name: 'Riesgo bajo de insomnio/depresión',
-      description: 'Buena calidad de sueño',
-      minScore: 7,
+      name: 'Excelente calidad de sueño',
+      description: 'Riesgo bajo de insomnio/depresión - Excelente calidad de sueño',
+      minScore: 10,
       maxScore: 10,
       severity: 'low',
       colorCode: '#28a745',
     },
     {
-      name: 'Riesgo alto de insomnio/depresión',
-      description: 'Mala calidad de sueño',
-      minScore: 0,
+      name: 'Buena calidad de sueño',
+      description: 'Riesgo bajo de insomnio/depresión - Buena calidad de sueño',
+      minScore: 7,
+      maxScore: 9,
+      severity: 'low',
+      colorCode: '#8bc34a',
+    },
+    {
+      name: 'Regular calidad de sueño',
+      description: 'Calidad de sueño regular - sin riesgo significativo de insomnio/depresión',
+      minScore: 4,
+      maxScore: 6,
+      severity: 'medium',
+      colorCode: '#ffc107',
+    },
+    {
+      name: 'Mala calidad de sueño',
+      description: 'Riesgo alto de insomnio/depresión - Mala calidad de sueño',
+      minScore: 1,
       maxScore: 3,
       severity: 'high',
       colorCode: '#dc3545',
+    },
+    {
+      name: 'Terrible calidad de sueño',
+      description: 'Riesgo alto de insomnio/depresión - Terrible calidad de sueño',
+      minScore: 0,
+      maxScore: 0,
+      severity: 'high',
+      colorCode: '#c0392b',
     },
   ],
 
@@ -459,6 +490,28 @@ export const diagnostics = {
       description: 'Consumo regular de drogas ilícitas',
       minScore: 3,
       maxScore: 7,
+      severity: 'high',
+      colorCode: '#dc3545',
+    },
+  ],
+
+  // Apnea Obstructiva del Sueño (NoSAS)
+  // Criterios: cuello >40cm (4pts), IMC 25-30 (3pts), IMC >30 (5pts), ronquido (2pts), edad >55 (4pts), sexo masculino (2pts)
+  // Nota: IMC no está disponible desde las preguntas, se omite en el cálculo
+  nosas: [
+    {
+      name: 'Riesgo bajo de apnea del sueño',
+      description: 'Riesgo bajo de apnea obstructiva del sueño (NoSAS < 8 puntos)',
+      minScore: 0,
+      maxScore: 7,
+      severity: 'low',
+      colorCode: '#28a745',
+    },
+    {
+      name: 'Riesgo alto de apnea del sueño',
+      description: 'Riesgo alto de apnea obstructiva del sueño (NoSAS ≥ 8 puntos)',
+      minScore: 8,
+      maxScore: 17,
       severity: 'high',
       colorCode: '#dc3545',
     },
@@ -1601,6 +1654,35 @@ export const nonScoringQuestions = [
     required: false,
   },
 
+  // B.7. Alergias alimentarias
+  {
+    code: 'im1_b7_1',
+    text: 'Alergias alimentarias (Selecciona todas las que apliquen)',
+    type: QuestionType.MULTIPLE_CHOICE,
+    inputType: 'checkbox',
+    section: 'Historia Médica',
+    required: false,
+    options: {
+      choices: [
+        { value: 'mani', label: 'Maní / Cacahuetes' },
+        { value: 'leche', label: 'Leche / Lácteos' },
+        { value: 'huevo', label: 'Huevo' },
+        { value: 'trigo', label: 'Trigo / Gluten' },
+        { value: 'soya', label: 'Soya / Soja' },
+        { value: 'pescado', label: 'Pescado' },
+        { value: 'mariscos', label: 'Mariscos / Crustáceos' },
+        { value: 'frutos_secos', label: 'Frutos secos (nueces, almendras, etc.)' },
+        { value: 'frutas', label: 'Frutas (fresas, kiwi, melocotón)' },
+        { value: 'maiz', label: 'Maíz' },
+        { value: 'legumbres', label: 'Legumbres (lentejas, garbanzos)' },
+        { value: 'chocolate', label: 'Chocolate / Cacao' },
+        { value: 'aditivos', label: 'Aditivos alimentarios / Colorantes' },
+        { value: 'sulfitos', label: 'Sulfitos / Conservantes' },
+        { value: 'ninguna', label: 'Sin alergias alimentarias conocidas' },
+      ],
+    },
+  },
+
   // C. Mediciones físicas (30 questions)
   // C.1. Adiposidad (10 questions)
   {
@@ -2212,13 +2294,13 @@ export const questionGroupMappings = [
 // SUMMARY
 // ==========================================
 
-// Total questions: 84 (21 with scoring + 63 without scoring)
+// Total questions: 85 (21 with scoring + 64 without scoring)
 // Total diagnostic groups: 13
 // Total diagnostics: 35+
 export const questionaireSummary = {
-  totalQuestions: 84,
+  totalQuestions: 85,
   questionsWithScoring: 21,
-  questionsWithoutScoring: 63,
+  questionsWithoutScoring: 64,
   totalDiagnosticGroups: 13,
   sections: [
     'Datos de Identificación',
@@ -2233,6 +2315,7 @@ export const questionaireSummary = {
     'Embarazo',
     'Cirugías y Hospitalizaciones',
     'Tratamiento Actual',
+    'Alergias Alimentarias',
     'Mediciones Físicas',
     'Nutrición',
     'Actividad Física',

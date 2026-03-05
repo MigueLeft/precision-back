@@ -509,6 +509,8 @@ export declare class PatientFollowController {
             bloodType: string | null;
             currentIllness: string | null;
             diagnosticPlan: string | null;
+            treatmentPlan: string | null;
+            problems: import("@prisma/client/runtime/library").JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
         };

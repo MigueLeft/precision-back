@@ -29,6 +29,15 @@ async function seedIM1Questionnaire(prisma, logger) {
             createdGroups[groupData.name] = group;
         }
         logger.log('✅ Created diagnostic groups');
+        const groupsToCleanup = ['D.3.1. Calidad de sueño', 'D.3.2. Apnea obstructiva del sueño (NoSAS)'];
+        for (const groupName of groupsToCleanup) {
+            const group = createdGroups[groupName];
+            if (group) {
+                await prisma.diagnostic.deleteMany({
+                    where: { diagnosticGroupId: group.id },
+                });
+            }
+        }
         const diagnosticMappings = [
             { groupName: 'A.5. Educación', diagnosticsKey: 'educacion' },
             {
@@ -59,6 +68,10 @@ async function seedIM1Questionnaire(prisma, logger) {
             { groupName: 'D.5.1. Alcohol (AUDIT-C)', diagnosticsKey: 'alcohol' },
             { groupName: 'D.5.2. Tabaquismo (ASSIST)', diagnosticsKey: 'tabaquismo' },
             { groupName: 'D.5.3. Drogas (ASSIST)', diagnosticsKey: 'drogas' },
+            {
+                groupName: 'D.3.2. Apnea obstructiva del sueño (NoSAS)',
+                diagnosticsKey: 'nosas',
+            },
         ];
         for (const mapping of diagnosticMappings) {
             const group = createdGroups[mapping.groupName];
@@ -72,7 +85,13 @@ async function seedIM1Questionnaire(prisma, logger) {
                                 name: diag.name,
                             },
                         },
-                        update: {},
+                        update: {
+                            description: diag.description + (mapping.descSuffix || ''),
+                            minScore: diag.minScore,
+                            maxScore: diag.maxScore,
+                            severity: diag.severity,
+                            colorCode: diag.colorCode,
+                        },
                         create: {
                             diagnosticGroupId: group.id,
                             name: diag.name,

@@ -324,6 +324,8 @@ export class PatientsController {
       id,
       updateClinicalInfoDto.currentIllness,
       updateClinicalInfoDto.diagnosticPlan,
+      updateClinicalInfoDto.treatmentPlan,
+      updateClinicalInfoDto.problems,
       updateClinicalInfoDto.lastClinicalUpdateBy,
     );
   }

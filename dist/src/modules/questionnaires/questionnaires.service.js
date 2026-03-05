@@ -708,7 +708,7 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                     case 'D.3.1. Horas de sueño':
                         return questionCode === 'im1_d3_2';
                     case 'D.3.2. Apnea obstructiva del sueño (NoSAS)':
-                        return questionCode === 'im1_d3_3';
+                        return ['im1_a1_3', 'im1_a1_4', 'im1_b3_1', 'im1_c1_2', 'im1_c1_3', 'im1_c1_9'].includes(questionCode);
                     case 'D.4.1. Síntomas de ansiedad (GAD-7)':
                         return questionCode?.startsWith('im1_d4_1');
                     case 'D.4.2. Síntomas de depresión (PHQ-9)':
@@ -744,6 +744,51 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                         groupScore = 100;
                 }
             }
+            else if (group.name === 'D.3.2. Apnea obstructiva del sueño (NoSAS)') {
+                let nosasScore = 0;
+                const sexAnswer = answers.find((a) => a.question?.code === 'im1_a1_4');
+                if (sexAnswer?.textValue?.toLowerCase() === 'masculino') {
+                    nosasScore += 2;
+                }
+                const birthDateAnswer = answers.find((a) => a.question?.code === 'im1_a1_3');
+                if (birthDateAnswer?.textValue) {
+                    const birthDate = new Date(birthDateAnswer.textValue);
+                    if (!isNaN(birthDate.getTime())) {
+                        const ageMs = Date.now() - birthDate.getTime();
+                        const age = ageMs / (365.25 * 24 * 60 * 60 * 1000);
+                        if (age > 55)
+                            nosasScore += 4;
+                    }
+                }
+                const neckAnswer = answers.find((a) => a.question?.code === 'im1_c1_9');
+                if (neckAnswer?.numericValue && Number(neckAnswer.numericValue) > 40) {
+                    nosasScore += 4;
+                }
+                const symptomsAnswer = answers.find((a) => a.question?.code === 'im1_b3_1');
+                if (symptomsAnswer?.textValue?.includes('ronquido')) {
+                    nosasScore += 2;
+                }
+                const weightAnswer = answers.find((a) => a.question?.code === 'im1_c1_2');
+                const heightAnswer = answers.find((a) => a.question?.code === 'im1_c1_3');
+                if (weightAnswer?.numericValue && heightAnswer?.numericValue) {
+                    let weightKg = Number(weightAnswer.numericValue);
+                    let heightM = Number(heightAnswer.numericValue);
+                    if (weightKg > 150)
+                        weightKg = weightKg / 2.2046;
+                    if (heightM > 3)
+                        heightM = heightM / 100;
+                    if (heightM > 0) {
+                        const bmi = weightKg / (heightM * heightM);
+                        if (bmi > 30) {
+                            nosasScore += 5;
+                        }
+                        else if (bmi >= 25) {
+                            nosasScore += 3;
+                        }
+                    }
+                }
+                groupScore = nosasScore;
+            }
             else {
                 groupScore = relevantAnswers.reduce((sum, answer) => {
                     const score = Number(answer.score || 0);
@@ -751,7 +796,11 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                 }, 0);
             }
             let maxPossibleScore = 0;
-            if (relevantAnswers.length > 0) {
+            const nosasRequiredCodes = ['im1_a1_3', 'im1_a1_4'];
+            const hasAnswers = group.name === 'D.3.2. Apnea obstructiva del sueño (NoSAS)'
+                ? answers.some((a) => nosasRequiredCodes.includes(a.question?.code))
+                : relevantAnswers.length > 0;
+            if (hasAnswers) {
                 switch (group.scoringMethod) {
                     case 'SUM':
                         const scoringConfig = group.scoringConfig;
@@ -791,6 +840,14 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                 continue;
             }
             for (const diagnostic of group.diagnostics) {
+                if (group.name === 'D.5.1. Alcohol (AUDIT-C)') {
+                    const sexAnswer = answers.find((a) => a.question?.code === 'im1_a1_4');
+                    const sex = sexAnswer?.textValue?.toLowerCase();
+                    if (sex === 'masculino' && !diagnostic.name.includes('Hombres'))
+                        continue;
+                    if (sex === 'femenino' && !diagnostic.name.includes('Mujeres'))
+                        continue;
+                }
                 const minScore = Number(diagnostic.minScore);
                 const maxScore = Number(diagnostic.maxScore);
                 if (isNaN(groupScore) ||

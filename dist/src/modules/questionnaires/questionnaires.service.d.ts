@@ -452,6 +452,8 @@ export declare class QuestionnairesService {
             bloodType: string | null;
             currentIllness: string | null;
             diagnosticPlan: string | null;
+            treatmentPlan: string | null;
+            problems: Prisma.JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
         };

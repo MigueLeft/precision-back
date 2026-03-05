@@ -39,6 +39,8 @@ model Patient {
   // Información clínica actual (llenado por el médico)
   currentIllness           String?  @map("current_illness") // Enfermedad actual - Texto libre
   diagnosticPlan           String?  @map("diagnostic_plan") // Plan diagnóstico - Texto libre
+  treatmentPlan            String?  @map("treatment_plan") @db.Text // Plan de tratamiento - Texto libre
+  problems                 Json?    // Problemas del paciente { actuales: string[], previos: string[] }
   lastClinicalUpdateBy     String?  @map("last_clinical_update_by") // ID del médico que actualizó
   lastClinicalUpdateAt     DateTime? @map("last_clinical_update_at") // Fecha de última actualización clínica
 

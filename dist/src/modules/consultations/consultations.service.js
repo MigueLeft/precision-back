@@ -143,11 +143,13 @@ let ConsultationsService = class ConsultationsService {
             ]);
             return {
                 data: consultations,
-                pagination: {
+                meta: {
                     total,
                     page,
                     limit,
                     totalPages: Math.ceil(total / limit),
+                    hasNext: page * limit < total,
+                    hasPrev: page > 1,
                 },
             };
         }

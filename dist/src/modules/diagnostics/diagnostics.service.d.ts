@@ -87,5 +87,4 @@ export declare class DiagnosticsService {
             lastUpdated: any;
         };
     }>;
-    private calculateRiskLevel;
 }

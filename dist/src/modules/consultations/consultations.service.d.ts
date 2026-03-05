@@ -56,6 +56,8 @@ export declare class ConsultationsService {
                 bloodType: string | null;
                 currentIllness: string | null;
                 diagnosticPlan: string | null;
+                treatmentPlan: string | null;
+                problems: Prisma.JsonValue | null;
                 lastClinicalUpdateBy: string | null;
                 lastClinicalUpdateAt: Date | null;
             };
@@ -153,11 +155,13 @@ export declare class ConsultationsService {
             hojaBlanca: Prisma.JsonValue | null;
             clinicalRegistrationDate: Date;
         })[];
-        pagination: {
+        meta: {
             total: number;
             page: number;
             limit: number;
             totalPages: number;
+            hasNext: boolean;
+            hasPrev: boolean;
         };
     }>;
     findOne(id: string): Promise<{
@@ -210,6 +214,8 @@ export declare class ConsultationsService {
                 bloodType: string | null;
                 currentIllness: string | null;
                 diagnosticPlan: string | null;
+                treatmentPlan: string | null;
+                problems: Prisma.JsonValue | null;
                 lastClinicalUpdateBy: string | null;
                 lastClinicalUpdateAt: Date | null;
             };
@@ -299,6 +305,8 @@ export declare class ConsultationsService {
                 bloodType: string | null;
                 currentIllness: string | null;
                 diagnosticPlan: string | null;
+                treatmentPlan: string | null;
+                problems: Prisma.JsonValue | null;
                 lastClinicalUpdateBy: string | null;
                 lastClinicalUpdateAt: Date | null;
             };
@@ -445,6 +453,8 @@ export declare class ConsultationsService {
                 bloodType: string | null;
                 currentIllness: string | null;
                 diagnosticPlan: string | null;
+                treatmentPlan: string | null;
+                problems: Prisma.JsonValue | null;
                 lastClinicalUpdateBy: string | null;
                 lastClinicalUpdateAt: Date | null;
             };

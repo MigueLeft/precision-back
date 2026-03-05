@@ -111,6 +111,14 @@ export declare const diagnostics: {
         severity: string;
         colorCode: string;
     }[];
+    nosas: {
+        name: string;
+        description: string;
+        minScore: number;
+        maxScore: number;
+        severity: string;
+        colorCode: string;
+    }[];
 };
 export declare const scoringQuestions: ({
     code: string;

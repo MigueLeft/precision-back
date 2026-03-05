@@ -48,6 +48,17 @@ export async function seedIM1Questionnaire(
 
     logger.log('✅ Created diagnostic groups');
 
+    // 3. Limpiar diagnósticos de grupos que cambiaron para evitar registros obsoletos
+    const groupsToCleanup = ['D.3.1. Calidad de sueño', 'D.3.2. Apnea obstructiva del sueño (NoSAS)'];
+    for (const groupName of groupsToCleanup) {
+      const group = createdGroups[groupName];
+      if (group) {
+        await prisma.diagnostic.deleteMany({
+          where: { diagnosticGroupId: group.id },
+        });
+      }
+    }
+
     // 3. Crear diagnósticos para cada grupo
     const diagnosticMappings = [
       { groupName: 'A.5. Educación', diagnosticsKey: 'educacion' },
@@ -79,6 +90,10 @@ export async function seedIM1Questionnaire(
       { groupName: 'D.5.1. Alcohol (AUDIT-C)', diagnosticsKey: 'alcohol' },
       { groupName: 'D.5.2. Tabaquismo (ASSIST)', diagnosticsKey: 'tabaquismo' },
       { groupName: 'D.5.3. Drogas (ASSIST)', diagnosticsKey: 'drogas' },
+      {
+        groupName: 'D.3.2. Apnea obstructiva del sueño (NoSAS)',
+        diagnosticsKey: 'nosas',
+      },
     ];
 
     for (const mapping of diagnosticMappings) {
@@ -95,7 +110,13 @@ export async function seedIM1Questionnaire(
                 name: diag.name,
               },
             },
-            update: {},
+            update: {
+              description: diag.description + (mapping.descSuffix || ''),
+              minScore: diag.minScore,
+              maxScore: diag.maxScore,
+              severity: diag.severity as any,
+              colorCode: diag.colorCode,
+            },
             create: {
               diagnosticGroupId: group.id,
               name: diag.name,

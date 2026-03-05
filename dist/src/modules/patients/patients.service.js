@@ -571,7 +571,7 @@ let PatientsService = PatientsService_1 = class PatientsService {
             questionsWithAnswers,
         };
     }
-    async updateClinicalInfo(patientId, currentIllness, diagnosticPlan, updatedBy) {
+    async updateClinicalInfo(patientId, currentIllness, diagnosticPlan, treatmentPlan, problems, updatedBy) {
         this.logger.log(`Updating clinical information for patient ${patientId}`);
         const patient = await this.findOne(patientId);
         if (!patient) {
@@ -582,6 +582,8 @@ let PatientsService = PatientsService_1 = class PatientsService {
             data: {
                 currentIllness,
                 diagnosticPlan,
+                treatmentPlan,
+                problems: problems,
                 lastClinicalUpdateBy: updatedBy,
                 lastClinicalUpdateAt: new Date(),
             },
@@ -592,6 +594,8 @@ let PatientsService = PatientsService_1 = class PatientsService {
                 identification: true,
                 currentIllness: true,
                 diagnosticPlan: true,
+                treatmentPlan: true,
+                problems: true,
                 lastClinicalUpdateBy: true,
                 lastClinicalUpdateAt: true,
             },
@@ -608,6 +612,8 @@ let PatientsService = PatientsService_1 = class PatientsService {
                 identification: true,
                 currentIllness: true,
                 diagnosticPlan: true,
+                treatmentPlan: true,
+                problems: true,
                 lastClinicalUpdateBy: true,
                 lastClinicalUpdateAt: true,
             },

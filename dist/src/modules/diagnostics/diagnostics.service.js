@@ -102,7 +102,7 @@ let DiagnosticsService = DiagnosticsService_1 = class DiagnosticsService {
             this.prisma.patientDiagnostic.count({ where }),
         ]);
         const formattedDiagnostics = diagnostics.map((diagnostic) => {
-            const riskLevel = this.calculateRiskLevel(Number(diagnostic.percentage), diagnostic.diagnostic.diagnosticGroup.name);
+            const riskLevel = diagnostic.diagnostic.severity;
             return {
                 id: diagnostic.id,
                 patientId: diagnostic.patientId,
@@ -189,7 +189,7 @@ let DiagnosticsService = DiagnosticsService_1 = class DiagnosticsService {
             }
         });
         const formattedDiagnostics = Array.from(diagnosticsByGroup.values()).map((diagnostic) => {
-            const riskLevel = this.calculateRiskLevel(Number(diagnostic.percentage), diagnostic.diagnostic.diagnosticGroup.name);
+            const riskLevel = diagnostic.diagnostic.severity;
             return {
                 id: diagnostic.id,
                 patientId: diagnostic.patientId,
@@ -245,24 +245,6 @@ let DiagnosticsService = DiagnosticsService_1 = class DiagnosticsService {
                     : null,
             },
         };
-    }
-    calculateRiskLevel(percentage, groupName) {
-        switch (groupName.toLowerCase()) {
-            case 'nutrición':
-            case 'medas':
-                return percentage >= 70 ? 'low' : percentage >= 40 ? 'medium' : 'high';
-            case 'actividad física':
-            case 'nivel_act':
-                return percentage >= 80 ? 'low' : percentage >= 50 ? 'medium' : 'high';
-            case 'educación':
-            case 'educ':
-                return percentage >= 75 ? 'low' : percentage >= 50 ? 'medium' : 'high';
-            case 'socioeconómico':
-            case 'socio':
-                return percentage >= 70 ? 'low' : percentage >= 40 ? 'medium' : 'high';
-            default:
-                return percentage <= 30 ? 'low' : percentage <= 60 ? 'medium' : 'high';
-        }
     }
 };
 exports.DiagnosticsService = DiagnosticsService;
