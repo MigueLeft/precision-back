@@ -30,6 +30,9 @@ let AppointmentsController = class AppointmentsController {
     findAll(query) {
         return this.appointmentsService.findAll(query);
     }
+    findPendingAppointmentDates() {
+        return this.appointmentsService.findPendingAppointmentDates();
+    }
     findAppointmentDates() {
         return this.appointmentsService.findAppointmentDates();
     }
@@ -75,6 +78,23 @@ __decorate([
     __metadata("design:paramtypes", [query_appointment_dto_1.QueryAppointmentDto]),
     __metadata("design:returntype", void 0)
 ], AppointmentsController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('pending-dates'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener fechas con citas pendientes o programadas (desde hoy)',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de fechas con citas pendientes/programadas',
+        schema: {
+            type: 'array',
+            items: { type: 'string', format: 'date', example: '2025-10-18' },
+        },
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppointmentsController.prototype, "findPendingAppointmentDates", null);
 __decorate([
     (0, common_1.Get)('dates'),
     (0, swagger_1.ApiOperation)({

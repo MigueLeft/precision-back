@@ -86,6 +86,7 @@ export declare class AppointmentsController {
             hasPrev: boolean;
         };
     }>;
+    findPendingAppointmentDates(): Promise<string[]>;
     findAppointmentDates(): Promise<string[]>;
     getAppointmentStats(): Promise<{
         total: number;

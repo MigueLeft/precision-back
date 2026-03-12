@@ -282,6 +282,30 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
             throw error;
         }
     }
+    async findPendingAppointmentDates() {
+        try {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const appointments = await this.prisma.appointment.findMany({
+                where: {
+                    appointmentStatus: { in: ['pending', 'scheduled'] },
+                    dateTime: { gte: today },
+                },
+                select: { dateTime: true },
+                orderBy: { dateTime: 'asc' },
+            });
+            const uniqueDates = Array.from(new Set(appointments.map((a) => {
+                const date = new Date(a.dateTime);
+                return date.toISOString().split('T')[0];
+            })));
+            this.logger.log(`Found ${uniqueDates.length} unique pending appointment dates`);
+            return uniqueDates;
+        }
+        catch (error) {
+            this.logger.error('Error fetching pending appointment dates', error);
+            throw error;
+        }
+    }
     async findAppointmentDates() {
         try {
             const appointments = await this.prisma.appointment.findMany({

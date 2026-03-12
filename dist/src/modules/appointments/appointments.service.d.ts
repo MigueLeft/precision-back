@@ -163,6 +163,7 @@ export declare class AppointmentsService {
     remove(id: string): Promise<{
         message: string;
     }>;
+    findPendingAppointmentDates(): Promise<string[]>;
     findAppointmentDates(): Promise<string[]>;
     getAppointmentStats(): Promise<{
         total: number;

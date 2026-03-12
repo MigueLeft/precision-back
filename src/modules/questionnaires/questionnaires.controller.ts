@@ -9,6 +9,7 @@ import {
   Query,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { Public } from '../../common/decorators/public.decorator';
 import {
   ApiTags,
   ApiOperation,
@@ -64,6 +65,7 @@ export class QuestionnairesController {
     return this.questionnairesService.findAllQuestionnaires(queryDto);
   }
 
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a questionnaire by ID' })
   @ApiParam({ name: 'id', description: 'Questionnaire ID' })
@@ -278,6 +280,7 @@ export class QuestionnairesController {
   }
 
   // === Batch Answer Processing ===
+  @Public()
   @Post('batch-answers')
   @ApiOperation({
     summary: 'Process multiple answers at once for a questionnaire',

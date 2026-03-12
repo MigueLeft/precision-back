@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QuestionnairesController = void 0;
 const common_1 = require("@nestjs/common");
+const public_decorator_1 = require("../../common/decorators/public.decorator");
 const swagger_1 = require("@nestjs/swagger");
 const questionnaires_service_1 = require("./questionnaires.service");
 const create_questionnaire_dto_1 = require("./dto/create-questionnaire.dto");
@@ -135,6 +136,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], QuestionnairesController.prototype, "findAllQuestionnaires", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a questionnaire by ID' }),
     (0, swagger_1.ApiParam)({ name: 'id', description: 'Questionnaire ID' }),
@@ -350,6 +352,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], QuestionnairesController.prototype, "findAnswersByPatientQuestionnaire", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Post)('batch-answers'),
     (0, swagger_1.ApiOperation)({
         summary: 'Process multiple answers at once for a questionnaire',

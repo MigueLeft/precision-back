@@ -52,6 +52,22 @@ export class AppointmentsController {
     return this.appointmentsService.findAll(query);
   }
 
+  @Get('pending-dates')
+  @ApiOperation({
+    summary: 'Obtener fechas con citas pendientes o programadas (desde hoy)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de fechas con citas pendientes/programadas',
+    schema: {
+      type: 'array',
+      items: { type: 'string', format: 'date', example: '2025-10-18' },
+    },
+  })
+  findPendingAppointmentDates() {
+    return this.appointmentsService.findPendingAppointmentDates();
+  }
+
   @Get('dates')
   @ApiOperation({
     summary: 'Obtener todas las fechas únicas donde existen citas',
