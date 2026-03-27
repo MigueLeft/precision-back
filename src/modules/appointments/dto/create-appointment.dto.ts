@@ -1,4 +1,4 @@
-import { IsString, IsDateString, IsOptional, IsIn } from 'class-validator';
+import { IsString, IsDateString, IsOptional, IsIn, IsBoolean } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotPastDate } from '../../../common/dtos/validators/not-past-date.validator';
 
@@ -69,4 +69,12 @@ export class CreateAppointmentDto {
   @IsOptional()
   @IsString()
   notes?: string;
+
+  @ApiPropertyOptional({
+    description: 'Si la cita ha sido confirmada',
+    example: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  confirmed?: boolean;
 }

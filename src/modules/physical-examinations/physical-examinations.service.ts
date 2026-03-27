@@ -555,6 +555,16 @@ export class PhysicalExaminationsService {
         physicalExamData.muscleMassPercentage = new Prisma.Decimal(
           dto.muscleMassPercentage,
         );
+      if (dto.waistHipRatio !== undefined)
+        physicalExamData.waistHipRatio = new Prisma.Decimal(dto.waistHipRatio);
+      if (dto.muscleMassKg !== undefined)
+        physicalExamData.muscleMassKg = new Prisma.Decimal(dto.muscleMassKg);
+      if (dto.bodyFatKg !== undefined)
+        physicalExamData.bodyFatKg = new Prisma.Decimal(dto.bodyFatKg);
+      if (dto.gripStrengthRight !== undefined)
+        physicalExamData.gripStrengthRight = new Prisma.Decimal(dto.gripStrengthRight);
+      if (dto.gripStrengthLeft !== undefined)
+        physicalExamData.gripStrengthLeft = new Prisma.Decimal(dto.gripStrengthLeft);
       if (dto.generalFindings !== undefined)
         physicalExamData.generalFindings = dto.generalFindings;
       if (dto.performedBy !== undefined)

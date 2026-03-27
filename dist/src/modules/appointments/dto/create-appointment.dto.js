@@ -22,6 +22,7 @@ class CreateAppointmentDto {
     modality = 'presencial';
     reason;
     notes;
+    confirmed;
 }
 exports.CreateAppointmentDto = CreateAppointmentDto;
 __decorate([
@@ -98,4 +99,13 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateAppointmentDto.prototype, "notes", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Si la cita ha sido confirmada',
+        example: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateAppointmentDto.prototype, "confirmed", void 0);
 //# sourceMappingURL=create-appointment.dto.js.map

@@ -26,8 +26,15 @@ export declare class PhysicalExaminationsService {
         additionalObservations: string | null;
         performedBy: string | null;
         waistCircumference: Prisma.Decimal | null;
+        hipCircumference: Prisma.Decimal | null;
         neckCircumference: Prisma.Decimal | null;
         bodyFatPercentage: Prisma.Decimal | null;
+        muscleMassPercentage: Prisma.Decimal | null;
+        waistHipRatio: Prisma.Decimal | null;
+        muscleMassKg: Prisma.Decimal | null;
+        bodyFatKg: Prisma.Decimal | null;
+        gripStrengthRight: Prisma.Decimal | null;
+        gripStrengthLeft: Prisma.Decimal | null;
     }>;
     findAll(queryDto: QueryPhysicalExaminationsDto): Promise<{
         data: ({
@@ -51,8 +58,15 @@ export declare class PhysicalExaminationsService {
             additionalObservations: string | null;
             performedBy: string | null;
             waistCircumference: Prisma.Decimal | null;
+            hipCircumference: Prisma.Decimal | null;
             neckCircumference: Prisma.Decimal | null;
             bodyFatPercentage: Prisma.Decimal | null;
+            muscleMassPercentage: Prisma.Decimal | null;
+            waistHipRatio: Prisma.Decimal | null;
+            muscleMassKg: Prisma.Decimal | null;
+            bodyFatKg: Prisma.Decimal | null;
+            gripStrengthRight: Prisma.Decimal | null;
+            gripStrengthLeft: Prisma.Decimal | null;
         })[];
         pagination: {
             page: number;
@@ -97,8 +111,15 @@ export declare class PhysicalExaminationsService {
         additionalObservations: string | null;
         performedBy: string | null;
         waistCircumference: Prisma.Decimal | null;
+        hipCircumference: Prisma.Decimal | null;
         neckCircumference: Prisma.Decimal | null;
         bodyFatPercentage: Prisma.Decimal | null;
+        muscleMassPercentage: Prisma.Decimal | null;
+        waistHipRatio: Prisma.Decimal | null;
+        muscleMassKg: Prisma.Decimal | null;
+        bodyFatKg: Prisma.Decimal | null;
+        gripStrengthRight: Prisma.Decimal | null;
+        gripStrengthLeft: Prisma.Decimal | null;
     }>;
     update(id: string, updatePhysicalExaminationDto: UpdatePhysicalExaminationDto): Promise<{
         id: string;
@@ -117,8 +138,15 @@ export declare class PhysicalExaminationsService {
         additionalObservations: string | null;
         performedBy: string | null;
         waistCircumference: Prisma.Decimal | null;
+        hipCircumference: Prisma.Decimal | null;
         neckCircumference: Prisma.Decimal | null;
         bodyFatPercentage: Prisma.Decimal | null;
+        muscleMassPercentage: Prisma.Decimal | null;
+        waistHipRatio: Prisma.Decimal | null;
+        muscleMassKg: Prisma.Decimal | null;
+        bodyFatKg: Prisma.Decimal | null;
+        gripStrengthRight: Prisma.Decimal | null;
+        gripStrengthLeft: Prisma.Decimal | null;
     }>;
     remove(id: string): Promise<{
         message: string;
@@ -147,8 +175,15 @@ export declare class PhysicalExaminationsService {
             additionalObservations: string | null;
             performedBy: string | null;
             waistCircumference: Prisma.Decimal | null;
+            hipCircumference: Prisma.Decimal | null;
             neckCircumference: Prisma.Decimal | null;
             bodyFatPercentage: Prisma.Decimal | null;
+            muscleMassPercentage: Prisma.Decimal | null;
+            waistHipRatio: Prisma.Decimal | null;
+            muscleMassKg: Prisma.Decimal | null;
+            bodyFatKg: Prisma.Decimal | null;
+            gripStrengthRight: Prisma.Decimal | null;
+            gripStrengthLeft: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -177,8 +212,15 @@ export declare class PhysicalExaminationsService {
             additionalObservations: string | null;
             performedBy: string | null;
             waistCircumference: Prisma.Decimal | null;
+            hipCircumference: Prisma.Decimal | null;
             neckCircumference: Prisma.Decimal | null;
             bodyFatPercentage: Prisma.Decimal | null;
+            muscleMassPercentage: Prisma.Decimal | null;
+            waistHipRatio: Prisma.Decimal | null;
+            muscleMassKg: Prisma.Decimal | null;
+            bodyFatKg: Prisma.Decimal | null;
+            gripStrengthRight: Prisma.Decimal | null;
+            gripStrengthLeft: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -216,8 +258,15 @@ export declare class PhysicalExaminationsService {
             additionalObservations: string | null;
             performedBy: string | null;
             waistCircumference: Prisma.Decimal | null;
+            hipCircumference: Prisma.Decimal | null;
             neckCircumference: Prisma.Decimal | null;
             bodyFatPercentage: Prisma.Decimal | null;
+            muscleMassPercentage: Prisma.Decimal | null;
+            waistHipRatio: Prisma.Decimal | null;
+            muscleMassKg: Prisma.Decimal | null;
+            bodyFatKg: Prisma.Decimal | null;
+            gripStrengthRight: Prisma.Decimal | null;
+            gripStrengthLeft: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -255,8 +304,15 @@ export declare class PhysicalExaminationsService {
                 additionalObservations: string | null;
                 performedBy: string | null;
                 waistCircumference: Prisma.Decimal | null;
+                hipCircumference: Prisma.Decimal | null;
                 neckCircumference: Prisma.Decimal | null;
                 bodyFatPercentage: Prisma.Decimal | null;
+                muscleMassPercentage: Prisma.Decimal | null;
+                waistHipRatio: Prisma.Decimal | null;
+                muscleMassKg: Prisma.Decimal | null;
+                bodyFatKg: Prisma.Decimal | null;
+                gripStrengthRight: Prisma.Decimal | null;
+                gripStrengthLeft: Prisma.Decimal | null;
             };
         } & {
             id: string;
@@ -286,8 +342,15 @@ export declare class PhysicalExaminationsService {
             additionalObservations: string | null;
             performedBy: string | null;
             waistCircumference: Prisma.Decimal | null;
+            hipCircumference: Prisma.Decimal | null;
             neckCircumference: Prisma.Decimal | null;
             bodyFatPercentage: Prisma.Decimal | null;
+            muscleMassPercentage: Prisma.Decimal | null;
+            waistHipRatio: Prisma.Decimal | null;
+            muscleMassKg: Prisma.Decimal | null;
+            bodyFatKg: Prisma.Decimal | null;
+            gripStrengthRight: Prisma.Decimal | null;
+            gripStrengthLeft: Prisma.Decimal | null;
         };
     } & {
         id: string;
@@ -316,8 +379,15 @@ export declare class PhysicalExaminationsService {
             additionalObservations: string | null;
             performedBy: string | null;
             waistCircumference: Prisma.Decimal | null;
+            hipCircumference: Prisma.Decimal | null;
             neckCircumference: Prisma.Decimal | null;
             bodyFatPercentage: Prisma.Decimal | null;
+            muscleMassPercentage: Prisma.Decimal | null;
+            waistHipRatio: Prisma.Decimal | null;
+            muscleMassKg: Prisma.Decimal | null;
+            bodyFatKg: Prisma.Decimal | null;
+            gripStrengthRight: Prisma.Decimal | null;
+            gripStrengthLeft: Prisma.Decimal | null;
         };
     } & {
         id: string;

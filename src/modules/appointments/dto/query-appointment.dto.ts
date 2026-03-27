@@ -5,8 +5,9 @@ import {
   Min,
   IsDateString,
   IsIn,
+  IsBoolean,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class QueryAppointmentDto {
@@ -117,4 +118,13 @@ export class QueryAppointmentDto {
   @IsString()
   @IsIn(['asc', 'desc'])
   sortOrder?: 'asc' | 'desc';
+
+  @ApiPropertyOptional({
+    description: 'Filtrar por citas confirmadas',
+    example: true,
+  })
+  @IsOptional()
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  confirmed?: boolean;
 }

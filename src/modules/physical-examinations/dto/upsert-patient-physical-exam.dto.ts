@@ -137,6 +137,51 @@ export class UpsertPatientPhysicalExamDto {
   muscleMassPercentage?: number;
 
   @ApiProperty({
+    description: 'Índice cintura-cadera',
+    example: 0.85,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  waistHipRatio?: number;
+
+  @ApiProperty({
+    description: 'Porcentaje de masa muscular',
+    example: 35.0,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  muscleMassKg?: number;
+
+  @ApiProperty({
+    description: 'Grasa corporal en kg',
+    example: 15.0,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  bodyFatKg?: number;
+
+  @ApiProperty({
+    description: 'Fuerza de mano derecha en kg',
+    example: 42.5,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  gripStrengthRight?: number;
+
+  @ApiProperty({
+    description: 'Fuerza de mano izquierda en kg',
+    example: 38.0,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  gripStrengthLeft?: number;
+
+  @ApiProperty({
     description: 'Hallazgos generales',
     example: 'Paciente en buen estado general',
     required: false,

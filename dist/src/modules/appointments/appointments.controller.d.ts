@@ -35,6 +35,7 @@ export declare class AppointmentsController {
         appointmentStatus: string;
         modality: string;
         reason: string | null;
+        confirmed: boolean;
         requiresFollowUp: boolean;
         followUpDate: Date | null;
         followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -72,6 +73,7 @@ export declare class AppointmentsController {
             appointmentStatus: string;
             modality: string;
             reason: string | null;
+            confirmed: boolean;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
             followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -128,6 +130,7 @@ export declare class AppointmentsController {
         appointmentStatus: string;
         modality: string;
         reason: string | null;
+        confirmed: boolean;
         requiresFollowUp: boolean;
         followUpDate: Date | null;
         followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;
@@ -163,6 +166,7 @@ export declare class AppointmentsController {
         appointmentStatus: string;
         modality: string;
         reason: string | null;
+        confirmed: boolean;
         requiresFollowUp: boolean;
         followUpDate: Date | null;
         followUpPriority: import("@prisma/client").$Enums.FollowUpPriority;

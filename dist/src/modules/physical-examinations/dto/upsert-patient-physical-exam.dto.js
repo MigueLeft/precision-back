@@ -27,6 +27,11 @@ class UpsertPatientPhysicalExamDto {
     neckCircumference;
     bodyFatPercentage;
     muscleMassPercentage;
+    waistHipRatio;
+    muscleMassKg;
+    bodyFatKg;
+    gripStrengthRight;
+    gripStrengthLeft;
     generalFindings;
     performedBy;
     notes;
@@ -175,6 +180,56 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpsertPatientPhysicalExamDto.prototype, "muscleMassPercentage", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Índice cintura-cadera',
+        example: 0.85,
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpsertPatientPhysicalExamDto.prototype, "waistHipRatio", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Porcentaje de masa muscular',
+        example: 35.0,
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpsertPatientPhysicalExamDto.prototype, "muscleMassKg", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Grasa corporal en kg',
+        example: 15.0,
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpsertPatientPhysicalExamDto.prototype, "bodyFatKg", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Fuerza de mano derecha en kg',
+        example: 42.5,
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpsertPatientPhysicalExamDto.prototype, "gripStrengthRight", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Fuerza de mano izquierda en kg',
+        example: 38.0,
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpsertPatientPhysicalExamDto.prototype, "gripStrengthLeft", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Hallazgos generales',

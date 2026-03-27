@@ -26,6 +26,7 @@ class QueryAppointmentDto {
     medicId;
     sortBy;
     sortOrder;
+    confirmed;
 }
 exports.QueryAppointmentDto = QueryAppointmentDto;
 __decorate([
@@ -148,4 +149,14 @@ __decorate([
     (0, class_validator_1.IsIn)(['asc', 'desc']),
     __metadata("design:type", String)
 ], QueryAppointmentDto.prototype, "sortOrder", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Filtrar por citas confirmadas',
+        example: true,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Transform)(({ value }) => value === 'true' || value === true),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], QueryAppointmentDto.prototype, "confirmed", void 0);
 //# sourceMappingURL=query-appointment.dto.js.map

@@ -13,6 +13,11 @@ export declare class UpsertPatientPhysicalExamDto {
     neckCircumference?: number;
     bodyFatPercentage?: number;
     muscleMassPercentage?: number;
+    waistHipRatio?: number;
+    muscleMassKg?: number;
+    bodyFatKg?: number;
+    gripStrengthRight?: number;
+    gripStrengthLeft?: number;
     generalFindings?: string;
     performedBy?: string;
     notes?: string;

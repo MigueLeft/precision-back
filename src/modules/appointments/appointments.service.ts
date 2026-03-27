@@ -113,6 +113,7 @@ export class AppointmentsService {
       medicId,
       sortBy = 'dateTime',
       sortOrder = 'asc',
+      confirmed,
     } = query;
     const skip = (page - 1) * limit;
 
@@ -126,6 +127,7 @@ export class AppointmentsService {
       ...(appointmentStatus && { appointmentStatus }),
       ...(patientId && { patientId }),
       ...(medicId && { medicId }),
+      ...(confirmed !== undefined && { confirmed }),
       ...(specificDate && {
         dateTime: {
           gte: new Date(`${specificDate}T00:00:00Z`),

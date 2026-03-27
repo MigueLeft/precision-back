@@ -389,6 +389,16 @@ let PhysicalExaminationsService = PhysicalExaminationsService_1 = class Physical
                 physicalExamData.bodyFatPercentage = new client_1.Prisma.Decimal(dto.bodyFatPercentage);
             if (dto.muscleMassPercentage !== undefined)
                 physicalExamData.muscleMassPercentage = new client_1.Prisma.Decimal(dto.muscleMassPercentage);
+            if (dto.waistHipRatio !== undefined)
+                physicalExamData.waistHipRatio = new client_1.Prisma.Decimal(dto.waistHipRatio);
+            if (dto.muscleMassKg !== undefined)
+                physicalExamData.muscleMassKg = new client_1.Prisma.Decimal(dto.muscleMassKg);
+            if (dto.bodyFatKg !== undefined)
+                physicalExamData.bodyFatKg = new client_1.Prisma.Decimal(dto.bodyFatKg);
+            if (dto.gripStrengthRight !== undefined)
+                physicalExamData.gripStrengthRight = new client_1.Prisma.Decimal(dto.gripStrengthRight);
+            if (dto.gripStrengthLeft !== undefined)
+                physicalExamData.gripStrengthLeft = new client_1.Prisma.Decimal(dto.gripStrengthLeft);
             if (dto.generalFindings !== undefined)
                 physicalExamData.generalFindings = dto.generalFindings;
             if (dto.performedBy !== undefined)

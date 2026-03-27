@@ -7,4 +7,5 @@ export declare class CreateAppointmentDto {
     modality: string;
     reason?: string;
     notes?: string;
+    confirmed?: boolean;
 }

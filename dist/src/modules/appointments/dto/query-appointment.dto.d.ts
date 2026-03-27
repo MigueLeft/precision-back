@@ -11,4 +11,5 @@ export declare class QueryAppointmentDto {
     medicId?: string;
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
+    confirmed?: boolean;
 }
