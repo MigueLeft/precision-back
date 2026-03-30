@@ -8,34 +8,34 @@ export declare class ReschedulesService {
     constructor(prisma: PrismaService);
     create(createRescheduleDto: CreateRescheduleDto): Promise<{
         appointment: {
-            medic: {
-                id: string;
-                name: string;
-                specialty: {
-                    id: string;
-                    name: string;
-                };
-                lastName: string;
-            };
             patient: {
                 id: string;
                 firstName: string;
                 lastName: string;
                 identification: string | null;
             };
+            medic: {
+                id: string;
+                lastName: string;
+                name: string;
+                specialty: {
+                    id: string;
+                    name: string;
+                };
+            };
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
+            notes: string | null;
             confirmed: boolean;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
@@ -44,9 +44,9 @@ export declare class ReschedulesService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         notes: string | null;
         appointmentId: string;
         previousDateTime: Date;
@@ -58,34 +58,34 @@ export declare class ReschedulesService {
     findAll(query: QueryRescheduleDto): Promise<{
         data: ({
             appointment: {
-                medic: {
-                    id: string;
-                    name: string;
-                    specialty: {
-                        id: string;
-                        name: string;
-                    };
-                    lastName: string;
-                };
                 patient: {
                     id: string;
                     firstName: string;
                     lastName: string;
                     identification: string | null;
                 };
+                medic: {
+                    id: string;
+                    lastName: string;
+                    name: string;
+                    specialty: {
+                        id: string;
+                        name: string;
+                    };
+                };
             } & {
                 id: string;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
                 patientId: string;
-                notes: string | null;
                 medicId: string;
                 dateTime: Date;
                 appointmentType: string;
                 appointmentStatus: string;
                 modality: string;
                 reason: string | null;
+                notes: string | null;
                 confirmed: boolean;
                 requiresFollowUp: boolean;
                 followUpDate: Date | null;
@@ -94,9 +94,9 @@ export declare class ReschedulesService {
             };
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             notes: string | null;
             appointmentId: string;
             previousDateTime: Date;
@@ -116,34 +116,34 @@ export declare class ReschedulesService {
     }>;
     findOne(id: string): Promise<{
         appointment: {
-            medic: {
-                id: string;
-                name: string;
-                specialty: {
-                    id: string;
-                    name: string;
-                };
-                lastName: string;
-            };
             patient: {
                 id: string;
                 firstName: string;
                 lastName: string;
                 identification: string | null;
             };
+            medic: {
+                id: string;
+                lastName: string;
+                name: string;
+                specialty: {
+                    id: string;
+                    name: string;
+                };
+            };
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
+            notes: string | null;
             confirmed: boolean;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
@@ -152,9 +152,9 @@ export declare class ReschedulesService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         notes: string | null;
         appointmentId: string;
         previousDateTime: Date;
@@ -165,34 +165,34 @@ export declare class ReschedulesService {
     }>;
     update(id: string, updateRescheduleDto: UpdateRescheduleDto): Promise<{
         appointment: {
-            medic: {
-                id: string;
-                name: string;
-                specialty: {
-                    id: string;
-                    name: string;
-                };
-                lastName: string;
-            };
             patient: {
                 id: string;
                 firstName: string;
                 lastName: string;
                 identification: string | null;
             };
+            medic: {
+                id: string;
+                lastName: string;
+                name: string;
+                specialty: {
+                    id: string;
+                    name: string;
+                };
+            };
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            notes: string | null;
             medicId: string;
             dateTime: Date;
             appointmentType: string;
             appointmentStatus: string;
             modality: string;
             reason: string | null;
+            notes: string | null;
             confirmed: boolean;
             requiresFollowUp: boolean;
             followUpDate: Date | null;
@@ -201,9 +201,9 @@ export declare class ReschedulesService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         notes: string | null;
         appointmentId: string;
         previousDateTime: Date;
@@ -223,9 +223,9 @@ export declare class ReschedulesService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         notes: string | null;
         appointmentId: string;
         previousDateTime: Date;

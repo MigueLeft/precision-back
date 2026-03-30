@@ -13,10 +13,10 @@ export declare class LaboratoryExamsService {
     constructor(prisma: PrismaService);
     createExamCatalog(createDto: CreateExamCatalogDto): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        description: string | null;
         normalRange: string | null;
         category: string;
         examName: string;
@@ -28,10 +28,10 @@ export declare class LaboratoryExamsService {
     findAllExamCatalog(query: QueryExamCatalogDto): Promise<{
         data: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            description: string | null;
             normalRange: string | null;
             category: string;
             examName: string;
@@ -53,10 +53,10 @@ export declare class LaboratoryExamsService {
         };
     } & {
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        description: string | null;
         normalRange: string | null;
         category: string;
         examName: string;
@@ -67,10 +67,10 @@ export declare class LaboratoryExamsService {
     }>;
     updateExamCatalog(id: string, updateDto: UpdateExamCatalogDto): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        description: string | null;
         normalRange: string | null;
         category: string;
         examName: string;
@@ -81,10 +81,10 @@ export declare class LaboratoryExamsService {
     }>;
     removeExamCatalog(id: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        description: string | null;
         normalRange: string | null;
         category: string;
         examName: string;
@@ -96,10 +96,10 @@ export declare class LaboratoryExamsService {
     getExamCategories(): Promise<string[]>;
     getExamsByCategory(category: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        description: string | null;
         normalRange: string | null;
         category: string;
         examName: string;
@@ -109,13 +109,19 @@ export declare class LaboratoryExamsService {
         dataType: string;
     }[]>;
     createExamResult(createDto: CreateExamResultDto): Promise<{
+        patient: {
+            id: string;
+            firstName: string;
+            lastName: string;
+            identification: string | null;
+        };
         medicalStudy: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
+            description: string | null;
             status: string;
             orderedBy: string | null;
             interpretedBy: string | null;
@@ -129,18 +135,12 @@ export declare class LaboratoryExamsService {
             studyName: string | null;
             findings: string | null;
         } | null;
-        patient: {
-            id: string;
-            firstName: string;
-            lastName: string;
-            identification: string | null;
-        };
         exam: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            description: string | null;
             normalRange: string | null;
             category: string;
             examName: string;
@@ -151,9 +151,9 @@ export declare class LaboratoryExamsService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         textValue: string | null;
         numericValue: Prisma.Decimal | null;
@@ -168,24 +168,24 @@ export declare class LaboratoryExamsService {
     }>;
     findAllExamResults(query: QueryExamResultDto): Promise<{
         data: ({
-            medicalStudy: {
-                id: string;
-                studyDate: Date;
-                studyType: string;
-                studyName: string | null;
-            } | null;
             patient: {
                 id: string;
                 firstName: string;
                 lastName: string;
                 identification: string | null;
             };
+            medicalStudy: {
+                id: string;
+                studyDate: Date;
+                studyType: string;
+                studyName: string | null;
+            } | null;
             exam: {
                 id: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                description: string | null;
                 normalRange: string | null;
                 category: string;
                 examName: string;
@@ -196,9 +196,9 @@ export declare class LaboratoryExamsService {
             };
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
             textValue: string | null;
             numericValue: Prisma.Decimal | null;
@@ -219,13 +219,21 @@ export declare class LaboratoryExamsService {
         };
     }>;
     findOneExamResult(id: string): Promise<{
+        patient: {
+            id: string;
+            firstName: string;
+            lastName: string;
+            identification: string | null;
+            birthdate: Date;
+            gender: string;
+        };
         medicalStudy: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
+            description: string | null;
             status: string;
             orderedBy: string | null;
             interpretedBy: string | null;
@@ -239,20 +247,12 @@ export declare class LaboratoryExamsService {
             studyName: string | null;
             findings: string | null;
         } | null;
-        patient: {
-            id: string;
-            firstName: string;
-            lastName: string;
-            identification: string | null;
-            birthdate: Date;
-            gender: string;
-        };
         exam: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            description: string | null;
             normalRange: string | null;
             category: string;
             examName: string;
@@ -263,9 +263,9 @@ export declare class LaboratoryExamsService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         textValue: string | null;
         numericValue: Prisma.Decimal | null;
@@ -279,13 +279,19 @@ export declare class LaboratoryExamsService {
         interpretedBy: string | null;
     }>;
     updateExamResult(id: string, updateDto: UpdateExamResultDto): Promise<{
+        patient: {
+            id: string;
+            firstName: string;
+            lastName: string;
+            identification: string | null;
+        };
         medicalStudy: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
+            description: string | null;
             status: string;
             orderedBy: string | null;
             interpretedBy: string | null;
@@ -299,18 +305,12 @@ export declare class LaboratoryExamsService {
             studyName: string | null;
             findings: string | null;
         } | null;
-        patient: {
-            id: string;
-            firstName: string;
-            lastName: string;
-            identification: string | null;
-        };
         exam: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            description: string | null;
             normalRange: string | null;
             category: string;
             examName: string;
@@ -321,9 +321,9 @@ export declare class LaboratoryExamsService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         textValue: string | null;
         numericValue: Prisma.Decimal | null;
@@ -338,9 +338,9 @@ export declare class LaboratoryExamsService {
     }>;
     removeExamResult(id: string): Promise<{
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         textValue: string | null;
         numericValue: Prisma.Decimal | null;
@@ -356,10 +356,10 @@ export declare class LaboratoryExamsService {
     getPatientExamHistory(patientId: string, examId?: string): Promise<({
         exam: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            description: string | null;
             normalRange: string | null;
             category: string;
             examName: string;
@@ -370,9 +370,9 @@ export declare class LaboratoryExamsService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         textValue: string | null;
         numericValue: Prisma.Decimal | null;
@@ -394,10 +394,10 @@ export declare class LaboratoryExamsService {
         };
         exam: {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            description: string | null;
             normalRange: string | null;
             category: string;
             examName: string;
@@ -408,9 +408,9 @@ export declare class LaboratoryExamsService {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         textValue: string | null;
         numericValue: Prisma.Decimal | null;
@@ -429,10 +429,10 @@ export declare class LaboratoryExamsService {
         results: ({
             exam: {
                 id: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                description: string | null;
                 normalRange: string | null;
                 category: string;
                 examName: string;
@@ -443,9 +443,9 @@ export declare class LaboratoryExamsService {
             };
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
             textValue: string | null;
             numericValue: Prisma.Decimal | null;

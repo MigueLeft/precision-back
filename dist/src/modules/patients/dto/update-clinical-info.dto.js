@@ -17,6 +17,7 @@ class UpdateClinicalInfoDto {
     diagnosticPlan;
     treatmentPlan;
     problems;
+    evolucion;
     lastClinicalUpdateBy;
 }
 exports.UpdateClinicalInfoDto = UpdateClinicalInfoDto;
@@ -56,6 +57,15 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Object)
 ], UpdateClinicalInfoDto.prototype, "problems", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Evolución clínica del paciente en formato JSON',
+        required: false,
+    }),
+    (0, class_validator_1.IsObject)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Object)
+], UpdateClinicalInfoDto.prototype, "evolucion", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'ID of the physician updating clinical information',

@@ -11,19 +11,19 @@ export declare class SymptomsService {
     createSymptom(createSymptomDto: CreateSymptomDto): Promise<{
         symptomCategory: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         symptomCategoryId: string;
         severity: string | null;
@@ -35,19 +35,19 @@ export declare class SymptomsService {
             };
             symptomCategory: {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
             };
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             value: string;
             symptomCategoryId: string;
             severity: string | null;
@@ -60,28 +60,20 @@ export declare class SymptomsService {
         };
     }>;
     findSymptomById(id: string): Promise<{
-        symptomCategory: {
-            id: string;
-            name: string;
-            description: string | null;
-            createdAt: Date;
-            updatedAt: Date;
-            active: boolean;
-        };
         patientSymptoms: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
+                email: string;
             };
         } & {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            severity: string | null;
             patientId: string;
             notes: string | null;
+            severity: string | null;
             frequency: string | null;
             duration: string | null;
             symptomId: string;
@@ -89,13 +81,21 @@ export declare class SymptomsService {
             reportedAt: Date | null;
             resolvedAt: Date | null;
         })[];
+        symptomCategory: {
+            id: string;
+            active: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            description: string | null;
+        };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         symptomCategoryId: string;
         severity: string | null;
@@ -103,19 +103,19 @@ export declare class SymptomsService {
     updateSymptom(id: string, updateSymptomDto: UpdateSymptomDto): Promise<{
         symptomCategory: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         symptomCategoryId: string;
         severity: string | null;
@@ -124,29 +124,29 @@ export declare class SymptomsService {
         message: string;
     }>;
     createPatientSymptom(createPatientSymptomDto: CreatePatientSymptomDto): Promise<{
-        symptom: {
-            id: string;
-            name: string;
-            description: string | null;
-            createdAt: Date;
-            updatedAt: Date;
-            active: boolean;
-            value: string;
-            symptomCategoryId: string;
-            severity: string | null;
-        };
         patient: {
             id: string;
             firstName: string;
             lastName: string;
         };
+        symptom: {
+            id: string;
+            active: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            description: string | null;
+            value: string;
+            symptomCategoryId: string;
+            severity: string | null;
+        };
     } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        severity: string | null;
         patientId: string;
         notes: string | null;
+        severity: string | null;
         frequency: string | null;
         duration: string | null;
         symptomId: string;
@@ -158,19 +158,19 @@ export declare class SymptomsService {
         symptom: {
             symptomCategory: {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
             };
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             value: string;
             symptomCategoryId: string;
             severity: string | null;
@@ -179,9 +179,9 @@ export declare class SymptomsService {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        severity: string | null;
         patientId: string;
         notes: string | null;
+        severity: string | null;
         frequency: string | null;
         duration: string | null;
         symptomId: string;
@@ -199,19 +199,19 @@ export declare class SymptomsService {
             symptom: {
                 symptomCategory: {
                     id: string;
-                    name: string;
-                    description: string | null;
+                    active: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    active: boolean;
+                    name: string;
+                    description: string | null;
                 };
             } & {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
                 value: string;
                 symptomCategoryId: string;
                 severity: string | null;
@@ -220,9 +220,9 @@ export declare class SymptomsService {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            severity: string | null;
             patientId: string;
             notes: string | null;
+            severity: string | null;
             frequency: string | null;
             duration: string | null;
             symptomId: string;
@@ -237,10 +237,10 @@ export declare class SymptomsService {
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
     })[]>;
 }

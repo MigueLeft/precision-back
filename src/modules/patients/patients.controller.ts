@@ -327,6 +327,7 @@ export class PatientsController {
       updateClinicalInfoDto.treatmentPlan,
       updateClinicalInfoDto.problems,
       updateClinicalInfoDto.lastClinicalUpdateBy,
+      updateClinicalInfoDto.evolucion,
     );
   }
 

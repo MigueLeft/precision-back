@@ -14,11 +14,11 @@ export declare class MedicalStudiesController {
         };
     } & {
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -42,11 +42,11 @@ export declare class MedicalStudiesController {
             };
         } & {
             id: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
+            description: string | null;
             status: string;
             orderedBy: string | null;
             interpretedBy: string | null;
@@ -69,11 +69,11 @@ export declare class MedicalStudiesController {
     }>;
     findByPatient(patientId: string, studyType?: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -89,11 +89,11 @@ export declare class MedicalStudiesController {
     }[]>;
     getPendingStudies(patientId: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -109,11 +109,11 @@ export declare class MedicalStudiesController {
     }[]>;
     getCompletedStudies(patientId: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -129,11 +129,11 @@ export declare class MedicalStudiesController {
     }[]>;
     getStudiesByType(patientId: string, studyType: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -149,20 +149,20 @@ export declare class MedicalStudiesController {
     }[]>;
     findOne(id: string): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             identification: string | null;
             phone: string | null;
+            email: string;
         };
     } & {
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -185,11 +185,11 @@ export declare class MedicalStudiesController {
         };
     } & {
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -212,11 +212,11 @@ export declare class MedicalStudiesController {
         };
     } & {
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -232,11 +232,11 @@ export declare class MedicalStudiesController {
     }>;
     remove(id: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;
@@ -252,11 +252,11 @@ export declare class MedicalStudiesController {
     }>;
     hardDelete(id: string): Promise<{
         id: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
+        description: string | null;
         status: string;
         orderedBy: string | null;
         interpretedBy: string | null;

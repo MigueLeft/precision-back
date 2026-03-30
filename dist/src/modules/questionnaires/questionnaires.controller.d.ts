@@ -17,11 +17,11 @@ export declare class QuestionnairesController {
     constructor(questionnairesService: QuestionnairesService);
     createQuestionnaire(createQuestionnaireDto: CreateQuestionnaireDto): Promise<{
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         code: string;
         version: string;
     }>;
@@ -29,12 +29,12 @@ export declare class QuestionnairesController {
         data: ({
             questionnaireQuestions: ({
                 question: {
-                    dependsOn: string | null;
-                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     id: string;
+                    active: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    active: boolean;
+                    dependsOn: string | null;
+                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     code: string;
                     questionText: string;
                     descriptionText: string | null;
@@ -52,24 +52,24 @@ export declare class QuestionnairesController {
                 section: string | null;
             })[];
             diagnosticGroups: {
-                scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
                 questionnaireId: string;
+                scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
+                description: string | null;
                 diagnosticCode: string | null;
                 scoringMethod: string | null;
             }[];
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             code: string;
             version: string;
         })[];
@@ -83,12 +83,12 @@ export declare class QuestionnairesController {
     findQuestionnaireById(id: string): Promise<{
         questionnaireQuestions: ({
             question: {
-                dependsOn: string | null;
-                options: import("@prisma/client/runtime/library").JsonValue | null;
                 id: string;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                dependsOn: string | null;
+                options: import("@prisma/client/runtime/library").JsonValue | null;
                 code: string;
                 questionText: string;
                 descriptionText: string | null;
@@ -108,10 +108,10 @@ export declare class QuestionnairesController {
         diagnosticGroups: ({
             diagnostics: {
                 id: string;
-                name: string;
-                description: string | null;
                 createdAt: Date;
                 updatedAt: Date;
+                name: string;
+                description: string | null;
                 severity: string | null;
                 maxScore: import("@prisma/client/runtime/library").Decimal;
                 diagnosticGroupId: string;
@@ -120,54 +120,54 @@ export declare class QuestionnairesController {
                 colorCode: string | null;
             }[];
         } & {
-            scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
             questionnaireId: string;
+            scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
+            description: string | null;
             diagnosticCode: string | null;
             scoringMethod: string | null;
         })[];
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         code: string;
         version: string;
     }>;
     updateQuestionnaire(id: string, updateQuestionnaireDto: UpdateQuestionnaireDto): Promise<{
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         code: string;
         version: string;
     }>;
     removeQuestionnaire(id: string): Promise<{
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         code: string;
         version: string;
     }>;
     createQuestion(createQuestionDto: CreateQuestionDto): Promise<{
-        dependsOn: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         code: string;
         questionText: string;
         descriptionText: string | null;
@@ -178,12 +178,12 @@ export declare class QuestionnairesController {
     }>;
     findAllQuestions(page?: number, limit?: number, search?: string): Promise<{
         data: {
-            dependsOn: string | null;
-            options: import("@prisma/client/runtime/library").JsonValue | null;
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            dependsOn: string | null;
+            options: import("@prisma/client/runtime/library").JsonValue | null;
             code: string;
             questionText: string;
             descriptionText: string | null;
@@ -200,12 +200,12 @@ export declare class QuestionnairesController {
         };
     }>;
     findQuestionById(id: string): Promise<{
-        dependsOn: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         code: string;
         questionText: string;
         descriptionText: string | null;
@@ -215,12 +215,12 @@ export declare class QuestionnairesController {
         showWhen: import("@prisma/client/runtime/library").JsonValue | null;
     }>;
     updateQuestion(id: string, updateQuestionDto: UpdateQuestionDto): Promise<{
-        dependsOn: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         code: string;
         questionText: string;
         descriptionText: string | null;
@@ -230,12 +230,12 @@ export declare class QuestionnairesController {
         showWhen: import("@prisma/client/runtime/library").JsonValue | null;
     }>;
     removeQuestion(id: string): Promise<{
-        dependsOn: string | null;
-        options: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        dependsOn: string | null;
+        options: import("@prisma/client/runtime/library").JsonValue | null;
         code: string;
         questionText: string;
         descriptionText: string | null;
@@ -261,35 +261,35 @@ export declare class QuestionnairesController {
         section: string | null;
     }>;
     createDiagnosticGroup(createDiagnosticGroupDto: CreateDiagnosticGroupDto): Promise<{
-        scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
         questionnaireId: string;
+        scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
+        description: string | null;
         diagnosticCode: string | null;
         scoringMethod: string | null;
     }>;
     updateDiagnosticGroup(id: string, updateDiagnosticGroupDto: UpdateDiagnosticGroupDto): Promise<{
-        scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
         questionnaireId: string;
+        scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
+        description: string | null;
         diagnosticCode: string | null;
         scoringMethod: string | null;
     }>;
     createDiagnostic(createDiagnosticDto: CreateDiagnosticDto): Promise<{
         id: string;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         severity: string | null;
         maxScore: import("@prisma/client/runtime/library").Decimal;
         diagnosticGroupId: string;
@@ -299,10 +299,10 @@ export declare class QuestionnairesController {
     }>;
     updateDiagnostic(id: string, updateDiagnosticDto: UpdateDiagnosticDto): Promise<{
         id: string;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         severity: string | null;
         maxScore: import("@prisma/client/runtime/library").Decimal;
         diagnosticGroupId: string;
@@ -312,15 +312,15 @@ export declare class QuestionnairesController {
     }>;
     createPatientQuestionnaire(createPatientQuestionnaireDto: CreatePatientQuestionnaireDto): Promise<{
         id: string;
-        questionnaireId: string;
         patientId: string;
+        notes: string | null;
+        questionnaireId: string;
         startedAt: Date;
         completedAt: Date | null;
         isCompleted: boolean;
         totalScore: import("@prisma/client/runtime/library").Decimal | null;
         sourceIp: string | null;
         device: string | null;
-        notes: string | null;
         relationsProcessed: boolean;
         relationsProcessingStatus: string | null;
         relationsProcessingError: string | null;
@@ -329,11 +329,11 @@ export declare class QuestionnairesController {
     findPatientQuestionnaires(patientId: string): Promise<({
         questionnaire: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             code: string;
             version: string;
         };
@@ -351,15 +351,15 @@ export declare class QuestionnairesController {
         }[];
     } & {
         id: string;
-        questionnaireId: string;
         patientId: string;
+        notes: string | null;
+        questionnaireId: string;
         startedAt: Date;
         completedAt: Date | null;
         isCompleted: boolean;
         totalScore: import("@prisma/client/runtime/library").Decimal | null;
         sourceIp: string | null;
         device: string | null;
-        notes: string | null;
         relationsProcessed: boolean;
         relationsProcessingStatus: string | null;
         relationsProcessingError: string | null;
@@ -379,12 +379,12 @@ export declare class QuestionnairesController {
     }>;
     findAnswersByPatientQuestionnaire(id: string): Promise<({
         question: {
-            dependsOn: string | null;
-            options: import("@prisma/client/runtime/library").JsonValue | null;
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            dependsOn: string | null;
+            options: import("@prisma/client/runtime/library").JsonValue | null;
             code: string;
             questionText: string;
             descriptionText: string | null;
@@ -415,16 +415,14 @@ export declare class QuestionnairesController {
     getPatientQuestionnaireDetails(id: string): Promise<{
         patientQuestionnaireId: string;
         patient: {
-            email: string;
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string | null;
-            active: boolean;
             firstName: string;
             lastName: string;
+            secondLastName: string | null;
+            identificationType: string | null;
             identification: string | null;
             phone: string | null;
+            email: string;
             birthdate: Date;
             gender: string;
             nationality: string | null;
@@ -432,15 +430,13 @@ export declare class QuestionnairesController {
             countryOfResidence: string | null;
             address: string | null;
             city: string | null;
+            state: string | null;
+            postalCode: string | null;
             maritalStatus: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
             socioeconomicStatus: number | null;
-            identificationType: string | null;
-            secondLastName: string | null;
-            state: string | null;
-            postalCode: string | null;
             emergencyContact: string | null;
             emergencyPhone: string | null;
             medicalHistory: string | null;
@@ -451,18 +447,23 @@ export declare class QuestionnairesController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
+            active: boolean;
+            userId: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
         questionnaire: {
             questionnaireQuestions: ({
                 question: {
-                    dependsOn: string | null;
-                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     id: string;
+                    active: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    active: boolean;
+                    dependsOn: string | null;
+                    options: import("@prisma/client/runtime/library").JsonValue | null;
                     code: string;
                     questionText: string;
                     descriptionText: string | null;
@@ -482,10 +483,10 @@ export declare class QuestionnairesController {
             diagnosticGroups: ({
                 diagnostics: {
                     id: string;
-                    name: string;
-                    description: string | null;
                     createdAt: Date;
                     updatedAt: Date;
+                    name: string;
+                    description: string | null;
                     severity: string | null;
                     maxScore: import("@prisma/client/runtime/library").Decimal;
                     diagnosticGroupId: string;
@@ -494,24 +495,24 @@ export declare class QuestionnairesController {
                     colorCode: string | null;
                 }[];
             } & {
-                scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
                 questionnaireId: string;
+                scoringConfig: import("@prisma/client/runtime/library").JsonValue | null;
+                description: string | null;
                 diagnosticCode: string | null;
                 scoringMethod: string | null;
             })[];
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             code: string;
             version: string;
         };

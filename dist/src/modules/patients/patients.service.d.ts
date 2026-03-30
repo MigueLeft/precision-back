@@ -9,21 +9,19 @@ export declare class PatientsService {
     constructor(prisma: PrismaService);
     create(createPatientDto: CreatePatientDto): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -31,15 +29,13 @@ export declare class PatientsService {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -50,14 +46,19 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
+        evolucion: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAll(query: QueryPatientDto): Promise<{
         data: ({
             user: {
-                email: string;
                 id: string;
+                email: string;
                 name: string;
                 role: {
                     id: number;
@@ -65,16 +66,14 @@ export declare class PatientsService {
                 };
             } | null;
         } & {
-            email: string;
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string | null;
-            active: boolean;
             firstName: string;
             lastName: string;
+            secondLastName: string | null;
+            identificationType: string | null;
             identification: string | null;
             phone: string | null;
+            email: string;
             birthdate: Date;
             gender: string;
             nationality: string | null;
@@ -82,15 +81,13 @@ export declare class PatientsService {
             countryOfResidence: string | null;
             address: string | null;
             city: string | null;
+            state: string | null;
+            postalCode: string | null;
             maritalStatus: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
             socioeconomicStatus: number | null;
-            identificationType: string | null;
-            secondLastName: string | null;
-            state: string | null;
-            postalCode: string | null;
             emergencyContact: string | null;
             emergencyPhone: string | null;
             medicalHistory: string | null;
@@ -101,8 +98,13 @@ export declare class PatientsService {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: Prisma.JsonValue | null;
+            evolucion: Prisma.JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
+            active: boolean;
+            userId: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         })[];
         meta: {
             total: number;
@@ -115,8 +117,8 @@ export declare class PatientsService {
     }>;
     findOne(id: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -125,16 +127,14 @@ export declare class PatientsService {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -142,15 +142,13 @@ export declare class PatientsService {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -161,13 +159,18 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
+        evolucion: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findByIdentification(identification: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -175,16 +178,14 @@ export declare class PatientsService {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -192,15 +193,13 @@ export declare class PatientsService {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -211,13 +210,18 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
+        evolucion: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findByEmail(email: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -225,16 +229,14 @@ export declare class PatientsService {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -242,15 +244,13 @@ export declare class PatientsService {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -261,13 +261,18 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
+        evolucion: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     update(id: string, updatePatientDto: UpdatePatientDto): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -275,16 +280,14 @@ export declare class PatientsService {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -292,15 +295,13 @@ export declare class PatientsService {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -311,16 +312,21 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
+        evolucion: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     remove(id: string): Promise<{
         message: string;
     }>;
     convertToUser(patientId: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -328,16 +334,14 @@ export declare class PatientsService {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -345,15 +349,13 @@ export declare class PatientsService {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -364,26 +366,29 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
+        evolucion: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     removeUser(patientId: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -391,15 +396,13 @@ export declare class PatientsService {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -410,16 +413,21 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
+        evolucion: Prisma.JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     getActivePatients(): Promise<{
-        email: string;
         id: string;
         firstName: string;
         lastName: string;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
     }[]>;
@@ -478,7 +486,7 @@ export declare class PatientsService {
     updateClinicalInfo(patientId: string, currentIllness?: string, diagnosticPlan?: string, treatmentPlan?: string, problems?: {
         actuales: string[];
         previos: string[];
-    }, updatedBy?: string): Promise<{
+    }, updatedBy?: string, evolucion?: Record<string, any>): Promise<{
         id: string;
         firstName: string;
         lastName: string;
@@ -487,6 +495,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue;
+        evolucion: Prisma.JsonValue;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -499,6 +508,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue;
+        evolucion: Prisma.JsonValue;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;

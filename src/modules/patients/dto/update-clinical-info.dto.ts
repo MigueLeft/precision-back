@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsObject } from 'class-validator';
+import { IsString, IsOptional, IsObject, IsJSON } from 'class-validator';
 
 export class UpdateClinicalInfoDto {
   @ApiProperty({
@@ -33,6 +33,14 @@ export class UpdateClinicalInfoDto {
   @IsObject()
   @IsOptional()
   problems?: { actuales: string[]; previos: string[] };
+
+  @ApiProperty({
+    description: 'Evolución clínica del paciente en formato JSON',
+    required: false,
+  })
+  @IsObject()
+  @IsOptional()
+  evolucion?: Record<string, any>;
 
   @ApiProperty({
     description: 'ID of the physician updating clinical information',

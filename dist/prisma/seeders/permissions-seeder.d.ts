@@ -6,8 +6,8 @@ export declare const permissionsData: {
 }[];
 export declare function seedPermissions(prisma: PrismaClient, logger: Logger): Promise<{
     id: number;
-    name: string;
-    description: string | null;
     createdAt: Date;
     updatedAt: Date;
+    name: string;
+    description: string | null;
 }[]>;

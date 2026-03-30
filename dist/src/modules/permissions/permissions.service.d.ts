@@ -9,10 +9,10 @@ export declare class PermissionsService {
     constructor(prisma: PrismaService);
     create(createPermissionDto: CreatePermissionDto): Promise<{
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
     }>;
     findAll(query: QueryPermissionDto): Promise<{
         data: ({
@@ -22,10 +22,10 @@ export declare class PermissionsService {
             }[];
         } & {
             id: number;
-            name: string;
-            description: string | null;
             createdAt: Date;
             updatedAt: Date;
+            name: string;
+            description: string | null;
         })[];
         meta: {
             total: number;
@@ -44,10 +44,10 @@ export declare class PermissionsService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
     }>;
     findByName(name: string): Promise<({
         roles: {
@@ -56,10 +56,10 @@ export declare class PermissionsService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
     }) | null>;
     update(id: number, updatePermissionDto: UpdatePermissionDto): Promise<{
         roles: {
@@ -68,10 +68,10 @@ export declare class PermissionsService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
     }>;
     remove(id: number): Promise<{
         message: string;

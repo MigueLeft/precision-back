@@ -8,21 +8,19 @@ export declare class PatientsController {
     constructor(patientsService: PatientsService);
     create(createPatientDto: CreatePatientDto): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -30,15 +28,13 @@ export declare class PatientsController {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -49,14 +45,19 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAll(query: QueryPatientDto): Promise<{
         data: ({
             user: {
-                email: string;
                 id: string;
+                email: string;
                 name: string;
                 role: {
                     id: number;
@@ -64,16 +65,14 @@ export declare class PatientsController {
                 };
             } | null;
         } & {
-            email: string;
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string | null;
-            active: boolean;
             firstName: string;
             lastName: string;
+            secondLastName: string | null;
+            identificationType: string | null;
             identification: string | null;
             phone: string | null;
+            email: string;
             birthdate: Date;
             gender: string;
             nationality: string | null;
@@ -81,15 +80,13 @@ export declare class PatientsController {
             countryOfResidence: string | null;
             address: string | null;
             city: string | null;
+            state: string | null;
+            postalCode: string | null;
             maritalStatus: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
             socioeconomicStatus: number | null;
-            identificationType: string | null;
-            secondLastName: string | null;
-            state: string | null;
-            postalCode: string | null;
             emergencyContact: string | null;
             emergencyPhone: string | null;
             medicalHistory: string | null;
@@ -100,8 +97,13 @@ export declare class PatientsController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
+            active: boolean;
+            userId: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         })[];
         meta: {
             total: number;
@@ -113,12 +115,12 @@ export declare class PatientsController {
         };
     }>;
     getActivePatients(): Promise<{
-        email: string;
         id: string;
         firstName: string;
         lastName: string;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
     }[]>;
@@ -135,8 +137,8 @@ export declare class PatientsController {
     }>;
     findByIdentification(identification: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -144,16 +146,14 @@ export declare class PatientsController {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -161,15 +161,13 @@ export declare class PatientsController {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -180,13 +178,18 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findByEmail(email: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -194,16 +197,14 @@ export declare class PatientsController {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -211,15 +212,13 @@ export declare class PatientsController {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -230,13 +229,18 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findOne(id: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -245,16 +249,14 @@ export declare class PatientsController {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -262,15 +264,13 @@ export declare class PatientsController {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -281,13 +281,18 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     update(id: string, updatePatientDto: UpdatePatientDto): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -295,16 +300,14 @@ export declare class PatientsController {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -312,15 +315,13 @@ export declare class PatientsController {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -331,16 +332,21 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     remove(id: string): Promise<{
         message: string;
     }>;
     convertToUser(id: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -348,16 +354,14 @@ export declare class PatientsController {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -365,15 +369,13 @@ export declare class PatientsController {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -384,26 +386,29 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     removeUser(id: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         } | null;
     } & {
-        email: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         firstName: string;
         lastName: string;
+        secondLastName: string | null;
+        identificationType: string | null;
         identification: string | null;
         phone: string | null;
+        email: string;
         birthdate: Date;
         gender: string;
         nationality: string | null;
@@ -411,15 +416,13 @@ export declare class PatientsController {
         countryOfResidence: string | null;
         address: string | null;
         city: string | null;
+        state: string | null;
+        postalCode: string | null;
         maritalStatus: string | null;
         race: string | null;
         preferredLanguage: string | null;
         educationLevel: string | null;
         socioeconomicStatus: number | null;
-        identificationType: string | null;
-        secondLastName: string | null;
-        state: string | null;
-        postalCode: string | null;
         emergencyContact: string | null;
         emergencyPhone: string | null;
         medicalHistory: string | null;
@@ -430,8 +433,13 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     bulkCreate(patients: CreatePatientDto[]): Promise<any[]>;
     getPatientQuestionnaires(id: string): Promise<{
@@ -483,6 +491,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue;
+        evolucion: import("@prisma/client/runtime/library").JsonValue;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -495,6 +504,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue;
+        evolucion: import("@prisma/client/runtime/library").JsonValue;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;

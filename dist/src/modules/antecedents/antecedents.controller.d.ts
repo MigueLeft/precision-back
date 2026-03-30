@@ -10,19 +10,19 @@ export declare class AntecedentsController {
     create(createAntecedentDto: CreateAntecedentDto): Promise<{
         antecedentType: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         antecedentTypeId: string;
     }>;
@@ -33,19 +33,19 @@ export declare class AntecedentsController {
             };
             antecedentType: {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
             };
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             value: string;
             antecedentTypeId: string;
         })[];
@@ -64,21 +64,13 @@ export declare class AntecedentsController {
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
     })[]>;
     findOne(id: string): Promise<{
-        antecedentType: {
-            id: string;
-            name: string;
-            description: string | null;
-            createdAt: Date;
-            updatedAt: Date;
-            active: boolean;
-        };
         patientAntecedents: ({
             patient: {
                 id: string;
@@ -96,32 +88,40 @@ export declare class AntecedentsController {
             antecedentId: string;
             hasCondition: boolean;
         })[];
+        antecedentType: {
+            id: string;
+            active: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            description: string | null;
+        };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         antecedentTypeId: string;
     }>;
     update(id: string, updateAntecedentDto: UpdateAntecedentDto): Promise<{
         antecedentType: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         antecedentTypeId: string;
     }>;
@@ -129,30 +129,30 @@ export declare class AntecedentsController {
         message: string;
     }>;
     assignToPatient(assignDto: AssignPatientAntecedentDto): Promise<{
-        antecedent: {
-            antecedentType: {
-                id: string;
-                name: string;
-                description: string | null;
-                createdAt: Date;
-                updatedAt: Date;
-                active: boolean;
-            };
-        } & {
-            id: string;
-            name: string;
-            description: string | null;
-            createdAt: Date;
-            updatedAt: Date;
-            active: boolean;
-            value: string;
-            antecedentTypeId: string;
-        };
         patient: {
             id: string;
             firstName: string;
             lastName: string;
             identification: string | null;
+        };
+        antecedent: {
+            antecedentType: {
+                id: string;
+                active: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+                name: string;
+                description: string | null;
+            };
+        } & {
+            id: string;
+            active: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            description: string | null;
+            value: string;
+            antecedentTypeId: string;
         };
     } & {
         id: string;
@@ -171,19 +171,19 @@ export declare class AntecedentsController {
             antecedent: {
                 antecedentType: {
                     id: string;
-                    name: string;
-                    description: string | null;
+                    active: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    active: boolean;
+                    name: string;
+                    description: string | null;
                 };
             } & {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
                 value: string;
                 antecedentTypeId: string;
             };
@@ -202,19 +202,19 @@ export declare class AntecedentsController {
         antecedent: {
             antecedentType: {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
             };
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             value: string;
             antecedentTypeId: string;
         };

@@ -14,10 +14,10 @@ export declare class RolesController {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     findAll(query: QueryRoleDto): Promise<{
@@ -32,10 +32,10 @@ export declare class RolesController {
             }[];
         } & {
             id: number;
-            name: string;
-            description: string | null;
             createdAt: Date;
             updatedAt: Date;
+            name: string;
+            description: string | null;
             isSystem: boolean;
         })[];
         meta: {
@@ -52,8 +52,8 @@ export declare class RolesController {
             users: number;
         };
         users: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         }[];
         permissions: {
@@ -63,10 +63,10 @@ export declare class RolesController {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     findByName(name: string): Promise<({
@@ -77,10 +77,10 @@ export declare class RolesController {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }) | null>;
     update(id: number, updateRoleDto: UpdateRoleDto): Promise<{
@@ -91,10 +91,10 @@ export declare class RolesController {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     remove(id: number): Promise<{
@@ -108,10 +108,10 @@ export declare class RolesController {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     removePermissions(id: number, assignPermissionsDto: AssignPermissionsDto): Promise<{
@@ -122,10 +122,10 @@ export declare class RolesController {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     getRolePermissions(id: number): Promise<{

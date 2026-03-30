@@ -8,20 +8,20 @@ export declare class SpecialtiesService {
     constructor(prisma: PrismaService);
     create(createSpecialtyDto: CreateSpecialtyDto): Promise<{
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
     }>;
     findAll(queryDto: QuerySpecialtyDto): Promise<{
         data: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
         }[];
         pagination: {
             currentPage: number;
@@ -34,33 +34,33 @@ export declare class SpecialtiesService {
     }>;
     findOne(id: string): Promise<{
         medics: {
-            email: string;
             id: string;
-            name: string;
             lastName: string;
+            email: string;
+            name: string;
             professionalTitle: string;
         }[];
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
     }>;
     update(id: string, updateSpecialtyDto: UpdateSpecialtyDto): Promise<{
         medics: {
             id: string;
-            name: string;
             lastName: string;
+            name: string;
         }[];
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
     }>;
     remove(id: string): Promise<{
         message: string;
@@ -68,15 +68,15 @@ export declare class SpecialtiesService {
     findByName(name: string): Promise<({
         medics: {
             id: string;
-            name: string;
             lastName: string;
+            name: string;
         }[];
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
     }) | null>;
 }

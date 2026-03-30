@@ -7,11 +7,11 @@ export declare class RescueDirectoryController {
     constructor(rescueDirectoryService: RescueDirectoryService);
     create(createRescueDirectoryDto: CreateRescueDirectoryDto): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
+            email: string;
         };
         originalFollowUp: {
             id: string;
@@ -43,11 +43,11 @@ export declare class RescueDirectoryController {
     findAll(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             originalFollowUp: {
                 id: string;
@@ -86,11 +86,11 @@ export declare class RescueDirectoryController {
     getActiveEntries(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             originalFollowUp: {
                 id: string;
@@ -129,11 +129,11 @@ export declare class RescueDirectoryController {
     getHighPriorityEntries(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             originalFollowUp: {
                 id: string;
@@ -172,11 +172,11 @@ export declare class RescueDirectoryController {
     getCriticalEntries(queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             originalFollowUp: {
                 id: string;
@@ -215,11 +215,11 @@ export declare class RescueDirectoryController {
     getByPatient(patientId: string, queryDto: QueryRescueDirectoryDto): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             originalFollowUp: {
                 id: string;
@@ -257,11 +257,11 @@ export declare class RescueDirectoryController {
     }>;
     findOne(id: string): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
+            email: string;
         };
         originalFollowUp: {
             contactAttempts: {
@@ -283,12 +283,12 @@ export declare class RescueDirectoryController {
             }[];
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            completedAt: Date | null;
             notes: string | null;
+            completedAt: Date | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
             originAppointmentId: string | null;
@@ -322,11 +322,11 @@ export declare class RescueDirectoryController {
     }>;
     update(id: string, updateRescueDirectoryDto: UpdateRescueDirectoryDto): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
+            email: string;
         };
         originalFollowUp: {
             id: string;
@@ -359,16 +359,14 @@ export declare class RescueDirectoryController {
         reactivationNotes?: string;
     }): Promise<{
         patient: {
-            email: string;
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string | null;
-            active: boolean;
             firstName: string;
             lastName: string;
+            secondLastName: string | null;
+            identificationType: string | null;
             identification: string | null;
             phone: string | null;
+            email: string;
             birthdate: Date;
             gender: string;
             nationality: string | null;
@@ -376,15 +374,13 @@ export declare class RescueDirectoryController {
             countryOfResidence: string | null;
             address: string | null;
             city: string | null;
+            state: string | null;
+            postalCode: string | null;
             maritalStatus: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
             socioeconomicStatus: number | null;
-            identificationType: string | null;
-            secondLastName: string | null;
-            state: string | null;
-            postalCode: string | null;
             emergencyContact: string | null;
             emergencyPhone: string | null;
             medicalHistory: string | null;
@@ -395,17 +391,22 @@ export declare class RescueDirectoryController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
+            active: boolean;
+            userId: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
         originalFollowUp: {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            completedAt: Date | null;
             notes: string | null;
+            completedAt: Date | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
             originAppointmentId: string | null;
@@ -439,16 +440,14 @@ export declare class RescueDirectoryController {
     }>;
     archiveEntry(id: string): Promise<{
         patient: {
-            email: string;
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string | null;
-            active: boolean;
             firstName: string;
             lastName: string;
+            secondLastName: string | null;
+            identificationType: string | null;
             identification: string | null;
             phone: string | null;
+            email: string;
             birthdate: Date;
             gender: string;
             nationality: string | null;
@@ -456,15 +455,13 @@ export declare class RescueDirectoryController {
             countryOfResidence: string | null;
             address: string | null;
             city: string | null;
+            state: string | null;
+            postalCode: string | null;
             maritalStatus: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
             socioeconomicStatus: number | null;
-            identificationType: string | null;
-            secondLastName: string | null;
-            state: string | null;
-            postalCode: string | null;
             emergencyContact: string | null;
             emergencyPhone: string | null;
             medicalHistory: string | null;
@@ -475,8 +472,13 @@ export declare class RescueDirectoryController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
+            active: boolean;
+            userId: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
     } & {
         id: string;

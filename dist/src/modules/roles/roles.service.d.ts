@@ -15,10 +15,10 @@ export declare class RolesService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     findAll(query: QueryRoleDto): Promise<{
@@ -33,10 +33,10 @@ export declare class RolesService {
             }[];
         } & {
             id: number;
-            name: string;
-            description: string | null;
             createdAt: Date;
             updatedAt: Date;
+            name: string;
+            description: string | null;
             isSystem: boolean;
         })[];
         meta: {
@@ -53,8 +53,8 @@ export declare class RolesService {
             users: number;
         };
         users: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         }[];
         permissions: {
@@ -64,10 +64,10 @@ export declare class RolesService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     findByName(name: string): Promise<({
@@ -78,10 +78,10 @@ export declare class RolesService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }) | null>;
     update(id: number, updateRoleDto: UpdateRoleDto): Promise<{
@@ -92,10 +92,10 @@ export declare class RolesService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     remove(id: number): Promise<{
@@ -109,10 +109,10 @@ export declare class RolesService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     removePermissions(roleId: number, permissionIds: number[]): Promise<{
@@ -123,10 +123,10 @@ export declare class RolesService {
         }[];
     } & {
         id: number;
-        name: string;
-        description: string | null;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        description: string | null;
         isSystem: boolean;
     }>;
     getRolePermissions(roleId: number): Promise<{

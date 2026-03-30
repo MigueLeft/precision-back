@@ -10,19 +10,19 @@ export declare class SymptomsController {
     create(createSymptomDto: CreateSymptomDto): Promise<{
         symptomCategory: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         symptomCategoryId: string;
         severity: string | null;
@@ -34,19 +34,19 @@ export declare class SymptomsController {
             };
             symptomCategory: {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
             };
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             value: string;
             symptomCategoryId: string;
             severity: string | null;
@@ -64,35 +64,27 @@ export declare class SymptomsController {
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
     })[]>;
     findOne(id: string): Promise<{
-        symptomCategory: {
-            id: string;
-            name: string;
-            description: string | null;
-            createdAt: Date;
-            updatedAt: Date;
-            active: boolean;
-        };
         patientSymptoms: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
+                email: string;
             };
         } & {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            severity: string | null;
             patientId: string;
             notes: string | null;
+            severity: string | null;
             frequency: string | null;
             duration: string | null;
             symptomId: string;
@@ -100,13 +92,21 @@ export declare class SymptomsController {
             reportedAt: Date | null;
             resolvedAt: Date | null;
         })[];
+        symptomCategory: {
+            id: string;
+            active: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            description: string | null;
+        };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         symptomCategoryId: string;
         severity: string | null;
@@ -114,19 +114,19 @@ export declare class SymptomsController {
     update(id: string, updateSymptomDto: UpdateSymptomDto): Promise<{
         symptomCategory: {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
         };
     } & {
         id: string;
-        name: string;
-        description: string | null;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
+        name: string;
+        description: string | null;
         value: string;
         symptomCategoryId: string;
         severity: string | null;
@@ -135,29 +135,29 @@ export declare class SymptomsController {
         message: string;
     }>;
     createPatientSymptom(createPatientSymptomDto: CreatePatientSymptomDto): Promise<{
-        symptom: {
-            id: string;
-            name: string;
-            description: string | null;
-            createdAt: Date;
-            updatedAt: Date;
-            active: boolean;
-            value: string;
-            symptomCategoryId: string;
-            severity: string | null;
-        };
         patient: {
             id: string;
             firstName: string;
             lastName: string;
         };
+        symptom: {
+            id: string;
+            active: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            description: string | null;
+            value: string;
+            symptomCategoryId: string;
+            severity: string | null;
+        };
     } & {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        severity: string | null;
         patientId: string;
         notes: string | null;
+        severity: string | null;
         frequency: string | null;
         duration: string | null;
         symptomId: string;
@@ -172,19 +172,19 @@ export declare class SymptomsController {
             symptom: {
                 symptomCategory: {
                     id: string;
-                    name: string;
-                    description: string | null;
+                    active: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    active: boolean;
+                    name: string;
+                    description: string | null;
                 };
             } & {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
                 value: string;
                 symptomCategoryId: string;
                 severity: string | null;
@@ -193,9 +193,9 @@ export declare class SymptomsController {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            severity: string | null;
             patientId: string;
             notes: string | null;
+            severity: string | null;
             frequency: string | null;
             duration: string | null;
             symptomId: string;
@@ -208,19 +208,19 @@ export declare class SymptomsController {
         symptom: {
             symptomCategory: {
                 id: string;
-                name: string;
-                description: string | null;
+                active: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                active: boolean;
+                name: string;
+                description: string | null;
             };
         } & {
             id: string;
-            name: string;
-            description: string | null;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
+            name: string;
+            description: string | null;
             value: string;
             symptomCategoryId: string;
             severity: string | null;
@@ -229,9 +229,9 @@ export declare class SymptomsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        severity: string | null;
         patientId: string;
         notes: string | null;
+        severity: string | null;
         frequency: string | null;
         duration: string | null;
         symptomId: string;

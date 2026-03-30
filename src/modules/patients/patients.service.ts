@@ -693,6 +693,7 @@ export class PatientsService {
     treatmentPlan?: string,
     problems?: { actuales: string[]; previos: string[] },
     updatedBy?: string,
+    evolucion?: Record<string, any>,
   ) {
     this.logger.log(`Updating clinical information for patient ${patientId}`);
 
@@ -710,6 +711,7 @@ export class PatientsService {
         diagnosticPlan,
         treatmentPlan,
         problems: problems as any,
+        evolucion: evolucion as any,
         lastClinicalUpdateBy: updatedBy,
         lastClinicalUpdateAt: new Date(),
       },
@@ -722,6 +724,7 @@ export class PatientsService {
         diagnosticPlan: true,
         treatmentPlan: true,
         problems: true,
+        evolucion: true,
         lastClinicalUpdateBy: true,
         lastClinicalUpdateAt: true,
       },
@@ -745,6 +748,7 @@ export class PatientsService {
         diagnosticPlan: true,
         treatmentPlan: true,
         problems: true,
+        evolucion: true,
         lastClinicalUpdateBy: true,
         lastClinicalUpdateAt: true,
       },

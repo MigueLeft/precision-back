@@ -9,11 +9,11 @@ export declare class PatientFollowService {
     constructor(prisma: PrismaService);
     create(createPatientFollowDto: CreatePatientFollowDto): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
+            email: string;
         };
         rescueEntries: {
             id: string;
@@ -63,12 +63,12 @@ export declare class PatientFollowService {
         } | null;
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
-        completedAt: Date | null;
         notes: string | null;
+        completedAt: Date | null;
         status: import("@prisma/client").$Enums.FollowUpStatus;
         priority: import("@prisma/client").$Enums.FollowUpPriority;
         originAppointmentId: string | null;
@@ -84,11 +84,11 @@ export declare class PatientFollowService {
     findAll(queryDto: QueryPatientFollowDto): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             rescueEntries: {
                 id: string;
@@ -138,12 +138,12 @@ export declare class PatientFollowService {
             } | null;
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            completedAt: Date | null;
             notes: string | null;
+            completedAt: Date | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
             originAppointmentId: string | null;
@@ -165,11 +165,11 @@ export declare class PatientFollowService {
     }>;
     findOne(id: string): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
+            email: string;
         };
         rescueEntries: {
             id: string;
@@ -219,12 +219,12 @@ export declare class PatientFollowService {
         } | null;
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
-        completedAt: Date | null;
         notes: string | null;
+        completedAt: Date | null;
         status: import("@prisma/client").$Enums.FollowUpStatus;
         priority: import("@prisma/client").$Enums.FollowUpPriority;
         originAppointmentId: string | null;
@@ -239,11 +239,11 @@ export declare class PatientFollowService {
     }>;
     update(id: string, updatePatientFollowDto: UpdatePatientFollowDto): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             phone: string | null;
+            email: string;
         };
         rescueEntries: {
             id: string;
@@ -293,12 +293,12 @@ export declare class PatientFollowService {
         } | null;
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
-        completedAt: Date | null;
         notes: string | null;
+        completedAt: Date | null;
         status: import("@prisma/client").$Enums.FollowUpStatus;
         priority: import("@prisma/client").$Enums.FollowUpPriority;
         originAppointmentId: string | null;
@@ -316,16 +316,14 @@ export declare class PatientFollowService {
     }>;
     incrementAttemptCount(id: string): Promise<{
         patient: {
-            email: string;
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string | null;
-            active: boolean;
             firstName: string;
             lastName: string;
+            secondLastName: string | null;
+            identificationType: string | null;
             identification: string | null;
             phone: string | null;
+            email: string;
             birthdate: Date;
             gender: string;
             nationality: string | null;
@@ -333,15 +331,13 @@ export declare class PatientFollowService {
             countryOfResidence: string | null;
             address: string | null;
             city: string | null;
+            state: string | null;
+            postalCode: string | null;
             maritalStatus: string | null;
             race: string | null;
             preferredLanguage: string | null;
             educationLevel: string | null;
             socioeconomicStatus: number | null;
-            identificationType: string | null;
-            secondLastName: string | null;
-            state: string | null;
-            postalCode: string | null;
             emergencyContact: string | null;
             emergencyPhone: string | null;
             medicalHistory: string | null;
@@ -352,8 +348,13 @@ export declare class PatientFollowService {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: Prisma.JsonValue | null;
+            evolucion: Prisma.JsonValue | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
+            active: boolean;
+            userId: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
         contactAttempts: {
             id: string;
@@ -374,12 +375,12 @@ export declare class PatientFollowService {
         }[];
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
-        completedAt: Date | null;
         notes: string | null;
+        completedAt: Date | null;
         status: import("@prisma/client").$Enums.FollowUpStatus;
         priority: import("@prisma/client").$Enums.FollowUpPriority;
         originAppointmentId: string | null;
@@ -395,11 +396,11 @@ export declare class PatientFollowService {
     getByPatient(patientId: string, queryDto: QueryPatientFollowDto): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             rescueEntries: {
                 id: string;
@@ -449,12 +450,12 @@ export declare class PatientFollowService {
             } | null;
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            completedAt: Date | null;
             notes: string | null;
+            completedAt: Date | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
             originAppointmentId: string | null;
@@ -477,11 +478,11 @@ export declare class PatientFollowService {
     getPendingFollowUps(): Promise<{
         data: ({
             patient: {
-                email: string;
                 id: string;
                 firstName: string;
                 lastName: string;
                 phone: string | null;
+                email: string;
             };
             rescueEntries: {
                 id: string;
@@ -531,12 +532,12 @@ export declare class PatientFollowService {
             } | null;
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
-            completedAt: Date | null;
             notes: string | null;
+            completedAt: Date | null;
             status: import("@prisma/client").$Enums.FollowUpStatus;
             priority: import("@prisma/client").$Enums.FollowUpPriority;
             originAppointmentId: string | null;

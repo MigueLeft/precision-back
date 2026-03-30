@@ -15,9 +15,9 @@ export declare class TreatmentsController {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -40,9 +40,9 @@ export declare class TreatmentsController {
             };
         } & {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
             notes: string | null;
             status: string;
@@ -64,9 +64,9 @@ export declare class TreatmentsController {
     }>;
     findByPatient(patientId: string, status?: string): Promise<{
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -81,9 +81,9 @@ export declare class TreatmentsController {
     }[]>;
     getCurrentTreatments(patientId: string): Promise<{
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -98,9 +98,9 @@ export declare class TreatmentsController {
     }[]>;
     getPreviousTreatments(patientId: string): Promise<{
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -115,18 +115,18 @@ export declare class TreatmentsController {
     }[]>;
     findOne(id: string): Promise<{
         patient: {
-            email: string;
             id: string;
             firstName: string;
             lastName: string;
             identification: string | null;
             phone: string | null;
+            email: string;
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -148,9 +148,9 @@ export declare class TreatmentsController {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -172,9 +172,9 @@ export declare class TreatmentsController {
         };
     } & {
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -189,9 +189,9 @@ export declare class TreatmentsController {
     }>;
     remove(id: string): Promise<{
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -206,9 +206,9 @@ export declare class TreatmentsController {
     }>;
     hardDelete(id: string): Promise<{
         id: string;
+        active: boolean;
         createdAt: Date;
         updatedAt: Date;
-        active: boolean;
         patientId: string;
         notes: string | null;
         status: string;
@@ -226,9 +226,9 @@ export declare class TreatmentsController {
         treatmentsAdded: number;
         treatments: {
             id: string;
+            active: boolean;
             createdAt: Date;
             updatedAt: Date;
-            active: boolean;
             patientId: string;
             notes: string | null;
             status: string;

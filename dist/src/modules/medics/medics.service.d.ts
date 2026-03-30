@@ -8,8 +8,8 @@ export declare class MedicsService {
     constructor(prisma: PrismaService);
     create(createMedicDto: CreateMedicDto): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         } | null;
         specialty: {
@@ -18,23 +18,23 @@ export declare class MedicsService {
             description: string | null;
         };
     } & {
-        email: string;
         id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         lastName: string;
         phone: string | null;
+        email: string;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
         specialtyId: string;
         professionalTitle: string;
     }>;
     findAll(query: QueryMedicDto): Promise<{
         data: ({
             user: {
-                email: string;
                 id: string;
+                email: string;
                 name: string;
                 role: {
                     id: number;
@@ -47,15 +47,15 @@ export declare class MedicsService {
                 description: string | null;
             };
         } & {
-            email: string;
             id: string;
-            name: string;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string | null;
-            active: boolean;
             lastName: string;
             phone: string | null;
+            email: string;
+            active: boolean;
+            userId: string | null;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
             specialtyId: string;
             professionalTitle: string;
         })[];
@@ -70,8 +70,8 @@ export declare class MedicsService {
     }>;
     findOne(id: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -80,22 +80,22 @@ export declare class MedicsService {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         lastName: string;
         phone: string | null;
+        email: string;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
         specialtyId: string;
         professionalTitle: string;
     }>;
     findByEmail(email: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -103,22 +103,22 @@ export declare class MedicsService {
             };
         } | null;
     } & {
-        email: string;
         id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         lastName: string;
         phone: string | null;
+        email: string;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
         specialtyId: string;
         professionalTitle: string;
     }>;
     update(id: string, updateMedicDto: UpdateMedicDto): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -131,15 +131,15 @@ export declare class MedicsService {
             description: string | null;
         };
     } & {
-        email: string;
         id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         lastName: string;
         phone: string | null;
+        email: string;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
         specialtyId: string;
         professionalTitle: string;
     }>;
@@ -148,8 +148,8 @@ export declare class MedicsService {
     }>;
     convertToUser(medicId: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
             role: {
                 id: number;
@@ -162,34 +162,34 @@ export declare class MedicsService {
             description: string | null;
         };
     } & {
-        email: string;
         id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         lastName: string;
         phone: string | null;
+        email: string;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
         specialtyId: string;
         professionalTitle: string;
     }>;
     removeUser(medicId: string): Promise<{
         user: {
-            email: string;
             id: string;
+            email: string;
             name: string;
         } | null;
     } & {
-        email: string;
         id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string | null;
-        active: boolean;
         lastName: string;
         phone: string | null;
+        email: string;
+        active: boolean;
+        userId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
         specialtyId: string;
         professionalTitle: string;
     }>;
