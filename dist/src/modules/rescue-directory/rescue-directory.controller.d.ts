@@ -391,7 +391,7 @@ export declare class RescueDirectoryController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
-            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;
@@ -472,7 +472,7 @@ export declare class RescueDirectoryController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
-            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;

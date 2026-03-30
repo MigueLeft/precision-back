@@ -584,7 +584,7 @@ let PatientsService = PatientsService_1 = class PatientsService {
                 diagnosticPlan,
                 treatmentPlan,
                 problems: problems,
-                evolucion: evolucion,
+                evolucion,
                 lastClinicalUpdateBy: updatedBy,
                 lastClinicalUpdateAt: new Date(),
             },

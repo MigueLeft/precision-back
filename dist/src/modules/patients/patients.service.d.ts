@@ -46,7 +46,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
-        evolucion: Prisma.JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -98,7 +98,7 @@ export declare class PatientsService {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: Prisma.JsonValue | null;
-            evolucion: Prisma.JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;
@@ -159,7 +159,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
-        evolucion: Prisma.JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -210,7 +210,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
-        evolucion: Prisma.JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -261,7 +261,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
-        evolucion: Prisma.JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -312,7 +312,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
-        evolucion: Prisma.JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -366,7 +366,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
-        evolucion: Prisma.JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -413,7 +413,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue | null;
-        evolucion: Prisma.JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -486,7 +486,7 @@ export declare class PatientsService {
     updateClinicalInfo(patientId: string, currentIllness?: string, diagnosticPlan?: string, treatmentPlan?: string, problems?: {
         actuales: string[];
         previos: string[];
-    }, updatedBy?: string, evolucion?: Record<string, any>): Promise<{
+    }, updatedBy?: string, evolucion?: string): Promise<{
         id: string;
         firstName: string;
         lastName: string;
@@ -495,7 +495,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue;
-        evolucion: Prisma.JsonValue;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -508,7 +508,7 @@ export declare class PatientsService {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: Prisma.JsonValue;
-        evolucion: Prisma.JsonValue;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;

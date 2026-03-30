@@ -348,7 +348,7 @@ export declare class PatientFollowService {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: Prisma.JsonValue | null;
-            evolucion: Prisma.JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;

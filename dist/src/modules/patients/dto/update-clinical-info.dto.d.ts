@@ -6,6 +6,6 @@ export declare class UpdateClinicalInfoDto {
         actuales: string[];
         previos: string[];
     };
-    evolucion?: Record<string, any>;
+    evolucion?: string;
     lastClinicalUpdateBy?: string;
 }

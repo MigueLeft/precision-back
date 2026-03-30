@@ -45,7 +45,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
-        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -97,7 +97,7 @@ export declare class PatientsController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
-            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;
@@ -178,7 +178,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
-        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -229,7 +229,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
-        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -281,7 +281,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
-        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -332,7 +332,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
-        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -386,7 +386,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
-        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -433,7 +433,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue | null;
-        evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
         active: boolean;
@@ -491,7 +491,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue;
-        evolucion: import("@prisma/client/runtime/library").JsonValue;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;
@@ -504,7 +504,7 @@ export declare class PatientsController {
         diagnosticPlan: string | null;
         treatmentPlan: string | null;
         problems: import("@prisma/client/runtime/library").JsonValue;
-        evolucion: import("@prisma/client/runtime/library").JsonValue;
+        evolucion: string | null;
         lastClinicalUpdateBy: string | null;
         lastClinicalUpdateAt: Date | null;
     }>;

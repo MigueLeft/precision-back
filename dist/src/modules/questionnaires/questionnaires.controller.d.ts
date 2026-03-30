@@ -447,7 +447,7 @@ export declare class QuestionnairesController {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: import("@prisma/client/runtime/library").JsonValue | null;
-            evolucion: import("@prisma/client/runtime/library").JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;

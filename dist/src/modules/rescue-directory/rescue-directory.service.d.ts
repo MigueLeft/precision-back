@@ -394,7 +394,7 @@ export declare class RescueDirectoryService {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: Prisma.JsonValue | null;
-            evolucion: Prisma.JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;
@@ -475,7 +475,7 @@ export declare class RescueDirectoryService {
             diagnosticPlan: string | null;
             treatmentPlan: string | null;
             problems: Prisma.JsonValue | null;
-            evolucion: Prisma.JsonValue | null;
+            evolucion: string | null;
             lastClinicalUpdateBy: string | null;
             lastClinicalUpdateAt: Date | null;
             active: boolean;
