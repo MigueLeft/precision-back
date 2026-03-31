@@ -445,6 +445,7 @@ export declare class PatientsController {
     getPatientQuestionnaires(id: string): Promise<{
         id: string;
         questionnaireName: string;
+        questionnaireCode: string;
         answeredAt: Date;
         numberOfQuestions: number;
     }[]>;

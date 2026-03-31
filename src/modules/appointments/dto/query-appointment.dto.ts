@@ -120,6 +120,16 @@ export class QueryAppointmentDto {
   sortOrder?: 'asc' | 'desc';
 
   @ApiPropertyOptional({
+    description: 'Tipo de cita para filtrar',
+    example: 'M1',
+    enum: ['M1', 'MN', 'Control', 'E', 'P', 'N'],
+  })
+  @IsOptional()
+  @IsString()
+  @IsIn(['M1', 'MN', 'Control', 'E', 'P', 'N'])
+  appointmentType?: string;
+
+  @ApiPropertyOptional({
     description: 'Filtrar por citas confirmadas',
     example: true,
   })

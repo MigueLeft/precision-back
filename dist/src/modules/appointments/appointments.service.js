@@ -86,7 +86,7 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
         }
     }
     async findAll(query) {
-        const { page = 1, limit = 10, search, specificDate, startDate, endDate, specificTime, appointmentStatus, patientId, medicId, sortBy = 'dateTime', sortOrder = 'asc', confirmed, } = query;
+        const { page = 1, limit = 10, search, specificDate, startDate, endDate, specificTime, appointmentStatus, appointmentType, patientId, medicId, sortBy = 'dateTime', sortOrder = 'asc', confirmed, } = query;
         const skip = (page - 1) * limit;
         const where = {
             ...(search && {
@@ -96,6 +96,7 @@ let AppointmentsService = AppointmentsService_1 = class AppointmentsService {
                 ],
             }),
             ...(appointmentStatus && { appointmentStatus }),
+            ...(appointmentType && { appointmentType }),
             ...(patientId && { patientId }),
             ...(medicId && { medicId }),
             ...(confirmed !== undefined && { confirmed }),

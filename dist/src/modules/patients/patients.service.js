@@ -472,6 +472,7 @@ let PatientsService = PatientsService_1 = class PatientsService {
                 questionnaire: {
                     select: {
                         name: true,
+                        code: true,
                     },
                 },
                 _count: {
@@ -487,6 +488,7 @@ let PatientsService = PatientsService_1 = class PatientsService {
         const result = questionnaires.map((q) => ({
             id: q.id,
             questionnaireName: q.questionnaire.name,
+            questionnaireCode: q.questionnaire.code,
             answeredAt: q.completedAt || q.startedAt,
             numberOfQuestions: q._count.answers,
         }));

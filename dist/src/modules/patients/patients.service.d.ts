@@ -446,6 +446,7 @@ export declare class PatientsService {
     getPatientQuestionnaires(patientId: string): Promise<{
         id: string;
         questionnaireName: string;
+        questionnaireCode: string;
         answeredAt: Date;
         numberOfQuestions: number;
     }[]>;

@@ -973,11 +973,11 @@ export class QuestionnairesService {
           case 'D.4.2. Síntomas de depresión (PHQ-9)':
             return questionCode?.startsWith('im1_d4_2');
           case 'D.5.1. Alcohol (AUDIT-C)':
-            return questionCode?.startsWith('im1_d5_1');
+            return ['im1_d5_1', 'im1_d5_2', 'im1_d5_3'].includes(questionCode);
           case 'D.5.2. Tabaquismo (ASSIST)':
-            return questionCode?.startsWith('im1_d5_2');
+            return ['im1_d5_4', 'im1_d5_5', 'im1_d5_6'].includes(questionCode);
           case 'D.5.3. Drogas (ASSIST)':
-            return questionCode?.startsWith('im1_d5_3');
+            return ['im1_d5_7', 'im1_d5_8', 'im1_d5_9', 'im1_d5_10'].includes(questionCode);
           default:
             return false;
         }

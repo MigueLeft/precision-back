@@ -26,6 +26,7 @@ class QueryAppointmentDto {
     medicId;
     sortBy;
     sortOrder;
+    appointmentType;
     confirmed;
 }
 exports.QueryAppointmentDto = QueryAppointmentDto;
@@ -149,6 +150,17 @@ __decorate([
     (0, class_validator_1.IsIn)(['asc', 'desc']),
     __metadata("design:type", String)
 ], QueryAppointmentDto.prototype, "sortOrder", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Tipo de cita para filtrar',
+        example: 'M1',
+        enum: ['M1', 'MN', 'Control', 'E', 'P', 'N'],
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(['M1', 'MN', 'Control', 'E', 'P', 'N']),
+    __metadata("design:type", String)
+], QueryAppointmentDto.prototype, "appointmentType", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Filtrar por citas confirmadas',
