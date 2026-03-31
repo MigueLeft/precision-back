@@ -47,6 +47,15 @@ class TreatmentItemDto {
   dosage?: string;
 
   @ApiProperty({
+    description: 'Frecuencia de administración',
+    example: 'Cada 8 horas',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  frequency?: string;
+
+  @ApiProperty({
     description: 'Duración del tratamiento',
     example: '30 días',
     required: false,

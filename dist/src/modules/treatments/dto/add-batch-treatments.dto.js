@@ -18,6 +18,7 @@ class TreatmentItemDto {
     presentation;
     quantity;
     dosage;
+    frequency;
     duration;
     status;
     prescribedBy;
@@ -63,6 +64,16 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], TreatmentItemDto.prototype, "dosage", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Frecuencia de administración',
+        example: 'Cada 8 horas',
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], TreatmentItemDto.prototype, "frequency", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Duración del tratamiento',

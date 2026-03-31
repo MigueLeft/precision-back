@@ -282,6 +282,7 @@ export class TreatmentsService {
               presentation: medicationData.presentation,
               quantity: medicationData.quantity,
               dosage: medicationData.dosage,
+              frequency: medicationData.frequency,
               duration: medicationData.duration,
               status: medicationData.status || 'actual',
               prescribedBy: medicationData.prescribedBy,
