@@ -22,17 +22,15 @@ export class PhysicalExaminationsService {
     this.logger.log('Creating physical examination');
 
     try {
-      // Calcular IMC automáticamente si se proporcionan peso y talla
+      // Calcular IMC automáticamente si se proporcionan peso y talla (talla en cm)
       let calculatedBmi = createPhysicalExaminationDto.bmi;
       if (
         createPhysicalExaminationDto.weight &&
         createPhysicalExaminationDto.height
       ) {
+        const heightInMeters = createPhysicalExaminationDto.height / 100;
         calculatedBmi = Number(
-          (
-            createPhysicalExaminationDto.weight /
-            Math.pow(createPhysicalExaminationDto.height, 2)
-          ).toFixed(2),
+          (createPhysicalExaminationDto.weight / Math.pow(heightInMeters, 2)).toFixed(2),
         );
       }
 
@@ -212,8 +210,9 @@ export class PhysicalExaminationsService {
         (updatePhysicalExaminationDto.weight ||
           updatePhysicalExaminationDto.height)
       ) {
+        const heightInMeters = Number(newHeight) / 100;
         calculatedBmi = Number(
-          (Number(newWeight) / Math.pow(Number(newHeight), 2)).toFixed(2),
+          (Number(newWeight) / Math.pow(heightInMeters, 2)).toFixed(2),
         );
       }
 

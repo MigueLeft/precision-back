@@ -48,10 +48,12 @@ __decorate([
     __metadata("design:type", Number)
 ], CreatePhysicalExaminationDto.prototype, "weight", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: 'Talla en metros', example: 1.75, required: false }),
+    (0, swagger_1.ApiProperty)({ description: 'Talla en centímetros', example: 175, required: false }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)({ maxDecimalPlaces: 2 }),
     (0, class_transformer_1.Type)(() => Number),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(300),
     __metadata("design:type", Number)
 ], CreatePhysicalExaminationDto.prototype, "height", void 0);
 __decorate([

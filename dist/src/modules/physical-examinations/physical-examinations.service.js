@@ -26,8 +26,8 @@ let PhysicalExaminationsService = PhysicalExaminationsService_1 = class Physical
             let calculatedBmi = createPhysicalExaminationDto.bmi;
             if (createPhysicalExaminationDto.weight &&
                 createPhysicalExaminationDto.height) {
-                calculatedBmi = Number((createPhysicalExaminationDto.weight /
-                    Math.pow(createPhysicalExaminationDto.height, 2)).toFixed(2));
+                const heightInMeters = createPhysicalExaminationDto.height / 100;
+                calculatedBmi = Number((createPhysicalExaminationDto.weight / Math.pow(heightInMeters, 2)).toFixed(2));
             }
             const examination = await this.prisma.physicalExamination.create({
                 data: {
@@ -158,7 +158,8 @@ let PhysicalExaminationsService = PhysicalExaminationsService_1 = class Physical
                 newHeight &&
                 (updatePhysicalExaminationDto.weight ||
                     updatePhysicalExaminationDto.height)) {
-                calculatedBmi = Number((Number(newWeight) / Math.pow(Number(newHeight), 2)).toFixed(2));
+                const heightInMeters = Number(newHeight) / 100;
+                calculatedBmi = Number((Number(newWeight) / Math.pow(heightInMeters, 2)).toFixed(2));
             }
             const examination = await this.prisma.physicalExamination.update({
                 where: { id },

@@ -17,10 +17,12 @@ export class CreatePhysicalExaminationDto {
   @Max(500)
   weight?: number;
 
-  @ApiProperty({ description: 'Talla en metros', example: 1.75, required: false })
+  @ApiProperty({ description: 'Talla en centímetros', example: 175, required: false })
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
   @Type(() => Number)
+  @Min(0)
+  @Max(300)
   height?: number;
 
   @ApiProperty({ description: 'IMC calculado automáticamente', example: 24.6, required: false })
