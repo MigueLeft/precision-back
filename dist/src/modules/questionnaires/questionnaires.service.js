@@ -267,7 +267,8 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                     relationsProcessed: false,
                 },
             });
-            const createdAnswers = await Promise.all(answers.map(async (answer) => {
+            const uniqueAnswers = answers.filter((answer, index, self) => index === self.findIndex((a) => a.questionId === answer.questionId));
+            const createdAnswers = await Promise.all(uniqueAnswers.map(async (answer) => {
                 const question = await tx.question.findUnique({
                     where: { id: answer.questionId },
                     select: { code: true },
@@ -866,8 +867,20 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                         this.logger.warn(`Percentage too large for group ${group.name}: ${percentage}, capping at 999.99`);
                         percentage = 999.99;
                     }
-                    await tx.patientDiagnostic.create({
-                        data: {
+                    await tx.patientDiagnostic.upsert({
+                        where: {
+                            patientQuestionnaireId_diagnosticId: {
+                                patientQuestionnaireId,
+                                diagnosticId: diagnostic.id,
+                            },
+                        },
+                        update: {
+                            obtainedScore: new client_1.Prisma.Decimal(groupScore.toFixed(2)),
+                            maxPossibleScore: new client_1.Prisma.Decimal(maxPossibleScore.toFixed(2)),
+                            percentage: new client_1.Prisma.Decimal(percentage.toFixed(2)),
+                            observations: `Score: ${groupScore}/${maxPossibleScore} - ${diagnostic.name}`,
+                        },
+                        create: {
                             patientId,
                             patientQuestionnaireId,
                             diagnosticId: diagnostic.id,
@@ -1126,8 +1139,10 @@ let QuestionnairesService = QuestionnairesService_1 = class QuestionnairesServic
                         const defaultCategory = await prismaClient.symptomCategory.findFirst({
                             where: { name: 'general' },
                         });
-                        symptom = await prismaClient.symptom.create({
-                            data: {
+                        symptom = await prismaClient.symptom.upsert({
+                            where: { value: selection },
+                            update: {},
+                            create: {
                                 name: selection.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
                                 value: selection,
                                 symptomCategoryId: defaultCategory?.id || null,

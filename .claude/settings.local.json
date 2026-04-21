@@ -6,6 +6,9 @@
       "Bash(mkdir:*)"
     ],
     "deny": [],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "C:\\Users\\Miguel\\Desktop\\precisioncare-system"
+    ]
   }
 }

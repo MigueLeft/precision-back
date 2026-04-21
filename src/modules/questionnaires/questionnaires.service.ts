@@ -351,8 +351,13 @@ export class QuestionnairesService {
         },
       });
 
+      const uniqueAnswers = answers.filter(
+        (answer, index, self) =>
+          index === self.findIndex((a) => a.questionId === answer.questionId),
+      );
+
       const createdAnswers = await Promise.all(
-        answers.map(async (answer) => {
+        uniqueAnswers.map(async (answer) => {
           // Get question details to determine scoring logic
           const question = await tx.question.findUnique({
             where: { id: answer.questionId },
@@ -1157,8 +1162,20 @@ export class QuestionnairesService {
           }
 
           // Save to patient_diagnostics table
-          await tx.patientDiagnostic.create({
-            data: {
+          await tx.patientDiagnostic.upsert({
+            where: {
+              patientQuestionnaireId_diagnosticId: {
+                patientQuestionnaireId,
+                diagnosticId: diagnostic.id,
+              },
+            },
+            update: {
+              obtainedScore: new Prisma.Decimal(groupScore.toFixed(2)),
+              maxPossibleScore: new Prisma.Decimal(maxPossibleScore.toFixed(2)),
+              percentage: new Prisma.Decimal(percentage.toFixed(2)),
+              observations: `Score: ${groupScore}/${maxPossibleScore} - ${diagnostic.name}`,
+            },
+            create: {
               patientId,
               patientQuestionnaireId,
               diagnosticId: diagnostic.id,
@@ -1555,7 +1572,7 @@ export class QuestionnairesService {
             }
           }
 
-          // If not found, create it so processing doesn't fail
+          // If not found, upsert it so concurrent requests don't race
           if (!symptom) {
             this.logger.warn(
               `Symptom not found for value: "${selection}", creating it dynamically.`,
@@ -1563,8 +1580,10 @@ export class QuestionnairesService {
             const defaultCategory = await prismaClient.symptomCategory.findFirst({
               where: { name: 'general' },
             });
-            symptom = await prismaClient.symptom.create({
-              data: {
+            symptom = await prismaClient.symptom.upsert({
+              where: { value: selection },
+              update: {},
+              create: {
                 name: selection.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
                 value: selection,
                 symptomCategoryId: defaultCategory?.id || null,
