@@ -230,7 +230,7 @@ export class PatientsService {
   }
 
   async findByEmail(email: string) {
-    const patient = await this.prisma.patient.findUnique({
+    const patient = await this.prisma.patient.findFirst({
       where: { email },
       include: {
         user: {
