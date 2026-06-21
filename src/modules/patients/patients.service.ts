@@ -68,9 +68,6 @@ export class PatientsService {
           if (field?.includes('identification')) {
             throw new ConflictException('Identification number already exists');
           }
-          if (field?.includes('email')) {
-            throw new ConflictException('Email already exists');
-          }
           throw new ConflictException('Unique constraint violation');
         }
       }
@@ -323,9 +320,6 @@ export class PatientsService {
           const field = error.meta?.target as string[];
           if (field?.includes('identification')) {
             throw new ConflictException('Identification number already exists');
-          }
-          if (field?.includes('email')) {
-            throw new ConflictException('Email already exists');
           }
           throw new ConflictException('Unique constraint violation');
         }
