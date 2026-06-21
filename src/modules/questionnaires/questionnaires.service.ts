@@ -1256,10 +1256,41 @@ export class QuestionnairesService {
       return providedPatientId;
     }
 
-    // If no patientId provided, create new patient (backward compatibility)
-    this.logger.warn(
-      'No patientId provided for IM1 questionnaire, creating new patient (deprecated flow)',
-    );
+    // If no patientId provided, try to find existing patient by email + name
+    if (patientData.email) {
+      const candidatesByEmail = await tx.patient.findMany({
+        where: { email: patientData.email },
+      });
+
+      type PatientRecord = (typeof candidatesByEmail)[number];
+      let matchedPatient: PatientRecord | null = null;
+
+      if (candidatesByEmail.length === 1) {
+        matchedPatient = candidatesByEmail[0];
+      } else if (candidatesByEmail.length > 1) {
+        // Narrow down by firstName and lastName
+        matchedPatient =
+          candidatesByEmail.find(
+            (p) =>
+              p.firstName?.toLowerCase() === patientData.firstName?.toLowerCase() &&
+              p.lastName?.toLowerCase() === patientData.lastName?.toLowerCase(),
+          ) ?? null;
+      }
+
+      if (matchedPatient) {
+        this.logger.log(
+          `Found existing patient ${matchedPatient.id} by email match, updating`,
+        );
+        await tx.patient.update({
+          where: { id: matchedPatient.id },
+          data: patientData,
+        });
+        return matchedPatient.id;
+      }
+    }
+
+    // No matching patient found — create new one
+    this.logger.log('No matching patient found by email, creating new patient');
 
     const newPatient = await tx.patient.create({
       data: {

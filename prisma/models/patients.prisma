@@ -6,7 +6,7 @@ model Patient {
   identificationType String?  @default("passport") @map("identification_type")
   identification     String?  @unique
   phone              String?
-  email              String   @unique
+  email              String
   birthdate          DateTime
   gender             String
   nationality        String?
